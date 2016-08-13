@@ -6,7 +6,7 @@
  *
  * @package BuddyPress
  * @subpackage Core
- * @since 1.5.0
+ * @since 0.0.1
  */
 
 // Exit if accessed directly.
@@ -20,7 +20,7 @@ if ( ! buddypress()->do_autoload ) {
 /**
  * Set up the BuddyPress Core component.
  *
- * @since 1.6.0
+ * @since 0.0.1
  *
  * @global BuddyPress $bp BuddyPress global settings object.
  */

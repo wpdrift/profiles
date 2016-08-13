@@ -4,7 +4,7 @@
  *
  * @package BuddyPress
  * @subpackage CoreAdministration
- * @since 1.0.0
+ * @since 0.0.1
  */
 
 // Exit if accessed directly.
@@ -17,7 +17,7 @@ if ( ! buddypress()->do_autoload ) {
 /**
  * Setup BuddyPress Admin.
  *
- * @since 1.6.0
+ * @since 0.0.1
  *
  */
 function bp_admin() {

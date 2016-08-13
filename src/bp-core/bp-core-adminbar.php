@@ -6,7 +6,7 @@
  *
  * @package BuddyPress
  * @subpackage Core
- * @since 1.0.0
+ * @since 0.0.1
  */
 
 // Exit if accessed directly.
@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Add the secondary BuddyPress area to the my-account menu.
  *
- * @since 1.6.0
+ * @since 0.0.1
  *
  * @global WP_Admin_Bar $wp_admin_bar.
  */

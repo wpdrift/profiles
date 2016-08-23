@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Members Widgets.
+ * Profiles Members Widgets.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersWidgets
  * @since 2.2.0
  */

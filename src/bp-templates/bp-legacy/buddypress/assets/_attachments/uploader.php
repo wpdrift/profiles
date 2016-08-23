@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress Uploader templates.
+ * Profiles Uploader templates.
  *
- * This template is used to create the BuddyPress Uploader Backbone views.
+ * This template is used to create the Profiles Uploader Backbone views.
  *
  * @since 2.3.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-attachments
  */
 

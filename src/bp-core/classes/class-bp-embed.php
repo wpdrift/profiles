@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.5.0
  */
@@ -11,9 +11,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Enable oEmbeds in BuddyPress contexts.
+ * Enable oEmbeds in Profiles contexts.
  *
- * Extends WP_Embed class for use with BuddyPress.
+ * Extends WP_Embed class for use with Profiles.
  *
  * @since 1.5.0
  *
@@ -56,7 +56,7 @@ class BP_Embed extends WP_Embed {
 		}
 
 		/**
-		 * Filters the BuddyPress Core oEmbed setup.
+		 * Filters the Profiles Core oEmbed setup.
 		 *
 		 * @since 1.5.0
 		 *

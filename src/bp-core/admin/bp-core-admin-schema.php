@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress DB schema.
+ * Profiles DB schema.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage CoreAdministration
  * @since 2.3.0
  */
@@ -468,7 +468,7 @@ function bp_core_install_signups() {
  *
  * @see pre_schema_upgrade()
  * @link https://core.trac.wordpress.org/ticket/27855 WordPress Trac Ticket
- * @link https://buddypress.trac.wordpress.org/ticket/5563 BuddyPress Trac Ticket
+ * @link https://buddypress.trac.wordpress.org/ticket/5563 Profiles Trac Ticket
  *
  * @global WPDB $wpdb
  */
@@ -519,7 +519,7 @@ function bp_core_install_emails() {
 	}
 
 	/**
-	 * Fires after BuddyPress adds the posts for its emails.
+	 * Fires after Profiles adds the posts for its emails.
 	 *
 	 * @since 2.5.0
 	 */

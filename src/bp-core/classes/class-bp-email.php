@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  */
 
@@ -837,7 +837,7 @@ class BP_Email {
 	/**
 	 * Set the email's "to" address and name.
 	 *
-	 * IMPORTANT NOTE: the assumption with all emails sent by (and belonging to) BuddyPress itself
+	 * IMPORTANT NOTE: the assumption with all emails sent by (and belonging to) Profiles itself
 	 * is that there will only be a single `$to_address`. This is to simplify token and templating
 	 * logic (for example, if multiple recipients, the "unsubscribe" link in the emails will all
 	 * only link to the first recipient).

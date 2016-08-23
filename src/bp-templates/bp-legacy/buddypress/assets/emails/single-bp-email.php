@@ -1,6 +1,6 @@
 <?php
 /**
- * BuddyPress email template.
+ * Profiles email template.
  *
  * Magic numbers:
  *  1.618 = golden mean.
@@ -8,7 +8,7 @@
  *
  * @since 2.5.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  */
 

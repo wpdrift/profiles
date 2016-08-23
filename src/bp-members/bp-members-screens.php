@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Member Screens.
+ * Profiles Member Screens.
  *
  * Handlers for member screens that aren't handled elsewhere.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersScreens
  * @since 1.5.0
  */
@@ -116,7 +116,7 @@ function bp_core_screen_activation() {
 		$key = bp_current_action();
 	}
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	// We've got a key; let's attempt to activate the signup.

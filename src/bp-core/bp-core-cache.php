@@ -1,11 +1,11 @@
 <?php
 /**
- * BuddyPress Core Caching Functions.
+ * Profiles Core Caching Functions.
  *
  * Caching functions handle the clearing of cached objects and pages on specific
- * actions throughout BuddyPress.
+ * actions throughout Profiles.
  *
- * @package BuddyPress
+ * @package Profiles
  * @supackage Cache
  * @since 1.5.0
  */

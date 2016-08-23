@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress XProfile Filters.
+ * Profiles XProfile Filters.
  *
  * Apply WordPress defined filters.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileFilters
  * @since 1.0.0
  */

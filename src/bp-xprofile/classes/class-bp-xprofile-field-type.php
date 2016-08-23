@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress XProfile Classes.
+ * Profiles XProfile Classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileClasses
  * @since 2.0.0
  */
@@ -255,7 +255,7 @@ abstract class BP_XProfile_Field_Type {
 	/**
 	 * Output the edit field options HTML for this field type.
 	 *
-	 * BuddyPress considers a field's "options" to be, for example, the items in a selectbox.
+	 * Profiles considers a field's "options" to be, for example, the items in a selectbox.
 	 * These are stored separately in the database, and their templating is handled separately.
 	 * Populate this method in a child class if it's required. Otherwise, you can leave it out.
 	 *

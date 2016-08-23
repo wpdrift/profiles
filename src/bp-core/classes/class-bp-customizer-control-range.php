@@ -2,7 +2,7 @@
 /**
  * Core component class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  */
 
@@ -10,7 +10,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * BuddyPress Customizer font size control.
+ * Profiles Customizer font size control.
  *
  * @since 2.5.0
  */

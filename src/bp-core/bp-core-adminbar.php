@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Core Toolbar.
+ * Profiles Core Toolbar.
  *
  * Handles the core functions related to the WordPress Toolbar.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 0.0.1
  */
@@ -13,7 +13,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Add the secondary BuddyPress area to the my-account menu.
+ * Add the secondary Profiles area to the my-account menu.
  *
  * @since 0.0.1
  *
@@ -29,7 +29,7 @@ function bp_admin_bar_my_account_root() {
 	// Only add menu for logged in user.
 	if ( is_user_logged_in() ) {
 
-		// Add secondary parent item for all BuddyPress components.
+		// Add secondary parent item for all Profiles components.
 		$wp_admin_bar->add_menu( array(
 			'parent'    => 'my-account',
 			'id'        => 'my-account-buddypress',

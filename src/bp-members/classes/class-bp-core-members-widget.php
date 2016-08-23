@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Members Widget.
+ * Profiles Members Widget.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersWidgets
  * @since 1.0.3
  */
@@ -25,7 +25,7 @@ class BP_Core_Members_Widget extends WP_Widget {
 	public function __construct() {
 
 		// Setup widget name & description.
-		$name        = _x( '(BuddyPress) Members', 'widget name', 'buddypress' );
+		$name        = _x( '(Profiles) Members', 'widget name', 'buddypress' );
 		$description = __( 'A dynamic list of recently active, popular, and newest members', 'buddypress' );
 
 		// Call WP_Widget constructor.

@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.7.0
  */
@@ -41,7 +41,7 @@ class BP_Walker_Nav_Menu extends Walker_Nav_Menu {
 	 * comparing 0 to a non-empty string which was preventing child elements
 	 * being grouped under their parent menu element.
 	 *
-	 * This caused a problem for BuddyPress because our primary/secondary
+	 * This caused a problem for Profiles because our primary/secondary
 	 * navigations don't have a unique numerical ID that describes a
 	 * hierarchy (we use a slug). Obviously, WordPress Menus use Posts, and
 	 * those have ID/post_parent.
@@ -88,7 +88,7 @@ class BP_Walker_Nav_Menu extends Walker_Nav_Menu {
 		$children_elements  = array();
 
 		foreach ( $elements as $e ) {
-			// BuddyPress: changed '==' to '==='. This is the only change from version in Walker::walk().
+			// Profiles: changed '==' to '==='. This is the only change from version in Walker::walk().
 			if ( 0 === $e->$parent_field )
 				$top_level_elements[] = $e;
 			else

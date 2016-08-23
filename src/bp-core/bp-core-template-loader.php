@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress Template Functions.
+ * Profiles Template Functions.
  *
  * This file contains functions necessary to mirror the WordPress core template
  * loading process. Many of those functions are not filterable, and even then
- * would not be robust enough to predict where BuddyPress templates might exist.
+ * would not be robust enough to predict where Profiles templates might exist.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage TemplateFunctions
  * @since 1.7.0
  */
@@ -15,7 +15,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Get a BuddyPress template part for display in a theme.
+ * Get a Profiles template part for display in a theme.
  *
  * @since 1.7.0
  *
@@ -129,7 +129,7 @@ function bp_locate_template( $template_names, $load = false, $require_once = tru
 	}
 
 	/**
-	 * This action exists only to follow the standard BuddyPress coding convention,
+	 * This action exists only to follow the standard Profiles coding convention,
 	 * and should not be used to short-circuit any part of the template locator.
 	 *
 	 * If you want to override a specific template part, please either filter
@@ -379,7 +379,7 @@ function bp_get_query_template( $type, $templates = array() ) {
 	 */
 	$templates = apply_filters( "bp_get_{$type}_template", $templates );
 
-	// Filter possible templates, try to match one, and set any BuddyPress theme
+	// Filter possible templates, try to match one, and set any Profiles theme
 	// compat properties so they can be cross-checked later.
 	$templates = bp_set_theme_compat_templates( $templates );
 	$template  = bp_locate_template( $templates );
@@ -457,7 +457,7 @@ function bp_add_template_stack_locations( $stacks = array() ) {
 }
 
 /**
- * Add checks for BuddyPress conditions to 'parse_query' action.
+ * Add checks for Profiles conditions to 'parse_query' action.
  *
  * @since 1.7.0
  *
@@ -483,7 +483,7 @@ function bp_parse_query( $posts_query ) {
 	/**
 	 * Fires at the end of the bp_parse_query function.
 	 *
-	 * Allow BuddyPress components to parse the main query.
+	 * Allow Profiles components to parse the main query.
 	 *
 	 * @since 1.7.0
 	 *
@@ -495,7 +495,7 @@ function bp_parse_query( $posts_query ) {
 /**
  * Possibly intercept the template being loaded.
  *
- * Listens to the 'template_include' filter and waits for any BuddyPress specific
+ * Listens to the 'template_include' filter and waits for any Profiles specific
  * template condition to be met. If one is met and the template file exists,
  * it will be used; otherwise.
  *
@@ -519,8 +519,8 @@ function bp_template_include_theme_supports( $template = '' ) {
 	 */
 	$new_template = apply_filters( 'bp_get_root_template', false, $template );
 
-	// A BuddyPress template file was located, so override the WordPress
-	// template and use it to switch off BuddyPress's theme compatibility.
+	// A Profiles template file was located, so override the WordPress
+	// template and use it to switch off Profiles's theme compatibility.
 	if ( ! empty( $new_template ) ) {
 		$template = bp_set_template_included( $new_template );
 	}
@@ -550,7 +550,7 @@ function bp_set_template_included( $template = false ) {
 }
 
 /**
- * Is a BuddyPress template being included?
+ * Is a Profiles template being included?
  *
  * @since 1.8.0
  *
@@ -575,7 +575,7 @@ function bp_load_theme_functions() {
 		return;
 	}
 
-	// Do not include on BuddyPress deactivation.
+	// Do not include on Profiles deactivation.
 	if ( bp_is_deactivation() ) {
 		return;
 	}
@@ -595,7 +595,7 @@ function bp_load_theme_functions() {
 }
 
 /**
- * Get the templates to use as the endpoint for BuddyPress template parts.
+ * Get the templates to use as the endpoint for Profiles template parts.
  *
  * @since 1.7.0
  * @since 2.4.0 Added singular.php to stack

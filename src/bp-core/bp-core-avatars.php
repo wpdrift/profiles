@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Avatars.
+ * Profiles Avatars.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.0.0
  */
@@ -96,7 +96,7 @@ function bp_core_set_avatar_globals() {
 add_action( 'bp_setup_globals', 'bp_core_set_avatar_globals' );
 
 /**
- * Get an avatar for a BuddyPress object.
+ * Get an avatar for a Profiles object.
  *
  * Supports avatars for users, groups, and blogs by default, but can be
  * extended to support custom components as well.
@@ -125,7 +125,7 @@ add_action( 'bp_setup_globals', 'bp_core_set_avatar_globals' );
  *                                   to the current blog's ID. If no 'item_id' can be determined in
  *                                   this way, the function returns false. Default: false.
  *     @type string      $object     The kind of object for which you're getting an
- *                                   avatar. BuddyPress natively supports three options: 'user',
+ *                                   avatar. Profiles natively supports three options: 'user',
  *                                   'group', 'blog'; a plugin may register more.  Default: 'user'.
  *     @type string      $type       When a new avatar is uploaded to BP, 'thumb' and
  *                                   'full' versions are saved. This parameter specifies whether you'd
@@ -969,7 +969,7 @@ function bp_avatar_ajax_upload() {
 	// Check the nonce.
 	check_admin_referer( 'bp-uploader' );
 
-	// Init the BuddyPress parameters.
+	// Init the Profiles parameters.
 	$bp_params = array();
 
 	// We need it to carry on.
@@ -1016,7 +1016,7 @@ function bp_avatar_ajax_upload() {
 		 *
 		 * @since 2.3.0
 		 *
-		 * @var array $bp_params the BuddyPress Ajax parameters.
+		 * @var array $bp_params the Profiles Ajax parameters.
 		 */
 		$bp_params = apply_filters( 'bp_core_avatar_ajax_upload_params', $bp_params );
 	}
@@ -1026,7 +1026,7 @@ function bp_avatar_ajax_upload() {
 	}
 
 	/**
-	 * The BuddyPress upload parameters is including the Avatar UI Available width,
+	 * The Profiles upload parameters is including the Avatar UI Available width,
 	 * add it to the avatar_admin global for a later use.
 	 */
 	if ( isset( $bp_params['ui_available_width'] ) ) {
@@ -1459,10 +1459,10 @@ function bp_core_fetch_avatar_filter( $avatar, $user, $size, $default, $alt = ''
 		$avatar_args['rating'] = $args['rating'];
 	}
 
-	// Let BuddyPress handle the fetching of the avatar.
+	// Let Profiles handle the fetching of the avatar.
 	$bp_avatar = bp_core_fetch_avatar( $avatar_args );
 
-	// If BuddyPress found an avatar, use it. If not, use the result of get_avatar.
+	// If Profiles found an avatar, use it. If not, use the result of get_avatar.
 	return ( !$bp_avatar ) ? $avatar : $bp_avatar;
 }
 add_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
@@ -2065,7 +2065,7 @@ function bp_avatar_get_templates() {
 }
 
 /**
- * Trick to check if the theme's BuddyPress templates are up to date.
+ * Trick to check if the theme's Profiles templates are up to date.
  *
  * If the "avatar templates" are not including the new template tag, this will
  * help users to get the avatar UI.

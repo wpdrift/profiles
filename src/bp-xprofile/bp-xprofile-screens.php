@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress XProfile Screens.
+ * Profiles XProfile Screens.
  *
- * Screen functions are the controllers of BuddyPress. They will execute when
+ * Screen functions are the controllers of Profiles. They will execute when
  * their specific URL is caught. They will first save or manipulate data using
  * business functions, then pass on the user to a template file.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileScreens
  * @since 1.5.0
  */

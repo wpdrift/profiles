@@ -2,7 +2,7 @@
 /**
  * Core Avatars attachment class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.3.0
  */
@@ -75,7 +75,7 @@ class BP_Attachment_Avatar extends BP_Attachment {
 	/**
 	 * Avatar specific rules.
 	 *
-	 * Adds an error if the avatar size or type don't match BuddyPress needs.
+	 * Adds an error if the avatar size or type don't match Profiles needs.
 	 * The error code is the index of $upload_error_strings.
 	 *
 	 * @since 2.3.0
@@ -389,12 +389,12 @@ class BP_Attachment_Avatar extends BP_Attachment {
 		} else {
 
 			/**
-			 * Use this filter to include specific BuddyPress params for your object.
+			 * Use this filter to include specific Profiles params for your object.
 			 * e.g. Blavatar.
 			 *
 			 * @since 2.3.0
 			 *
-			 * @param array $value The avatar specific BuddyPress parameters.
+			 * @param array $value The avatar specific Profiles parameters.
 			 */
 			$script_data['bp_params'] = apply_filters( 'bp_attachment_avatar_params', array() );
 		}

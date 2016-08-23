@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress XProfile CSS and JS.
+ * Profiles XProfile CSS and JS.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileScripts
  * @since 1.0.0
  */

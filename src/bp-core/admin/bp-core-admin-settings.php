@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Admin Settings.
+ * Profiles Admin Settings.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage CoreAdministration
  * @since 2.3.0
  */
@@ -134,7 +134,7 @@ function bp_admin_setting_callback_profile_sync() {
 ?>
 
 	<input id="bp-disable-profile-sync" name="bp-disable-profile-sync" type="checkbox" value="1" <?php checked( !bp_disable_profile_sync( false ) ); ?> />
-	<label for="bp-disable-profile-sync"><?php _e( 'Enable BuddyPress to WordPress profile syncing', 'buddypress' ); ?></label>
+	<label for="bp-disable-profile-sync"><?php _e( 'Enable Profiles to WordPress profile syncing', 'buddypress' ); ?></label>
 
 <?php
 }
@@ -266,7 +266,7 @@ function bp_core_admin_settings() {
 
 	<div class="wrap">
 
-		<h1><?php _e( 'BuddyPress Settings', 'buddypress' ); ?> </h1>
+		<h1><?php _e( 'Profiles Settings', 'buddypress' ); ?> </h1>
 
 		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Options', 'buddypress' ) ); ?></h2>
 

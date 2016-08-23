@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress Avatars camera template.
+ * Profiles Avatars camera template.
  *
  * This template is used to create the camera Backbone views.
  *
  * @since 2.3.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-attachments
  */
 

@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Member Screens.
+ * Profiles Member Screens.
  *
  * Handlers for member screens that aren't handled elsewhere.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersScreens
  * @since 1.7.0
  */
@@ -13,7 +13,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The main theme compat class for BuddyPress Registration.
+ * The main theme compat class for Profiles Registration.
  *
  * This class sets up the necessary theme compatibility actions to safely output
  * registration template parts to the_title and the_content areas of a theme.

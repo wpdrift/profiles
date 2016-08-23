@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Core Loader.
+ * Profiles Core Loader.
  *
  * Core contains the commonly used functions, classes, and APIs.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.5.0
  */
@@ -28,7 +28,7 @@ class BP_Core extends BP_Component {
 	public function __construct() {
 		parent::start(
 			'core',
-			__( 'BuddyPress Core', 'buddypress' ),
+			__( 'Profiles Core', 'buddypress' ),
 			buddypress()->plugin_dir
 		);
 
@@ -36,7 +36,7 @@ class BP_Core extends BP_Component {
 	}
 
 	/**
-	 * Populate the global data needed before BuddyPress can continue.
+	 * Populate the global data needed before Profiles can continue.
 	 *
 	 * This involves figuring out the currently required, activated, deactivated,
 	 * and optional components.
@@ -47,7 +47,7 @@ class BP_Core extends BP_Component {
 		$bp = buddypress();
 
 		/**
-		 * Fires before the loading of individual components and after BuddyPress Core.
+		 * Fires before the loading of individual components and after Profiles Core.
 		 *
 		 * Allows plugins to run code ahead of the other components.
 		 *
@@ -171,8 +171,8 @@ class BP_Core extends BP_Component {
 	/**
 	 * Set up bp-core global settings.
 	 *
-	 * Sets up a majority of the BuddyPress globals that require a minimal
-	 * amount of processing, meaning they cannot be set in the BuddyPress class.
+	 * Sets up a majority of the Profiles globals that require a minimal
+	 * amount of processing, meaning they cannot be set in the Profiles class.
 	 *
 	 * @since 1.5.0
 	 *
@@ -196,12 +196,12 @@ class BP_Core extends BP_Component {
 			$bp->root_domain = bp_core_get_root_domain();
 		}
 
-		// Fetches all of the core BuddyPress settings in one fell swoop.
+		// Fetches all of the core Profiles settings in one fell swoop.
 		if ( empty( $bp->site_options ) ) {
 			$bp->site_options = bp_core_get_root_options();
 		}
 
-		// The names of the core WordPress pages used to display BuddyPress content.
+		// The names of the core WordPress pages used to display Profiles content.
 		if ( empty( $bp->pages ) ) {
 			$bp->pages = bp_core_get_directory_pages();
 		}
@@ -298,7 +298,7 @@ class BP_Core extends BP_Component {
 	/**
 	 * Set up post types.
 	 *
-	 * @since BuddyPress (2.4.0)
+	 * @since Profiles (2.4.0)
 	 */
 	public function register_post_types() {
 
@@ -307,7 +307,7 @@ class BP_Core extends BP_Component {
 			register_post_type(
 				bp_get_email_post_type(),
 				apply_filters( 'bp_register_email_post_type', array(
-					'description'       => _x( 'BuddyPress emails', 'email post type description', 'buddypress' ),
+					'description'       => _x( 'Profiles emails', 'email post type description', 'buddypress' ),
 					'labels'            => bp_get_email_post_type_labels(),
 					'menu_icon'         => 'dashicons-email',
 					'public'            => false,

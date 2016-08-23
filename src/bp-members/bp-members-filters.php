@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Members Filters.
+ * Profiles Members Filters.
  *
  * Filters specific to the Members component.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersFilters
  * @since 1.5.0
  */
@@ -58,7 +58,7 @@ function bp_members_signup_with_subdirectory_blog( $illegal_names = array() ) {
 add_filter( 'subdirectory_reserved_names', 'bp_members_signup_with_subdirectory_blog', 10, 1 );
 
 /**
- * Filter the user profile URL to point to BuddyPress profile edit.
+ * Filter the user profile URL to point to Profiles profile edit.
  *
  * @since 1.6.0
  *
@@ -79,7 +79,7 @@ function bp_members_edit_profile_url( $url, $user_id, $scheme = 'admin' ) {
 	}
 
 	/**
-	 * Filters the user profile URL to point to BuddyPress profile edit.
+	 * Filters the user profile URL to point to Profiles profile edit.
 	 *
 	 * @since 1.5.2
 	 *

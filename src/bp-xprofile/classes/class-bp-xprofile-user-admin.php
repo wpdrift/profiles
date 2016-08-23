@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress XProfile Admin Class.
+ * Profiles XProfile Admin Class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @since 2.0.0
  */
 
@@ -441,7 +441,7 @@ class BP_XProfile_User_Admin {
 	 */
 	public function user_admin_spammer_metabox( $user = null ) {
 	?>
-		<p><?php printf( __( '%s has been marked as a spammer. All BuddyPress data associated with the user has been removed', 'buddypress' ), esc_html( bp_core_get_user_displayname( $user->ID ) ) ) ;?></p>
+		<p><?php printf( __( '%s has been marked as a spammer. All Profiles data associated with the user has been removed', 'buddypress' ), esc_html( bp_core_get_user_displayname( $user->ID ) ) ) ;?></p>
 	<?php
 	}
 

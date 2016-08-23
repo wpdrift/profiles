@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Members Recently Active widget.
+ * Profiles Members Recently Active widget.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersWidgets
  * @since 1.0.3
  */
@@ -23,7 +23,7 @@ class BP_Core_Recently_Active_Widget extends WP_Widget {
 	 * @since 1.5.0
 	 */
 	public function __construct() {
-		$name        = _x( '(BuddyPress) Recently Active Members', 'widget name', 'buddypress' );
+		$name        = _x( '(Profiles) Recently Active Members', 'widget name', 'buddypress' );
 		$description = __( 'Profile photos of recently active members', 'buddypress' );
 		parent::__construct( false, $name, array(
 			'description'                 => $description,

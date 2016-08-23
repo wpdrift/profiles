@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.7.0
  */
@@ -11,9 +11,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * BuddyPress User Query class.
+ * Profiles User Query class.
  *
- * Used for querying users in a BuddyPress context, in situations where WP_User_Query won't do the trick:
+ * Used for querying users in a Profiles context, in situations where WP_User_Query won't do the trick:
  * Member directories, the Friends component, etc.
  *
  * @since 1.7.0
@@ -201,7 +201,7 @@ class BP_User_Query {
 		// Fetch additional data. First, using WP_User_Query.
 		$this->do_wp_user_query();
 
-		// Get BuddyPress specific user data.
+		// Get Profiles specific user data.
 		$this->populate_extras();
 	}
 
@@ -663,7 +663,7 @@ class BP_User_Query {
 		 * Note that anything you add here should query using $user_ids_sql, to
 		 * avoid running multiple queries per user in the loop.
 		 *
-		 * Two BuddyPress components currently do this:
+		 * Two Profiles components currently do this:
 		 * - XProfile: To override display names.
 		 * - Friends:  To set whether or not a user is the current users friend.
 		 *

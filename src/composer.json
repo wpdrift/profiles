@@ -1,6 +1,6 @@
 {
   "name": "buddypress/buddypress",
-  "description": "BuddyPress helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.",
+  "description": "Profiles helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.",
   "type": "wordpress-plugin",
   "keywords": [
     "activity",
@@ -16,7 +16,7 @@
   "homepage": "https://buddypress.org",
   "license": "GPL-2.0+",
   "authors": [ {
-    "name": "BuddyPress Community",
+    "name": "Profiles Community",
     "homepage": "https://buddypress.org/about/"
   } ],
   "support": {

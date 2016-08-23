@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress XProfile Actions.
+ * Profiles XProfile Actions.
  *
  * Action functions are exactly the same as screen functions, however they do not
  * have a template screen associated with them. Usually they will send the user
  * back to the default screen after execution.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileActions
  * @since 1.5.0
  */

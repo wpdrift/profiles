@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Core Theme Compatibility.
+ * Profiles Core Theme Compatibility.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage ThemeCompatibility
  * @since 1.7.0
  */
@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 
 /**
  * What follows is an attempt at intercepting the natural page load process
- * to replace the_content() with the appropriate BuddyPress content.
+ * to replace the_content() with the appropriate Profiles content.
  *
- * To do this, BuddyPress does several direct manipulations of global variables
+ * To do this, Profiles does several direct manipulations of global variables
  * and forces them to do what they are not supposed to be doing.
  *
  * Don't try anything you're about to witness here, at home. Ever.
@@ -53,7 +53,7 @@ function bp_setup_theme_compat( $theme = '' ) {
  * Get the ID of the theme package being used.
  *
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own BuddyPress compatibility layers for their themes.
+ * default and include their own Profiles compatibility layers for their themes.
  *
  * @since 1.7.0
  *
@@ -75,7 +75,7 @@ function bp_get_theme_compat_id() {
  * Get the name of the theme package being used.
  *
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own BuddyPress compatibility layers for their themes.
+ * default and include their own Profiles compatibility layers for their themes.
  *
  * @since 1.7.0
  *
@@ -97,7 +97,7 @@ function bp_get_theme_compat_name() {
  * Get the version of the theme package being used.
  *
  * This can be filtered or set manually. Tricky theme authors can override the
- * default and include their own BuddyPress compatibility layers for their themes.
+ * default and include their own Profiles compatibility layers for their themes.
  *
  * @since 1.7.0
  *
@@ -119,7 +119,7 @@ function bp_get_theme_compat_version() {
  * Get the absolute path of the theme package being used.
  *
  * Or set manually. Tricky theme authors can override the default and include
- * their own BuddyPress compatibility layers for their themes.
+ * their own Profiles compatibility layers for their themes.
  *
  * @since 1.7.0
  *
@@ -141,7 +141,7 @@ function bp_get_theme_compat_dir() {
  * Get the URL of the theme package being used.
  *
  * This can be filtered, or set manually. Tricky theme authors can override
- * the default and include their own BuddyPress compatibility layers for their
+ * the default and include their own Profiles compatibility layers for their
  * themes.
  *
  * @since 1.7.0
@@ -301,7 +301,7 @@ function bp_set_theme_compat_template( $template = '' ) {
  * Set the theme compat original_template global.
  *
  * Stash the original template file for the current query. Useful for checking
- * if BuddyPress was able to find a more appropriate template.
+ * if Profiles was able to find a more appropriate template.
  *
  * @since 1.7.0
  *
@@ -327,7 +327,7 @@ function bp_set_theme_compat_feature( $theme_id, $feature = array() ) {
 		return;
 	}
 
-	// Get BuddyPress instance.
+	// Get Profiles instance.
 	$bp = buddypress();
 
 	// Get current theme compat theme.
@@ -435,10 +435,10 @@ function bp_register_theme_compat_default_features() {
 
 	/**
 	 * Since Companion stylesheets, the $content_width is smaller
-	 * than the width used by BuddyPress, so we need to manually set the
+	 * than the width used by Profiles, so we need to manually set the
 	 * content width for the concerned themes.
 	 *
-	 * Example: array( stylesheet => content width used by BuddyPress )
+	 * Example: array( stylesheet => content width used by Profiles )
 	 */
 	$bp_content_widths = array(
 		'twentyfifteen'  => 1300,
@@ -499,10 +499,10 @@ function bp_is_theme_compat_original_template( $template = '' ) {
 }
 
 /**
- * Register a new BuddyPress theme package in the active theme packages array.
+ * Register a new Profiles theme package in the active theme packages array.
  *
  * For an example of how this function is used, see:
- * {@link BuddyPress::register_theme_packages()}.
+ * {@link Profiles::register_theme_packages()}.
  *
  * @since 1.7.0
  *
@@ -524,7 +524,7 @@ function bp_register_theme_package( $theme = array(), $override = true ) {
 		return;
 	}
 
-	// Load up BuddyPress.
+	// Load up Profiles.
 	$bp = buddypress();
 
 	// Only set if the theme package was not previously registered or if the
@@ -662,7 +662,7 @@ function bp_theme_compat_reset_post( $args = array() ) {
 }
 
 /**
- * Reset main query vars and filter 'the_content' to output a BuddyPress template part as needed.
+ * Reset main query vars and filter 'the_content' to output a Profiles template part as needed.
  *
  * @since 1.7.0
  *
@@ -681,9 +681,9 @@ function bp_template_include_theme_compat( $template = '' ) {
 	}
 
 	/**
-	 * Fires when resetting main query vars and filtering 'the_content' to output BuddyPress template parts.
+	 * Fires when resetting main query vars and filtering 'the_content' to output Profiles template parts.
 	 *
-	 * Use this action to execute code that will communicate to BuddyPress's
+	 * Use this action to execute code that will communicate to Profiles's
 	 * theme compatibility layer whether or not we're replacing the_content()
 	 * with some other template part.
 	 *
@@ -691,13 +691,13 @@ function bp_template_include_theme_compat( $template = '' ) {
 	 */
 	do_action( 'bp_template_include_reset_dummy_post_data' );
 
-	// Bail if the template already matches a BuddyPress template.
+	// Bail if the template already matches a Profiles template.
 	if ( ! empty( buddypress()->theme_compat->found_template ) ) {
 		return $template;
 	}
 
 	/**
-	 * If we are relying on BuddyPress's built in theme compatibility to load
+	 * If we are relying on Profiles's built in theme compatibility to load
 	 * the proper content, we need to intercept the_content, replace the
 	 * output, and display ours instead.
 	 *
@@ -718,7 +718,7 @@ function bp_template_include_theme_compat( $template = '' ) {
 
 		add_filter( 'the_content', 'bp_replace_the_content' );
 
-		// Add BuddyPress's head action to wp_head.
+		// Add Profiles's head action to wp_head.
 		if ( ! has_action( 'wp_head', 'bp_head' ) ) {
 			add_action( 'wp_head', 'bp_head' );
 		}
@@ -738,7 +738,7 @@ function bp_template_include_theme_compat( $template = '' ) {
  * Conditionally replace 'the_content'.
  *
  * Replaces the_content() if the post_type being displayed is one that would
- * normally be handled by BuddyPress, but proper single page templates do not
+ * normally be handled by Profiles, but proper single page templates do not
  * exist in the currently active theme.
  *
  * @since 1.7.0
@@ -911,7 +911,7 @@ function bp_restore_all_filters( $tag, $priority = false ) {
 }
 
 /**
- * Force comments_status to 'closed' for BuddyPress post types.
+ * Force comments_status to 'closed' for Profiles post types.
  *
  * @since 1.7.0
  *
@@ -924,11 +924,11 @@ function bp_comments_open( $open, $post_id = 0 ) {
 	$retval = is_buddypress() ? false : $open;
 
 	/**
-	 * Filters whether or not to force comments_status to closed for BuddyPress post types.
+	 * Filters whether or not to force comments_status to closed for Profiles post types.
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param bool $retval  Whether or not we are on a BuddyPress post type.
+	 * @param bool $retval  Whether or not we are on a Profiles post type.
 	 * @param bool $open    True if comments open, false if closed.
 	 * @param int  $post_id Post ID for the checked post.
 	 */
@@ -967,7 +967,7 @@ function bp_theme_compat_toggle_is_page( $retval = '' ) {
 add_filter( 'bp_replace_the_content', 'bp_theme_compat_toggle_is_page', 9999 );
 
 /**
- * Restores the 'is_single' and 'is_page' flags if toggled by BuddyPress.
+ * Restores the 'is_single' and 'is_page' flags if toggled by Profiles.
  *
  * @since 1.9.2
  *
@@ -976,7 +976,7 @@ add_filter( 'bp_replace_the_content', 'bp_theme_compat_toggle_is_page', 9999 );
  */
 function bp_theme_compat_loop_end( $query ) {
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	// Bail if page is not toggled.

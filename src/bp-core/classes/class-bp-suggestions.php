@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.1.0
  */
@@ -11,9 +11,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Base class for the BuddyPress Suggestions API.
+ * Base class for the Profiles Suggestions API.
  *
- * Originally built to power BuddyPress' at-mentions suggestions, it's flexible enough to be used
+ * Originally built to power Profiles' at-mentions suggestions, it's flexible enough to be used
  * for similar kinds of future core requirements, or those desired by third-party developers.
  *
  * To implement a new suggestions service, create a new class that extends this one, and update

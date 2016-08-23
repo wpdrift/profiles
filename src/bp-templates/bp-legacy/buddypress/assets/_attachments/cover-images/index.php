@@ -1,15 +1,15 @@
 <?php
 /**
- * BuddyPress Cover Images main template.
+ * Profiles Cover Images main template.
  *
- * This template is used to inject the BuddyPress Backbone views
+ * This template is used to inject the Profiles Backbone views
  * dealing with cover images.
  *
  * It's also used to create the common Backbone views.
  *
  * @since 2.4.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-attachments
  */
 

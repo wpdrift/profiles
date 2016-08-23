@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.9.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Create a set of BuddyPress-specific links for use in the Menus admin UI.
+ * Create a set of Profiles-specific links for use in the Menus admin UI.
  *
  * Borrowed heavily from {@link Walker_Nav_Menu_Checklist}, but modified so as not
  * to require an actual post type or taxonomy, and to force certain CSS classes.

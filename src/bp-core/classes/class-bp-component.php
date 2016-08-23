@@ -2,7 +2,7 @@
 /**
  * Component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.5.0
  */
@@ -13,11 +13,11 @@ defined( 'ABSPATH' ) || exit;
 if ( !class_exists( 'BP_Component' ) ) :
 
 /**
- * BuddyPress Component Class.
+ * Profiles Component Class.
  *
- * The BuddyPress component class is responsible for simplifying the creation
+ * The Profiles component class is responsible for simplifying the creation
  * of components that share similar behaviors and routines. It is used
- * internally by BuddyPress to create the bundled components, but can be
+ * internally by Profiles to create the bundled components, but can be
  * extended to create other really neat things.
  *
  * @since 1.5.0
@@ -307,7 +307,7 @@ class BP_Component {
 			$this->register_meta_tables( $r['meta_tables'] );
 		}
 
-		/** BuddyPress *******************************************************
+		/** Profiles *******************************************************
 		 */
 
 		// Register this component in the loaded components array.
@@ -644,7 +644,7 @@ class BP_Component {
 		 */
 		$tables = apply_filters( 'bp_' . $this->id . '_global_tables', $tables );
 
-		// Add to the BuddyPress global object.
+		// Add to the Profiles global object.
 		if ( !empty( $tables ) && is_array( $tables ) ) {
 			foreach ( $tables as $global_name => $table_name ) {
 				$this->$global_name = $table_name;
@@ -689,7 +689,7 @@ class BP_Component {
 		$tables = apply_filters( 'bp_' . $this->id . '_meta_tables', $tables );
 
 		/**
-		 * Add the name of each metadata table to WPDB to allow BuddyPress
+		 * Add the name of each metadata table to WPDB to allow Profiles
 		 * components to play nicely with the WordPress metadata API.
 		 */
 		if ( !empty( $tables ) && is_array( $tables ) ) {

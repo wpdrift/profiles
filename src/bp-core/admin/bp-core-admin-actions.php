@@ -1,17 +1,17 @@
 <?php
 /**
- * BuddyPress Admin Actions.
+ * Profiles Admin Actions.
  *
- * This file contains the actions that are used through-out BuddyPress Admin. They
+ * This file contains the actions that are used through-out Profiles Admin. They
  * are consolidated here to make searching for them easier, and to help developers
  * understand at a glance the order in which things occur.
  *
  * There are a few common places that additional actions can currently be found.
  *
- *  - BuddyPress: In {@link BuddyPress::setup_actions()} in BuddyPress.php
+ *  - Profiles: In {@link Profiles::setup_actions()} in Profiles.php
  *  - Admin: More in {@link bp_Admin::setup_actions()} in admin.php
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Admin
  * @since 2.3.0
  * @see bp-core-actions.php
@@ -22,20 +22,20 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Attach BuddyPress to WordPress.
+ * Attach Profiles to WordPress.
  *
- * BuddyPress uses its own internal actions to help aid in third-party plugin
+ * Profiles uses its own internal actions to help aid in third-party plugin
  * development, and to limit the amount of potential future code changes when
  * updates to WordPress core occur.
  *
  * These actions exist to create the concept of 'plugin dependencies'. They
- * provide a safe way for plugins to execute code *only* when BuddyPress is
+ * provide a safe way for plugins to execute code *only* when Profiles is
  * installed and activated, without needing to do complicated guesswork.
  *
  * For more information on how this works, see the 'Plugin Dependency' section
  * near the bottom of this file.
  *
- *          v--WordPress Actions       v--BuddyPress Sub-actions
+ *          v--WordPress Actions       v--Profiles Sub-actions
  */
 add_action( 'admin_menu',                         'bp_admin_menu'                    );
 add_action( 'admin_init',                         'bp_admin_init'                    );
@@ -186,7 +186,7 @@ function bp_admin_enqueue_scripts( $hook_suffix = '' ) {
 }
 
 /**
- * Dedicated action to register BuddyPress importers.
+ * Dedicated action to register Profiles importers.
  *
  * @since 1.7.0
  *
@@ -196,7 +196,7 @@ function bp_register_importers() {
 	/**
 	 * Fires inside the bp_register_importers function.
 	 *
-	 * Used to register a BuddyPress importer.
+	 * Used to register a Profiles importer.
 	 *
 	 * @since 1.7.0
 	 */

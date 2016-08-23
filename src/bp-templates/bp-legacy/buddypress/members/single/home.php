@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress - Members Home
+ * Profiles - Members Home
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-legacy
  */
 

@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Member Loader.
+ * Profiles Member Loader.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Members
  * @since 1.5.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Defines the BuddyPress Members Component.
+ * Defines the Profiles Members Component.
  *
  * @since 1.5.0
  */

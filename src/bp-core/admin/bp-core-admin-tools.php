@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Tools panel.
+ * Profiles Tools panel.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.0.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Render the BuddyPress Tools page.
+ * Render the Profiles Tools page.
  *
  * @since 2.0.0
  */
@@ -19,10 +19,10 @@ function bp_core_admin_tools() {
 	?>
 	<div class="wrap">
 
-		<h1><?php esc_html_e( 'BuddyPress Tools', 'buddypress' ) ?></h1>
+		<h1><?php esc_html_e( 'Profiles Tools', 'buddypress' ) ?></h1>
 
 		<p>
-			<?php esc_html_e( 'BuddyPress keeps track of various relationships between members, groups, and activity items. Occasionally these relationships become out of sync, most often after an import, update, or migration.', 'buddypress' ); ?>
+			<?php esc_html_e( 'Profiles keeps track of various relationships between members, groups, and activity items. Occasionally these relationships become out of sync, most often after an import, update, or migration.', 'buddypress' ); ?>
 			<?php esc_html_e( 'Use the tools below to manually recalculate these relationships.', 'buddypress' ); ?>
 		</p>
 		<p class="description"><?php esc_html_e( 'Some of these tools create substantial database overhead. Avoid running more than one repair job at a time.', 'buddypress' ); ?></p>
@@ -372,7 +372,7 @@ function bp_admin_tools_feedback( $message, $class = false ) {
  * Render the Available Tools page.
  *
  * We register this page on Network Admin as a top-level home for our
- * BuddyPress tools. This displays the default content.
+ * Profiles tools. This displays the default content.
  *
  * @since 2.0.0
  */
@@ -395,7 +395,7 @@ function bp_core_admin_available_tools_page() {
 }
 
 /**
- * Render an introduction of BuddyPress tools on Available Tools page.
+ * Render an introduction of Profiles tools on Available Tools page.
  *
  * @since 2.0.0
  */
@@ -408,10 +408,10 @@ function bp_core_admin_available_tools_intro() {
 	$url  = add_query_arg( $query_arg, bp_get_admin_url( $page ) );
 	?>
 	<div class="card tool-box">
-		<h2><?php esc_html_e( 'BuddyPress Tools', 'buddypress' ) ?></h2>
+		<h2><?php esc_html_e( 'Profiles Tools', 'buddypress' ) ?></h2>
 		<p>
-			<?php esc_html_e( 'BuddyPress keeps track of various relationships between users, groups, and activity items. Occasionally these relationships become out of sync, most often after an import, update, or migration.', 'buddypress' ); ?>
-			<?php printf( esc_html_x( 'Use the %s to repair these relationships.', 'buddypress tools intro', 'buddypress' ), '<a href="' . esc_url( $url ) . '">' . esc_html__( 'BuddyPress Tools', 'buddypress' ) . '</a>' ); ?>
+			<?php esc_html_e( 'Profiles keeps track of various relationships between users, groups, and activity items. Occasionally these relationships become out of sync, most often after an import, update, or migration.', 'buddypress' ); ?>
+			<?php printf( esc_html_x( 'Use the %s to repair these relationships.', 'buddypress tools intro', 'buddypress' ), '<a href="' . esc_url( $url ) . '">' . esc_html__( 'Profiles Tools', 'buddypress' ) . '</a>' ); ?>
 		</p>
 	</div>
 	<?php
@@ -473,7 +473,7 @@ function bp_admin_reinstall_emails() {
 }
 
 /**
- * Add notice on the "Tools > BuddyPress" page if more sites need recording.
+ * Add notice on the "Tools > Profiles" page if more sites need recording.
  *
  * This notice only shows up in the network admin dashboard.
  *

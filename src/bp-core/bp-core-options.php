@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Options.
+ * Profiles Options.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Options
  * @since 1.6.0
  */
@@ -122,9 +122,9 @@ function bp_get_default_options() {
 }
 
 /**
- * Add default options when BuddyPress is first activated.
+ * Add default options when Profiles is first activated.
  *
- * Only called once when BuddyPress is activated.
+ * Only called once when Profiles is activated.
  * Non-destructive, so existing settings will not be overridden.
  *
  * @since 1.6.0
@@ -140,7 +140,7 @@ function bp_add_options() {
 	}
 
 	/**
-	 * Fires after the addition of default options when BuddyPress is first activated.
+	 * Fires after the addition of default options when Profiles is first activated.
 	 *
 	 * Allows previously activated plugins to append their own options.
 	 *
@@ -152,7 +152,7 @@ function bp_add_options() {
 /**
  * Delete default options.
  *
- * Hooked to bp_uninstall, it is only called once when BuddyPress is uninstalled.
+ * Hooked to bp_uninstall, it is only called once when Profiles is uninstalled.
  * This is destructive, so existing settings will be destroyed.
  *
  * Currently unused.
@@ -170,7 +170,7 @@ function bp_delete_options() {
 	}
 
 	/**
-	 * Fires after the deletion of default options when BuddyPress is first deactivated.
+	 * Fires after the deletion of default options when Profiles is first deactivated.
 	 *
 	 * Allows previously activated plugins to append their own options.
 	 *
@@ -191,13 +191,13 @@ function bp_setup_option_filters() {
 	// Get the default options and values.
 	$options = bp_get_default_options();
 
-	// Add filters to each BuddyPress option.
+	// Add filters to each Profiles option.
 	foreach ( array_keys( $options ) as $key ) {
 		add_filter( 'pre_option_' . $key, 'bp_pre_get_option' );
 	}
 
 	/**
-	 * Fires after the addition of filters to each BuddyPress option.
+	 * Fires after the addition of filters to each Profiles option.
 	 *
 	 * Allows previously activated plugins to append their own options.
 	 *
@@ -353,7 +353,7 @@ function bp_core_activate_site_options( $keys = array() ) {
 /**
  * Fetch global BP options.
  *
- * BuddyPress uses common options to store configuration settings. Many of these
+ * Profiles uses common options to store configuration settings. Many of these
  * settings are needed at run time. Instead of fetching them all and adding many
  * initial queries to each page load, let's fetch them all in one go.
  *
@@ -366,7 +366,7 @@ function bp_core_activate_site_options( $keys = array() ) {
 function bp_core_get_root_options() {
 	global $wpdb;
 
-	// Get all the BuddyPress settings, and a few useful WP ones too.
+	// Get all the Profiles settings, and a few useful WP ones too.
 	$root_blog_options                   = bp_get_default_options();
 	$root_blog_options['registration']   = '0';
 	$root_blog_options['avatar_default'] = 'mysteryman';
@@ -770,7 +770,7 @@ function bp_group_forums_root_id( $default = '0' ) {
 	}
 
 /**
- * Check whether BuddyPress Group Forums are enabled.
+ * Check whether Profiles Group Forums are enabled.
  *
  * @since 1.6.0
  *
@@ -781,11 +781,11 @@ function bp_group_forums_root_id( $default = '0' ) {
 function bp_is_group_forums_active( $default = true ) {
 
 	/**
-	 * Filters whether or not BuddyPress Group Forums are enabled.
+	 * Filters whether or not Profiles Group Forums are enabled.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @param bool $value Whether or not BuddyPress Group Forums are enabled.
+	 * @param bool $value Whether or not Profiles Group Forums are enabled.
 	 */
 	return (bool) apply_filters( 'bp_is_group_forums_active', (bool) bp_get_option( '_bp_enable_group_forums', $default ) );
 }

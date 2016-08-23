@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Capabilities.
+ * Profiles Capabilities.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Capabilities
  * @since 1.6.0
  */
@@ -345,7 +345,7 @@ function bp_user_can( $user_id, $capability, $args = array() ) {
 /**
  * Temporary implementation of 'bp_moderate' cap.
  *
- * In BuddyPress 1.6, the 'bp_moderate' cap was introduced. In order to
+ * In Profiles 1.6, the 'bp_moderate' cap was introduced. In order to
  * enforce that bp_current_user_can( 'bp_moderate' ) always returns true for
  * Administrators, we must manually add the 'bp_moderate' cap to the list of
  * user caps for Admins.
@@ -355,7 +355,7 @@ function bp_user_can( $user_id, $capability, $args = array() ) {
  * capability - and thus 'bp_moderate' - to Super Admins on a Multisite
  * installation. See {@link WP_User::has_cap()}.
  *
- * This implementation of 'bp_moderate' is temporary, until BuddyPress properly
+ * This implementation of 'bp_moderate' is temporary, until Profiles properly
  * matches caps to roles and stores them in the database.
  *
  * Plugin authors: Please do not use this function; thank you. :)
@@ -379,7 +379,7 @@ function _bp_enforce_bp_moderate_cap_for_admins( $caps = array(), $cap = '', $us
 		return $caps;
 	}
 
-	// Bail if BuddyPress is not network activated.
+	// Bail if Profiles is not network activated.
 	if ( bp_is_network_activated() ) {
 		return $caps;
 	}
@@ -397,7 +397,7 @@ add_filter( 'map_meta_cap', '_bp_enforce_bp_moderate_cap_for_admins', 10, 4 );
 /** Deprecated ****************************************************************/
 
 /**
- * Adds BuddyPress-specific user roles.
+ * Adds Profiles-specific user roles.
  *
  * This is called on plugin activation.
  *
@@ -409,7 +409,7 @@ function bp_add_roles() {
 }
 
 /**
- * Removes BuddyPress-specific user roles.
+ * Removes Profiles-specific user roles.
  *
  * This is called on plugin deactivation.
  *
@@ -435,7 +435,7 @@ function bp_get_participant_role() {
 }
 
 /**
- * The moderator role for BuddyPress users.
+ * The moderator role for Profiles users.
  *
  * @since 1.6.0
  * @deprecated 1.7.0

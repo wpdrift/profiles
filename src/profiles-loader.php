@@ -14,7 +14,7 @@
 /**
  * Plugin Name: Profiles
  * Plugin URI:  https://wordpress.org/plugins/profiles/
- * Description: Profiles is built on the solid foundation of the BuddyPress plugin. We decided to fork this project to provide a more generic Profiles plugin that could be easily extended for more specific use-cases.
+ * Description: Profiles is built on the solid foundation of the Profiles plugin. We decided to fork this project to provide a more generic Profiles plugin that could be easily extended for more specific use-cases.
  * Author:      OpenTute+
  * Author URI:  http://opentuteplus.com/
  * Version:     0.0.1
@@ -28,27 +28,27 @@ defined( 'ABSPATH' ) || exit;
 
 /** Constants *****************************************************************/
 
-if ( !class_exists( 'BuddyPress' ) ) :
+if ( !class_exists( 'Profiles' ) ) :
 /**
- * Main BuddyPress Class.
+ * Main Profiles Class.
  *
  * Tap tap tap... Is this thing on?
  *
  * @since 1.6.0
  */
-class BuddyPress {
+class Profiles {
 
 	/** Magic *****************************************************************/
 
 	/**
-	 * BuddyPress uses many variables, most of which can be filtered to
+	 * Profiles uses many variables, most of which can be filtered to
 	 * customize the way that it works. To prevent unauthorized access,
 	 * these variables are stored in a private array that is magically
 	 * updated using PHP 5.2+ methods. This is to prevent third party
 	 * plugins from tampering with essential information indirectly, which
 	 * would cause issues later.
 	 *
-	 * @see BuddyPress::setup_globals()
+	 * @see Profiles::setup_globals()
 	 * @var array
 	 */
 	private $data;
@@ -56,12 +56,12 @@ class BuddyPress {
 	/** Not Magic *************************************************************/
 
 	/**
-	 * @var array Primary BuddyPress navigation.
+	 * @var array Primary Profiles navigation.
 	 */
 	public $bp_nav = array();
 
 	/**
-	 * @var array Secondary BuddyPress navigation to $bp_nav.
+	 * @var array Secondary Profiles navigation to $bp_nav.
 	 */
 	public $bp_options_nav = array();
 
@@ -129,13 +129,13 @@ class BuddyPress {
 	/** Singleton *************************************************************/
 
 	/**
-	 * Main BuddyPress Instance.
+	 * Main Profiles Instance.
 	 *
-	 * BuddyPress is great.
+	 * Profiles is great.
 	 * Please load it only one time.
 	 * For this, we thank you.
 	 *
-	 * Insures that only one instance of BuddyPress exists in memory at any
+	 * Insures that only one instance of Profiles exists in memory at any
 	 * one time. Also prevents needing to define globals all over the place.
 	 *
 	 * @since 1.7.0
@@ -143,7 +143,7 @@ class BuddyPress {
 	 * @static object $instance
 	 * @see buddypress()
 	 *
-	 * @return BuddyPress The one true BuddyPress.
+	 * @return Profiles The one true Profiles.
 	 */
 	public static function instance() {
 
@@ -152,7 +152,7 @@ class BuddyPress {
 
 		// Only run these methods if they haven't been run previously
 		if ( null === $instance ) {
-			$instance = new BuddyPress;
+			$instance = new Profiles;
 			$instance->constants();
 			$instance->setup_globals();
 			$instance->legacy_constants();
@@ -169,23 +169,23 @@ class BuddyPress {
 	/** Magic Methods *********************************************************/
 
 	/**
-	 * A dummy constructor to prevent BuddyPress from being loaded more than once.
+	 * A dummy constructor to prevent Profiles from being loaded more than once.
 	 *
 	 * @since 1.7.0
-	 * @see BuddyPress::instance()
+	 * @see Profiles::instance()
 	 * @see buddypress()
 	 */
 	private function __construct() { /* Do nothing here */ }
 
 	/**
-	 * A dummy magic method to prevent BuddyPress from being cloned.
+	 * A dummy magic method to prevent Profiles from being cloned.
 	 *
 	 * @since 1.7.0
 	 */
 	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'buddypress' ), '1.7' ); }
 
 	/**
-	 * A dummy magic method to prevent BuddyPress from being unserialized.
+	 * A dummy magic method to prevent Profiles from being unserialized.
 	 *
 	 * @since 1.7.0
 	 */
@@ -203,7 +203,7 @@ class BuddyPress {
 	public function __isset( $key ) { return isset( $this->data[$key] ); }
 
 	/**
-	 * Magic method for getting BuddyPress variables.
+	 * Magic method for getting Profiles variables.
 	 *
 	 * @since 1.7.0
 	 *
@@ -214,7 +214,7 @@ class BuddyPress {
 	public function __get( $key ) { return isset( $this->data[$key] ) ? $this->data[$key] : null; }
 
 	/**
-	 * Magic method for setting BuddyPress variables.
+	 * Magic method for setting Profiles variables.
 	 *
 	 * @since 1.7.0
 	 *
@@ -224,7 +224,7 @@ class BuddyPress {
 	public function __set( $key, $value ) { $this->data[$key] = $value; }
 
 	/**
-	 * Magic method for unsetting BuddyPress variables.
+	 * Magic method for unsetting Profiles variables.
 	 *
 	 * @since 1.7.0
 	 *
@@ -274,7 +274,7 @@ class BuddyPress {
 			define( 'BP_SOURCE_SUBDIRECTORY', '' );
 		}
 
-		// Define on which blog ID BuddyPress should run
+		// Define on which blog ID Profiles should run
 		if ( ! defined( 'BP_ROOT_BLOG' ) ) {
 
 			// Default to use current blog ID
@@ -369,17 +369,17 @@ class BuddyPress {
 		/** Components ********************************************************/
 
 		/**
-		 * @var string Name of the current BuddyPress component (primary).
+		 * @var string Name of the current Profiles component (primary).
 		 */
 		$this->current_component = '';
 
 		/**
-		 * @var string Name of the current BuddyPress item (secondary).
+		 * @var string Name of the current Profiles item (secondary).
 		 */
 		$this->current_item = '';
 
 		/**
-		 * @var string Name of the current BuddyPress action (tertiary).
+		 * @var string Name of the current Profiles action (tertiary).
 		 */
 		$this->current_action = '';
 
@@ -391,17 +391,17 @@ class BuddyPress {
 		/** Root **************************************************************/
 
 		/**
-		 * Filters the BuddyPress Root blog ID.
+		 * Filters the Profiles Root blog ID.
 		 *
 		 * @since 1.5.0
 		 *
-		 * @const constant BP_ROOT_BLOG BuddyPress Root blog ID.
+		 * @const constant BP_ROOT_BLOG Profiles Root blog ID.
 		 */
 		$this->root_blog_id = (int) apply_filters( 'bp_get_root_blog_id', BP_ROOT_BLOG );
 
 		/** Paths**************************************************************/
 
-		// BuddyPress root directory
+		// Profiles root directory
 		$this->file           = constant( 'BP_PLUGIN_DIR' ) . 'bp-loader.php';
 		$this->basename       = basename( constant( 'BP_PLUGIN_DIR' ) ) . '/bp-loader.php';
 		$this->plugin_dir     = trailingslashit( constant( 'BP_PLUGIN_DIR' ) . constant( 'BP_SOURCE_SUBDIRECTORY' ) );
@@ -440,7 +440,7 @@ class BuddyPress {
 	}
 
 	/**
-	 * Legacy BuddyPress constants.
+	 * Legacy Profiles constants.
 	 *
 	 * Try to avoid using these. Their values have been moved into variables
 	 * in the instance, and have matching functions to get/set their values.
@@ -449,7 +449,7 @@ class BuddyPress {
 	 */
 	private function legacy_constants() {
 
-		// Define the BuddyPress version
+		// Define the Profiles version
 		if ( ! defined( 'BP_VERSION' ) ) {
 			define( 'BP_VERSION', $this->version );
 		}
@@ -472,7 +472,7 @@ class BuddyPress {
 			$this->do_autoload = true;
 		}
 
-		// Load the WP abstraction file so BuddyPress can run on all WordPress setups.
+		// Load the WP abstraction file so Profiles can run on all WordPress setups.
 		require( $this->plugin_dir . 'bp-core/bp-core-wpabstraction.php' );
 
 		// Setup the versions (after we include multisite abstraction above)
@@ -484,7 +484,7 @@ class BuddyPress {
 		require( $this->plugin_dir . 'bp-core/bp-core-template-loader.php'     );
 		require( $this->plugin_dir . 'bp-core/bp-core-theme-compatibility.php' );
 
-		// Require all of the BuddyPress core libraries
+		// Require all of the Profiles core libraries
 		require( $this->plugin_dir . 'bp-core/bp-core-dependency.php'       );
 		require( $this->plugin_dir . 'bp-core/bp-core-actions.php'          );
 		require( $this->plugin_dir . 'bp-core/bp-core-caps.php'             );
@@ -600,7 +600,7 @@ class BuddyPress {
 
 		/*
 		 * Sanity check 2 - Check if component is active before loading class.
-		 * Skip if PHPUnit is running, or BuddyPress is installing for the first time.
+		 * Skip if PHPUnit is running, or Profiles is installing for the first time.
 		 */
 		if (
 			! in_array( $component, array( 'core', 'members' ), true ) &&
@@ -625,12 +625,12 @@ class BuddyPress {
 		add_action( 'activate_'   . $this->basename, 'bp_activation'   );
 		add_action( 'deactivate_' . $this->basename, 'bp_deactivation' );
 
-		// If BuddyPress is being deactivated, do not add any actions
+		// If Profiles is being deactivated, do not add any actions
 		if ( bp_is_deactivation( $this->basename ) ) {
 			return;
 		}
 
-		// Array of BuddyPress core actions
+		// Array of Profiles core actions
 		$actions = array(
 			'setup_theme',              // Setup the default theme compat
 			'setup_current_user',       // Setup currently logged in user
@@ -653,13 +653,13 @@ class BuddyPress {
 		}
 
 		/**
-		 * Fires after the setup of all BuddyPress actions.
+		 * Fires after the setup of all Profiles actions.
 		 *
 		 * Includes bbp-core-hooks.php.
 		 *
 		 * @since 1.7.0
 		 *
-		 * @param BuddyPress $this. Current BuddyPress instance. Passed by reference.
+		 * @param Profiles $this. Current Profiles instance. Passed by reference.
 		 */
 		do_action_ref_array( 'bp_after_setup_actions', array( &$this ) );
 	}
@@ -695,11 +695,11 @@ class BuddyPress {
 	/** Public Methods ********************************************************/
 
 	/**
-	 * Set up BuddyPress's legacy theme directory.
+	 * Set up Profiles's legacy theme directory.
 	 *
-	 * Starting with version 1.2, and ending with version 1.8, BuddyPress
+	 * Starting with version 1.2, and ending with version 1.8, Profiles
 	 * registered a custom theme directory - bp-themes - which contained
-	 * the bp-default theme. Since BuddyPress 1.9, bp-themes is no longer
+	 * the bp-default theme. Since Profiles 1.9, bp-themes is no longer
 	 * registered (and bp-default no longer offered) on new installations.
 	 * Sites using bp-default (or a child theme of bp-default) will
 	 * continue to have bp-themes registered as before.
@@ -730,7 +730,7 @@ class BuddyPress {
 		// Register the default theme compatibility package
 		bp_register_theme_package( array(
 			'id'      => 'legacy',
-			'name'    => __( 'BuddyPress Default', 'buddypress' ),
+			'name'    => __( 'Profiles Default', 'buddypress' ),
 			'version' => bp_get_version(),
 			'dir'     => trailingslashit( $this->themes_dir . '/bp-legacy' ),
 			'url'     => trailingslashit( $this->themes_url . '/bp-legacy' )
@@ -743,7 +743,7 @@ class BuddyPress {
 	}
 
 	/**
-	 * Set up the default BuddyPress theme compatibility location.
+	 * Set up the default Profiles theme compatibility location.
 	 *
 	 * @since 1.7.0
 	 */
@@ -760,24 +760,24 @@ class BuddyPress {
 }
 
 /**
- * The main function responsible for returning the one true BuddyPress Instance to functions everywhere.
+ * The main function responsible for returning the one true Profiles Instance to functions everywhere.
  *
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
  * Example: <?php $bp = buddypress(); ?>
  *
- * @return BuddyPress The one true BuddyPress Instance.
+ * @return Profiles The one true Profiles Instance.
  */
 function buddypress() {
-	return BuddyPress::instance();
+	return Profiles::instance();
 }
 
 /**
- * Hook BuddyPress early onto the 'plugins_loaded' action.
+ * Hook Profiles early onto the 'plugins_loaded' action.
  *
- * This gives all other plugins the chance to load before BuddyPress, to get
- * their actions, filters, and overrides setup without BuddyPress being in the
+ * This gives all other plugins the chance to load before Profiles, to get
+ * their actions, filters, and overrides setup without Profiles being in the
  * way.
  */
 if ( defined( 'BUDDYPRESS_LATE_LOAD' ) ) {

@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Member Template loop class.
+ * Profiles Member Template loop class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Members
  */
 

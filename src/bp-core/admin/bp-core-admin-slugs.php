@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Admin Slug Functions.
+ * Profiles Admin Slug Functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage CoreAdministration
  * @since 2.3.0
  */
@@ -21,7 +21,7 @@ function bp_core_admin_slugs_settings() {
 
 	<div class="wrap">
 
-		<h1><?php _e( 'BuddyPress Settings', 'buddypress' ); ?> </h1>
+		<h1><?php _e( 'Profiles Settings', 'buddypress' ); ?> </h1>
 
 		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Pages', 'buddypress' ) ); ?></h2>
 		<form action="" method="post" id="bp-admin-page-form">
@@ -92,7 +92,7 @@ function bp_core_admin_get_static_pages() {
 	);
 
 	/**
-	 * Filters the default static pages for BuddyPress setup.
+	 * Filters the default static pages for Profiles setup.
 	 *
 	 * @since 1.6.0
 	 *
@@ -104,7 +104,7 @@ function bp_core_admin_get_static_pages() {
 /**
  * Creates reusable markup for page setup on the Components and Pages dashboard panel.
  *
- * @package BuddyPress
+ * @package Profiles
  * @since 1.6.0
  * @todo Use settings API
  */
@@ -121,7 +121,7 @@ function bp_core_admin_slugs_options() {
 
 		<h3><?php _e( 'Directories', 'buddypress' ); ?></h3>
 
-		<p><?php _e( 'Associate a WordPress Page with each BuddyPress component directory.', 'buddypress' ); ?></p>
+		<p><?php _e( 'Associate a WordPress Page with each Profiles component directory.', 'buddypress' ); ?></p>
 
 		<table class="form-table">
 			<tbody>
@@ -178,7 +178,7 @@ function bp_core_admin_slugs_options() {
 }
 
 /**
- * Handle saving of the BuddyPress slugs.
+ * Handle saving of the Profiles slugs.
  *
  * @since 1.6.0
  * @todo Use settings API

@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Common Admin Functions.
+ * Profiles Common Admin Functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage CoreAdministration
  * @since 2.3.0
  */
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /** Menu **********************************************************************/
 
 /**
- * Initializes the wp-admin area "BuddyPress" menus and sub menus.
+ * Initializes the wp-admin area "Profiles" menus and sub menus.
  *
  */
 function bp_core_admin_menu_init() {
@@ -43,7 +43,7 @@ function bp_core_admin_backpat_menu() {
 	}
 
 	/**
-	 * By default, only the core "Help" submenu is added under the top-level BuddyPress menu.
+	 * By default, only the core "Help" submenu is added under the top-level Profiles menu.
 	 * This means that if no third-party plugins have registered their admin pages into the
 	 * 'bp-general-settings' menu, it will only contain one item. Kill it.
 	 */
@@ -62,8 +62,8 @@ function bp_core_admin_backpat_menu() {
 add_action( bp_core_admin_hook(), 'bp_core_admin_backpat_menu', 999 );
 
 /**
- * This tells WP to highlight the Settings > BuddyPress menu item,
- * regardless of which actual BuddyPress admin screen we are on.
+ * This tells WP to highlight the Settings > Profiles menu item,
+ * regardless of which actual Profiles admin screen we are on.
  *
  * The conditional prevents the behaviour when the user is viewing the
  * backpat "Help" page, the Activity page, or any third-party plugins.
@@ -76,7 +76,7 @@ add_action( bp_core_admin_hook(), 'bp_core_admin_backpat_menu', 999 );
 function bp_core_modify_admin_menu_highlight() {
 	global $plugin_page, $submenu_file;
 
-	// This tweaks the Settings subnav menu to show only one BuddyPress menu item.
+	// This tweaks the Settings subnav menu to show only one Profiles menu item.
 	if ( ! in_array( $plugin_page, array( 'bp-activity', 'bp-general-settings', ) ) ) {
 		$submenu_file = 'bp-components';
 	}
@@ -88,7 +88,7 @@ function bp_core_modify_admin_menu_highlight() {
 }
 
 /**
- * Generates markup for a fallback top-level BuddyPress menu page, if the site is running
+ * Generates markup for a fallback top-level Profiles menu page, if the site is running
  * a legacy plugin which hasn't been updated. If the site is up to date, this page
  * will never appear.
  *
@@ -103,10 +103,10 @@ function bp_core_admin_backpat_page() {
 	$settings_url = add_query_arg( 'page', 'bp-components', $url ); ?>
 
 	<div class="wrap">
-		<h2><?php _e( 'Why have all my BuddyPress menus disappeared?', 'buddypress' ); ?></h2>
+		<h2><?php _e( 'Why have all my Profiles menus disappeared?', 'buddypress' ); ?></h2>
 
-		<p><?php _e( "Don't worry! We've moved the BuddyPress options into more convenient and easier to find locations. You're seeing this page because you are running a legacy BuddyPress plugin which has not been updated.", 'buddypress' ); ?></p>
-		<p><?php printf( __( 'Components, Pages, Settings, and Forums, have been moved to <a href="%s">Settings &gt; BuddyPress</a>. Profile Fields has been moved into the <a href="%s">Users</a> menu.', 'buddypress' ), esc_url( $settings_url ), bp_get_admin_url( 'users.php?page=bp-profile-setup' ) ); ?></p>
+		<p><?php _e( "Don't worry! We've moved the Profiles options into more convenient and easier to find locations. You're seeing this page because you are running a legacy Profiles plugin which has not been updated.", 'buddypress' ); ?></p>
+		<p><?php printf( __( 'Components, Pages, Settings, and Forums, have been moved to <a href="%s">Settings &gt; Profiles</a>. Profile Fields has been moved into the <a href="%s">Users</a> menu.', 'buddypress' ), esc_url( $settings_url ), bp_get_admin_url( 'users.php?page=bp-profile-setup' ) ); ?></p>
 	</div>
 
 	<?php
@@ -117,7 +117,7 @@ function bp_core_admin_backpat_page() {
 /**
  * Print admin messages to admin_notices or network_admin_notices.
  *
- * BuddyPress combines all its messages into a single notice, to avoid a preponderance of yellow
+ * Profiles combines all its messages into a single notice, to avoid a preponderance of yellow
  * boxes.
  *
  * @since 1.5.0
@@ -159,7 +159,7 @@ add_action( 'network_admin_notices', 'bp_core_print_admin_notices' );
 /**
  * Add an admin notice to the BP queue.
  *
- * Messages added with this function are displayed in BuddyPress's general purpose admin notices
+ * Messages added with this function are displayed in Profiles's general purpose admin notices
  * box. It is recommended that you hook this function to admin_init, so that your messages are
  * loaded in time.
  *
@@ -219,17 +219,17 @@ function bp_core_activation_notice() {
 		return;
 	}
 
-	// Bail if in network admin, and BuddyPress is not network activated.
+	// Bail if in network admin, and Profiles is not network activated.
 	if ( is_network_admin() && ! bp_is_network_activated() ) {
 		return;
 	}
 
 	// Add notice if no rewrite rules are enabled.
 	if ( empty( $wp_rewrite->permalink_structure ) ) {
-		bp_core_add_admin_notice( sprintf( __( '<strong>BuddyPress is almost ready</strong>. You must <a href="%s">update your permalink structure</a> to something other than the default for it to work.', 'buddypress' ), admin_url( 'options-permalink.php' ) ), 'error' );
+		bp_core_add_admin_notice( sprintf( __( '<strong>Profiles is almost ready</strong>. You must <a href="%s">update your permalink structure</a> to something other than the default for it to work.', 'buddypress' ), admin_url( 'options-permalink.php' ) ), 'error' );
 	}
 
-	// Get BuddyPress instance.
+	// Get Profiles instance.
 	$bp = buddypress();
 
 	/**
@@ -265,7 +265,7 @@ function bp_core_activation_notice() {
 		$notice    = sprintf(
 			'%1$s <a href="%2$s">%3$s</a>',
 			sprintf(
-				__( 'The following active BuddyPress Components do not have associated WordPress Pages: %s.', 'buddypress' ),
+				__( 'The following active Profiles Components do not have associated WordPress Pages: %s.', 'buddypress' ),
 				'<strong>' . implode( '</strong>, <strong>', array_map( 'esc_html', $orphaned_components ) ) . '</strong>'
 			),
 			esc_url( $admin_url ),
@@ -295,7 +295,7 @@ function bp_core_activation_notice() {
 		$notice    = sprintf(
 			'%1$s <a href="%2$s">%3$s</a>',
 			sprintf(
-				__( 'Each BuddyPress Component needs its own WordPress page. The following WordPress Pages have more than one component associated with them: %s.', 'buddypress' ),
+				__( 'Each Profiles Component needs its own WordPress page. The following WordPress Pages have more than one component associated with them: %s.', 'buddypress' ),
 				'<strong>' . implode( '</strong>, <strong>', array_map( 'esc_html', $dupe_names ) ) . '</strong>'
 			),
 			esc_url( $admin_url ),
@@ -307,11 +307,11 @@ function bp_core_activation_notice() {
 }
 
 /**
- * Redirect user to BuddyPress's What's New page on activation.
+ * Redirect user to Profiles's What's New page on activation.
  *
  * @since 1.7.0
  *
- * @internal Used internally to redirect BuddyPress to the about page on activation.
+ * @internal Used internally to redirect Profiles to the about page on activation.
  *
  */
 function bp_do_activation_redirect() {
@@ -335,7 +335,7 @@ function bp_do_activation_redirect() {
 		delete_transient( '_bp_is_new_install' );
 	}
 
-	// Redirect to BuddyPress about page.
+	// Redirect to Profiles about page.
 	wp_safe_redirect( add_query_arg( $query_args, bp_get_admin_url( 'index.php' ) ) );
 }
 
@@ -429,7 +429,7 @@ function bp_core_get_admin_tabs( $active_tab = '' ) {
 /** Help **********************************************************************/
 
 /**
- * Adds contextual help to BuddyPress admin pages.
+ * Adds contextual help to Profiles admin pages.
  *
  * @since 1.7.0
  * @todo Make this part of the BP_Component class and split into each component.
@@ -535,11 +535,11 @@ function bp_core_add_contextual_help_content( $tab = '' ) {
 
 	switch ( $tab ) {
 		case 'bp-comp-overview' :
-			$retval = __( 'By default, all but four of the BuddyPress components are enabled. You can selectively enable or disable any of the components by using the form below. Your BuddyPress installation will continue to function. However, the features of the disabled components will no longer be accessible to anyone using the site.', 'buddypress' );
+			$retval = __( 'By default, all but four of the Profiles components are enabled. You can selectively enable or disable any of the components by using the form below. Your Profiles installation will continue to function. However, the features of the disabled components will no longer be accessible to anyone using the site.', 'buddypress' );
 			break;
 
 		case 'bp-page-overview' :
-			$retval = __( 'BuddyPress Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below.', 'buddypress' );
+			$retval = __( 'Profiles Components use WordPress Pages for their root directory/archive pages. You can change the page associations for each active component by using the form below.', 'buddypress' );
 			break;
 
 		case 'bp-settings-overview' :
@@ -573,12 +573,12 @@ function bp_core_add_contextual_help_content( $tab = '' ) {
  */
 function bp_admin_separator() {
 
-	// Bail if BuddyPress is not network activated and viewing network admin.
+	// Bail if Profiles is not network activated and viewing network admin.
 	if ( is_network_admin() && ! bp_is_network_activated() ) {
 		return;
 	}
 
-	// Bail if BuddyPress is network activated and viewing site admin.
+	// Bail if Profiles is network activated and viewing site admin.
 	if ( ! is_network_admin() && bp_is_network_activated() ) {
 		return;
 	}
@@ -652,7 +652,7 @@ function bp_admin_menu_order( $menu_order = array() ) {
 	// Loop through menu order and do some rearranging.
 	foreach ( (array) $menu_order as $item ) {
 
-		// Position BuddyPress menus above appearance.
+		// Position Profiles menus above appearance.
 		if ( $last_sep == $item ) {
 
 			// Add our custom menus.
@@ -703,7 +703,7 @@ function bp_admin_list_table_current_bulk_action() {
 /** Menus *********************************************************************/
 
 /**
- * Register meta box and associated JS for BuddyPress WP Nav Menu.
+ * Register meta box and associated JS for Profiles WP Nav Menu.
  *
  * @since 1.9.0
  */
@@ -712,13 +712,13 @@ function bp_admin_wp_nav_menu_meta_box() {
 		return;
 	}
 
-	add_meta_box( 'add-buddypress-nav-menu', __( 'BuddyPress', 'buddypress' ), 'bp_admin_do_wp_nav_menu_meta_box', 'nav-menus', 'side', 'default' );
+	add_meta_box( 'add-buddypress-nav-menu', __( 'Profiles', 'buddypress' ), 'bp_admin_do_wp_nav_menu_meta_box', 'nav-menus', 'side', 'default' );
 
 	add_action( 'admin_print_footer_scripts', 'bp_admin_wp_nav_menu_restrict_items' );
 }
 
 /**
- * Build and populate the BuddyPress accordion on Appearance > Menus.
+ * Build and populate the Profiles accordion on Appearance > Menus.
  *
  * @since 1.9.0
  *
@@ -775,7 +775,7 @@ function bp_admin_do_wp_nav_menu_meta_box() {
 /**
  * In admin emails list, for non-en_US locales, add notice explaining how to reinstall emails.
  *
- * If BuddyPress installs before its translations are in place, tell people how to reinstall
+ * If Profiles installs before its translations are in place, tell people how to reinstall
  * the emails so they have their contents in their site's language.
  *
  * @since 2.5.0
@@ -798,7 +798,7 @@ function bp_admin_email_maybe_add_translation_notice() {
 
 	bp_core_add_admin_notice(
 		sprintf(
-			__( 'Are your emails in the wrong language? Go to <a href="%s">BuddyPress Tools and run the "reinstall emails"</a> tool.', 'buddypress' ),
+			__( 'Are your emails in the wrong language? Go to <a href="%s">Profiles Tools and run the "reinstall emails"</a> tool.', 'buddypress' ),
 			esc_url( add_query_arg( 'page', 'bp-tools', bp_get_admin_url( $admin_page ) ) )
 		),
 		'updated'
@@ -818,7 +818,7 @@ function bp_admin_email_add_codex_notice() {
 
 	bp_core_add_admin_notice(
 		sprintf(
-			__( 'Phrases wrapped in braces <code>{{ }}</code> are email tokens. <a href="%s">Learn about tokens on the BuddyPress Codex</a>.', 'buddypress' ),
+			__( 'Phrases wrapped in braces <code>{{ }}</code> are email tokens. <a href="%s">Learn about tokens on the Profiles Codex</a>.', 'buddypress' ),
 			esc_url( 'https://codex.buddypress.org/emails/email-tokens/' )
 		),
 		'error'
@@ -901,7 +901,7 @@ function bp_email_plaintext_metabox( $post ) {
 }
 
 /**
- * Restrict various items from view if editing a BuddyPress menu.
+ * Restrict various items from view if editing a Profiles menu.
  *
  * If a person is editing a BP menu item, that person should not be able to
  * see or edit the following fields:

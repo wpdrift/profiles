@@ -12,19 +12,19 @@ window.bp = window.bp || {};
 
 	/**
 	 * Extend the bp global with what we need from the wp one.
-	 * and make sure previously defined BuddyPress attributes
+	 * and make sure previously defined Profiles attributes
 	 * are not removed (eg: bp.mentions)
 	 */
 	_.extend( bp, _.pick( wp, 'Backbone', 'ajax', 'template' ) );
 
-	// Init Models, Collections, Views and the BuddyPress Uploader
+	// Init Models, Collections, Views and the Profiles Uploader
 	bp.Models      = bp.Models || {};
 	bp.Collections = bp.Collections || {};
 	bp.Views       = bp.Views || {};
 	bp.Uploader    = {};
 
 	/**
-	 * BuddyPress Uploader.
+	 * Profiles Uploader.
 	 *
 	 * This is an adapted version of wp.Uploader
 	 */
@@ -97,7 +97,7 @@ window.bp = window.bp || {};
 
 		} );
 
-		// Init BuddyPress Uploader
+		// Init Profiles Uploader
 		this.uploader.init();
 
 		/**
@@ -315,7 +315,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Uploader main view
+	// Profiles Uploader main view
 	bp.Views.Uploader = bp.View.extend( {
 		className: 'bp-uploader-window',
 		template: bp.template( 'upload-window' ),
@@ -363,7 +363,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Uploader warning view
+	// Profiles Uploader warning view
 	bp.Views.uploaderWarning = bp.View.extend( {
 		tagName: 'p',
 		className: 'warning',
@@ -378,7 +378,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Uploader Files view
+	// Profiles Uploader Files view
 	bp.Views.uploaderStatus = bp.View.extend( {
 		className: 'files',
 
@@ -405,7 +405,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Uploader File progress view
+	// Profiles Uploader File progress view
 	bp.Views.uploaderProgress = bp.View.extend( {
 		className: 'bp-uploader-progress',
 		template: bp.template( 'progress-window' )

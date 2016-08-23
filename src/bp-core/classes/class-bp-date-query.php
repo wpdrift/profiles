@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.1.0
  */
@@ -13,9 +13,9 @@ defined( 'ABSPATH' ) || exit;
 if ( class_exists( 'WP_Date_Query' ) ) :
 
 /**
- * BuddyPress date query class.
+ * Profiles date query class.
  *
- * Extends the {@link WP_Date_Query} class for use with BuddyPress.
+ * Extends the {@link WP_Date_Query} class for use with Profiles.
  *
  * @since 2.1.0
  *

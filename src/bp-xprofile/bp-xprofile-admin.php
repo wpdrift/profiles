@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress XProfile Admin.
+ * Profiles XProfile Admin.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileAdmin
  * @since 1.0.0
  */

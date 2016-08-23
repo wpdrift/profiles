@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Member Loader.
+ * Profiles Member Loader.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Members
  * @since 1.5.0
  */

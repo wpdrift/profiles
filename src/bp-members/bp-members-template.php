@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Member Template Tags.
+ * Profiles Member Template Tags.
  *
  * Functions that are safe to use inside your template files and themes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Members
  * @since 1.5.0
  */
@@ -282,7 +282,7 @@ function bp_activate_slug() {
  * Initialize the members loop.
  *
  * Based on the $args passed, bp_has_members() populates the $members_template
- * global, enabling the use of BuddyPress templates and template functions to
+ * global, enabling the use of Profiles templates and template functions to
  * display a list of members.
  *
  * @since 1.2.0
@@ -419,7 +419,7 @@ function bp_has_members( $args = '' ) {
 	);
 
 	/**
-	 * Filters whether or not BuddyPress has members to iterate over.
+	 * Filters whether or not Profiles has members to iterate over.
 	 *
 	 * @since 1.2.4
 	 * @since 2.6.0 Added the `$r` parameter

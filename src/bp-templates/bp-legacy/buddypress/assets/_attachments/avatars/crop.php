@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress Avatars crop template.
+ * Profiles Avatars crop template.
  *
  * This template is used to create the crop Backbone views.
  *
  * @since 2.3.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-attachments
  */
 

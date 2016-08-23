@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Customizer implementation for email.
+ * Profiles Customizer implementation for email.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.5.0
  */
@@ -29,8 +29,8 @@ function bp_email_init_customizer( WP_Customize_Manager $wp_customize ) {
 	}
 
 	$wp_customize->add_panel( 'bp_mailtpl', array(
-		'description' => __( 'Customize the appearance of emails sent by BuddyPress.', 'buddypress' ),
-		'title'       => _x( 'BuddyPress Emails', 'screen heading', 'buddypress' ),
+		'description' => __( 'Customize the appearance of emails sent by Profiles.', 'buddypress' ),
+		'title'       => _x( 'Profiles Emails', 'screen heading', 'buddypress' ),
 	) );
 
 	$sections = bp_email_get_customizer_sections();

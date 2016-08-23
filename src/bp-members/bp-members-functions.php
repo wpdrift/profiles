@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Member Functions.
+ * Profiles Member Functions.
  *
  * Functions specific to the members component.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersFunctions
  * @since 1.5.0
  */
@@ -73,7 +73,7 @@ add_action( 'bp_setup_globals', 'bp_core_define_slugs', 11 );
 /**
  * Fetch an array of users based on the parameters passed.
  *
- * Since BuddyPress 1.7, bp_core_get_users() uses BP_User_Query. If you
+ * Since Profiles 1.7, bp_core_get_users() uses BP_User_Query. If you
  * need backward compatibility with BP_Core_User::get_users(), filter the
  * bp_use_legacy_user_query value, returning true.
  *
@@ -135,7 +135,7 @@ function bp_core_get_users( $args = '' ) {
 			$r['meta_value']
 		);
 
-	// Default behavior as of BuddyPress 1.7.0.
+	// Default behavior as of Profiles 1.7.0.
 	} else {
 
 		// Get users like we were asked to do...
@@ -1154,7 +1154,7 @@ function bp_update_user_last_activity( $user_id = 0, $time = '' ) {
 		$time = bp_core_current_time();
 	}
 
-	// As of BuddyPress 2.0, last_activity is no longer stored in usermeta.
+	// As of Profiles 2.0, last_activity is no longer stored in usermeta.
 	// However, we mirror it there for backward compatibility. Do not use!
 	// Remove our warning and re-add.
 	remove_filter( 'update_user_metadata', '_bp_update_user_meta_last_activity_warning', 10, 4 );
@@ -1169,7 +1169,7 @@ function bp_update_user_last_activity( $user_id = 0, $time = '' ) {
 /**
  * Backward compatibility for 'last_activity' usermeta fetching.
  *
- * In BuddyPress 2.0, user last_activity data was moved out of usermeta. For
+ * In Profiles 2.0, user last_activity data was moved out of usermeta. For
  * backward compatibility, we continue to mirror the data there. This function
  * serves two purposes: it warns plugin authors of the change, and it returns
  * the data from the proper location.
@@ -1203,7 +1203,7 @@ add_filter( 'get_user_metadata', '_bp_get_user_meta_last_activity_warning', 10, 
 /**
  * Backward compatibility for 'last_activity' usermeta setting.
  *
- * In BuddyPress 2.0, user last_activity data was moved out of usermeta. For
+ * In Profiles 2.0, user last_activity data was moved out of usermeta. For
  * backward compatibility, we continue to mirror the data there. This function
  * serves two purposes: it warns plugin authors of the change, and it updates
  * the data in the proper location.
@@ -1258,7 +1258,7 @@ function bp_get_user_last_activity( $user_id = 0 ) {
  * Migrate last_activity data from the usermeta table to the activity table.
  *
  * Generally, this function is only run when BP is upgraded to 2.0. It can also
- * be called directly from the BuddyPress Tools panel.
+ * be called directly from the Profiles Tools panel.
  *
  * @since 2.0.0
  *
@@ -1287,7 +1287,7 @@ function bp_last_activity_migrate() {
 /**
  * Fetch every post that is authored by the given user for the current blog.
  *
- * No longer used in BuddyPress.
+ * No longer used in Profiles.
  *
  * @todo Deprecate.
  *
@@ -1497,7 +1497,7 @@ function bp_core_flush_illegal_names() {
 }
 
 /**
- * Add BuddyPress-specific items to the illegal_names array.
+ * Add Profiles-specific items to the illegal_names array.
  *
  * @since 1.2.7
  *
@@ -1677,7 +1677,7 @@ function bp_core_add_validation_error_messages( WP_Error $errors, $validation_re
  */
 function bp_core_validate_user_signup( $user_name, $user_email ) {
 
-	// Make sure illegal names include BuddyPress slugs and values.
+	// Make sure illegal names include Profiles slugs and values.
 	bp_core_flush_illegal_names();
 
 	// WordPress Multisite has its own validation. Use it, so that we
@@ -1829,7 +1829,7 @@ function bp_core_signup_user( $user_login, $user_password, $user_email, $usermet
 
 		/**
 		 * WordPress's default behavior is to create user accounts
-		 * immediately at registration time. BuddyPress uses a system
+		 * immediately at registration time. Profiles uses a system
 		 * borrowed from WordPress Multisite, where signups are stored
 		 * separately and accounts are only created at the time of
 		 * activation. For backward compatibility with plugins that may
@@ -1860,7 +1860,7 @@ function bp_core_signup_user( $user_login, $user_password, $user_email, $usermet
 		BP_Signup::add( $args );
 
 		/**
-		 * Filters if BuddyPress should send an activation key for a new signup.
+		 * Filters if Profiles should send an activation key for a new signup.
 		 *
 		 * @since 1.2.3
 		 *

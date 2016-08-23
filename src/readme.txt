@@ -44,9 +44,9 @@ Enable registered members to create profiles.
 
 == Languages ==
 
-BuddyPress is available in many languages thanks to the volunteer efforts of individuals all around the world. Check out our <a href="https://codex.buddypress.org/translations/">translations page</a> on the BuddyPress Codex for more details.
+Profiles is available in many languages thanks to the volunteer efforts of individuals all around the world. Check out our <a href="https://codex.buddypress.org/translations/">translations page</a> on the Profiles Codex for more details.
 
-Please consider helping translate BuddyPress at our <a href="https://translate.wordpress.org/projects/wp-plugins/buddypress">GlotPress project</a>. Growing the BuddyPress community means better software for everyone!
+Please consider helping translate Profiles at our <a href="https://translate.wordpress.org/projects/wp-plugins/buddypress">GlotPress project</a>. Growing the Profiles community means better software for everyone!
 
 == Upgrade Notice ==
 

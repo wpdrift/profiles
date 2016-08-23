@@ -2,7 +2,7 @@
 /**
  * Core Cover Image attachment class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.4.0
  */
@@ -60,7 +60,7 @@ class BP_Attachment_Cover_Image extends BP_Attachment {
 	/**
 	 * Cover image specific rules.
 	 *
-	 * Adds an error if the cover image size or type don't match BuddyPress needs.
+	 * Adds an error if the cover image size or type don't match Profiles needs.
 	 * The error code is the index of $upload_error_strings.
 	 *
 	 * @since 2.4.0
@@ -265,12 +265,12 @@ class BP_Attachment_Cover_Image extends BP_Attachment {
 		} else {
 
 			/**
-			 * Filters the cover image params to include specific BuddyPress params for your object.
+			 * Filters the cover image params to include specific Profiles params for your object.
 			 * e.g. Cover image for blogs single item.
 			 *
 			 * @since 2.4.0
 			 *
-			 * @param array $value The cover image specific BuddyPress parameters.
+			 * @param array $value The cover image specific Profiles parameters.
 			 */
 			$script_data['bp_params'] = apply_filters( 'bp_attachment_cover_image_params', array() );
 		}

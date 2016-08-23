@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Admin Component Functions.
+ * Profiles Admin Component Functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage CoreAdministration
  * @since 2.3.0
  */
@@ -21,7 +21,7 @@ function bp_core_admin_components_settings() {
 
 	<div class="wrap">
 
-		<h1><?php _e( 'BuddyPress Settings', 'buddypress' ); ?> </h1>
+		<h1><?php _e( 'Profiles Settings', 'buddypress' ); ?> </h1>
 
 		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Components', 'buddypress' ) ); ?></h2>
 		<form action="" method="post" id="bp-admin-component-form">
@@ -89,7 +89,7 @@ function bp_core_admin_components_options() {
 	// Merge optional and required together.
 	$all_components = $optional_components + $required_components;
 
-	// If this is an upgrade from before BuddyPress 1.5, we'll have to convert
+	// If this is an upgrade from before Profiles 1.5, we'll have to convert
 	// deactivated components into activated ones.
 	if ( empty( $active_components ) ) {
 		$deactivated_components = bp_get_option( 'bp-deactivated-components' );
@@ -272,7 +272,7 @@ function bp_core_admin_components_settings_handler() {
 	// Settings form submitted, now save the settings. First, set active components.
 	if ( isset( $_POST['bp_components'] ) ) {
 
-		// Load up BuddyPress.
+		// Load up Profiles.
 		$bp = buddypress();
 
 		// Save settings and upgrade schema.

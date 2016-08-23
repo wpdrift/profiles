@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Core Loader.
+ * Profiles Core Loader.
  *
  * Core contains the commonly used functions, classes, and APIs.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 0.0.1
  */
@@ -18,11 +18,11 @@ if ( ! buddypress()->do_autoload ) {
 }
 
 /**
- * Set up the BuddyPress Core component.
+ * Set up the Profiles Core component.
  *
  * @since 0.0.1
  *
- * @global BuddyPress $bp BuddyPress global settings object.
+ * @global Profiles $bp Profiles global settings object.
  */
 function bp_setup_core() {
 	buddypress()->core = new BP_Core();

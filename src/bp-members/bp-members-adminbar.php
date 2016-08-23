@@ -1,10 +1,10 @@
 <?php
 /**
- * BuddyPress Members Toolbar.
+ * Profiles Members Toolbar.
  *
  * Handles the member functions related to the WordPress Toolbar.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersAdminBar
  * @since 1.5.0
  */

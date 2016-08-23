@@ -39,7 +39,7 @@ window.bp = window.bp || {};
 			// Listen to the Queued uploads
 			bp.Uploader.filesQueue.on( 'add', this.uploadProgress, this );
 
-			// Create the BuddyPress Uploader
+			// Create the Profiles Uploader
 			var uploader = new bp.Views.Uploader();
 
 			// Add it to views
@@ -238,7 +238,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Cover Image Feedback view
+	// Profiles Cover Image Feedback view
 	bp.Views.CoverImageStatus = bp.View.extend( {
 		tagName: 'p',
 		className: 'updated',
@@ -255,7 +255,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Cover Image Delete view
+	// Profiles Cover Image Delete view
 	bp.Views.DeleteCoverImage = bp.View.extend( {
 		tagName: 'div',
 		id: 'bp-delete-cover-image-container',

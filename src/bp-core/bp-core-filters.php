@@ -1,20 +1,20 @@
 <?php
 /**
- * BuddyPress Filters.
+ * Profiles Filters.
  *
- * This file contains the filters that are used throughout BuddyPress. They are
+ * This file contains the filters that are used throughout Profiles. They are
  * consolidated here to make searching for them easier, and to help developers
  * understand at a glance the order in which things occur.
  *
  * There are a few common places that additional filters can currently be found.
  *
- *  - BuddyPress: In {@link BuddyPress::setup_actions()} in buddypress.php
+ *  - Profiles: In {@link Profiles::setup_actions()} in buddypress.php
  *  - Component: In {@link BP_Component::setup_actions()} in
  *                bp-core/bp-core-component.php
  *  - Admin: More in {@link BP_Admin::setup_actions()} in
  *            bp-core/bp-core-admin.php
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.5.0
  *
@@ -25,20 +25,20 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Attach BuddyPress to WordPress.
+ * Attach Profiles to WordPress.
  *
- * BuddyPress uses its own internal actions to help aid in third-party plugin
+ * Profiles uses its own internal actions to help aid in third-party plugin
  * development, and to limit the amount of potential future code changes when
  * updates to WordPress core occur.
  *
  * These actions exist to create the concept of 'plugin dependencies'. They
- * provide a safe way for plugins to execute code *only* when BuddyPress is
+ * provide a safe way for plugins to execute code *only* when Profiles is
  * installed and activated, without needing to do complicated guesswork.
  *
  * For more information on how this works, see the 'Plugin Dependency' section
  * near the bottom of this file.
  *
- *           v--WordPress Actions       v--BuddyPress Sub-actions
+ *           v--WordPress Actions       v--Profiles Sub-actions
  */
 add_filter( 'request',                 'bp_request',             10    );
 add_filter( 'template_include',        'bp_template_include',    10    );
@@ -62,17 +62,17 @@ add_filter( 'bp_email_set_subject', 'sanitize_text_field', 6 );
 /**
  * Template Compatibility.
  *
- * If you want to completely bypass this and manage your own custom BuddyPress
+ * If you want to completely bypass this and manage your own custom Profiles
  * template hierarchy, start here by removing this filter, then look at how
  * bp_template_include() works and do something similar. :)
  */
 add_filter( 'bp_template_include',   'bp_template_include_theme_supports', 2, 1 );
 add_filter( 'bp_template_include',   'bp_template_include_theme_compat',   4, 2 );
 
-// Filter BuddyPress template locations.
+// Filter Profiles template locations.
 add_filter( 'bp_get_template_stack', 'bp_add_template_stack_locations' );
 
-// Turn comments off for BuddyPress pages.
+// Turn comments off for Profiles pages.
 add_filter( 'comments_open', 'bp_comments_open', 10, 2 );
 
 /**
@@ -153,7 +153,7 @@ add_filter( 'nav_menu_meta_box_object', 'bp_core_exclude_pages_from_nav_menu_adm
 /**
  * Adds current page CSS classes to the parent BP page in a WP Page Menu.
  *
- * Because BuddyPress primarily uses virtual pages, we need a way to highlight
+ * Because Profiles primarily uses virtual pages, we need a way to highlight
  * the BP parent page during WP menu generation.  This function checks the
  * current BP component against the current page in the WP menu to see if we
  * should highlight the WP page.
@@ -238,7 +238,7 @@ function bp_core_menu_highlight_nav_menu_item( $retval, $item ) {
 add_filter( 'nav_menu_css_class', 'bp_core_menu_highlight_nav_menu_item', 10, 2 );
 
 /**
- * Filter the blog post comments array and insert BuddyPress URLs for users.
+ * Filter the blog post comments array and insert Profiles URLs for users.
  *
  * @since 1.2.0
  *
@@ -405,7 +405,7 @@ add_filter( 'update_welcome_user_email', 'bp_core_filter_user_welcome_email' );
  * Notify new users of a successful registration (with blog).
  *
  * This function filter's WP's 'wpmu_signup_blog_notification', and replaces
- * WP's default welcome email with a BuddyPress-specific message.
+ * WP's default welcome email with a Profiles-specific message.
  *
  * @since 1.0.0
  *
@@ -454,7 +454,7 @@ add_filter( 'wpmu_signup_blog_notification', 'bp_core_activation_signup_blog_not
 function bp_core_activation_signup_user_notification( $user, $user_email, $key, $meta ) {
 	if ( is_admin() ) {
 
-		// If the user is created from the WordPress Add User screen, don't send BuddyPress signup notifications.
+		// If the user is created from the WordPress Add User screen, don't send Profiles signup notifications.
 		if( in_array( get_current_screen()->id, array( 'user', 'user-network' ) ) ) {
 			// If the Super Admin want to skip confirmation email.
 			if ( isset( $_POST[ 'noconfirmation' ] ) && is_super_admin() ) {
@@ -501,12 +501,12 @@ function bp_core_activation_signup_user_notification( $user, $user_email, $key, 
 add_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_notification', 1, 4 );
 
 /**
- * Filter the page title for BuddyPress pages.
+ * Filter the page title for Profiles pages.
  *
  * @since 1.5.0
  *
  * @see wp_title()
- * @global object $bp BuddyPress global settings.
+ * @global object $bp Profiles global settings.
  *
  * @param string $title       Original page title.
  * @param string $sep         How to separate the various items within the page title.
@@ -516,7 +516,7 @@ add_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_not
 function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'right' ) {
 	global $paged, $page, $_wp_theme_features;
 
-	// Get the BuddyPress title parts.
+	// Get the Profiles title parts.
 	$bp_title_parts = bp_get_title_parts( $seplocation );
 
 	// If not set, simply return the original title.
@@ -556,11 +556,11 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 	}
 
 	/**
-	 * Filters the older 'wp_title' page title for BuddyPress pages.
+	 * Filters the older 'wp_title' page title for Profiles pages.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param string $new_title   The BuddyPress page title.
+	 * @param string $new_title   The Profiles page title.
 	 * @param string $title       The original WordPress page title.
 	 * @param string $sep         The title parts separator.
 	 * @param string $seplocation Location of the separator (left or right).
@@ -573,15 +573,15 @@ add_filter( 'bp_modify_page_title', 'convert_chars'               );
 add_filter( 'bp_modify_page_title', 'esc_html'                    );
 
 /**
- * Filter the document title for BuddyPress pages.
+ * Filter the document title for Profiles pages.
  *
  * @since 2.4.3
  *
  * @param array $title The WordPress document title parts.
- * @return array the unchanged title parts or the BuddyPress ones
+ * @return array the unchanged title parts or the Profiles ones
  */
 function bp_modify_document_title_parts( $title = array() ) {
-	// Get the BuddyPress title parts.
+	// Get the Profiles title parts.
 	$bp_title_parts = bp_get_title_parts();
 
 	// If not set, simply return the original title.
@@ -592,7 +592,7 @@ function bp_modify_document_title_parts( $title = array() ) {
 	// Get the separator used by wp_get_document_title().
 	$sep = apply_filters( 'document_title_separator', '-' );
 
-	// Build the BuddyPress portion of the title.
+	// Build the Profiles portion of the title.
 	// We don't need to sanitize this as WordPress will take care of it.
 	$bp_title = array(
 		'title' => join( " $sep ", $bp_title_parts )
@@ -609,11 +609,11 @@ function bp_modify_document_title_parts( $title = array() ) {
 	}
 
 	/**
-	 * Filters BuddyPress title parts that will be used into the document title.
+	 * Filters Profiles title parts that will be used into the document title.
 	 *
 	 * @since 2.4.3
 	 *
-	 * @param array $bp_title The BuddyPress page title parts.
+	 * @param array $bp_title The Profiles page title parts.
 	 * @param array $title    The original WordPress title parts.
 	 */
 	return apply_filters( 'bp_modify_document_title_parts', $bp_title, $title );
@@ -621,7 +621,7 @@ function bp_modify_document_title_parts( $title = array() ) {
 add_filter( 'document_title_parts', 'bp_modify_document_title_parts', 20, 1 );
 
 /**
- * Add BuddyPress-specific items to the wp_nav_menu.
+ * Add Profiles-specific items to the wp_nav_menu.
  *
  * @since 1.9.0
  *
@@ -710,7 +710,7 @@ function bp_setup_nav_menu_item( $menu_item ) {
 add_filter( 'wp_setup_nav_menu_item', 'bp_setup_nav_menu_item', 10, 1 );
 
 /**
- * Populate BuddyPress user nav items for the customizer.
+ * Populate Profiles user nav items for the customizer.
  *
  * @since 2.3.3
  *
@@ -718,7 +718,7 @@ add_filter( 'wp_setup_nav_menu_item', 'bp_setup_nav_menu_item', 10, 1 );
  * @param string  $type   The requested type.
  * @param string  $object The requested object name.
  * @param integer $page   The page num being requested.
- * @return array The paginated BuddyPress user nav items.
+ * @return array The paginated Profiles user nav items.
  */
 function bp_customizer_nav_menus_get_items( $items = array(), $type = '', $object = '', $page = 0 ) {
 	if ( 'bp_loggedin_nav' === $object ) {
@@ -747,7 +747,7 @@ function bp_customizer_nav_menus_get_items( $items = array(), $type = '', $objec
 add_filter( 'customize_nav_menu_available_items', 'bp_customizer_nav_menus_get_items', 10, 4 );
 
 /**
- * Set BuddyPress item navs for the customizer.
+ * Set Profiles item navs for the customizer.
  *
  * @since 2.3.3
  *
@@ -757,12 +757,12 @@ add_filter( 'customize_nav_menu_available_items', 'bp_customizer_nav_menus_get_i
 function bp_customizer_nav_menus_set_item_types( $item_types = array() ) {
 	$item_types = array_merge( $item_types, array(
 		'bp_loggedin_nav' => array(
-			'title'  => _x( 'BuddyPress (logged-in)', 'customizer menu section title', 'buddypress' ),
+			'title'  => _x( 'Profiles (logged-in)', 'customizer menu section title', 'buddypress' ),
 			'type'   => 'bp_nav',
 			'object' => 'bp_loggedin_nav',
 		),
 		'bp_loggedout_nav' => array(
-			'title'  => _x( 'BuddyPress (logged-out)', 'customizer menu section title', 'buddypress' ),
+			'title'  => _x( 'Profiles (logged-out)', 'customizer menu section title', 'buddypress' ),
 			'type'   => 'bp_nav',
 			'object' => 'bp_loggedout_nav',
 		),
@@ -776,9 +776,9 @@ add_filter( 'customize_nav_menu_available_item_types', 'bp_customizer_nav_menus_
  * Filter SQL query strings to swap out the 'meta_id' column.
  *
  * WordPress uses the meta_id column for commentmeta and postmeta, and so
- * hardcodes the column name into its *_metadata() functions. BuddyPress, on
+ * hardcodes the column name into its *_metadata() functions. Profiles, on
  * the other hand, uses 'id' for the primary column. To make WP's functions
- * usable for BuddyPress, we use this just-in-time filter on 'query' to swap
+ * usable for Profiles, we use this just-in-time filter on 'query' to swap
  * 'meta_id' with 'id.
  *
  * @since 2.0.0
@@ -811,7 +811,7 @@ function bp_filter_metaid_column_name( $q ) {
 }
 
 /**
- * Filter the edit post link to avoid its display in BuddyPress pages.
+ * Filter the edit post link to avoid its display in Profiles pages.
  *
  * @since 2.1.0
  *
@@ -829,7 +829,7 @@ function bp_core_filter_edit_post_link( $edit_link = '', $post_id = 0 ) {
 }
 
 /**
- * Should BuddyPress load the mentions scripts and related assets, including results to prime the
+ * Should Profiles load the mentions scripts and related assets, including results to prime the
  * mentions suggestions?
  *
  * @since 2.2.0
@@ -852,9 +852,9 @@ function bp_maybe_load_mentions_scripts_for_blog_content( $load_mentions, $menti
 add_filter( 'bp_activity_maybe_load_mentions_scripts', 'bp_maybe_load_mentions_scripts_for_blog_content', 10, 2 );
 
 /**
- * Injects specific BuddyPress CSS classes into a widget sidebar.
+ * Injects specific Profiles CSS classes into a widget sidebar.
  *
- * Helps to standardize styling of BuddyPress widgets within a theme that
+ * Helps to standardize styling of Profiles widgets within a theme that
  * does not use dynamic CSS classes in their widget sidebar's 'before_widget'
  * call.
  *
@@ -876,8 +876,8 @@ function _bp_core_inject_bp_widget_css_class( $params ) {
 		return $params;
 	}
 
-	// If the current widget isn't a BuddyPress one, stop!
-	// We determine if a widget is a BuddyPress widget, if the widget class
+	// If the current widget isn't a Profiles one, stop!
+	// We determine if a widget is a Profiles widget, if the widget class
 	// begins with 'bp_'.
 	if ( 0 !== strpos( $wp_registered_widgets[ $widget_id ]['callback'][0]->id_base, 'bp_' ) ) {
 		return $params;
@@ -961,8 +961,8 @@ add_filter( 'bp_email_get_property', 'bp_email_add_link_color_to_template', 6, 3
  * @return array
  */
 function bp_email_set_default_headers( $headers, $property, $transform, $email ) {
-	$headers['X-BuddyPress']      = bp_get_version();
-	$headers['X-BuddyPress-Type'] = $email->get( 'type' );
+	$headers['X-Profiles']      = bp_get_version();
+	$headers['X-Profiles-Type'] = $email->get( 'type' );
 
 	return $headers;
 }
@@ -1075,7 +1075,7 @@ function bp_core_render_email_template( $template ) {
 	ob_end_clean();
 
 	// Make sure we add a <title> tag so WP Customizer picks it up.
-	$template = str_replace( '<head>', '<head><title>' . esc_html_x( 'BuddyPress Emails', 'screen heading', 'buddypress' ) . '</title>', $template );
+	$template = str_replace( '<head>', '<head><title>' . esc_html_x( 'Profiles Emails', 'screen heading', 'buddypress' ) . '</title>', $template );
 	echo str_replace( '{{{content}}}', nl2br( get_post()->post_content ), $template );
 
 	/*

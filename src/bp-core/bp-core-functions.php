@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Common Functions.
+ * Profiles Common Functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Functions
  * @since 1.5.0
  */
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 /** Versions ******************************************************************/
 
 /**
- * Output the BuddyPress version.
+ * Output the Profiles version.
  *
  * @since 1.6.0
  *
@@ -22,18 +22,18 @@ function bp_version() {
 	echo bp_get_version();
 }
 	/**
-	 * Return the BuddyPress version.
+	 * Return the Profiles version.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return string The BuddyPress version.
+	 * @return string The Profiles version.
 	 */
 	function bp_get_version() {
 		return buddypress()->version;
 	}
 
 /**
- * Output the BuddyPress database version.
+ * Output the Profiles database version.
  *
  * @since 1.6.0
  *
@@ -42,18 +42,18 @@ function bp_db_version() {
 	echo bp_get_db_version();
 }
 	/**
-	 * Return the BuddyPress database version.
+	 * Return the Profiles database version.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return string The BuddyPress database version.
+	 * @return string The Profiles database version.
 	 */
 	function bp_get_db_version() {
 		return buddypress()->db_version;
 	}
 
 /**
- * Output the BuddyPress database version.
+ * Output the Profiles database version.
  *
  * @since 1.6.0
  *
@@ -62,11 +62,11 @@ function bp_db_version_raw() {
 	echo bp_get_db_version_raw();
 }
 	/**
-	 * Return the BuddyPress database version.
+	 * Return the Profiles database version.
 	 *
 	 * @since 1.6.0
 	 *
-	 * @return string The BuddyPress version direct from the database.
+	 * @return string The Profiles version direct from the database.
 	 */
 	function bp_get_db_version_raw() {
 		$bp = buddypress();
@@ -138,7 +138,7 @@ function bp_alpha_sort_by_key( $items, $key ) {
 }
 
 /**
- * Format numbers the BuddyPress way.
+ * Format numbers the Profiles way.
  *
  * @since 1.2.0
  *
@@ -154,11 +154,11 @@ function bp_core_number_format( $number = 0, $decimals = false ) {
 	}
 
 	/**
-	 * Filters the BuddyPress formatted number.
+	 * Filters the Profiles formatted number.
 	 *
 	 * @since 1.2.4
 	 *
-	 * @param string $value    BuddyPress formatted value.
+	 * @param string $value    Profiles formatted value.
 	 * @param int    $number   The number to be formatted.
 	 * @param bool   $decimals Whether or not to use decimals.
 	 */
@@ -216,7 +216,7 @@ function bp_core_parse_args_array( $old_args_keys, $func_args ) {
 /**
  * Merge user defined arguments into defaults array.
  *
- * This function is used throughout BuddyPress to allow for either a string or
+ * This function is used throughout Profiles to allow for either a string or
  * array to be merged into another array. It is identical to wp_parse_args()
  * except it allows for arguments to be passively or aggressively filtered using
  * the optional $filter_key parameter. If no $filter_key is passed, no filters
@@ -375,7 +375,7 @@ function bp_is_username_compatibility_mode() {
 /**
  * Should we use the WP Toolbar?
  *
- * The WP Toolbar, introduced in WP 3.1, is fully supported in BuddyPress as
+ * The WP Toolbar, introduced in WP 3.1, is fully supported in Profiles as
  * of BP 1.5. For BP 1.6, the WP Toolbar is the default.
  *
  * @since 1.5.0
@@ -526,7 +526,7 @@ function bp_core_update_directory_page_ids( $blog_page_ids ) {
 }
 
 /**
- * Get names and slugs for BuddyPress component directory pages.
+ * Get names and slugs for Profiles component directory pages.
  *
  * @since 1.5.0
  *
@@ -584,7 +584,7 @@ function bp_core_get_directory_pages() {
 	}
 
 	/**
-	 * Filters the names and slugs for BuddyPress component directory pages.
+	 * Filters the names and slugs for Profiles component directory pages.
 	 *
 	 * @since 1.5.0
 	 *
@@ -801,7 +801,7 @@ function bp_core_add_root_component( $slug ) {
  */
 function bp_core_create_root_component_page() {
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	$new_page_ids = array();
@@ -859,7 +859,7 @@ function bp_core_get_component_search_query_arg( $component ) {
 }
 
 /**
- * Determine whether BuddyPress should register the bp-themes directory.
+ * Determine whether Profiles should register the bp-themes directory.
  *
  * @since 1.9.0
  *
@@ -869,7 +869,7 @@ function bp_do_register_theme_directory() {
 	// If bp-default exists in another theme directory, bail.
 	// This ensures that the version of bp-default in the regular themes
 	// directory will always take precedence, as part of a migration away
-	// from the version packaged with BuddyPress.
+	// from the version packaged with Profiles.
 	foreach ( array_values( (array) $GLOBALS['wp_theme_directories'] ) as $directory ) {
 		if ( is_dir( $directory . '/bp-default' ) ) {
 			return false;
@@ -886,7 +886,7 @@ function bp_do_register_theme_directory() {
 	}
 
 	/**
-	 * Filters whether BuddyPress should register the bp-themes directory.
+	 * Filters whether Profiles should register the bp-themes directory.
 	 *
 	 * @since 1.9.0
 	 *
@@ -1065,7 +1065,7 @@ function bp_core_current_time( $gmt = true, $type = 'mysql' ) {
 function bp_core_time_since( $older_date, $newer_date = false ) {
 
 	/**
-	 * Filters whether or not to bypass BuddyPress' time_since calculations.
+	 * Filters whether or not to bypass Profiles' time_since calculations.
 	 *
 	 * @since 1.7.0
 	 *
@@ -1267,7 +1267,7 @@ function bp_core_add_message( $message, $type = '' ) {
 	@setcookie( 'bp-message',      $message, time() + 60 * 60 * 24, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 	@setcookie( 'bp-message-type', $type,    time() + 60 * 60 * 24, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	/**
@@ -1293,7 +1293,7 @@ function bp_core_add_message( $message, $type = '' ) {
  */
 function bp_core_setup_message() {
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	if ( empty( $bp->template_message ) && isset( $_COOKIE['bp-message'] ) ) {
@@ -1326,7 +1326,7 @@ add_action( 'bp_actions', 'bp_core_setup_message', 5 );
  */
 function bp_core_render_message() {
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	if ( !empty( $bp->template_message ) ) :
@@ -1465,9 +1465,9 @@ function bp_core_get_last_activity( $last_activity_date = '', $string = '' ) {
 /**
  * Get the meta_key for a given piece of user metadata
  *
- * BuddyPress stores a number of pieces of userdata in the WordPress central
+ * Profiles stores a number of pieces of userdata in the WordPress central
  * usermeta table. In order to allow plugins to enable multiple instances of
- * BuddyPress on a single WP installation, BP's usermeta keys are filtered
+ * Profiles on a single WP installation, BP's usermeta keys are filtered
  * through this function, so that they can be altered on the fly.
  *
  * Plugin authors should use BP's _user_meta() functions, which bakes in
@@ -1566,7 +1566,7 @@ function bp_delete_user_meta( $user_id, $key, $value = '' ) {
  */
 function bp_embed_init() {
 
-	// Get BuddyPress.
+	// Get Profiles.
 	$bp = buddypress();
 
 	if ( empty( $bp->embed ) ) {
@@ -1690,7 +1690,7 @@ function bp_core_extract_media_from_content( $content = '', $type = 'all' ) {
 /** Admin *********************************************************************/
 
 /**
- * Output the correct admin URL based on BuddyPress and WordPress configuration.
+ * Output the correct admin URL based on Profiles and WordPress configuration.
  *
  * @since 1.5.0
  *
@@ -1703,7 +1703,7 @@ function bp_admin_url( $path = '', $scheme = 'admin' ) {
 	echo esc_url( bp_get_admin_url( $path, $scheme ) );
 }
 	/**
-	 * Return the correct admin URL based on BuddyPress and WordPress configuration.
+	 * Return the correct admin URL based on Profiles and WordPress configuration.
 	 *
 	 * @since 1.5.0
 	 *
@@ -1730,9 +1730,9 @@ function bp_admin_url( $path = '', $scheme = 'admin' ) {
 	}
 
 /**
- * Should BuddyPress appear in network admin (vs a single site Dashboard)?
+ * Should Profiles appear in network admin (vs a single site Dashboard)?
  *
- * Because BuddyPress can be installed in multiple ways and with multiple
+ * Because Profiles can be installed in multiple ways and with multiple
  * configurations, we need to check a few things to be confident about where
  * to hook into certain areas of WordPress's admin.
  *
@@ -1751,21 +1751,21 @@ function bp_core_do_network_admin() {
 	}
 
 	/**
-	 * Filters whether or not BuddyPress should appear in network admin.
+	 * Filters whether or not Profiles should appear in network admin.
 	 *
 	 * @since 1.5.0
 	 *
-	 * @param bool $retval Whether or not BuddyPress should be in the network admin.
+	 * @param bool $retval Whether or not Profiles should be in the network admin.
 	 */
 	return (bool) apply_filters( 'bp_core_do_network_admin', $retval );
 }
 
 /**
- * Return the action name that BuddyPress nav setup callbacks should be hooked to.
+ * Return the action name that Profiles nav setup callbacks should be hooked to.
  *
  * Functions used to set up BP Dashboard pages (wrapping such admin-panel
  * functions as add_submenu_page()) should use bp_core_admin_hook() for the
- * first parameter in add_action(). BuddyPress will then determine
+ * first parameter in add_action(). Profiles will then determine
  * automatically whether to load the panels in the Network Admin. Ie:
  *
  *     add_action( bp_core_admin_hook(), 'myplugin_dashboard_panel_setup' );
@@ -1778,7 +1778,7 @@ function bp_core_admin_hook() {
 	$hook = bp_core_do_network_admin() ? 'network_admin_menu' : 'admin_menu';
 
 	/**
-	 * Filters the action name that BuddyPress nav setup callbacks should be hooked to.
+	 * Filters the action name that Profiles nav setup callbacks should be hooked to.
 	 *
 	 * @since 1.5.0
 	 *
@@ -1825,7 +1825,7 @@ function bp_is_root_blog( $blog_id = 0 ) {
 /**
  * Get the ID of the root blog.
  *
- * The "root blog" is the blog on a WordPress network where BuddyPress content
+ * The "root blog" is the blog on a WordPress network where Profiles content
  * appears (where member profile URLs resolve, where a given theme is loaded,
  * etc.).
  *
@@ -1849,7 +1849,7 @@ function bp_get_root_blog_id() {
  * Are we running multiblog mode?
  *
  * Note that BP_ENABLE_MULTIBLOG is different from (but dependent on) WordPress
- * Multisite. "Multiblog" is BuddyPress setup that allows BuddyPress components
+ * Multisite. "Multiblog" is Profiles setup that allows Profiles components
  * to be viewed on every blog on the network, each with their own settings.
  *
  * Thus, instead of having all 'boonebgorges' links go to
@@ -1858,13 +1858,13 @@ function bp_get_root_blog_id() {
  *   http://site2.example.com/members/boonebgorges (for subdomains)
  *   http://example.com/site2/members/boonebgorges (for subdirectories)
  *
- * Multiblog mode is disabled by default, meaning that all BuddyPress content
+ * Multiblog mode is disabled by default, meaning that all Profiles content
  * must be viewed on the root blog. It's also recommended not to use the
- * BP_ENABLE_MULTIBLOG constant beyond 1.7, as BuddyPress can now be activated
+ * BP_ENABLE_MULTIBLOG constant beyond 1.7, as Profiles can now be activated
  * on individual sites.
  *
  * Why would you want to use this? Originally it was intended to allow
- * BuddyPress to live in mu-plugins and be visible on mapped domains. This is
+ * Profiles to live in mu-plugins and be visible on mapped domains. This is
  * a very small use-case with large architectural shortcomings, so do not go
  * down this road unless you specifically need to.
  *
@@ -1901,16 +1901,16 @@ function bp_is_multiblog_mode() {
 }
 
 /**
- * Is BuddyPress active at the network level for this network?
+ * Is Profiles active at the network level for this network?
  *
  * Used to determine admin menu placement, and where settings and options are
- * stored. If you're being *really* clever and manually pulling BuddyPress in
+ * stored. If you're being *really* clever and manually pulling Profiles in
  * with an mu-plugin or some other method, you'll want to filter
  * 'bp_is_network_activated' and override the auto-determined value.
  *
  * @since 1.7.0
  *
- * @return bool True if BuddyPress is network activated.
+ * @return bool True if Profiles is network activated.
  */
 function bp_is_network_activated() {
 
@@ -2199,7 +2199,7 @@ function bp_core_load_buddypress_textdomain() {
 add_action( 'bp_core_loaded', 'bp_core_load_buddypress_textdomain' );
 
 /**
- * A JavaScript-free implementation of the search functions in BuddyPress.
+ * A JavaScript-free implementation of the search functions in Profiles.
  *
  * @since 1.0.1
  *
@@ -2275,11 +2275,11 @@ function bp_core_action_search_site( $slug = '' ) {
 add_action( 'bp_init', 'bp_core_action_search_site', 7 );
 
 /**
- * Remove "prev" and "next" relational links from <head> on BuddyPress pages.
+ * Remove "prev" and "next" relational links from <head> on Profiles pages.
  *
  * WordPress automatically generates these relational links to the current
- * page.  However, BuddyPress doesn't adhere to these links.  In this
- * function, we remove these links when on a BuddyPress page.  This also
+ * page.  However, Profiles doesn't adhere to these links.  In this
+ * function, we remove these links when on a Profiles page.  This also
  * prevents additional, unnecessary queries from running.
  *
  * @since 2.1.0
@@ -2339,19 +2339,19 @@ function bp_core_get_minified_asset_suffix() {
 function bp_core_get_components( $type = 'all' ) {
 	$required_components = array(
 		'core' => array(
-			'title'       => __( 'BuddyPress Core', 'buddypress' ),
-			'description' => __( 'It&#8216;s what makes <del>time travel</del> BuddyPress possible!', 'buddypress' )
+			'title'       => __( 'Profiles Core', 'buddypress' ),
+			'description' => __( 'It&#8216;s what makes <del>time travel</del> Profiles possible!', 'buddypress' )
 		),
 		'members' => array(
 			'title'       => __( 'Community Members', 'buddypress' ),
-			'description' => __( 'Everything in a BuddyPress community revolves around its members.', 'buddypress' )
+			'description' => __( 'Everything in a Profiles community revolves around its members.', 'buddypress' )
 		),
 	);
 
 	$retired_components = array(
 		'forums' => array(
 			'title'       => __( 'Group Forums', 'buddypress' ),
-			'description' => sprintf( __( 'BuddyPress Forums are retired. Use %s.', 'buddypress' ), '<a href="https://bbpress.org/">bbPress</a>' )
+			'description' => sprintf( __( 'Profiles Forums are retired. Use %s.', 'buddypress' ), '<a href="https://bbpress.org/">bbPress</a>' )
 		),
 	);
 
@@ -2435,7 +2435,7 @@ function bp_core_get_components( $type = 'all' ) {
  * WordPress nav menus work by representing post or tax term data as a custom
  * post type, which is then used to populate the checkboxes that appear on
  * Dashboard > Appearance > Menu as well as the menu as rendered on the front
- * end. Most of the items in the BuddyPress set of nav items are neither posts
+ * end. Most of the items in the Profiles set of nav items are neither posts
  * nor tax terms, so we fake a post-like object so as to be compatible with the
  * menu.
  *
@@ -2505,7 +2505,7 @@ function bp_nav_menu_get_loggedin_pages() {
  * WordPress nav menus work by representing post or tax term data as a custom
  * post type, which is then used to populate the checkboxes that appear on
  * Dashboard > Appearance > Menu as well as the menu as rendered on the front
- * end. Most of the items in the BuddyPress set of nav items are neither posts
+ * end. Most of the items in the Profiles set of nav items are neither posts
  * nor tax terms, so we fake a post-like object so as to be compatible with the
  * menu.
  *
@@ -2574,9 +2574,9 @@ function bp_nav_menu_get_loggedout_pages() {
 }
 
 /**
- * Get the URL for a BuddyPress WP nav menu item, based on slug.
+ * Get the URL for a Profiles WP nav menu item, based on slug.
  *
- * BuddyPress-specific WP nav menu items have dynamically generated URLs,
+ * Profiles-specific WP nav menu items have dynamically generated URLs,
  * based on the identity of the current user. This function lets you fetch the
  * proper URL for a given nav item slug (such as 'login' or 'messages').
  *
@@ -2600,9 +2600,9 @@ function bp_nav_menu_get_item_url( $slug ) {
 /** Suggestions***************************************************************/
 
 /**
- * BuddyPress Suggestions API for types of at-mentions.
+ * Profiles Suggestions API for types of at-mentions.
  *
- * This is used to power BuddyPress' at-mentions suggestions, but it is flexible enough to be used
+ * This is used to power Profiles' at-mentions suggestions, but it is flexible enough to be used
  * for similar kinds of future requirements, or those implemented by third-party developers.
  *
  * @since 2.1.0
@@ -2765,7 +2765,7 @@ function bp_get_email_post_type_labels() {
 		'items_list'            => _x( 'Email list', 'email post type label', 'buddypress' ),
 		'items_list_navigation' => _x( 'Email list navigation', 'email post type label', 'buddypress' ),
 		'menu_name'             => _x( 'Emails', 'email post type name', 'buddypress' ),
-		'name'                  => _x( 'BuddyPress Emails', 'email post type label', 'buddypress' ),
+		'name'                  => _x( 'Profiles Emails', 'email post type label', 'buddypress' ),
 		'new_item'              => _x( 'New Email', 'email post type label', 'buddypress' ),
 		'not_found'             => _x( 'No emails found', 'email post type label', 'buddypress' ),
 		'not_found_in_trash'    => _x( 'No emails found in Trash', 'email post type label', 'buddypress' ),
@@ -3081,7 +3081,7 @@ function bp_send_email( $email_type, $to, $args = array() ) {
 	if ( is_wp_error( $status ) ) {
 
 		/**
-		 * Fires after BuddyPress has tried - and failed - to send an email.
+		 * Fires after Profiles has tried - and failed - to send an email.
 		 *
 		 * @since 2.5.0
 		 *
@@ -3094,7 +3094,7 @@ function bp_send_email( $email_type, $to, $args = array() ) {
 	} else {
 
 		/**
-		 * Fires after BuddyPress has succesfully sent an email.
+		 * Fires after Profiles has succesfully sent an email.
 		 *
 		 * @since 2.5.0
 		 *
@@ -3172,7 +3172,7 @@ function bp_email_get_template( WP_Post $object ) {
 /**
  * Replace all tokens in the input text with appropriate values.
  *
- * Intended for use with the email system introduced in BuddyPress 2.5.0.
+ * Intended for use with the email system introduced in Profiles 2.5.0.
  *
  * @since 2.5.0
  *

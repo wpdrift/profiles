@@ -2,7 +2,7 @@
 /**
  * Core component CSS & JS.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.0.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Register scripts commonly used by BuddyPress.
+ * Register scripts commonly used by Profiles.
  *
  * @since 2.1.0
  */
@@ -20,7 +20,7 @@ function bp_core_register_common_scripts() {
 	$url = buddypress()->plugin_url . 'bp-core/js/';
 
 	/**
-	 * Filters the BuddyPress Core javascript files to register.
+	 * Filters the Profiles Core javascript files to register.
 	 *
 	 * @since 2.1.0
 	 *
@@ -58,7 +58,7 @@ add_action( 'bp_enqueue_scripts',       'bp_core_register_common_scripts', 1 );
 add_action( 'bp_admin_enqueue_scripts', 'bp_core_register_common_scripts', 1 );
 
 /**
- * Register styles commonly used by BuddyPress.
+ * Register styles commonly used by Profiles.
  *
  * @since 2.1.0
  */
@@ -76,7 +76,7 @@ function bp_core_register_common_styles() {
 	$admin_bar_file = apply_filters( 'bp_core_admin_bar_css', "{$url}admin-bar{$min}.css" );
 
 	/**
-	 * Filters the BuddyPress Core stylesheet files to register.
+	 * Filters the Profiles Core stylesheet files to register.
 	 *
 	 * @since 2.1.0
 	 *
@@ -325,11 +325,11 @@ add_action( 'wp_head', 'bp_core_add_ajax_url_js' );
 function bp_core_ajax_url() {
 
 	/**
-	 * Filters the proper value for BuddyPress' ajaxurl.
+	 * Filters the proper value for Profiles' ajaxurl.
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param string $value Proper ajaxurl value for BuddyPress.
+	 * @param string $value Proper ajaxurl value for Profiles.
 	 */
 	return apply_filters( 'bp_core_ajax_url', admin_url( 'admin-ajax.php', is_ssl() ? 'admin' : 'http' ) );
 }

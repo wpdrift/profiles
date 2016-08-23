@@ -2,7 +2,7 @@
 /**
  * Core attachment class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.3.0
  */
@@ -148,7 +148,7 @@ abstract class BP_Attachment {
 	 *
 	 * @since 2.3.0
 	 *
-	 * @param array $param A list of error messages to add to BuddyPress core ones.
+	 * @param array $param A list of error messages to add to Profiles core ones.
 	 * @return array $upload_errors The list of upload errors.
 	 */
 	public function set_upload_error_strings( $param = array() ) {
@@ -287,7 +287,7 @@ abstract class BP_Attachment {
 	 * Validate the allowed mime types using WordPress allowed mime types.
 	 *
 	 * In case of a multisite, the mime types are already restricted by
-	 * the 'upload_filetypes' setting. BuddyPress will respect this setting.
+	 * the 'upload_filetypes' setting. Profiles will respect this setting.
 	 *
 	 * @see check_upload_mimes()
 	 *

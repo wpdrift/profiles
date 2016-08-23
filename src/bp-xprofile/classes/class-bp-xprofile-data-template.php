@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress XProfile Template Loop Class.
+ * Profiles XProfile Template Loop Class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @since 1.0.0
  */
 

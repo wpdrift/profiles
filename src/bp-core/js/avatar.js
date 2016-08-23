@@ -174,7 +174,7 @@ window.bp = window.bp || {};
 			// Listen to the Queued uploads
 			bp.Uploader.filesQueue.on( 'add', this.uploadProgress, this );
 
-			// Create the BuddyPress Uploader
+			// Create the Profiles Uploader
 			var uploader = new bp.Views.Uploader();
 
 			// Add it to views
@@ -448,7 +448,7 @@ window.bp = window.bp || {};
 
 			/**
 			 * Loop in views to show/hide the nav item
-			 * BuddyPress is only using this for the delete nav
+			 * Profiles is only using this for the delete nav
 			 */
 			_.each( this.views._views[''], function( view ) {
 				if ( 1 === view.model.get( 'hide' ) ) {
@@ -643,7 +643,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Avatar Feedback view
+	// Profiles Avatar Feedback view
 	bp.Views.AvatarStatus = bp.View.extend( {
 		tagName: 'p',
 		className: 'updated',
@@ -660,7 +660,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Avatar Delete view
+	// Profiles Avatar Delete view
 	bp.Views.DeleteAvatar = bp.View.extend( {
 		tagName: 'div',
 		id: 'bp-delete-avatar-container',

@@ -1,15 +1,15 @@
 <?php
 /**
- * BuddyPress Avatars main template.
+ * Profiles Avatars main template.
  *
- * This template is used to inject the BuddyPress Backbone views
+ * This template is used to inject the Profiles Backbone views
  * dealing with avatars.
  *
  * It's also used to create the common Backbone views.
  *
  * @since 2.3.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-attachments
  */
 

@@ -1,11 +1,11 @@
 <?php
 /**
- * BuddyPress URI catcher.
+ * Profiles URI catcher.
  *
- * Functions for parsing the URI and determining which BuddyPress template file
+ * Functions for parsing the URI and determining which Profiles template file
  * to use on-screen.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.0.0
  */
@@ -14,9 +14,9 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Analyze the URI and break it down into BuddyPress-usable chunks.
+ * Analyze the URI and break it down into Profiles-usable chunks.
  *
- * BuddyPress can use complete custom friendly URIs without the user having to
+ * Profiles can use complete custom friendly URIs without the user having to
  * add new rewrite rules. Custom components are able to use their own custom
  * URI structures with very little work.
  *
@@ -56,7 +56,7 @@ function bp_core_set_uri_globals() {
 		$path = esc_url( $_SERVER['REQUEST_URI'] );
 
 	/**
-	 * Filters the BuddyPress global URI path.
+	 * Filters the Profiles global URI path.
 	 *
 	 * @since 1.0.0
 	 *
@@ -247,7 +247,7 @@ function bp_core_set_uri_globals() {
 		$match->slug = bp_get_search_slug();
 	}
 
-	// This is not a BuddyPress page, so just return.
+	// This is not a Profiles page, so just return.
 	if ( empty( $matches ) )
 		return false;
 
@@ -356,7 +356,7 @@ function bp_core_set_uri_globals() {
 	$current_action = isset( $bp_uri[ $uri_offset + 1 ] ) ? $bp_uri[ $uri_offset + 1 ] : '';
 
 	/*
-	 * If a BuddyPress directory is set to the WP front page, URLs like example.com/members/?s=foo
+	 * If a Profiles directory is set to the WP front page, URLs like example.com/members/?s=foo
 	 * shouldn't interfere with blog searches.
 	 */
 	if ( empty( $current_action) && ! empty( $_GET['s'] ) && 'page' == get_option( 'show_on_front' ) && ! empty( $match->id ) ) {
@@ -588,7 +588,7 @@ function bp_core_members_shortlink_redirector( $member_slug ) {
 add_filter( 'bp_core_set_uri_globals_member_slug', 'bp_core_members_shortlink_redirector' );
 
 /**
- * Catch unauthorized access to certain BuddyPress pages and redirect accordingly.
+ * Catch unauthorized access to certain Profiles pages and redirect accordingly.
  *
  * @since 1.5.0
  */
@@ -725,9 +725,9 @@ function bp_core_no_access_wp_login_error() {
 add_action( 'login_form_bpnoaccess', 'bp_core_no_access_wp_login_error' );
 
 /**
- * Canonicalize BuddyPress URLs.
+ * Canonicalize Profiles URLs.
  *
- * This function ensures that requests for BuddyPress content are always
+ * This function ensures that requests for Profiles content are always
  * redirected to their canonical versions. Canonical versions are always
  * trailingslashed, and are typically the most general possible versions of the
  * URL - eg, example.com/groups/mygroup/ instead of
@@ -742,7 +742,7 @@ add_action( 'login_form_bpnoaccess', 'bp_core_no_access_wp_login_error' );
 function bp_redirect_canonical() {
 
 	/**
-	 * Filters whether or not to do canonical redirects on BuddyPress URLs.
+	 * Filters whether or not to do canonical redirects on Profiles URLs.
 	 *
 	 * @since 1.6.0
 	 *
@@ -791,7 +791,7 @@ function bp_redirect_canonical() {
 }
 
 /**
- * Output rel=canonical header tag for BuddyPress content.
+ * Output rel=canonical header tag for Profiles content.
  *
  * @since 1.6.0
  */
@@ -829,7 +829,7 @@ function bp_get_canonical_url( $args = array() ) {
 	$r = wp_parse_args( $args, $defaults );
 	extract( $r );
 
-	// Special case: when a BuddyPress directory (eg example.com/members)
+	// Special case: when a Profiles directory (eg example.com/members)
 	// is set to be the front page, ensure that the current canonical URL
 	// is the home page URL.
 	if ( 'page' == get_option( 'show_on_front' ) && $page_on_front = (int) get_option( 'page_on_front' ) ) {
@@ -934,11 +934,11 @@ function bp_get_requested_url() {
 /**
  * Remove WP's canonical redirect when we are trying to load BP-specific content.
  *
- * Avoids issues with WordPress thinking that a BuddyPress URL might actually
+ * Avoids issues with WordPress thinking that a Profiles URL might actually
  * be a blog post or page.
  *
  * This function should be considered temporary, and may be removed without
- * notice in future versions of BuddyPress.
+ * notice in future versions of Profiles.
  *
  * @since 1.6.0
  */
@@ -955,7 +955,7 @@ add_action( 'bp_init', '_bp_maybe_remove_redirect_canonical' );
  * to define 'NOBLOGREDIRECT', a URL to which 404 requests will be redirected.
  * maybe_redirect_404() is hooked to template_redirect at priority 10, which
  * creates a race condition with bp_template_redirect(), our piggyback hook.
- * Due to a legacy bug in BuddyPress, internal BP content (such as members and
+ * Due to a legacy bug in Profiles, internal BP content (such as members and
  * groups) is marked 404 in $wp_query until bp_core_load_template(), when BP
  * manually overrides the automatic 404. However, the race condition with
  * maybe_redirect_404() means that this manual un-404-ing doesn't happen in
@@ -967,7 +967,7 @@ add_action( 'bp_init', '_bp_maybe_remove_redirect_canonical' );
  * maybe_redirect_404(). If bp_core_load_template() does not run, it means that
  * the 404 is legitimate, and maybe_redirect_404() can proceed as expected.
  *
- * This function will be removed in a later version of BuddyPress. Plugins
+ * This function will be removed in a later version of Profiles. Plugins
  * (and plugin authors!) should ignore it.
  *
  * @since 1.6.1
@@ -987,7 +987,7 @@ add_action( 'template_redirect', '_bp_rehook_maybe_redirect_404', 1 );
  * Remove WP's rel=canonical HTML tag if we are trying to load BP-specific content.
  *
  * This function should be considered temporary, and may be removed without
- * notice in future versions of BuddyPress.
+ * notice in future versions of Profiles.
  *
  * @since 1.6.0
  */

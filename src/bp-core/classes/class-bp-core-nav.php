@@ -2,7 +2,7 @@
 /**
  * Core component class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.6.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * BuddyPress Nav.
+ * Profiles Nav.
  *
  * This class is used to build each component's navigation.
  *

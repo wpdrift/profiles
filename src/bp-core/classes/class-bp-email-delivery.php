@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  */
 
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
 /**
  * Email delivery implementation base class.
  *
- * When implementing support for an email delivery service into BuddyPress,
+ * When implementing support for an email delivery service into Profiles,
  * you are required to create a class that implements this interface.
  *
  * @since 2.5.0

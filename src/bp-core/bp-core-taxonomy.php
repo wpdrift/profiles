@@ -1,12 +1,12 @@
 <?php
 /**
- * BuddyPress taxonomy functions.
+ * Profiles taxonomy functions.
  *
- * Most BuddyPress taxonomy functions are wrappers for their WordPress counterparts.
- * Because BuddyPress can be activated in various ways in a network environment, we
+ * Most Profiles taxonomy functions are wrappers for their WordPress counterparts.
+ * Because Profiles can be activated in various ways in a network environment, we
  * must switch to the root blog before using the WP functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.2.0
  */
@@ -30,7 +30,7 @@ function bp_register_default_taxonomies() {
 		bp_get_email_tax_type(),
 		bp_get_email_post_type(),
 		apply_filters( 'bp_register_email_tax_type', array(
-			'description'   => _x( 'BuddyPress email types', 'email type taxonomy description', 'buddypress' ),
+			'description'   => _x( 'Profiles email types', 'email type taxonomy description', 'buddypress' ),
 			'labels'        => bp_get_email_tax_type_labels(),
 			'meta_box_cb'   => 'bp_email_tax_type_metabox',
 			'public'        => false,
@@ -69,7 +69,7 @@ function bp_get_taxonomy_term_site_id( $taxonomy = '' ) {
 }
 
 /**
- * Set taxonomy terms on a BuddyPress object.
+ * Set taxonomy terms on a Profiles object.
  *
  * @since 2.2.0
  *
@@ -101,7 +101,7 @@ function bp_set_object_terms( $object_id, $terms, $taxonomy, $append = false ) {
 }
 
 /**
- * Get taxonomy terms for a BuddyPress object.
+ * Get taxonomy terms for a Profiles object.
  *
  * @since 2.2.0
  *
@@ -141,7 +141,7 @@ function bp_get_object_terms( $object_ids, $taxonomies, $args = array() ) {
 }
 
 /**
- * Remove taxonomy terms on a BuddyPress object.
+ * Remove taxonomy terms on a Profiles object.
  *
  * @since 2.3.0
  *

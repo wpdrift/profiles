@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.6.0
  */
@@ -236,7 +236,7 @@ abstract class BP_Core_oEmbed_Extension {
 	}
 
 	/**
-	 * Set up custom embed template parts for BuddyPress use.
+	 * Set up custom embed template parts for Profiles use.
 	 *
 	 * @since 2.6.0
 	 *
@@ -261,7 +261,7 @@ abstract class BP_Core_oEmbed_Extension {
 	 * Start object buffer.
 	 *
 	 * We're going to override WP's get_template_part( 'embed, 'content' ) call
-	 * and inject our own template for BuddyPress use.
+	 * and inject our own template for Profiles use.
 	 *
 	 * @since 2.6.0
 	 *
@@ -281,7 +281,7 @@ abstract class BP_Core_oEmbed_Extension {
 	 * End object buffer.
 	 *
 	 * We're going to override WP's get_template_part( 'embed, 'content' ) call
-	 * and inject our own template for BuddyPress use.
+	 * and inject our own template for Profiles use.
 	 *
 	 * @since 2.6.0
 	 *
@@ -295,7 +295,7 @@ abstract class BP_Core_oEmbed_Extension {
 		// Wipe out get_template_part( 'embed, 'content' ).
 		ob_end_clean();
 
-		// Start our custom BuddyPress embed template!
+		// Start our custom Profiles embed template!
 		echo '<div ';
 		post_class( 'wp-embed' );
 		echo '>';
@@ -304,7 +304,7 @@ abstract class BP_Core_oEmbed_Extension {
 		bp_get_asset_template_part( 'embeds/header', bp_current_component() );
 
 		/**
-		 * Inject BuddyPress embed content on this hook.
+		 * Inject Profiles embed content on this hook.
 		 *
 		 * You shouldn't really need to use this if you extend the
 		 * {@link BP_oEmbed_Component} class.
@@ -508,7 +508,7 @@ abstract class BP_Core_oEmbed_Extension {
 	}
 
 	/**
-	 * Pass our BuddyPress activity permalink for embedding.
+	 * Pass our Profiles activity permalink for embedding.
 	 *
 	 * @since 2.6.0
 	 *

@@ -1,11 +1,11 @@
 <?php
 /**
- * BuddyPress - Users Plugins Template
+ * Profiles - Users Plugins Template
  *
  * 3rd-party plugins should use this template to easily add template
  * support to their plugins for the members component.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage bp-legacy
  */
 

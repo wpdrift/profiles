@@ -1,8 +1,8 @@
 <?php
 /**
- * Main BuddyPress Admin Class.
+ * Main Profiles Admin Class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage CoreAdministration
  * @since 0.0.1
  */
@@ -15,7 +15,7 @@ if ( ! buddypress()->do_autoload ) {
 }
 
 /**
- * Setup BuddyPress Admin.
+ * Setup Profiles Admin.
  *
  * @since 0.0.1
  *

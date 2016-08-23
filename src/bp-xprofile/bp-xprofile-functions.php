@@ -1,13 +1,13 @@
 <?php
 /**
- * BuddyPress XProfile Filters.
+ * Profiles XProfile Filters.
  *
- * Business functions are where all the magic happens in BuddyPress. They will
+ * Business functions are where all the magic happens in Profiles. They will
  * handle the actual saving or manipulation of information. Usually they will
  * hand off to a database class for data access, then return
  * true or false on success or failure.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage XProfileFunctions
  * @since 1.5.0
  */
@@ -596,7 +596,7 @@ function xprofile_get_field_id_from_name( $field_name ) {
  *
  * @since 1.0.0
  *
- * @global BuddyPress $bp           The one true BuddyPress instance.
+ * @global Profiles $bp           The one true Profiles instance.
  * @global object     $wpdb         WordPress DB access object.
  * @global object     $current_user WordPress global variable containing current logged in user information.
  *
@@ -701,7 +701,7 @@ add_action( 'bp_setup_globals', 'xprofile_override_user_fullnames', 100 );
  *
  * @since 1.0.0
  *
- * @package BuddyPress Core
+ * @package Profiles Core
  *
  * @param string $directory The root directory name. Optional.
  * @param int    $user_id   The user ID. Optional.

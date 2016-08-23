@@ -14,7 +14,7 @@
 /**
  * Plugin Name: Profiles
  * Plugin URI:  https://wordpress.org/plugins/profiles/
- * Description: Profiles is built on the solid foundation of the BuddyPress plugin. We decided to fork this project to provide a more generic Profiles plugin that could be easily extended for more specific use-cases.
+ * Description: Profiles is built on the solid foundation of the Profiles plugin. We decided to fork this project to provide a more generic Profiles plugin that could be easily extended for more specific use-cases.
  * Author:      OpenTute+
  * Author URI:  http://opentuteplus.com/
  * Version:     0.0.1
@@ -49,7 +49,7 @@ if ( ! defined( 'BP_PLUGIN_URL' ) ) {
 	define( 'BP_PLUGIN_URL', plugins_url( trailingslashit( basename( constant( 'BP_PLUGIN_DIR' ) ) ) ) );
 }
 
-// Include BuddyPress
+// Include Profiles
 include( $profiles_loader );
 
 // Unset the loader, since it's loaded in global scope

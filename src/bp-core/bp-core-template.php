@@ -2,7 +2,7 @@
 /**
  * Core component template tag functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage TemplateFunctions
  * @since 1.5.0
  */
@@ -109,7 +109,7 @@ function bp_get_options_nav( $parent_slug = '' ) {
 /**
  * Get the 'bp_options_title' property from the BP global.
  *
- * Not currently used in BuddyPress.
+ * Not currently used in Profiles.
  *
  * @todo Deprecate.
  */
@@ -165,7 +165,7 @@ function bp_get_directory_title( $component = '' ) {
  * An options avatar is an avatar for something like a group, or a friend.
  * Basically an avatar that appears in the sub nav options bar.
  *
- * Not currently used in BuddyPress.
+ * Not currently used in Profiles.
  *
  * @return bool $value Returns true if an options avatar has been set, otherwise false.
  */
@@ -176,7 +176,7 @@ function bp_has_options_avatar() {
 /**
  * Output the options avatar.
  *
- * Not currently used in BuddyPress.
+ * Not currently used in Profiles.
  *
  * @todo Deprecate.
  */
@@ -187,7 +187,7 @@ function bp_get_options_avatar() {
 /**
  * Output a comment author's avatar.
  *
- * Not currently used in BuddyPress.
+ * Not currently used in Profiles.
  */
 function bp_comment_author_avatar() {
 	global $comment;
@@ -206,7 +206,7 @@ function bp_comment_author_avatar() {
 /**
  * Output a post author's avatar.
  *
- * Not currently used in BuddyPress.
+ * Not currently used in Profiles.
  */
 function bp_post_author_avatar() {
 	global $post;
@@ -319,7 +319,7 @@ function bp_avatar_to_crop_src() {
 /**
  * Output the avatar cropper <img> markup.
  *
- * No longer used in BuddyPress.
+ * No longer used in Profiles.
  *
  * @todo Deprecate.
  */
@@ -497,7 +497,7 @@ function bp_word_or_name( $youtext, $nametext, $capitalize = true, $echo = true 
 /**
  * Do the 'bp_styles' action, and call wp_print_styles().
  *
- * No longer used in BuddyPress.
+ * No longer used in Profiles.
  *
  * @todo Deprecate.
  */
@@ -644,7 +644,7 @@ function bp_search_default_text( $component = '' ) {
 /**
  * Fire the 'bp_custom_profile_boxes' action.
  *
- * No longer used in BuddyPress.
+ * No longer used in Profiles.
  *
  * @todo Deprecate.
  */
@@ -655,7 +655,7 @@ function bp_custom_profile_boxes() {
 /**
  * Fire the 'bp_custom_profile_sidebar_boxes' action.
  *
- * No longer used in BuddyPress.
+ * No longer used in Profiles.
  *
  * @todo Deprecate.
  */
@@ -1022,12 +1022,12 @@ function bp_total_member_count() {
 	/**
 	 * Return the total member count in your BP instance.
 	 *
-	 * Since BuddyPress 1.6, this function has used bp_core_get_active_member_count(),
+	 * Since Profiles 1.6, this function has used bp_core_get_active_member_count(),
 	 * which counts non-spam, non-deleted users who have last_activity.
 	 * This value will correctly match the total member count number used
 	 * for pagination on member directories.
 	 *
-	 * Before BuddyPress 1.6, this function used bp_core_get_total_member_count(),
+	 * Before Profiles 1.6, this function used bp_core_get_total_member_count(),
 	 * which did not take into account last_activity, and thus often
 	 * resulted in higher counts than shown by member directory pagination.
 	 *
@@ -1100,7 +1100,7 @@ function bp_account_was_activated() {
 /**
  * Check whether registrations require activation on this installation.
  *
- * On a normal BuddyPress installation, all registrations require email
+ * On a normal Profiles installation, all registrations require email
  * activation. This filter exists so that customizations that omit activation
  * can remove certain notification text from the registration screen.
  *
@@ -1127,7 +1127,7 @@ function bp_registration_needs_activation() {
  * sanitize_option, we want to reverse this for the plain text arena of emails.
  *
  * @since 1.7.0
- * @since 2.5.0 No longer used by BuddyPress, but not deprecated in case any existing plugins use it.
+ * @since 2.5.0 No longer used by Profiles, but not deprecated in case any existing plugins use it.
  *
  * @see https://buddypress.trac.wordpress.org/ticket/4401
  *
@@ -1595,7 +1595,7 @@ function bp_is_current_component( $component = '' ) {
 
 	$bp = buddypress();
 
-	// Only check if BuddyPress found a current_component.
+	// Only check if Profiles found a current_component.
 	if ( ! empty( $bp->current_component ) ) {
 
 		// First, check to see whether $component_name and the current
@@ -1888,7 +1888,7 @@ function bp_is_root_component( $component_name = '' ) {
 }
 
 /**
- * Check if the specified BuddyPress component directory is set to be the front page.
+ * Check if the specified Profiles component directory is set to be the front page.
  *
  * Corresponds to the setting in wp-admin's Settings > Reading screen.
  *
@@ -1925,7 +1925,7 @@ function bp_is_component_front_page( $component = '' ) {
 	}
 
 	/**
-	 * Filters whether or not the specified BuddyPress component directory is set to be the front page.
+	 * Filters whether or not the specified Profiles component directory is set to be the front page.
 	 *
 	 * @since 1.5.0
 	 *
@@ -1967,7 +1967,7 @@ function bp_is_blog_page() {
 }
 
 /**
- * Is this a BuddyPress component?
+ * Is this a Profiles component?
  *
  * You can tell if a page is displaying BP content by whether the
  * current_component has been defined.
@@ -1978,17 +1978,17 @@ function bp_is_blog_page() {
  *
  * @since 1.7.0
  *
- * @return bool True if it's a BuddyPress page, false otherwise.
+ * @return bool True if it's a Profiles page, false otherwise.
  */
 function is_buddypress() {
 	$retval = (bool) ( bp_current_component() || bp_is_user() );
 
 	/**
-	 * Filters whether or not this is a BuddyPress component.
+	 * Filters whether or not this is a Profiles component.
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param bool $retval Whether or not this is a BuddyPress component.
+	 * @param bool $retval Whether or not this is a Profiles component.
 	 */
 	return apply_filters( 'is_buddypress', $retval );
 }
@@ -2167,10 +2167,10 @@ function bp_is_settings_component() {
  * Is the current component an active core component?
  *
  * Use this function when you need to check if the current component is an
- * active core component of BuddyPress. If the current component is inactive, it
- * will return false. If the current component is not part of BuddyPress core,
+ * active core component of Profiles. If the current component is inactive, it
+ * will return false. If the current component is not part of Profiles core,
  * it will return false. If the current component is active, and is part of
- * BuddyPress core, it will return true.
+ * Profiles core, it will return true.
  *
  * @since 1.7.0
  *
@@ -2792,7 +2792,7 @@ function bp_is_group_leave() {
 /**
  * Is the current page part of a single group?
  *
- * Not currently used by BuddyPress.
+ * Not currently used by Profiles.
  *
  * @todo How is this functionally different from bp_is_group()?
  *
@@ -2925,7 +2925,7 @@ function bp_is_messages_conversation() {
 }
 
 /**
- * Not currently used by BuddyPress.
+ * Not currently used by Profiles.
  *
  * @param string $component Current component to check for.
  * @param string $callback  Callback to invoke.
@@ -2964,7 +2964,7 @@ function bp_is_register_page() {
 }
 
 /**
- * Get the title parts of the BuddyPress displayed page
+ * Get the title parts of the Profiles displayed page
  *
  * @since 2.4.3
  *
@@ -2992,7 +2992,7 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 		return $bp_title_parts;
 	}
 
-	// Return the empty array if not a BuddyPress page.
+	// Return the empty array if not a Profiles page.
 	if ( ! is_buddypress() ) {
 		return $bp_title_parts;
 	}
@@ -3102,11 +3102,11 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 	}
 
 	/**
-	 * Filter BuddyPress title parts before joining.
+	 * Filter Profiles title parts before joining.
 	 *
 	 * @since 2.4.3
 	 *
-	 * @param array $bp_title_parts Current BuddyPress title parts.
+	 * @param array $bp_title_parts Current Profiles title parts.
 	 * @return array
 	 */
 	return (array) apply_filters( 'bp_get_title_parts', $bp_title_parts );
@@ -3280,21 +3280,21 @@ function bp_the_body_class() {
 
 		/* Clean up ***********************************************************/
 
-		// Add BuddyPress class if we are within a BuddyPress page.
+		// Add Profiles class if we are within a Profiles page.
 		if ( ! bp_is_blog_page() ) {
 			$bp_classes[] = 'buddypress';
 		}
 
-		// Merge WP classes with BuddyPress classes and remove any duplicates.
+		// Merge WP classes with Profiles classes and remove any duplicates.
 		$classes = array_unique( array_merge( (array) $bp_classes, (array) $wp_classes ) );
 
 		/**
-		 * Filters the BuddyPress classes to be added to body_class()
+		 * Filters the Profiles classes to be added to body_class()
 		 *
 		 * @since 1.1.0
 		 *
 		 * @param array $classes        Array of body classes to add.
-		 * @param array $bp_classes     Array of BuddyPress-based classes.
+		 * @param array $bp_classes     Array of Profiles-based classes.
 		 * @param array $wp_classes     Array of WordPress-based classes.
 		 * @param array $custom_classes Array of classes that were passed to get_body_class().
 		 */
@@ -3303,7 +3303,7 @@ function bp_the_body_class() {
 	add_filter( 'body_class', 'bp_get_the_body_class', 10, 2 );
 
 /**
- * Customizes the post CSS class according to BuddyPress content.
+ * Customizes the post CSS class according to Profiles content.
  *
  * Hooked to the 'post_class' filter.
  *
@@ -3357,7 +3357,7 @@ function bp_get_the_post_class( $wp_classes = array() ) {
 add_filter( 'post_class', 'bp_get_the_post_class' );
 
 /**
- * Sort BuddyPress nav menu items by their position property.
+ * Sort Profiles nav menu items by their position property.
  *
  * This is an internal convenience function and it will probably be removed in
  * a later release. Do not use.
@@ -3382,7 +3382,7 @@ function _bp_nav_menu_sort( $a, $b ) {
 }
 
 /**
- * Get the items registered in the primary and secondary BuddyPress navigation menus.
+ * Get the items registered in the primary and secondary Profiles navigation menus.
  *
  * @since 1.7.0
  * @since 2.6.0 Introduced the `$component` parameter.
@@ -3440,11 +3440,11 @@ function bp_get_nav_menu_items( $component = 'members' ) {
 	}
 
 	/**
-	 * Filters the items registered in the primary and secondary BuddyPress navigation menus.
+	 * Filters the items registered in the primary and secondary Profiles navigation menus.
 	 *
 	 * @since 1.7.0
 	 *
-	 * @param array $menus Array of items registered in the primary and secondary BuddyPress navigation.
+	 * @param array $menus Array of items registered in the primary and secondary Profiles navigation.
 	 */
 	return apply_filters( 'bp_get_nav_menu_items', $menus );
 }
@@ -3551,7 +3551,7 @@ function bp_nav_menu( $args = array() ) {
 	}
 
 	/**
-	 * Filters the BuddyPress menu objects.
+	 * Filters the Profiles menu objects.
 	 *
 	 * @since 1.7.0
 	 *
@@ -3581,7 +3581,7 @@ function bp_nav_menu( $args = array() ) {
 	$menu_id_slugs[] = $wrap_id;
 
 	/**
-	 * Filters the BuddyPress menu items.
+	 * Filters the Profiles menu items.
 	 *
 	 * Allow plugins to hook into the menu to add their own <li>'s
 	 *
@@ -3603,7 +3603,7 @@ function bp_nav_menu( $args = array() ) {
 	}
 
 	/**
-	 * Filters the final BuddyPress menu output.
+	 * Filters the final Profiles menu output.
 	 *
 	 * @since 1.7.0
 	 *

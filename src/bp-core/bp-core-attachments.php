@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Attachments functions.
+ * Profiles Attachments functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Attachments
  * @since 2.3.0
  */
@@ -48,7 +48,7 @@ function bp_attachments_uploads_dir_get( $data = '' ) {
 			return $retval;
 		}
 
-		// Build the Upload data array for BuddyPress attachments.
+		// Build the Upload data array for Profiles attachments.
 		foreach ( $upload_data as $key => $value ) {
 			if ( 'basedir' === $key || 'baseurl' === $key ) {
 				$upload_data[ $key ] = trailingslashit( $value ) . $attachments_dir;
@@ -117,11 +117,11 @@ function bp_attachments_get_max_upload_file_size( $type = '' ) {
  * @return array The list of allowed extensions for attachments.
  */
 function bp_attachments_get_allowed_types( $type = 'avatar' ) {
-	// Defaults to BuddyPress supported image extensions.
+	// Defaults to Profiles supported image extensions.
 	$exts = array( 'jpeg', 'gif', 'png' );
 
 	/**
-	 * It's not a BuddyPress feature, get the allowed extensions
+	 * It's not a Profiles feature, get the allowed extensions
 	 * matching the $type requested.
 	 */
 	if ( 'avatar' !== $type && 'cover_image' !== $type ) {
@@ -411,7 +411,7 @@ function bp_attachments_get_attachment( $data = 'url', $args = array() ) {
 	), 'attachments_get_attachment_src' );
 
 	/**
-	 * Filters whether or not to handle fetching a BuddyPress image attachment.
+	 * Filters whether or not to handle fetching a Profiles image attachment.
 	 *
 	 * If you want to override this function, make sure you return false.
 	 *
@@ -431,7 +431,7 @@ function bp_attachments_get_attachment( $data = 'url', $args = array() ) {
 		return $pre_filter;
 	}
 
-	// Get BuddyPress Attachments Uploads Dir datas.
+	// Get Profiles Attachments Uploads Dir datas.
 	$bp_attachments_uploads_dir = bp_attachments_uploads_dir_get();
 
 	// The BP Attachments Uploads Dir is not set, stop.
@@ -500,13 +500,13 @@ function bp_attachments_delete_file( $args = array() ) {
 	$attachment_path = bp_attachments_get_attachment( 'path', $args );
 
 	/**
-	 * Filters whether or not to handle deleting an existing BuddyPress attachment.
+	 * Filters whether or not to handle deleting an existing Profiles attachment.
 	 *
 	 * If you want to override this function, make sure you return false.
 	 *
 	 * @since 2.5.1
 	 *
-	 * @param bool $value Whether or not to delete the BuddyPress attachment.
+	 * @param bool $value Whether or not to delete the Profiles attachment.
 	 * @param array Array of arguments for the attachment deletion.
 	 */
 	if ( ! apply_filters( 'bp_attachments_pre_delete_file', true, $args ) ) {
@@ -522,11 +522,11 @@ function bp_attachments_delete_file( $args = array() ) {
 }
 
 /**
- * Get the BuddyPress Plupload settings.
+ * Get the Profiles Plupload settings.
  *
  * @since 2.3.0
  *
- * @return array List of BuddyPress Plupload settings.
+ * @return array List of Profiles Plupload settings.
  */
 function bp_attachments_get_plupload_default_settings() {
 
@@ -570,7 +570,7 @@ function bp_attachments_get_plupload_default_settings() {
 	);
 
 	/**
-	 * Filter the BuddyPress Plupload default settings.
+	 * Filter the Profiles Plupload default settings.
 	 *
 	 * @since 2.3.0
 	 *
@@ -580,7 +580,7 @@ function bp_attachments_get_plupload_default_settings() {
 }
 
 /**
- * Builds localization strings for the BuddyPress Uploader scripts.
+ * Builds localization strings for the Profiles Uploader scripts.
  *
  * @since 2.3.0
  *
@@ -657,10 +657,10 @@ function bp_attachments_enqueue_scripts( $class = '' ) {
 		return new WP_Error( 'missing_parameter' );
 	}
 
-	// Get the BuddyPress uploader strings.
+	// Get the Profiles uploader strings.
 	$strings = bp_attachments_get_plupload_l10n();
 
-	// Get the BuddyPress uploader settings.
+	// Get the Profiles uploader settings.
 	$settings = bp_attachments_get_plupload_default_settings();
 
 	// Set feedback messages.
@@ -674,7 +674,7 @@ function bp_attachments_enqueue_scripts( $class = '' ) {
 	// Set the upload action.
 	$defaults['multipart_params']['action'] = $args['action'];
 
-	// Set BuddyPress upload parameters if provided.
+	// Set Profiles upload parameters if provided.
 	if ( ! empty( $args['bp_params'] ) ) {
 		$defaults['multipart_params']['bp_params'] = $args['bp_params'];
 	}
@@ -693,7 +693,7 @@ function bp_attachments_enqueue_scripts( $class = '' ) {
 		$defaults['filters']['max_file_size'] = $args['max_file_size'] . 'b';
 	}
 
-	// Specific to BuddyPress Avatars.
+	// Specific to Profiles Avatars.
 	if ( 'bp_avatar_upload' === $defaults['multipart_params']['action'] ) {
 
 		// Include the cropping informations for avatars.
@@ -755,7 +755,7 @@ function bp_attachments_enqueue_scripts( $class = '' ) {
 		 */
 		$settings['nav'] = bp_sort_by_key( apply_filters( 'bp_attachments_avatar_nav', $avatar_nav, $object ), 'order', 'num' );
 
-	// Specific to BuddyPress cover images.
+	// Specific to Profiles cover images.
 	} elseif ( 'bp_cover_image_upload' === $defaults['multipart_params']['action'] ) {
 
 		// Cover images only need 1 file and 1 only!
@@ -994,7 +994,7 @@ function bp_attachments_get_cover_image_settings( $component = 'xprofile' ) {
  *
  * @since 2.4.0
  *
- * @param string $component The BuddyPress component concerned ("xprofile" for user or "groups").
+ * @param string $component The Profiles component concerned ("xprofile" for user or "groups").
  * @return array An associative array containing the advised width and height for the cover image.
  */
 function bp_attachments_get_cover_image_dimensions( $component = 'xprofile' ) {
@@ -1201,7 +1201,7 @@ function bp_attachments_cover_image_ajax_upload() {
 	// Check the nonce.
 	check_admin_referer( 'bp-uploader' );
 
-	// Init the BuddyPress parameters.
+	// Init the Profiles parameters.
 	$bp_params = array();
 
 	// We need it to carry on.
@@ -1298,7 +1298,7 @@ function bp_attachments_cover_image_ajax_upload() {
 	// Default error message.
 	$error_message = __( 'There was a problem uploading the cover image.', 'buddypress' );
 
-	// Get BuddyPress Attachments Uploads Dir datas.
+	// Get Profiles Attachments Uploads Dir datas.
 	$bp_attachments_uploads_dir = bp_attachments_uploads_dir_get();
 
 	// The BP Attachments Uploads Dir is not set, stop.

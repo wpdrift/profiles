@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Moderation Functions.
+ * Profiles Moderation Functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.6.0
  */

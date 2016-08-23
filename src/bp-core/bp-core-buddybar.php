@@ -1,8 +1,8 @@
 <?php
 /**
- * Core BuddyPress Navigational Functions.
+ * Core Profiles Navigational Functions.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.5.0
  *
@@ -72,7 +72,7 @@ function bp_core_new_nav_item( $args, $component = 'members' ) {
 	}
 
 	/**
-	 * Fires after adding an item to the main BuddyPress navigation array.
+	 * Fires after adding an item to the main Profiles navigation array.
 	 * Note that, when possible, the more specific action hooks
 	 * `bp_core_create_nav_link` or `bp_core_register_nav_screen_function`
 	 * should be used.
@@ -87,7 +87,7 @@ function bp_core_new_nav_item( $args, $component = 'members' ) {
 }
 
 /**
- * Add a link to the main BuddyPress navigation.
+ * Add a link to the main Profiles navigation.
  *
  * @since 2.4.0
  * @since 2.6.0 Introduced the `$component` parameter. Began returning a BP_Nav_Item object on success.
@@ -155,7 +155,7 @@ function bp_core_create_nav_link( $args = '', $component = 'members' ) {
 	$retval = buddypress()->{$component}->nav->add_nav( $nav_item );
 
 	/**
-	 * Fires after a link is added to the main BuddyPress nav.
+	 * Fires after a link is added to the main Profiles nav.
 	 *
 	 * @since 2.4.0
 	 * @since 2.6.0 Added `$component` parameter.
@@ -271,7 +271,7 @@ function bp_core_register_nav_screen_function( $args = '' ) {
 	}
 
 	/**
-	 * Fires after the screen function for an item in the BuddyPress main
+	 * Fires after the screen function for an item in the Profiles main
 	 * navigation is registered.
 	 *
 	 * @since 2.4.0
@@ -443,7 +443,7 @@ function bp_core_new_subnav_item( $args, $component = null ) {
 }
 
 /**
- * Add a subnav link to the BuddyPress navigation.
+ * Add a subnav link to the Profiles navigation.
  *
  * @since 2.4.0
  * @since 2.6.0 Introduced the `$component` parameter. Began returning a BP_Nav_Item object on success.

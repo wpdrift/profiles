@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Members Admin
+ * Profiles Members Admin
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersAdmin
  * @since 2.0.0
  */
@@ -128,7 +128,7 @@ class BP_Members_Admin {
 		// The stats metabox default position.
 		$this->stats_metabox = new StdClass();
 
-		// BuddyPress edit user's profile args.
+		// Profiles edit user's profile args.
 		$this->edit_profile_args = array( 'page' => 'bp-profile-edit' );
 		$this->edit_profile_url  = '';
 		$this->edit_url          = '';
@@ -139,10 +139,10 @@ class BP_Members_Admin {
 		$this->users_url    = bp_get_admin_url( 'users.php' );
 		$this->users_screen = bp_core_do_network_admin() ? 'users-network' : 'users';
 
-		// Specific config: BuddyPress is not network activated.
+		// Specific config: Profiles is not network activated.
 		$this->subsite_activated = (bool) is_multisite() && ! bp_is_network_activated();
 
-		// When BuddyPress is not network activated, only Super Admin can moderate signups.
+		// When Profiles is not network activated, only Super Admin can moderate signups.
 		if ( ! empty( $this->subsite_activated ) ) {
 			$this->capability = 'manage_network_users';
 		}
@@ -572,7 +572,7 @@ class BP_Members_Admin {
 			wp_style_add_data( 'bp-members-css', 'suffix', $min );
 		}
 
-		// Only load JavaScript for BuddyPress profile.
+		// Only load JavaScript for Profiles profile.
 		if ( get_current_screen()->id == $this->user_page ) {
 			$js = $this->js_url . "admin{$min}.js";
 
@@ -632,7 +632,7 @@ class BP_Members_Admin {
 
 		$bp_active = false;
 		$wp_active = ' nav-tab-active';
-		if ( 'BuddyPress' === $active ) {
+		if ( 'Profiles' === $active ) {
 			$bp_active = ' nav-tab-active';
 			$wp_active = false;
 		} ?>
@@ -640,7 +640,7 @@ class BP_Members_Admin {
 		<h2 id="profile-nav" class="nav-tab-wrapper">
 			<?php
 			/**
-			 * In configs where BuddyPress is not network activated, as regular
+			 * In configs where Profiles is not network activated, as regular
 			 * admins do not have the capacity to edit other users, we must add
 			 * this check.
 			 */
@@ -904,7 +904,7 @@ class BP_Members_Admin {
 
 			<?php if ( ! empty( $user ) ) :
 
-				$this->profile_nav( $user, 'BuddyPress' ); ?>
+				$this->profile_nav( $user, 'Profiles' ); ?>
 
 				<form action="<?php echo esc_url( $form_action_url ); ?>" id="your-profile" method="post">
 					<div id="poststuff">
@@ -982,7 +982,7 @@ class BP_Members_Admin {
 					$is_spammer = bp_is_user_spammer( $user->ID );
 
 					/**
-					 * In configs where BuddyPress is not network activated,
+					 * In configs where Profiles is not network activated,
 					 * regular admins cannot mark a user as a spammer on front
 					 * end. This prevent them to do it in backend.
 					 *
@@ -1035,7 +1035,7 @@ class BP_Members_Admin {
 	 */
 	public function user_admin_spammer_metabox( $user = null ) {
 	?>
-		<p><?php printf( __( '%s has been marked as a spammer. All BuddyPress data associated with the user has been removed', 'buddypress' ), esc_html( bp_core_get_user_displayname( $user->ID ) ) ) ;?></p>
+		<p><?php printf( __( '%s has been marked as a spammer. All Profiles data associated with the user has been removed', 'buddypress' ), esc_html( bp_core_get_user_displayname( $user->ID ) ) ) ;?></p>
 	<?php
 	}
 
@@ -1298,7 +1298,7 @@ class BP_Members_Admin {
 			return;
 		}
 
-		// Bail if updating BuddyPress.
+		// Bail if updating Profiles.
 		if ( bp_is_update() ) {
 			return;
 		}

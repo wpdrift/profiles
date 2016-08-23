@@ -158,7 +158,7 @@ window.bp = window.bp || {};
 		}
 	};
 
-	// BuddyPress WebCam view
+	// Profiles WebCam view
 	bp.Views.WebCamAvatar = bp.View.extend( {
 		tagName: 'div',
 		id: 'bp-webcam-avatar',
@@ -277,7 +277,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Video stream view
+	// Profiles Video stream view
 	bp.Views.WebCamVideo = bp.View.extend( {
 		tagName: 'video',
 		id: 'bp-webcam-video',
@@ -286,7 +286,7 @@ window.bp = window.bp || {};
 		}
 	} );
 
-	// BuddyPress Canvas (capture) view
+	// Profiles Canvas (capture) view
 	bp.Views.WebCamCanvas = bp.View.extend( {
 		tagName: 'canvas',
 		id: 'bp-webcam-canvas',

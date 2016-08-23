@@ -2,7 +2,7 @@
 /**
  * Core component classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.0.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Fetch data about a BuddyPress user.
+ * Fetch data about a Profiles user.
  *
  * BP_Core_User class can be used by any component. It will fetch useful
  * details for any user when provided with a user_id.
@@ -209,7 +209,7 @@ class BP_Core_User {
 	/**
 	 * Get a list of users that match the query parameters.
 	 *
-	 * Since BuddyPress 1.7, use {@link BP_User_Query} instead.
+	 * Since Profiles 1.7, use {@link BP_User_Query} instead.
 	 *
 	 * @deprecated 1.7.0 Use {@link BP_User_Query}.
 	 *

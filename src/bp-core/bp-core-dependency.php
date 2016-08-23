@@ -6,16 +6,16 @@
  * called 'plugin dependency' which enables a plugin to have plugins of their
  * own in a safe and reliable way.
  *
- * We do this in BuddyPress by mirroring existing WordPress hooks in many places
- * allowing dependant plugins to hook into the BuddyPress specific ones, thus
- * guaranteeing proper code execution only when BuddyPress is active.
+ * We do this in Profiles by mirroring existing WordPress hooks in many places
+ * allowing dependant plugins to hook into the Profiles specific ones, thus
+ * guaranteeing proper code execution only when Profiles is active.
  *
  * The following functions are wrappers for hooks, allowing them to be
  * manually called and/or piggy-backed on top of other hooks if needed.
  *
  * @todo use anonymous functions when PHP minimum requirement allows (5.3)
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.7.0
  */
@@ -238,14 +238,14 @@ function bp_setup_current_user() {
 }
 
 /**
- * Fire the 'bp_init' action, BuddyPress's main initialization hook.
+ * Fire the 'bp_init' action, Profiles's main initialization hook.
  *
  * @since 1.2.5
  */
 function bp_init() {
 
 	/**
-	 * Fires inside the 'bp_init' function, BuddyPress' main initialization hook.
+	 * Fires inside the 'bp_init' function, Profiles' main initialization hook.
 	 *
 	 * @since 1.2.0
 	 */
@@ -253,14 +253,14 @@ function bp_init() {
 }
 
 /**
- * Fire the 'bp_rest_api_init' action, where BuddyPress registers REST API endpoints.
+ * Fire the 'bp_rest_api_init' action, where Profiles registers REST API endpoints.
  *
  * @since 2.6.0
  */
 function bp_rest_api_init() {
 
 	/**
-	 * Fires the 'bp_rest_api_init' function, where BuddyPress registers REST API endpoints.
+	 * Fires the 'bp_rest_api_init' function, where Profiles registers REST API endpoints.
 	 *
 	 * @since 2.6.0
 	 */
@@ -401,7 +401,7 @@ function bp_head() {
  * Fire the 'bp_template_redirect' action.
  *
  * Run at 'template_redirect', just before WordPress selects and loads a theme
- * template. The main purpose of this hook in BuddyPress is to redirect users
+ * template. The main purpose of this hook in Profiles is to redirect users
  * who do not have the proper permission to access certain content.
  *
  * @since 1.6.0
@@ -480,7 +480,7 @@ function bp_enqueue_embed_scripts() {
 	}
 
 	/**
-	 * Enqueue CSS and JS files for BuddyPress embeds.
+	 * Enqueue CSS and JS files for Profiles embeds.
 	 *
 	 * @since 2.6.0
 	 */
@@ -536,7 +536,7 @@ function bp_add_permastructs() {
  * Fire the 'bp_setup_theme' action.
  *
  * The main purpose of 'bp_setup_theme' is give themes a place to load their
- * BuddyPress-specific functionality.
+ * Profiles-specific functionality.
  *
  * @since 1.6.0
  */
@@ -553,11 +553,11 @@ function bp_setup_theme() {
 /**
  * Fire the 'bp_after_setup_theme' action.
  *
- * Piggy-back action for BuddyPress-specific theme actions once the theme has
+ * Piggy-back action for Profiles-specific theme actions once the theme has
  * been set up and the theme's functions.php has loaded.
  *
  * Hooked to 'after_setup_theme' with a priority of 100. This allows plenty of
- * time for other themes to load their features, such as BuddyPress support,
+ * time for other themes to load their features, such as Profiles support,
  * before our theme compatibility layer kicks in.
  *
  * @since 1.6.0
@@ -664,7 +664,7 @@ function bp_generate_rewrite_rules( $wp_rewrite ) {
 /**
  * Fire the 'bp_allowed_themes' filter.
  *
- * Filter the allowed themes list for BuddyPress-specific themes.
+ * Filter the allowed themes list for Profiles-specific themes.
  *
  * @since 1.7.0
  *
@@ -674,7 +674,7 @@ function bp_generate_rewrite_rules( $wp_rewrite ) {
 function bp_allowed_themes( $themes ) {
 
 	/**
-	 * Filters the allowed themes list for BuddyPress-specific themes.
+	 * Filters the allowed themes list for Profiles-specific themes.
 	 *
 	 * @since 1.7.0
 	 *

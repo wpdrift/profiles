@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Updater.
+ * Profiles Updater.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Updater
  * @since 1.6.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Is this a fresh installation of BuddyPress?
+ * Is this a fresh installation of Profiles?
  *
  * If there is no raw DB version, we infer that this is the first installation.
  *
@@ -24,9 +24,9 @@ function bp_is_install() {
 }
 
 /**
- * Is this a BuddyPress update?
+ * Is this a Profiles update?
  *
- * Determined by comparing the registered BuddyPress version to the version
+ * Determined by comparing the registered Profiles version to the version
  * number stored in the database. If the registered version is greater, it's
  * an update.
  *
@@ -48,12 +48,12 @@ function bp_is_update() {
 }
 
 /**
- * Determine whether BuddyPress is in the process of being activated.
+ * Determine whether Profiles is in the process of being activated.
  *
  * @since 1.6.0
  *
- * @param string $basename BuddyPress basename.
- * @return bool True if activating BuddyPress, false if not.
+ * @param string $basename Profiles basename.
+ * @return bool True if activating Profiles, false if not.
  */
 function bp_is_activation( $basename = '' ) {
 	$bp     = buddypress();
@@ -87,17 +87,17 @@ function bp_is_activation( $basename = '' ) {
 		return false;
 	}
 
-	// Is BuddyPress being activated?
+	// Is Profiles being activated?
 	return in_array( $basename, $plugins );
 }
 
 /**
- * Determine whether BuddyPress is in the process of being deactivated.
+ * Determine whether Profiles is in the process of being deactivated.
  *
  * @since 1.6.0
  *
- * @param string $basename BuddyPress basename.
- * @return bool True if deactivating BuddyPress, false if not.
+ * @param string $basename Profiles basename.
+ * @return bool True if deactivating Profiles, false if not.
  */
 function bp_is_deactivation( $basename = '' ) {
 	$bp     = buddypress();
@@ -145,13 +145,13 @@ function bp_version_bump() {
 }
 
 /**
- * Set up the BuddyPress updater.
+ * Set up the Profiles updater.
  *
  * @since 1.6.0
  */
 function bp_setup_updater() {
 
-	// Are we running an outdated version of BuddyPress?
+	// Are we running an outdated version of Profiles?
 	if ( ! bp_is_update() ) {
 		return;
 	}
@@ -160,14 +160,14 @@ function bp_setup_updater() {
 }
 
 /**
- * Initialize an update or installation of BuddyPress.
+ * Initialize an update or installation of Profiles.
  *
- * BuddyPress's version updater looks at what the current database version is,
+ * Profiles's version updater looks at what the current database version is,
  * and runs whatever other code is needed - either the "update" or "install"
  * code.
  *
  * This is most often used when the data schema changes, but should also be used
- * to correct issues with BuddyPress metadata silently on software update.
+ * to correct issues with Profiles metadata silently on software update.
  *
  * @since 1.7.0
  */
@@ -387,7 +387,7 @@ function bp_update_to_1_9() {
 /**
  * Perform database updates for BP 1.9.2.
  *
- * In 1.9, BuddyPress stopped registering its theme directory when it detected
+ * In 1.9, Profiles stopped registering its theme directory when it detected
  * that bp-default (or a child theme) was not currently being used, in effect
  * deprecating bp-default. However, this ended up causing problems when site
  * admins using bp-default would switch away from the theme temporarily:
@@ -411,7 +411,7 @@ function bp_update_to_1_9_2() {
  *
  * - Ensure that the activity tables are installed, for last_activity storage.
  * - Migrate last_activity data from usermeta to activity table.
- * - Add values for all BuddyPress options to the options table.
+ * - Add values for all Profiles options to the options table.
  *
  * @since 2.0.0
  */
@@ -560,7 +560,7 @@ function bp_cleanup_friendship_activities() {
  *
  * @since 1.7.0
  *
- * @internal Used internally to redirect BuddyPress to the about page on activation.
+ * @internal Used internally to redirect Profiles to the about page on activation.
  */
 function bp_add_activation_redirect() {
 
@@ -626,7 +626,7 @@ function bp_core_maybe_install_signups() {
 /**
  * Fire activation hooks and events.
  *
- * Runs on BuddyPress activation.
+ * Runs on Profiles activation.
  *
  * @since 1.6.0
  */
@@ -639,7 +639,7 @@ function bp_activation() {
 	bp_add_options();
 
 	/**
-	 * Fires during the activation of BuddyPress.
+	 * Fires during the activation of Profiles.
 	 *
 	 * Use as of 1.6.0.
 	 *
@@ -654,7 +654,7 @@ function bp_activation() {
 /**
  * Fire deactivation hooks and events.
  *
- * Runs on BuddyPress deactivation.
+ * Runs on Profiles deactivation.
  *
  * @since 1.6.0
  */
@@ -672,7 +672,7 @@ function bp_deactivation() {
 	}
 
 	/**
-	 * Fires during the deactivation of BuddyPress.
+	 * Fires during the deactivation of Profiles.
 	 *
 	 * Use as of 1.6.0.
 	 *
@@ -687,14 +687,14 @@ function bp_deactivation() {
 /**
  * Fire uninstall hook.
  *
- * Runs when uninstalling BuddyPress.
+ * Runs when uninstalling Profiles.
  *
  * @since 1.6.0
  */
 function bp_uninstall() {
 
 	/**
-	 * Fires during the uninstallation of BuddyPress.
+	 * Fires during the uninstallation of Profiles.
 	 *
 	 * @since 1.6.0
 	 */

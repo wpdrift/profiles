@@ -1,8 +1,8 @@
 <?php
 /**
- * Caching functions specific to BuddyPress Members.
+ * Caching functions specific to Profiles Members.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersCache
  * @since 2.2.0
  */

@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Members Classes.
+ * Profiles Members Classes.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersClasses
  * @since 2.0.0
  */

@@ -1,10 +1,10 @@
 <?php
 /**
- * Functions of BuddyPress's Legacy theme.
+ * Functions of Profiles's Legacy theme.
  *
  * @since 1.7.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage BP_Theme_Compat
  */
 
@@ -16,20 +16,20 @@ defined( 'ABSPATH' ) || exit;
 if ( !class_exists( 'BP_Legacy' ) ) :
 
 /**
- * Loads BuddyPress Legacy Theme functionality.
+ * Loads Profiles Legacy Theme functionality.
  *
  * This is not a real theme by WordPress standards, and is instead used as the
- * fallback for any WordPress theme that does not have BuddyPress templates in it.
+ * fallback for any WordPress theme that does not have Profiles templates in it.
  *
- * To make your custom theme BuddyPress compatible and customize the templates, you
+ * To make your custom theme Profiles compatible and customize the templates, you
  * can copy these files into your theme without needing to merge anything
- * together; BuddyPress should safely handle the rest.
+ * together; Profiles should safely handle the rest.
  *
  * See @link BP_Theme_Compat() for more.
  *
  * @since 1.7.0
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage BP_Theme_Compat
  */
 class BP_Legacy extends BP_Theme_Compat {
@@ -37,7 +37,7 @@ class BP_Legacy extends BP_Theme_Compat {
 	/** Functions *************************************************************/
 
 	/**
-	 * The main BuddyPress (Legacy) Loader.
+	 * The main Profiles (Legacy) Loader.
 	 *
 	 * @since 1.7.0
 	 *
@@ -57,7 +57,7 @@ class BP_Legacy extends BP_Theme_Compat {
 	protected function setup_globals() {
 		$bp            = buddypress();
 		$this->id      = 'legacy';
-		$this->name    = __( 'BuddyPress Legacy', 'buddypress' );
+		$this->name    = __( 'Profiles Legacy', 'buddypress' );
 		$this->version = bp_get_version();
 		$this->dir     = trailingslashit( $bp->themes_dir . '/bp-legacy' );
 		$this->url     = trailingslashit( $bp->themes_url . '/bp-legacy' );
@@ -71,7 +71,7 @@ class BP_Legacy extends BP_Theme_Compat {
 	 */
 	protected function setup_actions() {
 
-		// Filter BuddyPress template hierarchy and look for page templates.
+		// Filter Profiles template hierarchy and look for page templates.
 		add_filter( 'bp_get_buddypress_template', array( $this, 'theme_compat_page_templates' ), 10, 1 );
 
 		/** Scripts ***********************************************************/
@@ -127,7 +127,7 @@ class BP_Legacy extends BP_Theme_Compat {
 		/** Override **********************************************************/
 
 		/**
-		 * Fires after all of the BuddyPress theme compat actions have been added.
+		 * Fires after all of the Profiles theme compat actions have been added.
 		 *
 		 * @since 1.7.0
 		 *

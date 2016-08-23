@@ -2,7 +2,7 @@
 /**
  * Core component classes for wp-admin screens.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 2.5.0
  */

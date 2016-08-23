@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Core Component Widgets.
+ * Profiles Core Component Widgets.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage Core
  * @since 1.0.0
  */

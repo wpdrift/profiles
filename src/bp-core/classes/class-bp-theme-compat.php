@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Core Theme Compatibility Base Class.
+ * Profiles Core Theme Compatibility Base Class.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage ThemeCompatibility
  * @since 1.7.0
  */
@@ -55,7 +55,7 @@ class BP_Theme_Compat {
 	}
 
 	/**
-	 * Set up the BuddyPress-specific theme compat methods.
+	 * Set up the Profiles-specific theme compat methods.
 	 *
 	 * Themes should use this method in their constructor.
 	 *

@@ -1,8 +1,8 @@
 <?php
 /**
- * BuddyPress Member Theme Compat.
+ * Profiles Member Theme Compat.
  *
- * @package BuddyPress
+ * @package Profiles
  * @subpackage MembersScreens
  * @since 1.7.0
  */
@@ -11,7 +11,7 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * The main theme compat class for BuddyPress Members.
+ * The main theme compat class for Profiles Members.
  *
  * This class sets up the necessary theme compatibility actions to safely output
  * member template parts to the_title and the_content areas of a theme.

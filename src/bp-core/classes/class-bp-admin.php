@@ -95,11 +95,11 @@ class BP_Admin {
 	 * @since 1.6.0
 	 */
 	private function setup_globals() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Paths and URLs
-		$this->admin_dir  = trailingslashit( $bp->plugin_dir  . 'bp-core/admin' ); // Admin path.
-		$this->admin_url  = trailingslashit( $bp->plugin_url  . 'bp-core/admin' ); // Admin url.
+		$this->admin_dir  = trailingslashit( $profiles->plugin_dir  . 'bp-core/admin' ); // Admin path.
+		$this->admin_url  = trailingslashit( $profiles->plugin_url  . 'bp-core/admin' ); // Admin url.
 		$this->images_url = trailingslashit( $this->admin_url . 'images'        ); // Admin images URL.
 		$this->css_url    = trailingslashit( $this->admin_url . 'css'           ); // Admin css URL.
 		$this->js_url     = trailingslashit( $this->admin_url . 'js'            ); // Admin css URL.

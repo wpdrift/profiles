@@ -56,7 +56,7 @@ function bp_is_update() {
  * @return bool True if activating Profiles, false if not.
  */
 function bp_is_activation( $basename = '' ) {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$action = false;
 
 	if ( ! empty( $_REQUEST['action'] ) && ( '-1' != $_REQUEST['action'] ) ) {
@@ -78,8 +78,8 @@ function bp_is_activation( $basename = '' ) {
 	}
 
 	// Set basename if empty.
-	if ( empty( $basename ) && !empty( $bp->basename ) ) {
-		$basename = $bp->basename;
+	if ( empty( $basename ) && !empty( $profiles->basename ) ) {
+		$basename = $profiles->basename;
 	}
 
 	// Bail if no basename.
@@ -100,7 +100,7 @@ function bp_is_activation( $basename = '' ) {
  * @return bool True if deactivating Profiles, false if not.
  */
 function bp_is_deactivation( $basename = '' ) {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$action = false;
 
 	if ( ! empty( $_REQUEST['action'] ) && ( '-1' != $_REQUEST['action'] ) ) {
@@ -122,8 +122,8 @@ function bp_is_deactivation( $basename = '' ) {
 	}
 
 	// Set basename if empty.
-	if ( empty( $basename ) && !empty( $bp->basename ) ) {
-		$basename = $bp->basename;
+	if ( empty( $basename ) && !empty( $profiles->basename ) ) {
+		$basename = $profiles->basename;
 	}
 
 	// Bail if no basename.
@@ -291,18 +291,18 @@ function bp_pre_schema_upgrade() {
 	global $wpdb;
 
 	$raw_db_version = (int) bp_get_db_version_raw();
-	$bp_prefix      = bp_core_get_table_prefix();
+	$profiles_prefix      = bp_core_get_table_prefix();
 
 	// 2.3.0: Change index lengths to account for utf8mb4.
 	if ( $raw_db_version < 9695 ) {
 		// Map table_name => columns.
 		$tables = array(
-			$bp_prefix . 'bp_activity_meta'       => array( 'meta_key' ),
-			$bp_prefix . 'bp_groups_groupmeta'    => array( 'meta_key' ),
-			$bp_prefix . 'bp_messages_meta'       => array( 'meta_key' ),
-			$bp_prefix . 'bp_notifications_meta'  => array( 'meta_key' ),
-			$bp_prefix . 'bp_user_blogs_blogmeta' => array( 'meta_key' ),
-			$bp_prefix . 'bp_xprofile_meta'       => array( 'meta_key' ),
+			$profiles_prefix . 'bp_activity_meta'       => array( 'meta_key' ),
+			$profiles_prefix . 'bp_groups_groupmeta'    => array( 'meta_key' ),
+			$profiles_prefix . 'bp_messages_meta'       => array( 'meta_key' ),
+			$profiles_prefix . 'bp_notifications_meta'  => array( 'meta_key' ),
+			$profiles_prefix . 'bp_user_blogs_blogmeta' => array( 'meta_key' ),
+			$profiles_prefix . 'bp_xprofile_meta'       => array( 'meta_key' ),
 		);
 
 		foreach ( $tables as $table_name => $indexes ) {
@@ -517,14 +517,14 @@ function bp_update_to_2_7() {
  */
 function bp_migrate_new_member_activity_component() {
 	global $wpdb;
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Update the component for the new_member type.
 	$wpdb->update(
 		// Activity table.
-		$bp->members->table_name_last_activity,
+		$profiles->members->table_name_last_activity,
 		array(
-			'component' => $bp->members->id,
+			'component' => $profiles->members->id,
 		),
 		array(
 			'component' => 'xprofile',

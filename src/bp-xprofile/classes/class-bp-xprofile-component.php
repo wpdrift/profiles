@@ -98,7 +98,7 @@ class BP_XProfile_Component extends BP_Component {
 	 * @param array $args Array of globals to set up.
 	 */
 	public function setup_globals( $args = array() ) {
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Define a slug, if necessary.
 		if ( !defined( 'BP_XPROFILE_SLUG' ) ) {
@@ -148,16 +148,16 @@ class BP_XProfile_Component extends BP_Component {
 
 		// Tables.
 		$global_tables = array(
-			'table_name_data'   => $bp->table_prefix . 'bp_xprofile_data',
-			'table_name_groups' => $bp->table_prefix . 'bp_xprofile_groups',
-			'table_name_fields' => $bp->table_prefix . 'bp_xprofile_fields',
-			'table_name_meta'   => $bp->table_prefix . 'bp_xprofile_meta',
+			'table_name_data'   => $profiles->table_prefix . 'bp_xprofile_data',
+			'table_name_groups' => $profiles->table_prefix . 'bp_xprofile_groups',
+			'table_name_fields' => $profiles->table_prefix . 'bp_xprofile_fields',
+			'table_name_meta'   => $profiles->table_prefix . 'bp_xprofile_meta',
 		);
 
 		$meta_tables = array(
-			'xprofile_group' => $bp->table_prefix . 'bp_xprofile_meta',
-			'xprofile_field' => $bp->table_prefix . 'bp_xprofile_meta',
-			'xprofile_data'  => $bp->table_prefix . 'bp_xprofile_meta',
+			'xprofile_group' => $profiles->table_prefix . 'bp_xprofile_meta',
+			'xprofile_field' => $profiles->table_prefix . 'bp_xprofile_meta',
+			'xprofile_data'  => $profiles->table_prefix . 'bp_xprofile_meta',
 		);
 
 		$globals = array(
@@ -175,7 +175,7 @@ class BP_XProfile_Component extends BP_Component {
 	 *
 	 * @since 1.5.0
 	 *
-	 * @global Profiles $bp The one true Profiles instance
+	 * @global Profiles $profiles The one true Profiles instance
 	 *
 	 * @param array $main_nav Array of main nav items to set up.
 	 * @param array $sub_nav  Array of sub nav items to set up.
@@ -338,17 +338,17 @@ class BP_XProfile_Component extends BP_Component {
 	public function setup_title() {
 
 		if ( bp_is_profile_component() ) {
-			$bp = profiles();
+			$profiles = profiles();
 
 			if ( bp_is_my_profile() ) {
-				$bp->bp_options_title = _x( 'My Profile', 'Page title', 'profiles' );
+				$profiles->bp_options_title = _x( 'My Profile', 'Page title', 'profiles' );
 			} else {
-				$bp->bp_options_avatar = bp_core_fetch_avatar( array(
+				$profiles->bp_options_avatar = bp_core_fetch_avatar( array(
 					'item_id' => bp_displayed_user_id(),
 					'type'    => 'thumb',
 					'alt'	  => sprintf( _x( 'Profile picture of %s', 'Avatar alt', 'profiles' ), bp_get_displayed_user_fullname() )
 				) );
-				$bp->bp_options_title = bp_get_displayed_user_fullname();
+				$profiles->bp_options_title = bp_get_displayed_user_fullname();
 			}
 		}
 

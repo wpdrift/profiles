@@ -221,10 +221,10 @@ function bp_signup_slug() {
 	 * @return string
 	 */
 	function bp_get_signup_slug() {
-		$bp = profiles();
+		$profiles = profiles();
 
-		if ( !empty( $bp->pages->register->slug ) ) {
-			$slug = $bp->pages->register->slug;
+		if ( !empty( $profiles->pages->register->slug ) ) {
+			$slug = $profiles->pages->register->slug;
 		} elseif ( defined( 'BP_REGISTER_SLUG' ) ) {
 			$slug = BP_REGISTER_SLUG;
 		} else {
@@ -258,10 +258,10 @@ function bp_activate_slug() {
 	 * @return string
 	 */
 	function bp_get_activate_slug() {
-		$bp = profiles();
+		$profiles = profiles();
 
-		if ( !empty( $bp->pages->activate->slug ) ) {
-			$slug = $bp->pages->activate->slug;
+		if ( !empty( $profiles->pages->activate->slug ) ) {
+			$slug = $profiles->pages->activate->slug;
 		} elseif ( defined( 'BP_ACTIVATION_SLUG' ) ) {
 			$slug = BP_ACTIVATION_SLUG;
 		} else {
@@ -1221,15 +1221,15 @@ function bp_total_site_member_count() {
  * @deprecated Does not seem to be called anywhere in BP core.
  */
 function bp_get_loggedin_user_nav() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Loop through each navigation item.
-	foreach ( (array) $bp->members->nav->get_primary() as $nav_item ) {
+	foreach ( (array) $profiles->members->nav->get_primary() as $nav_item ) {
 
 		$selected = '';
 
 		// If the current component matches the nav item id, then add a highlight CSS class.
-		if ( ! bp_is_directory() && ! empty( $bp->active_components[ bp_current_component() ] ) && $bp->active_components[ bp_current_component() ] == $nav_item->css_id ) {
+		if ( ! bp_is_directory() && ! empty( $profiles->active_components[ bp_current_component() ] ) && $profiles->active_components[ bp_current_component() ] == $nav_item->css_id ) {
 			$selected = ' class="current selected"';
 		}
 
@@ -1349,9 +1349,9 @@ function bp_displayed_user_has_front_template() {
  * @since 1.1.0
  */
 function bp_get_displayed_user_nav() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	foreach ( $bp->members->nav->get_primary() as $user_nav_item ) {
+	foreach ( $profiles->members->nav->get_primary() as $user_nav_item ) {
 		if ( empty( $user_nav_item->show_for_displayed_user ) && ! bp_is_my_profile() ) {
 			continue;
 		}
@@ -1524,11 +1524,11 @@ function bp_displayed_user_email() {
 	 * @return string
 	 */
 	function bp_get_displayed_user_email() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		// If displayed user exists, return email address.
-		if ( isset( $bp->displayed_user->userdata->user_email ) )
-			$retval = $bp->displayed_user->userdata->user_email;
+		if ( isset( $profiles->displayed_user->userdata->user_email ) )
+			$retval = $profiles->displayed_user->userdata->user_email;
 		else
 			$retval = '';
 
@@ -1708,7 +1708,7 @@ function bp_current_user_id() { return bp_displayed_user_id(); }
  * @return string
  */
 function bp_displayed_user_domain() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	/**
 	 * Filters the generated link for the displayed user's profile.
@@ -1717,7 +1717,7 @@ function bp_displayed_user_domain() {
 	 *
 	 * @param string $value Generated link for the displayed user's profile.
 	 */
-	return apply_filters( 'bp_displayed_user_domain', isset( $bp->displayed_user->domain ) ? $bp->displayed_user->domain : '' );
+	return apply_filters( 'bp_displayed_user_domain', isset( $profiles->displayed_user->domain ) ? $profiles->displayed_user->domain : '' );
 }
 
 /**
@@ -1728,7 +1728,7 @@ function bp_displayed_user_domain() {
  * @return string
  */
 function bp_loggedin_user_domain() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	/**
 	 * Filters the generated link for the logged-in user's profile.
@@ -1737,7 +1737,7 @@ function bp_loggedin_user_domain() {
 	 *
 	 * @param string $value Generated link for the logged-in user's profile.
 	 */
-	return apply_filters( 'bp_loggedin_user_domain', isset( $bp->loggedin_user->domain ) ? $bp->loggedin_user->domain : '' );
+	return apply_filters( 'bp_loggedin_user_domain', isset( $profiles->loggedin_user->domain ) ? $profiles->loggedin_user->domain : '' );
 }
 
 /**
@@ -1756,7 +1756,7 @@ function bp_displayed_user_fullname() {
 	 * @return string
 	 */
 	function bp_get_displayed_user_fullname() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		/**
 		 * Filters the displayed user's display name.
@@ -1765,7 +1765,7 @@ function bp_displayed_user_fullname() {
 		 *
 		 * @param string $value Displayed user's display name.
 		 */
-		return apply_filters( 'bp_displayed_user_fullname', isset( $bp->displayed_user->fullname ) ? $bp->displayed_user->fullname : '' );
+		return apply_filters( 'bp_displayed_user_fullname', isset( $profiles->displayed_user->fullname ) ? $profiles->displayed_user->fullname : '' );
 	}
 
 	/**
@@ -1792,7 +1792,7 @@ function bp_loggedin_user_fullname() {
 	 * @return string
 	 */
 	function bp_get_loggedin_user_fullname() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		/**
 		 * Filters the logged-in user's display name.
@@ -1801,7 +1801,7 @@ function bp_loggedin_user_fullname() {
 		 *
 		 * @param string $value Logged-in user's display name.
 		 */
-		return apply_filters( 'bp_get_loggedin_user_fullname', isset( $bp->loggedin_user->fullname ) ? $bp->loggedin_user->fullname : '' );
+		return apply_filters( 'bp_get_loggedin_user_fullname', isset( $profiles->loggedin_user->fullname ) ? $profiles->loggedin_user->fullname : '' );
 	}
 
 /**
@@ -1820,10 +1820,10 @@ function bp_displayed_user_username() {
 	 * @return string
 	 */
 	function bp_get_displayed_user_username() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( bp_displayed_user_id() ) {
-			$username = bp_core_get_username( bp_displayed_user_id(), $bp->displayed_user->userdata->user_nicename, $bp->displayed_user->userdata->user_login );
+			$username = bp_core_get_username( bp_displayed_user_id(), $profiles->displayed_user->userdata->user_nicename, $profiles->displayed_user->userdata->user_login );
 		} else {
 			$username = '';
 		}
@@ -1854,10 +1854,10 @@ function bp_loggedin_user_username() {
 	 * @return string
 	 */
 	function bp_get_loggedin_user_username() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( bp_loggedin_user_id() ) {
-			$username = bp_core_get_username( bp_loggedin_user_id(), $bp->loggedin_user->userdata->user_nicename, $bp->loggedin_user->userdata->user_login );
+			$username = bp_core_get_username( bp_loggedin_user_id(), $profiles->loggedin_user->userdata->user_nicename, $profiles->loggedin_user->userdata->user_login );
 		} else {
 			$username = '';
 		}
@@ -2190,15 +2190,15 @@ function bp_signup_avatar_dir_value() {
 	 * @return string
 	 */
 	function bp_get_signup_avatar_dir_value() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Check if signup_avatar_dir is passed.
 		if ( !empty( $_POST['signup_avatar_dir'] ) )
 			$signup_avatar_dir = $_POST['signup_avatar_dir'];
 
 		// If not, check if global is set.
-		elseif ( !empty( $bp->signup->avatar_dir ) )
-			$signup_avatar_dir = $bp->signup->avatar_dir;
+		elseif ( !empty( $profiles->signup->avatar_dir ) )
+			$signup_avatar_dir = $profiles->signup->avatar_dir;
 
 		// If not, set false.
 		else
@@ -2262,7 +2262,7 @@ function bp_signup_avatar( $args = '' ) {
 	 * @return string
 	 */
 	function bp_get_signup_avatar( $args = '' ) {
-		$bp = profiles();
+		$profiles = profiles();
 
 		$defaults = array(
 			'size' => bp_core_avatar_full_width(),
@@ -2290,12 +2290,12 @@ function bp_signup_avatar( $args = '' ) {
 		} else {
 
 			// Set default gravatar type.
-			if ( empty( $bp->grav_default->user ) )
+			if ( empty( $profiles->grav_default->user ) )
 				$default_grav = 'wavatar';
-			elseif ( 'mystery' == $bp->grav_default->user )
-				$default_grav = $bp->plugin_url . 'bp-core/images/mystery-man.jpg';
+			elseif ( 'mystery' == $profiles->grav_default->user )
+				$default_grav = $profiles->plugin_url . 'bp-core/images/mystery-man.jpg';
 			else
-				$default_grav = $bp->grav_default->user;
+				$default_grav = $profiles->grav_default->user;
 
 			/**
 			 * Filters the base Gravatar url used for signup avatars when no avatar dir found.
@@ -2355,13 +2355,13 @@ function bp_members_component_link( $component, $action = '', $query_args = '', 
 		if ( !bp_displayed_user_id() )
 			return;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Append $action to $url if there is no $type.
 		if ( !empty( $action ) )
-			$url = bp_displayed_user_domain() . $bp->{$component}->slug . '/' . $action;
+			$url = bp_displayed_user_domain() . $profiles->{$component}->slug . '/' . $action;
 		else
-			$url = bp_displayed_user_domain() . $bp->{$component}->slug;
+			$url = bp_displayed_user_domain() . $profiles->{$component}->slug;
 
 		// Add a slash at the end of our user url.
 		$url = trailingslashit( $url );

@@ -62,7 +62,7 @@ function bp_xprofile_update_meta_cache( $object_ids = array() ) {
 		return false;
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Define the array where uncached object IDs will be stored.
 	$uncached_object_ids = array(
@@ -132,7 +132,7 @@ function bp_xprofile_update_meta_cache( $object_ids = array() ) {
 	$where_sql = implode( " OR ", $where_conditions );
 
 	// Attempt to query meta values.
-	$meta_list = $wpdb->get_results( "SELECT object_id, object_type, meta_key, meta_value FROM {$bp->profile->table_name_meta} WHERE {$where_sql}" );
+	$meta_list = $wpdb->get_results( "SELECT object_id, object_type, meta_key, meta_value FROM {$profiles->profile->table_name_meta} WHERE {$where_sql}" );
 
 	// Bail if no results found.
 	if ( empty( $meta_list ) || is_wp_error( $meta_list ) ) {

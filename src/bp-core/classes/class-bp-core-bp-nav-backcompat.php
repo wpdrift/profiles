@@ -1,6 +1,6 @@
 <?php
 /**
- * Backward compatibility for the $bp->bp_nav global.
+ * Backward compatibility for the $profiles->bp_nav global.
  *
  * @since 2.6.0
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * bp_nav backward compatibility class.
  *
  * This class is used to provide backward compatibility for extensions that access and modify
- * the $bp->bp_nav global.
+ * the $profiles->bp_nav global.
  *
  * @since 2.6.0
  */
@@ -67,7 +67,7 @@ class BP_Core_BP_Nav_BackCompat implements ArrayAccess {
 			'2.6.0'
 		);
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( is_array( $value ) ) {
 			$value = new self( $value );
@@ -81,7 +81,7 @@ class BP_Core_BP_Nav_BackCompat implements ArrayAccess {
 			if ( isset( $args['parent_slug'] ) ) {
 				$this->get_component_nav( $args['parent_slug'] )->edit_nav( $args, $args['slug'], $args['parent_slug'] );
 			} elseif ( isset( $args['slug'] ) ) {
-				$bp->members->nav->edit_nav( $args, $args['slug'] );
+				$profiles->members->nav->edit_nav( $args, $args['slug'] );
 			}
 		}
 	}
@@ -214,7 +214,7 @@ class BP_Core_BP_Nav_BackCompat implements ArrayAccess {
 	 * @return bool|array
 	 */
 	protected function get_nav( $offset ) {
-		$bp = profiles();
+		$profiles = profiles();
 
 		$component_nav = $this->get_component_nav( $offset );
 		$primary_nav   = $component_nav->get_primary( array( 'slug' => $offset ), false );
@@ -249,12 +249,12 @@ class BP_Core_BP_Nav_BackCompat implements ArrayAccess {
 	protected function get_component_nav( $offset = '' ) {
 		$component = $this->get_component( $offset );
 
-		$bp = profiles();
-		if ( ! isset( $bp->{$component}->nav ) ) {
+		$profiles = profiles();
+		if ( ! isset( $profiles->{$component}->nav ) ) {
 			return false;
 		}
 
-		return $bp->{$component}->nav;
+		return $profiles->{$component}->nav;
 	}
 
 	/**

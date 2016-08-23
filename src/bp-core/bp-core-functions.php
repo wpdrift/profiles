@@ -69,8 +69,8 @@ function bp_db_version_raw() {
 	 * @return string The Profiles version direct from the database.
 	 */
 	function bp_get_db_version_raw() {
-		$bp = profiles();
-		return !empty( $bp->db_version_raw ) ? $bp->db_version_raw : 0;
+		$profiles = profiles();
+		return !empty( $profiles->db_version_raw ) ? $profiles->db_version_raw : 0;
 	}
 
 /** Functions *****************************************************************/
@@ -499,11 +499,11 @@ function bp_core_get_directory_page_id( $component = null ) {
 		$component = bp_current_component();
 	}
 
-	$bp_pages = bp_core_get_directory_page_ids( 'all' );
+	$profiles_pages = bp_core_get_directory_page_ids( 'all' );
 
 	$page_id = false;
-	if ( $component && isset( $bp_pages[ $component ] ) ) {
-		$page_id = (int) $bp_pages[ $component ];
+	if ( $component && isset( $profiles_pages[ $component ] ) ) {
+		$page_id = (int) $profiles_pages[ $component ];
 	}
 
 	return $page_id;
@@ -716,7 +716,7 @@ add_action( 'delete_post', 'bp_core_on_directory_page_delete' );
  * following the root domain) from the slug of a corresponding WP page.
  *
  * E.g. if your BP installation at example.com has its members page at
- * example.com/community/people, $bp->members->root_slug will be
+ * example.com/community/people, $profiles->members->root_slug will be
  * 'community/people'.
  *
  * By default, this function creates a shorter version of the root_slug for
@@ -729,7 +729,7 @@ add_action( 'delete_post', 'bp_core_on_directory_page_delete' );
  *
  * @since 1.5.0
  *
- * @param string $root_slug The root slug, which comes from $bp->pages->[component]->slug.
+ * @param string $root_slug The root slug, which comes from $profiles->pages->[component]->slug.
  * @return string The short slug for use in the middle of URLs.
  */
 function bp_core_component_slug_from_root_slug( $root_slug ) {
@@ -742,7 +742,7 @@ function bp_core_component_slug_from_root_slug( $root_slug ) {
 	 * @since 1.5.0
 	 *
 	 * @param string $slug      Short slug for use in the middle of URLs.
-	 * @param string $root_slug The root slug which comes from $bp->pages-[component]->slug.
+	 * @param string $root_slug The root slug which comes from $profiles->pages-[component]->slug.
 	 */
 	return apply_filters( 'bp_core_component_slug_from_root_slug', $slug, $root_slug );
 }
@@ -760,37 +760,37 @@ function bp_core_component_slug_from_root_slug( $root_slug ) {
  * @param string $slug The slug of the component being added to the root list.
  */
 function bp_core_add_root_component( $slug ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->pages ) ) {
-		$bp->pages = bp_core_get_directory_pages();
+	if ( empty( $profiles->pages ) ) {
+		$profiles->pages = bp_core_get_directory_pages();
 	}
 
 	$match = false;
 
-	// Check if the slug is registered in the $bp->pages global.
-	foreach ( (array) $bp->pages as $key => $page ) {
+	// Check if the slug is registered in the $profiles->pages global.
+	foreach ( (array) $profiles->pages as $key => $page ) {
 		if ( $key == $slug || $page->slug == $slug ) {
 			$match = true;
 		}
 	}
 
 	// Maybe create the add_root array.
-	if ( empty( $bp->add_root ) ) {
-		$bp->add_root = array();
+	if ( empty( $profiles->add_root ) ) {
+		$profiles->add_root = array();
 	}
 
 	// If there was no match, add a page for this root component.
 	if ( empty( $match ) ) {
-		$add_root_items   = $bp->add_root();
+		$add_root_items   = $profiles->add_root();
 		$add_root_items[] = $slug;
-		$bp->add_root     = $add_root_items;
+		$profiles->add_root     = $add_root_items;
 	}
 
 	// Make sure that this component is registered as requiring a top-level directory.
-	if ( isset( $bp->{$slug} ) ) {
-		$bp->loaded_components[$bp->{$slug}->slug] = $bp->{$slug}->id;
-		$bp->{$slug}->has_directory = true;
+	if ( isset( $profiles->{$slug} ) ) {
+		$profiles->loaded_components[$profiles->{$slug}->slug] = $profiles->{$slug}->id;
+		$profiles->{$slug}->has_directory = true;
 	}
 }
 
@@ -802,11 +802,11 @@ function bp_core_add_root_component( $slug ) {
 function bp_core_create_root_component_page() {
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
 	$new_page_ids = array();
 
-	foreach ( (array) $bp->add_root as $slug ) {
+	foreach ( (array) $profiles->add_root as $slug ) {
 		$new_page_ids[ $slug ] = wp_insert_post( array(
 			'comment_status' => 'closed',
 			'ping_status'    => 'closed',
@@ -1268,14 +1268,14 @@ function bp_core_add_message( $message, $type = '' ) {
 	@setcookie( 'bp-message-type', $type,    time() + 60 * 60 * 24, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
 	/**
-	 * Send the values to the $bp global so we can still output messages
+	 * Send the values to the $profiles global so we can still output messages
 	 * without a page reload
 	 */
-	$bp->template_message      = $message;
-	$bp->template_message_type = $type;
+	$profiles->template_message      = $message;
+	$profiles->template_message_type = $type;
 }
 
 /**
@@ -1294,14 +1294,14 @@ function bp_core_add_message( $message, $type = '' ) {
 function bp_core_setup_message() {
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->template_message ) && isset( $_COOKIE['bp-message'] ) ) {
-		$bp->template_message = stripslashes( $_COOKIE['bp-message'] );
+	if ( empty( $profiles->template_message ) && isset( $_COOKIE['bp-message'] ) ) {
+		$profiles->template_message = stripslashes( $_COOKIE['bp-message'] );
 	}
 
-	if ( empty( $bp->template_message_type ) && isset( $_COOKIE['bp-message-type'] ) ) {
-		$bp->template_message_type = stripslashes( $_COOKIE['bp-message-type'] );
+	if ( empty( $profiles->template_message_type ) && isset( $_COOKIE['bp-message-type'] ) ) {
+		$profiles->template_message_type = stripslashes( $_COOKIE['bp-message-type'] );
 	}
 
 	add_action( 'template_notices', 'bp_core_render_message' );
@@ -1327,10 +1327,10 @@ add_action( 'bp_actions', 'bp_core_setup_message', 5 );
 function bp_core_render_message() {
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( !empty( $bp->template_message ) ) :
-		$type    = ( 'success' === $bp->template_message_type ) ? 'updated' : 'error';
+	if ( !empty( $profiles->template_message ) ) :
+		$type    = ( 'success' === $profiles->template_message_type ) ? 'updated' : 'error';
 
 		/**
 		 * Filters the 'template_notices' feedback message content.
@@ -1341,7 +1341,7 @@ function bp_core_render_message() {
 		 * @param string $type             The type of message being displayed.
 		 *                                 Either 'updated' or 'error'.
 		 */
-		$content = apply_filters( 'bp_core_render_message_content', $bp->template_message, $type ); ?>
+		$content = apply_filters( 'bp_core_render_message_content', $profiles->template_message, $type ); ?>
 
 		<div id="message" class="bp-template-notice <?php echo esc_attr( $type ); ?>">
 
@@ -1567,10 +1567,10 @@ function bp_delete_user_meta( $user_id, $key, $value = '' ) {
 function bp_embed_init() {
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->embed ) ) {
-		$bp->embed = new BP_Embed();
+	if ( empty( $profiles->embed ) ) {
+		$profiles->embed = new BP_Embed();
 	}
 }
 add_action( 'bp_init', 'bp_embed_init', 9 );
@@ -2455,38 +2455,38 @@ function bp_nav_menu_get_loggedin_pages() {
 	}
 
 	// Pull up a list of items registered in BP's primary nav for the member.
-	$bp_menu_items = profiles()->members->nav->get_primary();
+	$profiles_menu_items = profiles()->members->nav->get_primary();
 
 	// Some BP nav menu items will not be represented in bp_nav, because
 	// they are not real BP components. We add them manually here.
-	$bp_menu_items[] = array(
+	$profiles_menu_items[] = array(
 		'name' => __( 'Log Out', 'profiles' ),
 		'slug' => 'logout',
 		'link' => wp_logout_url(),
 	);
 
 	// If there's nothing to show, we're done.
-	if ( count( $bp_menu_items ) < 1 ) {
+	if ( count( $profiles_menu_items ) < 1 ) {
 		return false;
 	}
 
 	$page_args = array();
 
-	foreach ( $bp_menu_items as $bp_item ) {
+	foreach ( $profiles_menu_items as $profiles_item ) {
 
 		// Remove <span>number</span>.
-		$item_name = _bp_strip_spans_from_title( $bp_item['name'] );
+		$item_name = _bp_strip_spans_from_title( $profiles_item['name'] );
 
-		$page_args[ $bp_item['slug'] ] = (object) array(
+		$page_args[ $profiles_item['slug'] ] = (object) array(
 			'ID'             => -1,
 			'post_title'     => $item_name,
 			'post_author'    => 0,
 			'post_date'      => 0,
-			'post_excerpt'   => $bp_item['slug'],
+			'post_excerpt'   => $profiles_item['slug'],
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
 			'comment_status' => 'closed',
-			'guid'           => $bp_item['link']
+			'guid'           => $profiles_item['link']
 		);
 	}
 
@@ -2520,11 +2520,11 @@ function bp_nav_menu_get_loggedout_pages() {
 		return profiles()->wp_nav_menu_items->loggedout;
 	}
 
-	$bp_menu_items = array();
+	$profiles_menu_items = array();
 
 	// Some BP nav menu items will not be represented in bp_nav, because
 	// they are not real BP components. We add them manually here.
-	$bp_menu_items[] = array(
+	$profiles_menu_items[] = array(
 		'name' => __( 'Log In', 'profiles' ),
 		'slug' => 'login',
 		'link' => wp_login_url(),
@@ -2532,11 +2532,11 @@ function bp_nav_menu_get_loggedout_pages() {
 
 	// The Register page will not always be available (ie, when
 	// registration is disabled).
-	$bp_directory_page_ids = bp_core_get_directory_page_ids();
+	$profiles_directory_page_ids = bp_core_get_directory_page_ids();
 
-	if( ! empty( $bp_directory_page_ids['register'] ) ) {
-		$register_page = get_post( $bp_directory_page_ids['register'] );
-		$bp_menu_items[] = array(
+	if( ! empty( $profiles_directory_page_ids['register'] ) ) {
+		$register_page = get_post( $profiles_directory_page_ids['register'] );
+		$profiles_menu_items[] = array(
 			'name' => $register_page->post_title,
 			'slug' => 'register',
 			'link' => get_permalink( $register_page->ID ),
@@ -2544,23 +2544,23 @@ function bp_nav_menu_get_loggedout_pages() {
 	}
 
 	// If there's nothing to show, we're done.
-	if ( count( $bp_menu_items ) < 1 ) {
+	if ( count( $profiles_menu_items ) < 1 ) {
 		return false;
 	}
 
 	$page_args = array();
 
-	foreach ( $bp_menu_items as $bp_item ) {
-		$page_args[ $bp_item['slug'] ] = (object) array(
+	foreach ( $profiles_menu_items as $profiles_item ) {
+		$page_args[ $profiles_item['slug'] ] = (object) array(
 			'ID'             => -1,
-			'post_title'     => $bp_item['name'],
+			'post_title'     => $profiles_item['name'],
 			'post_author'    => 0,
 			'post_date'      => 0,
-			'post_excerpt'   => $bp_item['slug'],
+			'post_excerpt'   => $profiles_item['slug'],
 			'post_type'      => 'page',
 			'post_status'    => 'publish',
 			'comment_status' => 'closed',
-			'guid'           => $bp_item['link']
+			'guid'           => $profiles_item['link']
 		);
 	}
 
@@ -2681,9 +2681,9 @@ function bp_core_get_suggestions( $args ) {
  * @return string
  */
 function bp_upload_dir() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->upload_dir ) ) {
+	if ( empty( $profiles->upload_dir ) ) {
 		$need_switch = (bool) ( is_multisite() && ! bp_is_root_blog() );
 
 		// Maybe juggle to root blog.
@@ -2704,10 +2704,10 @@ function bp_upload_dir() {
 			return false;
 		}
 
-		$bp->upload_dir = $wp_upload_dir;
+		$profiles->upload_dir = $wp_upload_dir;
 	}
 
-	return $bp->upload_dir;
+	return $profiles->upload_dir;
 }
 
 

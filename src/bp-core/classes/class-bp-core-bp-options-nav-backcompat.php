@@ -1,6 +1,6 @@
 <?php
 /**
- * Backward compatibility for the $bp->bp_options_nav global.
+ * Backward compatibility for the $profiles->bp_options_nav global.
  *
  * @since 2.6.0
  */
@@ -12,7 +12,7 @@ defined( 'ABSPATH' ) || exit;
  * bp_options_nav backward compatibility class.
  *
  * This class is used to provide backward compatibility for extensions that access and modify
- * the $bp->bp_options_nav global.
+ * the $profiles->bp_options_nav global.
  *
  * @since 2.6.0
  */

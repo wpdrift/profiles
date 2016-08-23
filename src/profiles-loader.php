@@ -58,12 +58,12 @@ class Profiles {
 	/**
 	 * @var array Primary Profiles navigation.
 	 */
-	public $bp_nav = array();
+	public $profiles_nav = array();
 
 	/**
-	 * @var array Secondary Profiles navigation to $bp_nav.
+	 * @var array Secondary Profiles navigation to $profiles_nav.
 	 */
-	public $bp_options_nav = array();
+	public $profiles_options_nav = array();
 
 	/**
 	 * @var array The unfiltered URI broken down into chunks.
@@ -765,7 +765,7 @@ class Profiles {
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $bp = profiles(); ?>
+ * Example: <?php $profiles = profiles(); ?>
  *
  * @return Profiles The one true Profiles Instance.
  */

@@ -117,7 +117,7 @@ function bp_core_screen_activation() {
 	}
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
 	// We've got a key; let's attempt to activate the signup.
 	if ( ! empty( $key ) ) {
@@ -135,11 +135,11 @@ function bp_core_screen_activation() {
 		// If there were errors, add a message and redirect.
 		if ( ! empty( $user->errors ) ) {
 			bp_core_add_message( $user->get_error_message(), 'error' );
-			bp_core_redirect( trailingslashit( bp_get_root_domain() . '/' . $bp->pages->activate->slug ) );
+			bp_core_redirect( trailingslashit( bp_get_root_domain() . '/' . $profiles->pages->activate->slug ) );
 		}
 
 		bp_core_add_message( __( 'Your account is now active!', 'profiles' ) );
-		$bp->activation_complete = true;
+		$profiles->activation_complete = true;
 	}
 
 	/**

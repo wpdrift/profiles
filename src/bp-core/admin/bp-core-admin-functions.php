@@ -230,7 +230,7 @@ function bp_core_activation_notice() {
 	}
 
 	// Get Profiles instance.
-	$bp = profiles();
+	$profiles = profiles();
 
 	/**
 	 * Check for orphaned BP components (BP component is enabled, no WP page exists).
@@ -239,23 +239,23 @@ function bp_core_activation_notice() {
 	$wp_page_components  = array();
 
 	// Only components with 'has_directory' require a WP page to function.
-	foreach( array_keys( $bp->loaded_components ) as $component_id ) {
-		if ( !empty( $bp->{$component_id}->has_directory ) ) {
+	foreach( array_keys( $profiles->loaded_components ) as $component_id ) {
+		if ( !empty( $profiles->{$component_id}->has_directory ) ) {
 			$wp_page_components[] = array(
 				'id'   => $component_id,
-				'name' => isset( $bp->{$component_id}->name ) ? $bp->{$component_id}->name : ucwords( $bp->{$component_id}->id )
+				'name' => isset( $profiles->{$component_id}->name ) ? $profiles->{$component_id}->name : ucwords( $profiles->{$component_id}->id )
 			);
 		}
 	}
 
 	// On the first admin screen after a new installation, this isn't set, so grab it to suppress
 	// a misleading error message.
-	if ( empty( $bp->pages->members ) ) {
-		$bp->pages = bp_core_get_directory_pages();
+	if ( empty( $profiles->pages->members ) ) {
+		$profiles->pages = bp_core_get_directory_pages();
 	}
 
 	foreach( $wp_page_components as $component ) {
-		if ( !isset( $bp->pages->{$component['id']} ) ) {
+		if ( !isset( $profiles->pages->{$component['id']} ) ) {
 			$orphaned_components[] = $component['name'];
 		}
 	}
@@ -282,7 +282,7 @@ function bp_core_activation_notice() {
 
 	if ( !empty( $dupes ) ) {
 		foreach( array_keys( $dupes ) as $dupe_component ) {
-			$dupe_names[] = $bp->pages->{$dupe_component}->title;
+			$dupe_names[] = $profiles->pages->{$dupe_component}->title;
 		}
 
 		// Make sure that there are no duplicate duplicates :).
@@ -627,7 +627,7 @@ function bp_admin_menu_order( $menu_order = array() ) {
 	}
 
 	// Initialize our custom order array.
-	$bp_menu_order = array();
+	$profiles_menu_order = array();
 
 	// Menu values.
 	$last_sep     = is_network_admin() ? 'separator1' : 'separator2';
@@ -658,21 +658,21 @@ function bp_admin_menu_order( $menu_order = array() ) {
 			// Add our custom menus.
 			foreach( (array) $custom_menus as $custom_menu ) {
 				if ( array_search( $custom_menu, $menu_order ) ) {
-					$bp_menu_order[] = $custom_menu;
+					$profiles_menu_order[] = $custom_menu;
 				}
 			}
 
 			// Add the appearance separator.
-			$bp_menu_order[] = $last_sep;
+			$profiles_menu_order[] = $last_sep;
 
 		// Skip our menu items.
 		} elseif ( ! in_array( $item, $custom_menus ) ) {
-			$bp_menu_order[] = $item;
+			$profiles_menu_order[] = $item;
 		}
 	}
 
 	// Return our custom order.
-	return $bp_menu_order;
+	return $profiles_menu_order;
 }
 
 /** Utility  *****************************************************************/

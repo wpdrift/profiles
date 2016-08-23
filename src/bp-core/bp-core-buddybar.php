@@ -111,7 +111,7 @@ function bp_core_new_nav_item( $args, $component = 'members' ) {
  * @return bool|BP_Nav_Item Returns false on failure, new nav item on success.
  */
 function bp_core_create_nav_link( $args = '', $component = 'members' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	$defaults = array(
 		'name'                    => false, // Display name for the nav item.
@@ -193,7 +193,7 @@ function bp_core_create_nav_link( $args = '', $component = 'members' ) {
  * @return bool|null Returns false on failure.
  */
 function bp_core_register_nav_screen_function( $args = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	$defaults = array(
 		'name'                    => false, // Display name for the nav item.
@@ -246,7 +246,7 @@ function bp_core_register_nav_screen_function( $args = '' ) {
 		// (eg: http://example.com/members/membername/activity/just-me/)
 		// The canonical version will not contain this subnav slug.
 		if ( ! empty( $r['default_subnav_slug'] ) && bp_is_current_action( $r['default_subnav_slug'] ) && ! bp_action_variable( 0 ) ) {
-			unset( $bp->canonical_stack['action'] );
+			unset( $profiles->canonical_stack['action'] );
 		} elseif ( ! bp_current_action() ) {
 
 			// Add our screen hook if screen function is callable.
@@ -265,7 +265,7 @@ function bp_core_register_nav_screen_function( $args = '' ) {
 				 *                      to select when clicked.
 				 * @param array  $r     Parsed arguments for the nav item.
 				 */
-				$bp->current_action = apply_filters( 'bp_default_component_subnav', $r['default_subnav_slug'], $r );
+				$profiles->current_action = apply_filters( 'bp_default_component_subnav', $r['default_subnav_slug'], $r );
 			}
 		}
 	}
@@ -295,7 +295,7 @@ function bp_core_register_nav_screen_function( $args = '' ) {
  * }
  */
 function bp_core_new_nav_default( $args = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	$defaults = array(
 		'parent_slug'     => false, // Slug of the parent.
@@ -306,7 +306,7 @@ function bp_core_new_nav_default( $args = '' ) {
 	$r = wp_parse_args( $args, $defaults );
 
 	// This is specific to Members - it's not available in Groups.
-	$parent_nav = $bp->members->nav->get_primary( array( 'slug' => $r['parent_slug'] ), false );
+	$parent_nav = $profiles->members->nav->get_primary( array( 'slug' => $r['parent_slug'] ), false );
 
 	if ( ! $parent_nav ) {
 		return ;
@@ -322,7 +322,7 @@ function bp_core_new_nav_default( $args = '' ) {
 	}
 
 	// Edit the screen function for the parent nav.
-	$bp->members->nav->edit_nav( array(
+	$profiles->members->nav->edit_nav( array(
 		'screen_function'     => &$r['screen_function'],
 		'default_subnav_slug' => $r['subnav_slug'],
 	), $parent_nav->slug );
@@ -331,11 +331,11 @@ function bp_core_new_nav_default( $args = '' ) {
 
 		// The only way to tell whether to set the subnav is to peek at the unfiltered_uri
 		// Find the component.
-		$component_uri_key = array_search( $parent_nav->slug, $bp->unfiltered_uri );
+		$component_uri_key = array_search( $parent_nav->slug, $profiles->unfiltered_uri );
 
 		if ( false !== $component_uri_key ) {
-			if ( ! empty( $bp->unfiltered_uri[$component_uri_key + 1] ) ) {
-				$unfiltered_action = $bp->unfiltered_uri[$component_uri_key + 1];
+			if ( ! empty( $profiles->unfiltered_uri[$component_uri_key + 1] ) ) {
+				$unfiltered_action = $profiles->unfiltered_uri[$component_uri_key + 1];
 			}
 		}
 
@@ -346,20 +346,20 @@ function bp_core_new_nav_default( $args = '' ) {
 					add_action( 'bp_screens', $r['screen_function'], 3 );
 				}
 
-				$bp->current_action = $r['subnav_slug'];
-				unset( $bp->canonical_stack['action'] );
+				$profiles->current_action = $r['subnav_slug'];
+				unset( $profiles->canonical_stack['action'] );
 			}
 
 		// The URL is explicitly requesting the new subnav item, but should be
 		// directed to the canonical URL.
 		} elseif ( $unfiltered_action == $r['subnav_slug'] ) {
-			unset( $bp->canonical_stack['action'] );
+			unset( $profiles->canonical_stack['action'] );
 
 		// In all other cases (including the case where the original subnav item
 		// is explicitly called in the URL), the canonical URL will contain the
 		// subnav slug.
 		} else {
-			$bp->canonical_stack['action'] = bp_current_action();
+			$profiles->canonical_stack['action'] = bp_current_action();
 		}
 	}
 
@@ -478,7 +478,7 @@ function bp_core_new_subnav_item( $args, $component = null ) {
  * @return bool|object Returns false on failure, new BP_Nav_Item instance on success.
  */
 function bp_core_create_subnav_link( $args = '', $component = 'members' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	$r = wp_parse_args( $args, array(
 		'name'              => false, // Display name for the nav item.
@@ -503,7 +503,7 @@ function bp_core_create_subnav_link( $args = '', $component = 'members' ) {
 	if ( empty( $r['link'] ) ) {
 		$r['link'] = trailingslashit( $r['parent_url'] . $r['slug'] );
 
-		$parent_nav = $bp->{$component}->nav->get_primary( array( 'slug' => $r['parent_slug'] ), false );
+		$parent_nav = $profiles->{$component}->nav->get_primary( array( 'slug' => $r['parent_slug'] ), false );
 
 		// If this sub item is the default for its parent, skip the slug.
 		if ( $parent_nav ) {
@@ -572,7 +572,7 @@ function bp_core_create_subnav_link( $args = '', $component = 'members' ) {
  * @return bool|null Returns false on failure.
  */
 function bp_core_register_subnav_screen_function( $args = '', $component = 'members' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	$r = wp_parse_args( $args, array(
 		'slug'              => false, // URL slug for the screen.
@@ -605,7 +605,7 @@ function bp_core_register_subnav_screen_function( $args = '', $component = 'memb
 		return;
 	}
 
-	$parent_nav = $bp->{$component}->nav->get_primary( array( 'slug' => $r['parent_slug'] ), false );
+	$parent_nav = $profiles->{$component}->nav->get_primary( array( 'slug' => $r['parent_slug'] ), false );
 
 	// If we *do* meet condition (2), then the added subnav item is currently being requested.
 	if ( ( bp_current_action() && bp_is_current_action( $r['slug'] ) ) || ( bp_is_user() && ! bp_current_action() && ! empty( $parent_nav->screen_function ) && $r['screen_function'] == $parent_nav->screen_function ) ) {
@@ -666,7 +666,7 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
 
 		if ( is_user_logged_in() ) {
 
-			$bp = profiles();
+			$profiles = profiles();
 
 			// If a redirect URL has been passed to the subnav
 			// item, respect it.
@@ -678,7 +678,7 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
 			// redirect URL.
 			} elseif ( bp_is_user() ) {
 
-				$parent_nav_default = $bp->{$component}->nav->get_primary( array( 'slug' => $bp->default_component ), false );
+				$parent_nav_default = $profiles->{$component}->nav->get_primary( array( 'slug' => $profiles->default_component ), false );
 				if ( $parent_nav_default ) {
 					$parent_nav_default_item = reset( $parent_nav_default );
 				}
@@ -695,7 +695,7 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
 				// know will be accessible.
 				} else {
 					// Then try 'profile'.
-					$redirect_to = trailingslashit( bp_displayed_user_domain() . ( 'xprofile' == $bp->profile->id ? 'profile' : $bp->profile->id ) );
+					$redirect_to = trailingslashit( bp_displayed_user_domain() . ( 'xprofile' == $profiles->profile->id ? 'profile' : $profiles->profile->id ) );
 
 					$message     = '';
 				}
@@ -735,9 +735,9 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
  * @return bool $has_subnav True if the nav item is found and has subnav items; false otherwise.
  */
 function bp_nav_item_has_subnav( $nav_item = '', $component = 'members' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( ! isset( $bp->{$component}->nav ) ) {
+	if ( ! isset( $profiles->{$component}->nav ) ) {
 		return false;
 	}
 
@@ -749,7 +749,7 @@ function bp_nav_item_has_subnav( $nav_item = '', $component = 'members' ) {
 		}
 	}
 
-	$has_subnav = (bool) $bp->{$component}->nav->get_secondary( array( 'parent_slug' => $nav_item ), false );
+	$has_subnav = (bool) $profiles->{$component}->nav->get_secondary( array( 'parent_slug' => $nav_item ), false );
 
 	/**
 	 * Filters whether or not a given nav item has subnav items.
@@ -773,11 +773,11 @@ function bp_nav_item_has_subnav( $nav_item = '', $component = 'members' ) {
  * @return bool Returns false on failure, True on success.
  */
 function bp_core_remove_nav_item( $slug, $component = null ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Backward compatibility for removing group nav items using the group slug as `$parent_slug`.
-	if ( ! $component && bp_is_active( 'groups' ) && isset( $bp->groups->nav ) ) {
-		if ( $bp->groups->nav->get_primary( array( 'slug' => $slug ) ) ) {
+	if ( ! $component && bp_is_active( 'groups' ) && isset( $profiles->groups->nav ) ) {
+		if ( $profiles->groups->nav->get_primary( array( 'slug' => $slug ) ) ) {
 			$component = 'groups';
 		}
 	}
@@ -786,16 +786,16 @@ function bp_core_remove_nav_item( $slug, $component = null ) {
 		$component = 'members';
 	}
 
-	if ( ! isset( $bp->{$component}->nav ) ) {
+	if ( ! isset( $profiles->{$component}->nav ) ) {
 		return false;
 	}
 
-	$screen_functions = $bp->{$component}->nav->delete_nav( $slug );
+	$screen_functions = $profiles->{$component}->nav->delete_nav( $slug );
 
 	// Reset backcompat nav items so that subsequent references will be correct.
 	if ( profiles()->do_nav_backcompat ) {
-		$bp->bp_nav->reset();
-		$bp->bp_options_nav->reset();
+		$profiles->bp_nav->reset();
+		$profiles->bp_options_nav->reset();
 	}
 
 	if ( ! is_array( $screen_functions ) ) {
@@ -824,11 +824,11 @@ function bp_core_remove_nav_item( $slug, $component = null ) {
  * @return bool Returns false on failure, True on success.
  */
 function bp_core_remove_subnav_item( $parent_slug, $slug, $component = null ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Backward compatibility for removing group nav items using the group slug as `$parent_slug`.
-	if ( ! $component && bp_is_active( 'groups' ) && isset( $bp->groups->nav ) ) {
-		if ( $bp->groups->nav->get_primary( array( 'slug' => $parent_slug ) ) ) {
+	if ( ! $component && bp_is_active( 'groups' ) && isset( $profiles->groups->nav ) ) {
+		if ( $profiles->groups->nav->get_primary( array( 'slug' => $parent_slug ) ) ) {
 			$component = 'groups';
 		}
 	}
@@ -837,16 +837,16 @@ function bp_core_remove_subnav_item( $parent_slug, $slug, $component = null ) {
 		$component = 'members';
 	}
 
-	if ( ! isset( $bp->{$component}->nav ) ) {
+	if ( ! isset( $profiles->{$component}->nav ) ) {
 		return false;
 	}
 
-	$screen_functions = $bp->{$component}->nav->delete_nav( $slug, $parent_slug );
+	$screen_functions = $profiles->{$component}->nav->delete_nav( $slug, $parent_slug );
 
 	// Reset backcompat nav items so that subsequent references will be correct.
 	if ( profiles()->do_nav_backcompat ) {
-		$bp->bp_nav->reset();
-		$bp->bp_options_nav->reset();
+		$profiles->bp_nav->reset();
+		$profiles->bp_options_nav->reset();
 	}
 
 	if ( ! is_array( $screen_functions ) ) {
@@ -873,20 +873,20 @@ function bp_core_remove_subnav_item( $parent_slug, $slug, $component = null ) {
  * @param string $component   The component the navigation is attached to. Defaults to 'members'.
  */
 function bp_core_reset_subnav_items( $parent_slug, $component = 'members' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( ! isset( $bp->{$component}->nav ) ) {
+	if ( ! isset( $profiles->{$component}->nav ) ) {
 		return;
 	}
 
-	$subnav_items = $bp->{$component}->nav->get_secondary( array( 'parent_slug' => $parent_slug ), false );
+	$subnav_items = $profiles->{$component}->nav->get_secondary( array( 'parent_slug' => $parent_slug ), false );
 
 	if ( ! $subnav_items ) {
 		return;
 	}
 
 	foreach( $subnav_items as $subnav_item ) {
-		$bp->{$component}->nav->delete_nav( $subnav_item->slug, $parent_slug );
+		$profiles->{$component}->nav->delete_nav( $subnav_item->slug, $parent_slug );
 	}
 }
 

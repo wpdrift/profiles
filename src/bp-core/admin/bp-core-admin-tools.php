@@ -190,7 +190,7 @@ function bp_admin_repair_friend_count() {
 		return array( 1, sprintf( $statement, $result ) );
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Walk through all users on the site.
 	$total_users = $wpdb->get_row( "SELECT count(ID) as c FROM {$wpdb->users}" )->c;
@@ -201,7 +201,7 @@ function bp_admin_repair_friend_count() {
 		$offset = 0;
 		while ( $offset < $total_users ) {
 			// Only bother updating counts for users who actually have friendships.
-			$friendships = $wpdb->get_results( $wpdb->prepare( "SELECT initiator_user_id, friend_user_id FROM {$bp->friends->table_name} WHERE is_confirmed = 1 AND ( ( initiator_user_id > %d AND initiator_user_id <= %d ) OR ( friend_user_id > %d AND friend_user_id <= %d ) )", $offset, $offset + $per_query, $offset, $offset + $per_query ) );
+			$friendships = $wpdb->get_results( $wpdb->prepare( "SELECT initiator_user_id, friend_user_id FROM {$profiles->friends->table_name} WHERE is_confirmed = 1 AND ( ( initiator_user_id > %d AND initiator_user_id <= %d ) OR ( friend_user_id > %d AND friend_user_id <= %d ) )", $offset, $offset + $per_query, $offset, $offset + $per_query ) );
 
 			// The previous query will turn up duplicates, so we
 			// filter them here.
@@ -248,7 +248,7 @@ function bp_admin_repair_group_count() {
 		return array( 1, sprintf( $statement, $result ) );
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Walk through all users on the site.
 	$total_users = $wpdb->get_row( "SELECT count(ID) as c FROM {$wpdb->users}" )->c;
@@ -258,7 +258,7 @@ function bp_admin_repair_group_count() {
 		$offset = 0;
 		while ( $offset < $total_users ) {
 			// But only bother to update counts for users that have groups.
-			$users = $wpdb->get_col( $wpdb->prepare( "SELECT user_id FROM {$bp->groups->table_name_members} WHERE is_confirmed = 1 AND is_banned = 0 AND user_id > %d AND user_id <= %d", $offset, $offset + $per_query ) );
+			$users = $wpdb->get_col( $wpdb->prepare( "SELECT user_id FROM {$profiles->groups->table_name_members} WHERE is_confirmed = 1 AND is_banned = 0 AND user_id > %d AND user_id <= %d", $offset, $offset + $per_query ) );
 
 			foreach ( $users as $user ) {
 				BP_Groups_Member::refresh_total_group_count_for_user( $user );

@@ -32,11 +32,11 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 function bp_get_options_nav( $parent_slug = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// If we are looking at a member profile, then the we can use the current
 	// component as an index. Otherwise we need to use the component's root_slug.
-	$component_index = !empty( $bp->displayed_user ) ? bp_current_component() : bp_get_root_slug( bp_current_component() );
+	$component_index = !empty( $profiles->displayed_user ) ? bp_current_component() : bp_get_root_slug( bp_current_component() );
 	$selected_item   = bp_current_action();
 
 	// Default to the Members nav.
@@ -46,7 +46,7 @@ function bp_get_options_nav( $parent_slug = '' ) {
 			$parent_slug = $component_index;
 		}
 
-		$secondary_nav_items = $bp->members->nav->get_secondary( array( 'parent_slug' => $parent_slug ) );
+		$secondary_nav_items = $profiles->members->nav->get_secondary( array( 'parent_slug' => $parent_slug ) );
 
 		if ( ! $secondary_nav_items ) {
 			return false;
@@ -64,10 +64,10 @@ function bp_get_options_nav( $parent_slug = '' ) {
 		}
 
 		// If the nav is not defined by the parent component, look in the Members nav.
-		if ( ! isset( $bp->{$single_item_component}->nav ) ) {
-			$secondary_nav_items = $bp->members->nav->get_secondary( array( 'parent_slug' => $current_item ) );
+		if ( ! isset( $profiles->{$single_item_component}->nav ) ) {
+			$secondary_nav_items = $profiles->members->nav->get_secondary( array( 'parent_slug' => $current_item ) );
 		} else {
-			$secondary_nav_items = $bp->{$single_item_component}->nav->get_secondary( array( 'parent_slug' => $current_item ) );
+			$secondary_nav_items = $profiles->{$single_item_component}->nav->get_secondary( array( 'parent_slug' => $current_item ) );
 		}
 
 		if ( ! $secondary_nav_items ) {
@@ -114,13 +114,13 @@ function bp_get_options_nav( $parent_slug = '' ) {
  * @todo Deprecate.
  */
 function bp_get_options_title() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->bp_options_title ) ) {
-		$bp->bp_options_title = __( 'Options', 'profiles' );
+	if ( empty( $profiles->bp_options_title ) ) {
+		$profiles->bp_options_title = __( 'Options', 'profiles' );
 	}
 
-	echo apply_filters( 'bp_get_options_title', esc_attr( $bp->bp_options_title ) );
+	echo apply_filters( 'bp_get_options_title', esc_attr( $profiles->bp_options_title ) );
 }
 
 /**
@@ -239,9 +239,9 @@ function bp_avatar_admin_step() {
 	 *         if none is found.
 	 */
 	function bp_get_avatar_admin_step() {
-		$bp   = profiles();
-		$step = isset( $bp->avatar_admin->step )
-			? $step = $bp->avatar_admin->step
+		$profiles   = profiles();
+		$step = isset( $profiles->avatar_admin->step )
+			? $step = $profiles->avatar_admin->step
 			: 'upload-image';
 
 		/**
@@ -270,9 +270,9 @@ function bp_avatar_to_crop() {
 	 * @return string URL of the avatar awaiting cropping.
 	 */
 	function bp_get_avatar_to_crop() {
-		$bp  = profiles();
-		$url = isset( $bp->avatar_admin->image->url )
-			? $bp->avatar_admin->image->url
+		$profiles  = profiles();
+		$url = isset( $profiles->avatar_admin->image->url )
+			? $profiles->avatar_admin->image->url
 			: '';
 
 		/**
@@ -301,9 +301,9 @@ function bp_avatar_to_crop_src() {
 	 * @return string Relative file path to the avatar.
 	 */
 	function bp_get_avatar_to_crop_src() {
-		$bp  = profiles();
-		$src = isset( $bp->avatar_admin->image->dir )
-			? str_replace( WP_CONTENT_DIR, '', $bp->avatar_admin->image->dir )
+		$profiles  = profiles();
+		$src = isset( $profiles->avatar_admin->image->dir )
+			? str_replace( WP_CONTENT_DIR, '', $profiles->avatar_admin->image->dir )
 			: '';
 
 		/**
@@ -606,7 +606,7 @@ function bp_search_default_text( $component = '' ) {
 	 */
 	function bp_get_search_default_text( $component = '' ) {
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( empty( $component ) ) {
 			$component = bp_current_component();
@@ -616,15 +616,15 @@ function bp_search_default_text( $component = '' ) {
 
 		// Most of the time, $component will be the actual component ID.
 		if ( !empty( $component ) ) {
-			if ( !empty( $bp->{$component}->search_string ) ) {
-				$default_text = $bp->{$component}->search_string;
+			if ( !empty( $profiles->{$component}->search_string ) ) {
+				$default_text = $profiles->{$component}->search_string;
 			} else {
 				// When the request comes through AJAX, we need to get the component
-				// name out of $bp->pages.
-				if ( !empty( $bp->pages->{$component}->slug ) ) {
-					$key = $bp->pages->{$component}->slug;
-					if ( !empty( $bp->{$key}->search_string ) ) {
-						$default_text = $bp->{$key}->search_string;
+				// name out of $profiles->pages.
+				if ( !empty( $profiles->pages->{$component}->slug ) ) {
+					$key = $profiles->pages->{$component}->slug;
+					if ( !empty( $profiles->{$key}->search_string ) ) {
+						$default_text = $profiles->{$key}->search_string;
 					}
 				}
 			}
@@ -1089,9 +1089,9 @@ function bp_blog_signup_allowed() {
  *              otherwise false.
  */
 function bp_account_was_activated() {
-	$bp                  = profiles();
-	$activation_complete = !empty( $bp->activation_complete )
-		? $bp->activation_complete
+	$profiles                  = profiles();
+	$activation_complete = !empty( $profiles->activation_complete )
+		? $profiles->activation_complete
 		: false;
 
 	return $activation_complete;
@@ -1182,10 +1182,10 @@ function bp_get_email_subject( $args = array() ) {
  * @return string The AJAX querystring.
  */
 function bp_ajax_querystring( $object = false ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( ! isset( $bp->ajax_querystring ) ) {
-		$bp->ajax_querystring = '';
+	if ( ! isset( $profiles->ajax_querystring ) ) {
+		$profiles->ajax_querystring = '';
 	}
 
 	/**
@@ -1198,7 +1198,7 @@ function bp_ajax_querystring( $object = false ) {
 	 * @param string $ajax_querystring Current query string.
 	 * @param string $object           Current template component.
 	 */
-	return apply_filters( 'bp_ajax_querystring', $bp->ajax_querystring, $object );
+	return apply_filters( 'bp_ajax_querystring', $profiles->ajax_querystring, $object );
 }
 
 /** Template Classes and _is functions ****************************************/
@@ -1211,9 +1211,9 @@ function bp_ajax_querystring( $object = false ) {
  * @return string Component name.
  */
 function bp_current_component() {
-	$bp                = profiles();
-	$current_component = !empty( $bp->current_component )
-		? $bp->current_component
+	$profiles                = profiles();
+	$current_component = !empty( $profiles->current_component )
+		? $profiles->current_component
 		: false;
 
 	/**
@@ -1234,9 +1234,9 @@ function bp_current_component() {
  * @return string Action name.
  */
 function bp_current_action() {
-	$bp             = profiles();
-	$current_action = !empty( $bp->current_action )
-		? $bp->current_action
+	$profiles             = profiles();
+	$current_action = !empty( $profiles->current_action )
+		? $profiles->current_action
 		: '';
 
 	/**
@@ -1257,9 +1257,9 @@ function bp_current_action() {
  * @return string|bool
  */
 function bp_current_item() {
-	$bp           = profiles();
-	$current_item = !empty( $bp->current_item )
-		? $bp->current_item
+	$profiles           = profiles();
+	$current_item = !empty( $profiles->current_item )
+		? $profiles->current_item
 		: false;
 
 	/**
@@ -1273,7 +1273,7 @@ function bp_current_item() {
 }
 
 /**
- * Return the value of $bp->action_variables.
+ * Return the value of $profiles->action_variables.
  *
  * @since 1.0.0
  *
@@ -1281,13 +1281,13 @@ function bp_current_item() {
  *                                      if the array is empty.
  */
 function bp_action_variables() {
-	$bp               = profiles();
-	$action_variables = !empty( $bp->action_variables )
-		? $bp->action_variables
+	$profiles               = profiles();
+	$action_variables = !empty( $profiles->action_variables )
+		? $profiles->action_variables
 		: false;
 
 	/**
-	 * Filters the value of $bp->action_variables.
+	 * Filters the value of $profiles->action_variables.
 	 *
 	 * @since 1.0.0
 	 *
@@ -1338,13 +1338,13 @@ function bp_root_domain() {
 	 * @return string URL of the BP root blog.
 	 */
 	function bp_get_root_domain() {
-		$bp = profiles();
+		$profiles = profiles();
 
-		if ( ! empty( $bp->root_domain ) ) {
-			$domain = $bp->root_domain;
+		if ( ! empty( $profiles->root_domain ) ) {
+			$domain = $profiles->root_domain;
 		} else {
 			$domain          = bp_core_get_root_domain();
-			$bp->root_domain = $domain;
+			$profiles->root_domain = $domain;
 		}
 
 		/**
@@ -1382,15 +1382,15 @@ function bp_root_slug( $component = '' ) {
 	 * 1) Use the short slug to get the canonical component name from the
 	 *    active component array.
 	 * 2) Use the component name to get the root slug out of the
-	 *    appropriate part of the $bp global.
+	 *    appropriate part of the $profiles global.
 	 * 3) If nothing turns up, it probably means that $component is itself
 	 *    a root slug.
 	 *
 	 * Example: If your groups directory is at /community/companies, this
 	 * function first uses the short slug 'companies' (ie the current
 	 * component) to look up the canonical name 'groups' in
-	 * $bp->active_components. Then it uses 'groups' to get the root slug,
-	 * from $bp->groups->root_slug.
+	 * $profiles->active_components. Then it uses 'groups' to get the root slug,
+	 * from $profiles->groups->root_slug.
 	 *
 	 * @since 1.5.0
 	 *
@@ -1398,7 +1398,7 @@ function bp_root_slug( $component = '' ) {
 	 * @return string $root_slug The root slug.
 	 */
 	function bp_get_root_slug( $component = '' ) {
-		$bp        = profiles();
+		$profiles        = profiles();
 		$root_slug = '';
 
 		// Use current global component if none passed.
@@ -1407,17 +1407,17 @@ function bp_root_slug( $component = '' ) {
 		}
 
 		// Component is active.
-		if ( ! empty( $bp->active_components[ $component ] ) ) {
+		if ( ! empty( $profiles->active_components[ $component ] ) ) {
 
 			// Backward compatibility: in legacy plugins, the canonical component id
-			// was stored as an array value in $bp->active_components.
-			$component_name = ( '1' == $bp->active_components[ $component ] )
+			// was stored as an array value in $profiles->active_components.
+			$component_name = ( '1' == $profiles->active_components[ $component ] )
 				? $component
-				: $bp->active_components[$component];
+				: $profiles->active_components[$component];
 
 			// Component has specific root slug.
-			if ( ! empty( $bp->{$component_name}->root_slug ) ) {
-				$root_slug = $bp->{$component_name}->root_slug;
+			if ( ! empty( $profiles->{$component_name}->root_slug ) ) {
+				$root_slug = $profiles->{$component_name}->root_slug;
 			}
 		}
 
@@ -1446,7 +1446,7 @@ function bp_root_slug( $component = '' ) {
  * @return mixed False if none found, component name if found.
  */
 function bp_get_name_from_root_slug( $root_slug = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// If no slug is passed, look at current_component.
 	if ( empty( $root_slug ) ) {
@@ -1459,9 +1459,9 @@ function bp_get_name_from_root_slug( $root_slug = '' ) {
 	}
 
 	// Loop through active components and look for a match.
-	foreach ( array_keys( $bp->active_components ) as $component ) {
-		if ( ( ! empty( $bp->{$component}->slug ) && ( $bp->{$component}->slug == $root_slug ) ) || ( ! empty( $bp->{$component}->root_slug ) && ( $bp->{$component}->root_slug === $root_slug ) ) ) {
-			return $bp->{$component}->name;
+	foreach ( array_keys( $profiles->active_components ) as $component ) {
+		if ( ( ! empty( $profiles->{$component}->slug ) && ( $profiles->{$component}->slug == $root_slug ) ) || ( ! empty( $profiles->{$component}->root_slug ) && ( $profiles->{$component}->root_slug === $root_slug ) ) ) {
+			return $profiles->{$component}->name;
 		}
 	}
 
@@ -1524,9 +1524,9 @@ function bp_search_slug() {
  * @return int $id ID of the currently displayed user.
  */
 function bp_displayed_user_id() {
-	$bp = profiles();
-	$id = !empty( $bp->displayed_user->id )
-		? $bp->displayed_user->id
+	$profiles = profiles();
+	$id = !empty( $profiles->displayed_user->id )
+		? $profiles->displayed_user->id
 		: 0;
 
 	/**
@@ -1547,9 +1547,9 @@ function bp_displayed_user_id() {
  * @return int ID of the logged-in user.
  */
 function bp_loggedin_user_id() {
-	$bp = profiles();
-	$id = !empty( $bp->loggedin_user->id )
-		? $bp->loggedin_user->id
+	$profiles = profiles();
+	$id = !empty( $profiles->loggedin_user->id )
+		? $profiles->loggedin_user->id
 		: 0;
 
 	/**
@@ -1569,7 +1569,7 @@ function bp_loggedin_user_id() {
  *
  * This function is designed to be generous, accepting several different kinds
  * of value for the $component parameter. It checks $component_name against:
- * - the component's root_slug, which matches the page slug in $bp->pages.
+ * - the component's root_slug, which matches the page slug in $profiles->pages.
  * - the component's regular slug.
  * - the component's id, or 'canonical' name.
  *
@@ -1593,40 +1593,40 @@ function bp_is_current_component( $component = '' ) {
 		$component = 'profile';
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Only check if Profiles found a current_component.
-	if ( ! empty( $bp->current_component ) ) {
+	if ( ! empty( $profiles->current_component ) ) {
 
 		// First, check to see whether $component_name and the current
 		// component are a simple match.
-		if ( $bp->current_component == $component ) {
+		if ( $profiles->current_component == $component ) {
 			$is_current_component = true;
 
 		// Since the current component is based on the visible URL slug let's
 		// check the component being passed and see if its root_slug matches.
-		} elseif ( isset( $bp->{$component}->root_slug ) && $bp->{$component}->root_slug == $bp->current_component ) {
+		} elseif ( isset( $profiles->{$component}->root_slug ) && $profiles->{$component}->root_slug == $profiles->current_component ) {
 			$is_current_component = true;
 
 		// Because slugs can differ from root_slugs, we should check them too.
-		} elseif ( isset( $bp->{$component}->slug ) && $bp->{$component}->slug == $bp->current_component ) {
+		} elseif ( isset( $profiles->{$component}->slug ) && $profiles->{$component}->slug == $profiles->current_component ) {
 			$is_current_component = true;
 
 		// Next, check to see whether $component is a canonical,
 		// non-translatable component name. If so, we can return its
-		// corresponding slug from $bp->active_components.
-		} elseif ( $key = array_search( $component, $bp->active_components ) ) {
-			if ( strstr( $bp->current_component, $key ) ) {
+		// corresponding slug from $profiles->active_components.
+		} elseif ( $key = array_search( $component, $profiles->active_components ) ) {
+			if ( strstr( $profiles->current_component, $key ) ) {
 				$is_current_component = true;
 			}
 
 		// If we haven't found a match yet, check against the root_slugs
-		// created by $bp->pages, as well as the regular slugs.
+		// created by $profiles->pages, as well as the regular slugs.
 		} else {
-			foreach ( $bp->active_components as $id ) {
+			foreach ( $profiles->active_components as $id ) {
 				// If the $component parameter does not match the current_component,
 				// then move along, these are not the droids you are looking for.
-				if ( empty( $bp->{$id}->root_slug ) || $bp->{$id}->root_slug != $bp->current_component ) {
+				if ( empty( $profiles->{$id}->root_slug ) || $profiles->{$id}->root_slug != $profiles->current_component ) {
 					continue;
 				}
 
@@ -1749,11 +1749,11 @@ function bp_is_current_item( $item = '' ) {
  * @return bool True if looking at a single item, otherwise false.
  */
 function bp_is_single_item() {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$retval = false;
 
-	if ( isset( $bp->is_single_item ) ) {
-		$retval = $bp->is_single_item;
+	if ( isset( $profiles->is_single_item ) ) {
+		$retval = $profiles->is_single_item;
 	}
 
 	/**
@@ -1775,11 +1775,11 @@ function bp_is_single_item() {
  *              otherwise false.
  */
 function bp_is_item_admin() {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$retval = false;
 
-	if ( isset( $bp->is_item_admin ) ) {
-		$retval = $bp->is_item_admin;
+	if ( isset( $profiles->is_item_admin ) ) {
+		$retval = $profiles->is_item_admin;
 	}
 
 	/**
@@ -1801,11 +1801,11 @@ function bp_is_item_admin() {
  *              otherwise false.
  */
 function bp_is_item_mod() {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$retval = false;
 
-	if ( isset( $bp->is_item_mod ) ) {
-		$retval = $bp->is_item_mod;
+	if ( isset( $profiles->is_item_mod ) ) {
+		$retval = $profiles->is_item_mod;
 	}
 
 	/**
@@ -1826,11 +1826,11 @@ function bp_is_item_mod() {
  * @return bool True if the current page is a component directory, otherwise false.
  */
 function bp_is_directory() {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$retval = false;
 
-	if ( isset( $bp->is_directory ) ) {
-		$retval = $bp->is_directory;
+	if ( isset( $profiles->is_directory ) ) {
+		$retval = $profiles->is_directory;
 	}
 
 	/**
@@ -1859,7 +1859,7 @@ function bp_is_directory() {
  * @return bool True if root component, else false.
  */
 function bp_is_root_component( $component_name = '' ) {
-	$bp     = profiles();
+	$profiles     = profiles();
 	$retval = false;
 
 	// Default to the current component if none is passed.
@@ -1868,8 +1868,8 @@ function bp_is_root_component( $component_name = '' ) {
 	}
 
 	// Loop through active components and check for key/slug matches.
-	if ( ! empty( $bp->active_components ) ) {
-		foreach ( (array) $bp->active_components as $key => $slug ) {
+	if ( ! empty( $profiles->active_components ) ) {
+		foreach ( (array) $profiles->active_components as $key => $slug ) {
 			if ( ( $key === $component_name ) || ( $slug === $component_name ) ) {
 				$retval = true;
 				break;
@@ -1904,7 +1904,7 @@ function bp_is_root_component( $component_name = '' ) {
 function bp_is_component_front_page( $component = '' ) {
 	global $current_blog;
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Default to the current component if none is passed.
 	if ( empty( $component ) ) {
@@ -1920,7 +1920,7 @@ function bp_is_component_front_page( $component = '' ) {
 	$show_on_front = get_option( 'show_on_front' );
 	$page_on_front = get_option( 'page_on_front' );
 
-	if ( ( 'page' !== $show_on_front ) || empty( $component ) || empty( $bp->pages->{$component} ) || ( $_SERVER['REQUEST_URI'] !== $path ) ) {
+	if ( ( 'page' !== $show_on_front ) || empty( $component ) || empty( $profiles->pages->{$component} ) || ( $_SERVER['REQUEST_URI'] !== $path ) ) {
 		return false;
 	}
 
@@ -1932,7 +1932,7 @@ function bp_is_component_front_page( $component = '' ) {
 	 * @param bool   $value     Whether or not the specified component directory is set as front page.
 	 * @param string $component Current component being checked.
 	 */
-	return (bool) apply_filters( 'bp_is_component_front_page', ( $bp->pages->{$component}->id == $page_on_front ), $component );
+	return (bool) apply_filters( 'bp_is_component_front_page', ( $profiles->pages->{$component}->id == $page_on_front ), $component );
 }
 
 /**
@@ -1950,7 +1950,7 @@ function bp_is_blog_page() {
 	$is_blog_page = false;
 
 	// Generally, we can just check to see that there's no current component.
-	// The one exception is single user home tabs, where $bp->current_component
+	// The one exception is single user home tabs, where $profiles->current_component
 	// is unset. Thus the addition of the bp_is_user() check.
 	if ( ! bp_current_component() && ! bp_is_user() ) {
 		$is_blog_page = true;
@@ -1973,7 +1973,7 @@ function bp_is_blog_page() {
  * current_component has been defined.
  *
  * Generally, we can just check to see that there's no current component.
- * The one exception is single user home tabs, where $bp->current_component
+ * The one exception is single user home tabs, where $profiles->current_component
  * is unset. Thus the addition of the bp_is_user() check.
  *
  * @since 1.7.0
@@ -2810,8 +2810,8 @@ function bp_is_group_single() {
  * @return bool True if the current group page is a custom front.
  */
 function bp_is_group_custom_front() {
-	$bp = profiles();
-	return (bool) bp_is_group_home() && ! empty( $bp->groups->current_group->front_template );
+	$profiles = profiles();
+	return (bool) bp_is_group_home() && ! empty( $profiles->groups->current_group->front_template );
 }
 
 /**
@@ -2972,29 +2972,29 @@ function bp_is_register_page() {
  * @return array the title parts
  */
 function bp_get_title_parts( $seplocation = 'right' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Defaults to an empty array.
-	$bp_title_parts = array();
+	$profiles_title_parts = array();
 
 	// If this is not a BP page, return the empty array.
 	if ( bp_is_blog_page() ) {
-		return $bp_title_parts;
+		return $profiles_title_parts;
 	}
 
 	// If this is a 404, return the empty array.
 	if ( is_404() ) {
-		return $bp_title_parts;
+		return $profiles_title_parts;
 	}
 
 	// If this is the front page of the site, return the empty array.
 	if ( is_front_page() || is_home() ) {
-		return $bp_title_parts;
+		return $profiles_title_parts;
 	}
 
 	// Return the empty array if not a Profiles page.
 	if ( ! is_profiles() ) {
-		return $bp_title_parts;
+		return $profiles_title_parts;
 	}
 
 	// Now we can build the BP Title Parts
@@ -3010,8 +3010,8 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 		// Set empty subnav name.
 		$component_subnav_name = '';
 
-		if ( ! empty( $bp->members->nav ) ) {
-			$primary_nav_item = $bp->members->nav->get_primary( array( 'slug' => $component_id ), false );
+		if ( ! empty( $profiles->members->nav ) ) {
+			$primary_nav_item = $profiles->members->nav->get_primary( array( 'slug' => $component_id ), false );
 			$primary_nav_item = reset( $primary_nav_item );
 		}
 
@@ -3020,12 +3020,12 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 			$component_name = _bp_strip_spans_from_title( $primary_nav_item->name );
 
 		// Fall back on the component ID.
-		} elseif ( ! empty( $bp->{$component_id}->id ) ) {
-			$component_name = ucwords( $bp->{$component_id}->id );
+		} elseif ( ! empty( $profiles->{$component_id}->id ) ) {
+			$component_name = ucwords( $profiles->{$component_id}->id );
 		}
 
-		if ( ! empty( $bp->members->nav ) ) {
-			$secondary_nav_item = $bp->members->nav->get_secondary( array(
+		if ( ! empty( $profiles->members->nav ) ) {
+			$secondary_nav_item = $profiles->members->nav->get_secondary( array(
 				'parent_slug' => $component_id,
 				'slug'        => bp_current_action()
 			), false );
@@ -3036,24 +3036,24 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 		}
 
 		// Append action name if we're on a member component sub-page.
-		if ( ! empty( $secondary_nav_item->name ) && ! empty( $bp->canonical_stack['action'] ) ) {
+		if ( ! empty( $secondary_nav_item->name ) && ! empty( $profiles->canonical_stack['action'] ) ) {
 			$component_subnav_name = $secondary_nav_item->name;
 		}
 
 		// If on the user profile's landing page, just use the fullname.
-		if ( bp_is_current_component( $bp->default_component ) && ( bp_get_requested_url() === bp_displayed_user_domain() ) ) {
-			$bp_title_parts[] = $displayed_user_name;
+		if ( bp_is_current_component( $profiles->default_component ) && ( bp_get_requested_url() === bp_displayed_user_domain() ) ) {
+			$profiles_title_parts[] = $displayed_user_name;
 
 		// Use component name on member pages.
 		} else {
-			$bp_title_parts = array_merge( $bp_title_parts, array_map( 'strip_tags', array(
+			$profiles_title_parts = array_merge( $profiles_title_parts, array_map( 'strip_tags', array(
 				$displayed_user_name,
 				$component_name,
 			) ) );
 
 			// If we have a subnav name, add it separately for localization.
 			if ( ! empty( $component_subnav_name ) ) {
-				$bp_title_parts[] = strip_tags( $component_subnav_name );
+				$profiles_title_parts[] = strip_tags( $component_subnav_name );
 			}
 		}
 
@@ -3061,8 +3061,8 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 	} elseif ( bp_is_single_item() ) {
 		$component_id = bp_current_component();
 
-		if ( ! empty( $bp->{$component_id}->nav ) ) {
-			$secondary_nav_item = $bp->{$component_id}->nav->get_secondary( array(
+		if ( ! empty( $profiles->{$component_id}->nav ) ) {
+			$secondary_nav_item = $profiles->{$component_id}->nav->get_secondary( array(
 				'parent_slug' => bp_current_item(),
 				'slug'        => bp_current_action()
 			), false );
@@ -3078,27 +3078,27 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 			$single_item_subnav = $secondary_nav_item->name;
 		}
 
-		$bp_title_parts = array( $bp->bp_options_title, $single_item_subnav );
+		$profiles_title_parts = array( $profiles->bp_options_title, $single_item_subnav );
 
 	// An index or directory.
 	} elseif ( bp_is_directory() ) {
 		$current_component = bp_current_component();
 
 		// No current component (when does this happen?).
-		$bp_title_parts = array( _x( 'Directory', 'component directory title', 'profiles' ) );
+		$profiles_title_parts = array( _x( 'Directory', 'component directory title', 'profiles' ) );
 
 		if ( ! empty( $current_component ) ) {
-			$bp_title_parts = array( bp_get_directory_title( $current_component ) );
+			$profiles_title_parts = array( bp_get_directory_title( $current_component ) );
 		}
 
 	}
 
 	// Strip spans.
-	$bp_title_parts = array_map( '_bp_strip_spans_from_title', $bp_title_parts );
+	$profiles_title_parts = array_map( '_bp_strip_spans_from_title', $profiles_title_parts );
 
 	// Sep on right, so reverse the order.
 	if ( 'right' === $seplocation ) {
-		$bp_title_parts = array_reverse( $bp_title_parts );
+		$profiles_title_parts = array_reverse( $profiles_title_parts );
 	}
 
 	/**
@@ -3106,10 +3106,10 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 	 *
 	 * @since 2.4.3
 	 *
-	 * @param array $bp_title_parts Current Profiles title parts.
+	 * @param array $profiles_title_parts Current Profiles title parts.
 	 * @return array
 	 */
-	return (array) apply_filters( 'bp_get_title_parts', $bp_title_parts );
+	return (array) apply_filters( 'bp_get_title_parts', $profiles_title_parts );
 }
 
 /**
@@ -3133,104 +3133,104 @@ function bp_the_body_class() {
 	 */
 	function bp_get_the_body_class( $wp_classes = array(), $custom_classes = false ) {
 
-		$bp_classes = array();
+		$profiles_classes = array();
 
 		/* Pages *************************************************************/
 
 		if ( is_front_page() ) {
-			$bp_classes[] = 'home-page';
+			$profiles_classes[] = 'home-page';
 		}
 
 		if ( bp_is_directory() ) {
-			$bp_classes[] = 'directory';
+			$profiles_classes[] = 'directory';
 		}
 
 		if ( bp_is_single_item() ) {
-			$bp_classes[] = 'single-item';
+			$profiles_classes[] = 'single-item';
 		}
 
 		/* Components ********************************************************/
 
 		if ( ! bp_is_blog_page() ) {
 			if ( bp_is_user_profile() )  {
-				$bp_classes[] = 'xprofile';
+				$profiles_classes[] = 'xprofile';
 			}
 
 			if ( bp_is_activity_component() ) {
-				$bp_classes[] = 'activity';
+				$profiles_classes[] = 'activity';
 			}
 
 			if ( bp_is_blogs_component() ) {
-				$bp_classes[] = 'blogs';
+				$profiles_classes[] = 'blogs';
 			}
 
 			if ( bp_is_messages_component() ) {
-				$bp_classes[] = 'messages';
+				$profiles_classes[] = 'messages';
 			}
 
 			if ( bp_is_friends_component() ) {
-				$bp_classes[] = 'friends';
+				$profiles_classes[] = 'friends';
 			}
 
 			if ( bp_is_groups_component() ) {
-				$bp_classes[] = 'groups';
+				$profiles_classes[] = 'groups';
 			}
 
 			if ( bp_is_settings_component()  ) {
-				$bp_classes[] = 'settings';
+				$profiles_classes[] = 'settings';
 			}
 		}
 
 		/* User **************************************************************/
 
 		if ( bp_is_user() ) {
-			$bp_classes[] = 'bp-user';
+			$profiles_classes[] = 'bp-user';
 		}
 
 		if ( ! bp_is_directory() ) {
 			if ( bp_is_user_blogs() ) {
-				$bp_classes[] = 'my-blogs';
+				$profiles_classes[] = 'my-blogs';
 			}
 
 			if ( bp_is_user_groups() ) {
-				$bp_classes[] = 'my-groups';
+				$profiles_classes[] = 'my-groups';
 			}
 
 			if ( bp_is_user_activity() ) {
-				$bp_classes[] = 'my-activity';
+				$profiles_classes[] = 'my-activity';
 			}
 		}
 
 		if ( bp_is_my_profile() ) {
-			$bp_classes[] = 'my-account';
+			$profiles_classes[] = 'my-account';
 		}
 
 		if ( bp_is_user_profile() ) {
-			$bp_classes[] = 'my-profile';
+			$profiles_classes[] = 'my-profile';
 		}
 
 		if ( bp_is_user_friends() ) {
-			$bp_classes[] = 'my-friends';
+			$profiles_classes[] = 'my-friends';
 		}
 
 		if ( bp_is_user_messages() ) {
-			$bp_classes[] = 'my-messages';
+			$profiles_classes[] = 'my-messages';
 		}
 
 		if ( bp_is_user_recent_commments() ) {
-			$bp_classes[] = 'recent-comments';
+			$profiles_classes[] = 'recent-comments';
 		}
 
 		if ( bp_is_user_recent_posts() ) {
-			$bp_classes[] = 'recent-posts';
+			$profiles_classes[] = 'recent-posts';
 		}
 
 		if ( bp_is_user_change_avatar() ) {
-			$bp_classes[] = 'change-avatar';
+			$profiles_classes[] = 'change-avatar';
 		}
 
 		if ( bp_is_user_profile_edit() ) {
-			$bp_classes[] = 'profile-edit';
+			$profiles_classes[] = 'profile-edit';
 		}
 
 		
@@ -3238,55 +3238,55 @@ function bp_the_body_class() {
 		/* Messages **********************************************************/
 
 		if ( bp_is_messages_inbox() ) {
-			$bp_classes[] = 'inbox';
+			$profiles_classes[] = 'inbox';
 		}
 
 		if ( bp_is_messages_sentbox() ) {
-			$bp_classes[] = 'sentbox';
+			$profiles_classes[] = 'sentbox';
 		}
 
 		if ( bp_is_messages_compose_screen() ) {
-			$bp_classes[] = 'compose';
+			$profiles_classes[] = 'compose';
 		}
 
 		if ( bp_is_notices() ) {
-			$bp_classes[] = 'notices';
+			$profiles_classes[] = 'notices';
 		}
 
 		if ( bp_is_user_friend_requests() ) {
-			$bp_classes[] = 'friend-requests';
+			$profiles_classes[] = 'friend-requests';
 		}
 
 		if ( bp_is_create_blog() ) {
-			$bp_classes[] = 'create-blog';
+			$profiles_classes[] = 'create-blog';
 		}
 
 		/* Registration ******************************************************/
 
 		if ( bp_is_register_page() ) {
-			$bp_classes[] = 'registration';
+			$profiles_classes[] = 'registration';
 		}
 
 		if ( bp_is_activation_page() ) {
-			$bp_classes[] = 'activation';
+			$profiles_classes[] = 'activation';
 		}
 
 		/* Current Component & Action ****************************************/
 
 		if ( ! bp_is_blog_page() ) {
-			$bp_classes[] = bp_current_component();
-			$bp_classes[] = bp_current_action();
+			$profiles_classes[] = bp_current_component();
+			$profiles_classes[] = bp_current_action();
 		}
 
 		/* Clean up ***********************************************************/
 
 		// Add Profiles class if we are within a Profiles page.
 		if ( ! bp_is_blog_page() ) {
-			$bp_classes[] = 'profiles';
+			$profiles_classes[] = 'profiles';
 		}
 
 		// Merge WP classes with Profiles classes and remove any duplicates.
-		$classes = array_unique( array_merge( (array) $bp_classes, (array) $wp_classes ) );
+		$classes = array_unique( array_merge( (array) $profiles_classes, (array) $wp_classes ) );
 
 		/**
 		 * Filters the Profiles classes to be added to body_class()
@@ -3294,11 +3294,11 @@ function bp_the_body_class() {
 		 * @since 1.1.0
 		 *
 		 * @param array $classes        Array of body classes to add.
-		 * @param array $bp_classes     Array of Profiles-based classes.
+		 * @param array $profiles_classes     Array of Profiles-based classes.
 		 * @param array $wp_classes     Array of WordPress-based classes.
 		 * @param array $custom_classes Array of classes that were passed to get_body_class().
 		 */
-		return apply_filters( 'bp_get_the_body_class', $classes, $bp_classes, $wp_classes, $custom_classes );
+		return apply_filters( 'bp_get_the_body_class', $classes, $profiles_classes, $wp_classes, $custom_classes );
 	}
 	add_filter( 'body_class', 'bp_get_the_body_class', 10, 2 );
 
@@ -3318,41 +3318,41 @@ function bp_get_the_post_class( $wp_classes = array() ) {
 		return $wp_classes;
 	}
 
-	$bp_classes = array();
+	$profiles_classes = array();
 
 	if ( bp_is_user() || bp_is_single_activity() ) {
-		$bp_classes[] = 'bp_members';
+		$profiles_classes[] = 'bp_members';
 
 	} elseif ( bp_is_group() ) {
-		$bp_classes[] = 'bp_group';
+		$profiles_classes[] = 'bp_group';
 
 	} elseif ( bp_is_activity_component() ) {
-		$bp_classes[] = 'bp_activity';
+		$profiles_classes[] = 'bp_activity';
 
 	} elseif ( bp_is_blogs_component() ) {
-		$bp_classes[] = 'bp_blogs';
+		$profiles_classes[] = 'bp_blogs';
 
 	} elseif ( bp_is_register_page() ) {
-		$bp_classes[] = 'bp_register';
+		$profiles_classes[] = 'bp_register';
 
 	} elseif ( bp_is_activation_page() ) {
-		$bp_classes[] = 'bp_activate';
+		$profiles_classes[] = 'bp_activate';
 
 	} elseif ( bp_is_forums_component() && bp_is_directory() ) {
-		$bp_classes[] = 'bp_forum';
+		$profiles_classes[] = 'bp_forum';
 	}
 
-	if ( empty( $bp_classes ) ) {
+	if ( empty( $profiles_classes ) ) {
 		return $wp_classes;
 	}
 
 	// Emulate post type css class.
-	foreach ( $bp_classes as $bp_class ) {
-		$bp_classes[] = "type-{$bp_class}";
+	foreach ( $profiles_classes as $profiles_class ) {
+		$profiles_classes[] = "type-{$profiles_class}";
 	}
 
 	// Okay let's merge!
-	return array_unique( array_merge( $bp_classes, $wp_classes ) );
+	return array_unique( array_merge( $profiles_classes, $wp_classes ) );
 }
 add_filter( 'post_class', 'bp_get_the_post_class' );
 
@@ -3391,15 +3391,15 @@ function _bp_nav_menu_sort( $a, $b ) {
  * @return array A multidimensional array of all navigation items.
  */
 function bp_get_nav_menu_items( $component = 'members' ) {
-	$bp    = profiles();
+	$profiles    = profiles();
 	$menus = array();
 
-	if ( ! isset( $bp->{$component}->nav ) ) {
+	if ( ! isset( $profiles->{$component}->nav ) ) {
 		return $menus;
 	}
 
 	// Get the item nav and build the menus.
-	foreach ( $bp->{$component}->nav->get_item_nav() as $nav_menu ) {
+	foreach ( $profiles->{$component}->nav->get_item_nav() as $nav_menu ) {
 		// Get the correct menu link. See https://profiles.trac.wordpress.org/ticket/4624.
 		$link = bp_loggedin_user_domain() ? str_replace( bp_loggedin_user_domain(), bp_displayed_user_domain(), $nav_menu->link ) : trailingslashit( bp_displayed_user_domain() . $nav_menu->link );
 

@@ -596,7 +596,7 @@ function xprofile_get_field_id_from_name( $field_name ) {
  *
  * @since 1.0.0
  *
- * @global Profiles $bp           The one true Profiles instance.
+ * @global Profiles $profiles           The one true Profiles instance.
  * @global object     $wpdb         WordPress DB access object.
  * @global object     $current_user WordPress global variable containing current logged in user information.
  *
@@ -758,7 +758,7 @@ function bp_xprofile_bp_user_query_search( $sql, BP_User_Query $query ) {
 		return $sql;
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	$search_terms_clean = bp_esc_like( wp_kses_normalize_entities( $query->query_vars['search_terms'] ) );
 
@@ -776,7 +776,7 @@ function bp_xprofile_bp_user_query_search( $sql, BP_User_Query $query ) {
 	// Combine the core search (against wp_users) into a single OR clause
 	// with the xprofile_data search.
 	$search_xprofile = $wpdb->prepare(
-		"u.{$query->uid_name} IN ( SELECT user_id FROM {$bp->profile->table_name_data} WHERE value LIKE %s OR value LIKE %s )",
+		"u.{$query->uid_name} IN ( SELECT user_id FROM {$profiles->profile->table_name_data} WHERE value LIKE %s OR value LIKE %s )",
 		$search_terms_nospace,
 		$search_terms_space
 	);
@@ -1062,8 +1062,8 @@ function bp_xprofile_fullname_field_id() {
 	if ( false === $id ) {
 		global $wpdb;
 
-		$bp = profiles();
-		$id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$bp->profile->table_name_fields} WHERE name = %s", bp_xprofile_fullname_field_name() ) );
+		$profiles = profiles();
+		$id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$profiles->profile->table_name_fields} WHERE name = %s", bp_xprofile_fullname_field_name() ) );
 
 		wp_cache_set( 'fullname_field_id', $id, 'bp_xprofile' );
 	}
@@ -1124,7 +1124,7 @@ function bp_xprofile_is_richtext_enabled_for_field( $field_id = null ) {
 }
 
 /**
- * Get visibility levels out of the $bp global.
+ * Get visibility levels out of the $profiles global.
  *
  * @since 1.6.0
  *
@@ -1133,7 +1133,7 @@ function bp_xprofile_is_richtext_enabled_for_field( $field_id = null ) {
 function bp_xprofile_get_visibility_levels() {
 
 	/**
-	 * Filters the visibility levels out of the $bp global.
+	 * Filters the visibility levels out of the $profiles global.
 	 *
 	 * @since 1.6.0
 	 *

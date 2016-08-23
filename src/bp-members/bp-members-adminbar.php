@@ -29,14 +29,14 @@ function bp_members_admin_bar_my_account_menu() {
 	// Logged in user.
 	if ( is_user_logged_in() ) {
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Stored in the global so we can add menus easily later on.
-		$bp->my_account_menu_id = 'my-account-profiles';
+		$profiles->my_account_menu_id = 'my-account-profiles';
 
 		// Create the main 'My Account' menu.
 		$wp_admin_bar->add_menu( array(
-			'id'     => $bp->my_account_menu_id,
+			'id'     => $profiles->my_account_menu_id,
 			'group'  => true,
 			'title'  => __( 'Edit My Profile', 'profiles' ),
 			'href'   => bp_loggedin_user_domain(),
@@ -76,14 +76,14 @@ function bp_members_admin_bar_user_admin_menu() {
 	if ( !current_user_can( 'edit_users' ) || bp_is_my_profile() )
 		return false;
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Unique ID for the 'My Account' menu.
-	$bp->user_admin_menu_id = 'user-admin';
+	$profiles->user_admin_menu_id = 'user-admin';
 
 	// Add the top-level User Admin button.
 	$wp_admin_bar->add_menu( array(
-		'id'    => $bp->user_admin_menu_id,
+		'id'    => $profiles->user_admin_menu_id,
 		'title' => __( 'Edit Member', 'profiles' ),
 		'href'  => bp_displayed_user_domain()
 	) );
@@ -91,8 +91,8 @@ function bp_members_admin_bar_user_admin_menu() {
 	if ( bp_is_active( 'xprofile' ) ) {
 		// User Admin > Edit this user's profile.
 		$wp_admin_bar->add_menu( array(
-			'parent' => $bp->user_admin_menu_id,
-			'id'     => $bp->user_admin_menu_id . '-edit-profile',
+			'parent' => $profiles->user_admin_menu_id,
+			'id'     => $profiles->user_admin_menu_id . '-edit-profile',
 			'title'  => __( "Edit Profile", 'profiles' ),
 			'href'   => bp_get_members_component_link( 'profile', 'edit' )
 		) );
@@ -100,8 +100,8 @@ function bp_members_admin_bar_user_admin_menu() {
 		// User Admin > Edit this user's avatar.
 		if ( profiles()->avatar->show_avatars ) {
 			$wp_admin_bar->add_menu( array(
-				'parent' => $bp->user_admin_menu_id,
-				'id'     => $bp->user_admin_menu_id . '-change-avatar',
+				'parent' => $profiles->user_admin_menu_id,
+				'id'     => $profiles->user_admin_menu_id . '-change-avatar',
 				'title'  => __( "Edit Profile Photo", 'profiles' ),
 				'href'   => bp_get_members_component_link( 'profile', 'change-avatar' )
 			) );
@@ -110,8 +110,8 @@ function bp_members_admin_bar_user_admin_menu() {
 		// User Admin > Edit this user's cover image.
 		if ( bp_displayed_user_use_cover_image_header() ) {
 			$wp_admin_bar->add_menu( array(
-				'parent' => $bp->user_admin_menu_id,
-				'id'     => $bp->user_admin_menu_id . '-change-cover-image',
+				'parent' => $profiles->user_admin_menu_id,
+				'id'     => $profiles->user_admin_menu_id . '-change-cover-image',
 				'title'  => __( 'Edit Cover Image', 'profiles' ),
 				'href'   => bp_get_members_component_link( 'profile', 'change-cover-image' )
 			) );

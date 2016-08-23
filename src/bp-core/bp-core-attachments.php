@@ -432,15 +432,15 @@ function bp_attachments_get_attachment( $data = 'url', $args = array() ) {
 	}
 
 	// Get Profiles Attachments Uploads Dir datas.
-	$bp_attachments_uploads_dir = bp_attachments_uploads_dir_get();
+	$profiles_attachments_uploads_dir = bp_attachments_uploads_dir_get();
 
 	// The BP Attachments Uploads Dir is not set, stop.
-	if ( ! $bp_attachments_uploads_dir ) {
+	if ( ! $profiles_attachments_uploads_dir ) {
 		return $attachment_data;
 	}
 
 	$type_subdir = $r['object_dir'] . '/' . $r['item_id'] . '/' . $r['type'];
-	$type_dir    = trailingslashit( $bp_attachments_uploads_dir['basedir'] ) . $type_subdir;
+	$type_dir    = trailingslashit( $profiles_attachments_uploads_dir['basedir'] ) . $type_subdir;
 
 	if ( ! is_dir( $type_dir ) ) {
 		return $attachment_data;
@@ -452,7 +452,7 @@ function bp_attachments_get_attachment( $data = 'url', $args = array() ) {
 		}
 
 		if ( 'url' === $data ) {
-			$attachment_data = trailingslashit( $bp_attachments_uploads_dir['baseurl'] ) . $type_subdir . '/' . $r['file'];
+			$attachment_data = trailingslashit( $profiles_attachments_uploads_dir['baseurl'] ) . $type_subdir . '/' . $r['file'];
 		} else {
 			$attachment_data = trailingslashit( $type_dir ) . $r['file'];
 		}
@@ -477,7 +477,7 @@ function bp_attachments_get_attachment( $data = 'url', $args = array() ) {
 		}
 
 		if ( 'url' === $data ) {
-			$attachment_data = trailingslashit( $bp_attachments_uploads_dir['baseurl'] ) . $type_subdir . '/' . $file;
+			$attachment_data = trailingslashit( $profiles_attachments_uploads_dir['baseurl'] ) . $type_subdir . '/' . $file;
 		} else {
 			$attachment_data = trailingslashit( $type_dir ) . $file;
 		}
@@ -1202,11 +1202,11 @@ function bp_attachments_cover_image_ajax_upload() {
 	check_admin_referer( 'bp-uploader' );
 
 	// Init the Profiles parameters.
-	$bp_params = array();
+	$profiles_params = array();
 
 	// We need it to carry on.
 	if ( ! empty( $_POST['bp_params'] ) ) {
-		$bp_params = bp_parse_args( $_POST['bp_params'], array(
+		$profiles_params = bp_parse_args( $_POST['bp_params'], array(
 			'object'  => 'user',
 			'item_id' => bp_loggedin_user_id(),
 		), 'attachments_cover_image_ajax_upload' );
@@ -1215,42 +1215,42 @@ function bp_attachments_cover_image_ajax_upload() {
 	}
 
 	// We need the object to set the uploads dir filter.
-	if ( empty( $bp_params['object'] ) ) {
+	if ( empty( $profiles_params['object'] ) ) {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
 	// Capability check.
-	if ( ! bp_attachments_current_user_can( 'edit_cover_image', $bp_params ) ) {
+	if ( ! bp_attachments_current_user_can( 'edit_cover_image', $profiles_params ) ) {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
-	$bp          = profiles();
+	$profiles          = profiles();
 	$needs_reset = array();
 
 	// Member's cover image.
-	if ( 'user' === $bp_params['object'] ) {
+	if ( 'user' === $profiles_params['object'] ) {
 		$object_data = array( 'dir' => 'members', 'component' => 'xprofile' );
 
-		if ( ! bp_displayed_user_id() && ! empty( $bp_params['item_id'] ) ) {
-			$needs_reset = array( 'key' => 'displayed_user', 'value' => $bp->displayed_user );
-			$bp->displayed_user->id = $bp_params['item_id'];
+		if ( ! bp_displayed_user_id() && ! empty( $profiles_params['item_id'] ) ) {
+			$needs_reset = array( 'key' => 'displayed_user', 'value' => $profiles->displayed_user );
+			$profiles->displayed_user->id = $profiles_params['item_id'];
 		}
 
 	// Group's cover image.
-	} elseif ( 'group' === $bp_params['object'] ) {
+	} elseif ( 'group' === $profiles_params['object'] ) {
 		$object_data = array( 'dir' => 'groups', 'component' => 'groups' );
 
-		if ( ! bp_get_current_group_id() && ! empty( $bp_params['item_id'] ) ) {
-			$needs_reset = array( 'component' => 'groups', 'key' => 'current_group', 'value' => $bp->groups->current_group );
-			$bp->groups->current_group = groups_get_group( array(
-				'group_id'        => $bp_params['item_id'],
+		if ( ! bp_get_current_group_id() && ! empty( $profiles_params['item_id'] ) ) {
+			$needs_reset = array( 'component' => 'groups', 'key' => 'current_group', 'value' => $profiles->groups->current_group );
+			$profiles->groups->current_group = groups_get_group( array(
+				'group_id'        => $profiles_params['item_id'],
 				'populate_extras' => false,
 			) );
 		}
 
 	// Other object's cover image.
 	} else {
-		$object_data = apply_filters( 'bp_attachments_cover_image_object_dir', array(), $bp_params['object'] );
+		$object_data = apply_filters( 'bp_attachments_cover_image_object_dir', array(), $profiles_params['object'] );
 	}
 
 	// Stop here in case of a missing parameter for the object.
@@ -1266,11 +1266,11 @@ function bp_attachments_cover_image_ajax_upload() {
 	 * @since 2.5.1
 	 *
 	 * @param array $value
-	 * @param array $bp_params
+	 * @param array $profiles_params
 	 * @param array $needs_reset Stores original value of certain globals we need to revert to later.
 	 * @param array $object_data
 	 */
-	$pre_filter = apply_filters( 'bp_attachments_pre_cover_image_ajax_upload', array(), $bp_params, $needs_reset, $object_data );
+	$pre_filter = apply_filters( 'bp_attachments_pre_cover_image_ajax_upload', array(), $profiles_params, $needs_reset, $object_data );
 	if ( isset( $pre_filter['result'] ) ) {
 		bp_attachments_json_response( $pre_filter['result'], $is_html4, $pre_filter );
 	}
@@ -1281,9 +1281,9 @@ function bp_attachments_cover_image_ajax_upload() {
 	// Reset objects.
 	if ( ! empty( $needs_reset ) ) {
 		if ( ! empty( $needs_reset['component'] ) ) {
-			$bp->{$needs_reset['component']}->{$needs_reset['key']} = $needs_reset['value'];
+			$profiles->{$needs_reset['component']}->{$needs_reset['key']} = $needs_reset['value'];
 		} else {
-			$bp->{$needs_reset['key']} = $needs_reset['value'];
+			$profiles->{$needs_reset['key']} = $needs_reset['value'];
 		}
 	}
 
@@ -1299,18 +1299,18 @@ function bp_attachments_cover_image_ajax_upload() {
 	$error_message = __( 'There was a problem uploading the cover image.', 'profiles' );
 
 	// Get Profiles Attachments Uploads Dir datas.
-	$bp_attachments_uploads_dir = bp_attachments_uploads_dir_get();
+	$profiles_attachments_uploads_dir = bp_attachments_uploads_dir_get();
 
 	// The BP Attachments Uploads Dir is not set, stop.
-	if ( ! $bp_attachments_uploads_dir ) {
+	if ( ! $profiles_attachments_uploads_dir ) {
 		bp_attachments_json_response( false, $is_html4, array(
 			'type'    => 'upload_error',
 			'message' => $error_message,
 		) );
 	}
 
-	$cover_subdir = $object_data['dir'] . '/' . $bp_params['item_id'] . '/cover-image';
-	$cover_dir    = trailingslashit( $bp_attachments_uploads_dir['basedir'] ) . $cover_subdir;
+	$cover_subdir = $object_data['dir'] . '/' . $profiles_params['item_id'] . '/cover-image';
+	$cover_dir    = trailingslashit( $profiles_attachments_uploads_dir['basedir'] ) . $cover_subdir;
 
 	if ( ! is_dir( $cover_dir ) ) {
 		// Upload error response.
@@ -1342,7 +1342,7 @@ function bp_attachments_cover_image_ajax_upload() {
 	}
 
 	// Build the url to the file.
-	$cover_url = trailingslashit( $bp_attachments_uploads_dir['baseurl'] ) . $cover_subdir . '/' . $cover['cover_basename'];
+	$cover_url = trailingslashit( $profiles_attachments_uploads_dir['baseurl'] ) . $cover_subdir . '/' . $cover['cover_basename'];
 
 	// Init Feedback code, 1 is success.
 	$feedback_code = 1;
@@ -1369,7 +1369,7 @@ function bp_attachments_cover_image_ajax_upload() {
 	 *
 	 * @param int $item_id Inform about the item id the cover image was set for.
 	 */
-	do_action( $object_data['component'] . '_cover_image_uploaded', (int) $bp_params['item_id'] );
+	do_action( $object_data['component'] . '_cover_image_uploaded', (int) $profiles_params['item_id'] );
 
 	// Finally return the cover image url to the UI.
 	bp_attachments_json_response( true, $is_html4, array(

@@ -293,15 +293,15 @@ class BP_Attachment_Avatar extends BP_Attachment {
 	 * @return integer The user ID.
 	 */
 	private function get_user_id() {
-		$bp = profiles();
+		$profiles = profiles();
 		$user_id = 0;
 
 		if ( bp_is_user() ) {
 			$user_id = bp_displayed_user_id();
 		}
 
-		if ( ! empty( $bp->members->admin->user_id ) ) {
-			$user_id = $bp->members->admin->user_id;
+		if ( ! empty( $profiles->members->admin->user_id ) ) {
+			$user_id = $profiles->members->admin->user_id;
 		}
 
 		return $user_id;

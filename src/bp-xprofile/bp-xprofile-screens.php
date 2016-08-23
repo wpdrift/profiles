@@ -220,13 +220,13 @@ function xprofile_screen_change_avatar() {
 		return;
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( ! isset( $bp->avatar_admin ) ) {
-		$bp->avatar_admin = new stdClass();
+	if ( ! isset( $profiles->avatar_admin ) ) {
+		$profiles->avatar_admin = new stdClass();
 	}
 
-	$bp->avatar_admin->step = 'upload-image';
+	$profiles->avatar_admin->step = 'upload-image';
 
 	if ( !empty( $_FILES ) ) {
 
@@ -235,7 +235,7 @@ function xprofile_screen_change_avatar() {
 
 		// Pass the file to the avatar upload handler.
 		if ( bp_core_avatar_handle_upload( $_FILES, 'xprofile_avatar_upload_dir' ) ) {
-			$bp->avatar_admin->step = 'crop-image';
+			$profiles->avatar_admin->step = 'crop-image';
 
 			// Make sure we include the jQuery jCrop file for image cropping.
 			add_action( 'wp_print_scripts', 'bp_core_add_jquery_cropper' );

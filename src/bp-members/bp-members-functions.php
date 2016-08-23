@@ -20,9 +20,9 @@ defined( 'ABSPATH' ) || exit;
  * @return bool True if found, otherwise false.
  */
 function bp_members_has_directory() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	return (bool) !empty( $bp->pages->members->id );
+	return (bool) !empty( $profiles->pages->members->id );
 }
 
 /**
@@ -39,12 +39,12 @@ function bp_members_has_directory() {
  * @since 1.5.0
  */
 function bp_core_define_slugs() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// No custom members slug.
 	if ( !defined( 'BP_MEMBERS_SLUG' ) ) {
-		if ( !empty( $bp->pages->members ) ) {
-			define( 'BP_MEMBERS_SLUG', $bp->pages->members->slug );
+		if ( !empty( $profiles->pages->members ) ) {
+			define( 'BP_MEMBERS_SLUG', $profiles->pages->members->slug );
 		} else {
 			define( 'BP_MEMBERS_SLUG', 'members' );
 		}
@@ -52,8 +52,8 @@ function bp_core_define_slugs() {
 
 	// No custom registration slug.
 	if ( !defined( 'BP_REGISTER_SLUG' ) ) {
-		if ( !empty( $bp->pages->register ) ) {
-			define( 'BP_REGISTER_SLUG', $bp->pages->register->slug );
+		if ( !empty( $profiles->pages->register ) ) {
+			define( 'BP_REGISTER_SLUG', $profiles->pages->register->slug );
 		} else {
 			define( 'BP_REGISTER_SLUG', 'register' );
 		}
@@ -61,8 +61,8 @@ function bp_core_define_slugs() {
 
 	// No custom activation slug.
 	if ( !defined( 'BP_ACTIVATION_SLUG' ) ) {
-		if ( !empty( $bp->pages->activate ) ) {
-			define( 'BP_ACTIVATION_SLUG', $bp->pages->activate->slug );
+		if ( !empty( $profiles->pages->activate ) ) {
+			define( 'BP_ACTIVATION_SLUG', $profiles->pages->activate->slug );
 		} else {
 			define( 'BP_ACTIVATION_SLUG', 'activate' );
 		}
@@ -309,7 +309,7 @@ function bp_core_get_userid_from_nicename( $user_nicename = '' ) {
  * @return string|bool The username of the matched user, or false.
  */
 function bp_core_get_username( $user_id = 0, $user_nicename = false, $user_login = false ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Check cache for user nicename.
 	$username = wp_cache_get( 'bp_user_username_' . $user_id, 'bp' );
@@ -323,11 +323,11 @@ function bp_core_get_username( $user_id = 0, $user_nicename = false, $user_login
 
 			// User ID matches logged in user.
 			if ( bp_loggedin_user_id() == $user_id ) {
-				$userdata = &$bp->loggedin_user->userdata;
+				$userdata = &$profiles->loggedin_user->userdata;
 
 			// User ID matches displayed in user.
 			} elseif ( bp_displayed_user_id() == $user_id ) {
-				$userdata = &$bp->displayed_user->userdata;
+				$userdata = &$profiles->displayed_user->userdata;
 
 			// No user ID match.
 			} else {
@@ -392,18 +392,18 @@ function bp_core_get_username( $user_id = 0, $user_nicename = false, $user_login
  * @return string|bool The username of the matched user, or false.
  */
 function bp_members_get_user_nicename( $user_id ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	if ( !$user_nicename = wp_cache_get( 'bp_members_user_nicename_' . $user_id, 'bp' ) ) {
 		$update_cache = true;
 
 		// User ID matches logged in user.
 		if ( bp_loggedin_user_id() == $user_id ) {
-			$userdata = &$bp->loggedin_user->userdata;
+			$userdata = &$profiles->loggedin_user->userdata;
 
 		// User ID matches displayed in user.
 		} elseif ( bp_displayed_user_id() == $user_id ) {
-			$userdata = &$bp->displayed_user->userdata;
+			$userdata = &$profiles->displayed_user->userdata;
 
 		// No user ID match.
 		} else {
@@ -748,7 +748,7 @@ function bp_core_get_active_member_count() {
 
 	$count = get_transient( 'bp_active_member_count' );
 	if ( false === $count ) {
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Avoid a costly join by splitting the lookup.
 		if ( is_multisite() ) {
@@ -759,7 +759,7 @@ function bp_core_get_active_member_count() {
 
 		$exclude_users     = $wpdb->get_col( $sql );
 		$exclude_users_sql = !empty( $exclude_users ) ? "AND user_id NOT IN (" . implode( ',', wp_parse_id_list( $exclude_users ) ) . ")" : '';
-		$count             = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(user_id) FROM {$bp->members->table_name_last_activity} WHERE component = %s AND type = 'last_activity' {$exclude_users_sql}", $bp->members->id ) );
+		$count             = (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(user_id) FROM {$profiles->members->table_name_last_activity} WHERE component = %s AND type = 'last_activity' {$exclude_users_sql}", $profiles->members->id ) );
 
 		set_transient( 'bp_active_member_count', $count );
 	}
@@ -950,7 +950,7 @@ function bp_is_user_spammer( $user_id = 0 ) {
 		return false;
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Assume user is not spam.
 	$is_spammer = false;
@@ -961,11 +961,11 @@ function bp_is_user_spammer( $user_id = 0 ) {
 	// Get locally-cached data if available.
 	switch ( $user_id ) {
 		case bp_loggedin_user_id() :
-			$user = ! empty( $bp->loggedin_user->userdata ) ? $bp->loggedin_user->userdata : false;
+			$user = ! empty( $profiles->loggedin_user->userdata ) ? $profiles->loggedin_user->userdata : false;
 			break;
 
 		case bp_displayed_user_id() :
-			$user = ! empty( $bp->displayed_user->userdata ) ? $bp->displayed_user->userdata : false;
+			$user = ! empty( $profiles->displayed_user->userdata ) ? $profiles->displayed_user->userdata : false;
 			break;
 	}
 
@@ -1016,7 +1016,7 @@ function bp_is_user_deleted( $user_id = 0 ) {
 		return false;
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Assume user is not deleted.
 	$is_deleted = false;
@@ -1027,11 +1027,11 @@ function bp_is_user_deleted( $user_id = 0 ) {
 	// Get locally-cached data if available.
 	switch ( $user_id ) {
 		case bp_loggedin_user_id() :
-			$user = ! empty( $bp->loggedin_user->userdata ) ? $bp->loggedin_user->userdata : false;
+			$user = ! empty( $profiles->loggedin_user->userdata ) ? $profiles->loggedin_user->userdata : false;
 			break;
 
 		case bp_displayed_user_id() :
-			$user = ! empty( $bp->displayed_user->userdata ) ? $bp->displayed_user->userdata : false;
+			$user = ! empty( $profiles->displayed_user->userdata ) ? $profiles->displayed_user->userdata : false;
 			break;
 	}
 
@@ -1267,15 +1267,15 @@ function bp_get_user_last_activity( $user_id = 0 ) {
 function bp_last_activity_migrate() {
 	global $wpdb;
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Wipe out existing last_activity data in the activity table -
 	// this helps to prevent duplicates when pulling from the usermeta
 	// table.
-	$wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->members->table_name_last_activity} WHERE component = %s AND type = 'last_activity'", $bp->members->id ) );
+	$wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->members->table_name_last_activity} WHERE component = %s AND type = 'last_activity'", $profiles->members->id ) );
 
-	$sql = "INSERT INTO {$bp->members->table_name_last_activity} (`user_id`, `component`, `type`, `action`, `content`, `primary_link`, `item_id`, `date_recorded` ) (
-		  SELECT user_id, '{$bp->members->id}' as component, 'last_activity' as type, '' as action, '' as content, '' as primary_link, 0 as item_id, meta_value AS date_recorded
+	$sql = "INSERT INTO {$profiles->members->table_name_last_activity} (`user_id`, `component`, `type`, `action`, `content`, `primary_link`, `item_id`, `date_recorded` ) (
+		  SELECT user_id, '{$profiles->members->id}' as component, 'last_activity' as type, '' as action, '' as content, '' as primary_link, 0 as item_id, meta_value AS date_recorded
 		  FROM {$wpdb->usermeta}
 		  WHERE
 		    meta_key = 'last_activity'
@@ -1520,7 +1520,7 @@ function bp_core_get_illegal_names( $value = '', $oldvalue = '' ) {
 	}
 
 	// Add the core components' slugs to the banned list even if their components aren't active.
-	$bp_component_slugs = array(
+	$profiles_component_slugs = array(
 		'groups',
 		'members',
 		'forums',
@@ -1552,7 +1552,7 @@ function bp_core_get_illegal_names( $value = '', $oldvalue = '' ) {
 	);
 	foreach( $slug_constants as $constant ) {
 		if ( defined( $constant ) ) {
-			$bp_component_slugs[] = constant( $constant );
+			$profiles_component_slugs[] = constant( $constant );
 		}
 	}
 
@@ -1563,7 +1563,7 @@ function bp_core_get_illegal_names( $value = '', $oldvalue = '' ) {
 	 *
 	 * @param array $value Merged and unique array of illegal usernames.
 	 */
-	$filtered_illegal_names = apply_filters( 'bp_core_illegal_usernames', array_merge( array( 'www', 'web', 'root', 'admin', 'main', 'invite', 'administrator' ), $bp_component_slugs ) );
+	$filtered_illegal_names = apply_filters( 'bp_core_illegal_usernames', array_merge( array( 'www', 'web', 'root', 'admin', 'main', 'invite', 'administrator' ), $profiles_component_slugs ) );
 
 	// Merge the arrays together.
 	$merged_names           = array_merge( (array) $filtered_illegal_names, (array) $db_illegal_names );
@@ -1812,7 +1812,7 @@ function bp_core_validate_blog_signup( $blog_url, $blog_title ) {
  * @return bool|WP_Error True on success, WP_Error on failure.
  */
 function bp_core_signup_user( $user_login, $user_password, $user_email, $usermeta ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// We need to cast $user_id to pass to the filters.
 	$user_id = false;
@@ -1876,7 +1876,7 @@ function bp_core_signup_user( $user_login, $user_password, $user_email, $usermet
 		}
 	}
 
-	$bp->signup->username = $user_login;
+	$profiles->signup->username = $user_login;
 
 	/**
 	 * Fires at the end of the process to sign up a user.
@@ -2215,18 +2215,18 @@ add_action( 'user_register', 'bp_core_map_user_registration' );
  * @return string|bool Directory path on success, false on failure.
  */
 function bp_core_signup_avatar_upload_dir() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->signup->avatar_dir ) ) {
+	if ( empty( $profiles->signup->avatar_dir ) ) {
 		return false;
 	}
 
 	$directory = 'avatars/signups';
-	$path      = bp_core_avatar_upload_path() . '/' . $directory . '/' . $bp->signup->avatar_dir;
+	$path      = bp_core_avatar_upload_path() . '/' . $directory . '/' . $profiles->signup->avatar_dir;
 	$newbdir   = $path;
-	$newurl    = bp_core_avatar_url() . '/' . $directory . '/' . $bp->signup->avatar_dir;
+	$newurl    = bp_core_avatar_url() . '/' . $directory . '/' . $profiles->signup->avatar_dir;
 	$newburl   = $newurl;
-	$newsubdir = '/' . $directory . '/' . $bp->signup->avatar_dir;
+	$newsubdir = '/' . $directory . '/' . $profiles->signup->avatar_dir;
 
 	/**
 	 * Filters the avatar storage directory for use during registration.
@@ -2386,7 +2386,7 @@ add_action( 'login_form_bp-resend-activation', 'bp_members_login_resend_activati
  * Runs on 'bp_init' at priority 5 so the members component globals are setup
  * before we do our spammer checks.
  *
- * This is important as the $bp->loggedin_user object is setup at priority 4.
+ * This is important as the $profiles->loggedin_user object is setup at priority 4.
  *
  * @since 1.8.0
  */
@@ -2458,11 +2458,11 @@ add_action( 'login_form_bp-spam', 'bp_live_spammer_login_error' );
  * @return object The displayed user object, null otherwise.
  */
 function bp_get_displayed_user() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	$displayed_user = null;
-	if ( ! empty( $bp->displayed_user->id ) ) {
-		$displayed_user = $bp->displayed_user;
+	if ( ! empty( $profiles->displayed_user->id ) ) {
+		$displayed_user = $profiles->displayed_user;
 	}
 
 	/**
@@ -2500,9 +2500,9 @@ function bp_get_displayed_user() {
  * @return object|WP_Error Member type object on success, WP_Error object on failure.
  */
 function bp_register_member_type( $member_type, $args = array() ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( isset( $bp->members->types[ $member_type ] ) ) {
+	if ( isset( $profiles->members->types[ $member_type ] ) ) {
 		return new WP_Error( 'bp_member_type_exists', __( 'Member type already exists.', 'profiles' ), $member_type );
 	}
 
@@ -2556,7 +2556,7 @@ function bp_register_member_type( $member_type, $args = array() ) {
 		$r['has_directory']  = false;
 	}
 
-	$bp->members->types[ $member_type ] = $type = (object) $r;
+	$profiles->members->types[ $member_type ] = $type = (object) $r;
 
 	/**
 	 * Fires after a member type is registered.

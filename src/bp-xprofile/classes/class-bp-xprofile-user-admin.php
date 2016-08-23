@@ -31,13 +31,13 @@ class BP_XProfile_User_Admin {
 			return;
 		}
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		if ( empty( $bp->profile->admin ) ) {
-			$bp->profile->admin = new self;
+		if ( empty( $profiles->profile->admin ) ) {
+			$profiles->profile->admin = new self;
 		}
 
-		return $bp->profile->admin;
+		return $profiles->profile->admin;
 	}
 
 	/**

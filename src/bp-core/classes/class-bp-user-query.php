@@ -229,7 +229,7 @@ class BP_User_Query {
 	public function prepare_user_ids_query() {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Default query variables used here.
 		$type         = '';
@@ -264,7 +264,7 @@ class BP_User_Query {
 			// number of minutes used as an interval.
 			case 'online' :
 				$this->uid_name = 'user_id';
-				$this->uid_table = $bp->members->table_name_last_activity;
+				$this->uid_table = $profiles->members->table_name_last_activity;
 				$sql['select']  = "SELECT u.{$this->uid_name} as id FROM {$this->uid_table} u";
 				$sql['where'][] = $wpdb->prepare( "u.component = %s AND u.type = 'last_activity'", profiles()->members->id );
 
@@ -287,7 +287,7 @@ class BP_User_Query {
 			case 'newest' :
 			case 'random' :
 				$this->uid_name = 'user_id';
-				$this->uid_table = $bp->members->table_name_last_activity;
+				$this->uid_table = $profiles->members->table_name_last_activity;
 				$sql['select']  = "SELECT u.{$this->uid_name} as id FROM {$this->uid_table} u";
 				$sql['where'][] = $wpdb->prepare( "u.component = %s AND u.type = 'last_activity'", profiles()->members->id );
 
@@ -333,7 +333,7 @@ class BP_User_Query {
 				// the xprofile table.
 				} else {
 					$this->uid_name = 'user_id';
-					$this->uid_table = $bp->profile->table_name_data;
+					$this->uid_table = $profiles->profile->table_name_data;
 					$sql['select']  = "SELECT u.{$this->uid_name} as id FROM {$this->uid_table} u";
 					$sql['where'][] = $wpdb->prepare( "u.field_id = %d", bp_xprofile_fullname_field_id() );
 					$sql['orderby'] = "ORDER BY u.value";
@@ -691,7 +691,7 @@ class BP_User_Query {
 		// - friend count
 		// - latest update.
 		$total_friend_count_key = bp_get_user_meta_key( 'total_friend_count' );
-		$bp_latest_update_key   = bp_get_user_meta_key( 'bp_latest_update'   );
+		$profiles_latest_update_key   = bp_get_user_meta_key( 'bp_latest_update'   );
 
 		// Total_friend_count must be set for each user, even if its
 		// value is 0.
@@ -700,7 +700,7 @@ class BP_User_Query {
 		}
 
 		// Create, prepare, and run the separate usermeta query.
-		$user_metas = $wpdb->get_results( $wpdb->prepare( "SELECT user_id, meta_key, meta_value FROM {$wpdb->usermeta} WHERE meta_key IN (%s,%s) AND user_id IN ({$user_ids_sql})", $total_friend_count_key, $bp_latest_update_key ) );
+		$user_metas = $wpdb->get_results( $wpdb->prepare( "SELECT user_id, meta_key, meta_value FROM {$wpdb->usermeta} WHERE meta_key IN (%s,%s) AND user_id IN ({$user_ids_sql})", $total_friend_count_key, $profiles_latest_update_key ) );
 
 		// The $members_template global expects the index key to be different
 		// from the meta_key in some cases, so we rejig things here.
@@ -710,7 +710,7 @@ class BP_User_Query {
 					$key = 'total_friend_count';
 					break;
 
-				case $bp_latest_update_key :
+				case $profiles_latest_update_key :
 					$key = 'latest_update';
 					break;
 			}

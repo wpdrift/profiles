@@ -94,7 +94,7 @@ class BP_Members_Component extends BP_Component {
 	public function setup_globals( $args = array() ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		/** Component Globals ************************************************
 		 */
@@ -107,7 +107,7 @@ class BP_Members_Component extends BP_Component {
 		// Override any passed args.
 		$args = array(
 			'slug'            => BP_MEMBERS_SLUG,
-			'root_slug'       => isset( $bp->pages->members->slug ) ? $bp->pages->members->slug : BP_MEMBERS_SLUG,
+			'root_slug'       => isset( $profiles->pages->members->slug ) ? $profiles->pages->members->slug : BP_MEMBERS_SLUG,
 			'has_directory'   => true,
 			'directory_title' => _x( 'Members', 'component directory title', 'profiles' ),
 			'search_string'   => __( 'Search Members...', 'profiles' ),
@@ -123,49 +123,49 @@ class BP_Members_Component extends BP_Component {
 		 */
 
 		// The core userdata of the user who is currently logged in.
-		$bp->loggedin_user->userdata       = bp_core_get_core_userdata( bp_loggedin_user_id() );
+		$profiles->loggedin_user->userdata       = bp_core_get_core_userdata( bp_loggedin_user_id() );
 
 		// Fetch the full name for the logged in user.
-		$bp->loggedin_user->fullname       = isset( $bp->loggedin_user->userdata->display_name ) ? $bp->loggedin_user->userdata->display_name : '';
+		$profiles->loggedin_user->fullname       = isset( $profiles->loggedin_user->userdata->display_name ) ? $profiles->loggedin_user->userdata->display_name : '';
 
 		// Hits the DB on single WP installs so get this separately.
-		$bp->loggedin_user->is_super_admin = $bp->loggedin_user->is_site_admin = is_super_admin( bp_loggedin_user_id() );
+		$profiles->loggedin_user->is_super_admin = $profiles->loggedin_user->is_site_admin = is_super_admin( bp_loggedin_user_id() );
 
 		// The domain for the user currently logged in. eg: http://example.com/members/andy.
-		$bp->loggedin_user->domain         = bp_core_get_user_domain( bp_loggedin_user_id() );
+		$profiles->loggedin_user->domain         = bp_core_get_user_domain( bp_loggedin_user_id() );
 
 		/** Displayed user ***************************************************
 		 */
 
 		// The core userdata of the user who is currently being displayed.
-		$bp->displayed_user->userdata = bp_core_get_core_userdata( bp_displayed_user_id() );
+		$profiles->displayed_user->userdata = bp_core_get_core_userdata( bp_displayed_user_id() );
 
 		// Fetch the full name displayed user.
-		$bp->displayed_user->fullname = isset( $bp->displayed_user->userdata->display_name ) ? $bp->displayed_user->userdata->display_name : '';
+		$profiles->displayed_user->fullname = isset( $profiles->displayed_user->userdata->display_name ) ? $profiles->displayed_user->userdata->display_name : '';
 
 		// The domain for the user currently being displayed.
-		$bp->displayed_user->domain   = bp_core_get_user_domain( bp_displayed_user_id() );
+		$profiles->displayed_user->domain   = bp_core_get_user_domain( bp_displayed_user_id() );
 
 		// Initialize the nav for the members component.
 		$this->nav = new BP_Core_Nav();
 
 		// If A user is displayed, check if there is a front template
 		if ( bp_get_displayed_user() ) {
-			$bp->displayed_user->front_template = bp_displayed_user_get_front_template();
+			$profiles->displayed_user->front_template = bp_displayed_user_get_front_template();
 		}
 
 		/** Signup ***********************************************************
 		 */
 
-		$bp->signup = new stdClass;
+		$profiles->signup = new stdClass;
 
 		/** Profiles Fallback ************************************************
 		 */
 
 		if ( ! bp_is_active( 'xprofile' ) ) {
-			$bp->profile       = new stdClass;
-			$bp->profile->slug = 'profile';
-			$bp->profile->id   = 'profile';
+			$profiles->profile       = new stdClass;
+			$profiles->profile->slug = 'profile';
+			$profiles->profile->id   = 'profile';
 		}
 	}
 
@@ -175,43 +175,43 @@ class BP_Members_Component extends BP_Component {
 	 * @since 2.1.0
 	 */
 	public function setup_canonical_stack() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		/** Default Profile Component ****************************************
 		 */
 		if ( bp_displayed_user_has_front_template() ) {
-			$bp->default_component = 'front';
+			$profiles->default_component = 'front';
 		} elseif ( defined( 'BP_DEFAULT_COMPONENT' ) && BP_DEFAULT_COMPONENT ) {
-			$bp->default_component = BP_DEFAULT_COMPONENT;
+			$profiles->default_component = BP_DEFAULT_COMPONENT;
 		} else {
-			$bp->default_component = ( 'xprofile' === $bp->profile->id ) ? 'profile' : $bp->profile->id;
+			$profiles->default_component = ( 'xprofile' === $profiles->profile->id ) ? 'profile' : $profiles->profile->id;
 		}
 
 		/** Canonical Component Stack ****************************************
 		 */
 
 		if ( bp_displayed_user_id() ) {
-			$bp->canonical_stack['base_url'] = bp_displayed_user_domain();
+			$profiles->canonical_stack['base_url'] = bp_displayed_user_domain();
 
 			if ( bp_current_component() ) {
-				$bp->canonical_stack['component'] = bp_current_component();
+				$profiles->canonical_stack['component'] = bp_current_component();
 			}
 
 			if ( bp_current_action() ) {
-				$bp->canonical_stack['action'] = bp_current_action();
+				$profiles->canonical_stack['action'] = bp_current_action();
 			}
 
-			if ( !empty( $bp->action_variables ) ) {
-				$bp->canonical_stack['action_variables'] = bp_action_variables();
+			if ( !empty( $profiles->action_variables ) ) {
+				$profiles->canonical_stack['action_variables'] = bp_action_variables();
 			}
 
 			// Looking at the single member root/home, so assume the default.
 			if ( ! bp_current_component() ) {
-				$bp->current_component = $bp->default_component;
+				$profiles->current_component = $profiles->default_component;
 
 			// The canonical URL will not contain the default component.
-			} elseif ( bp_is_current_component( $bp->default_component ) && ! bp_current_action() ) {
-				unset( $bp->canonical_stack['component'] );
+			} elseif ( bp_is_current_component( $profiles->default_component ) && ! bp_current_action() ) {
+				unset( $profiles->canonical_stack['component'] );
 			}
 
 			// If we're on a spammer's profile page, only users with the 'bp_moderate' cap
@@ -221,7 +221,7 @@ class BP_Members_Component extends BP_Component {
 			// redirected to the root of the spammer's profile page.  this occurs by
 			// by removing the component in the canonical stack.
 			if ( bp_is_user_spammer( bp_displayed_user_id() ) && ! bp_current_user_can( 'bp_moderate' ) ) {
-				unset( $bp->canonical_stack['component'] );
+				unset( $profiles->canonical_stack['component'] );
 			}
 		}
 	}
@@ -363,16 +363,16 @@ class BP_Members_Component extends BP_Component {
 	 * @since 1.5.0
 	 */
 	public function setup_title() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( bp_is_my_profile() ) {
-			$bp->bp_options_title = __( 'You', 'profiles' );
+			$profiles->bp_options_title = __( 'You', 'profiles' );
 		} elseif ( bp_is_user() ) {
-			$bp->bp_options_title  = bp_get_displayed_user_fullname();
-			$bp->bp_options_avatar = bp_core_fetch_avatar( array(
+			$profiles->bp_options_title  = bp_get_displayed_user_fullname();
+			$profiles->bp_options_avatar = bp_core_fetch_avatar( array(
 				'item_id' => bp_displayed_user_id(),
 				'type'    => 'thumb',
-				'alt'     => sprintf( __( 'Profile picture of %s', 'profiles' ), $bp->bp_options_title )
+				'alt'     => sprintf( __( 'Profile picture of %s', 'profiles' ), $profiles->bp_options_title )
 			) );
 		}
 

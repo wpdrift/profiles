@@ -48,18 +48,18 @@ function bp_core_admin_slugs_settings() {
  * @return array
  */
 function bp_core_admin_get_directory_pages() {
-	$bp = profiles();
+	$profiles = profiles();
 	$directory_pages = array();
 
 	// Loop through loaded components and collect directories.
-	if ( is_array( $bp->loaded_components ) ) {
-		foreach( $bp->loaded_components as $component_slug => $component_id ) {
+	if ( is_array( $profiles->loaded_components ) ) {
+		foreach( $profiles->loaded_components as $component_slug => $component_id ) {
 
 			// Only components that need directories should be listed here.
-			if ( isset( $bp->{$component_id} ) && !empty( $bp->{$component_id}->has_directory ) ) {
+			if ( isset( $profiles->{$component_id} ) && !empty( $profiles->{$component_id}->has_directory ) ) {
 
 				// The component->name property was introduced in BP 1.5, so we must provide a fallback.
-				$directory_pages[$component_id] = !empty( $bp->{$component_id}->name ) ? $bp->{$component_id}->name : ucwords( $component_id );
+				$directory_pages[$component_id] = !empty( $profiles->{$component_id}->name ) ? $profiles->{$component_id}->name : ucwords( $component_id );
 			}
 		}
 	}
@@ -109,7 +109,7 @@ function bp_core_admin_get_static_pages() {
  * @todo Use settings API
  */
 function bp_core_admin_slugs_options() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Get the existing WP pages
 	$existing_pages = bp_core_get_directory_page_ids();

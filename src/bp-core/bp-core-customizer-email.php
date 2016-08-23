@@ -77,12 +77,12 @@ function bp_email_init_customizer( WP_Customize_Manager $wp_customize ) {
 		 * Scripts can't be registered in bp_core_register_common_styles() etc because
 		 * the Customizer loads very, very early.
 		 */
-		$bp  = profiles();
+		$profiles  = profiles();
 		$min = bp_core_get_minified_asset_suffix();
 
 		wp_enqueue_script(
 			'bp-customizer-receiver-emails',
-			"{$bp->plugin_url}bp-core/admin/js/customizer-receiver-emails{$min}.js",
+			"{$profiles->plugin_url}bp-core/admin/js/customizer-receiver-emails{$min}.js",
 			array( 'customize-preview' ),
 			bp_get_version(),
 			true

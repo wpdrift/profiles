@@ -138,13 +138,13 @@ class BP_XProfile_Group {
 		 */
 		do_action_ref_array( 'xprofile_group_before_save', array( &$this ) );
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Update or insert.
 		if ( ! empty( $this->id ) ) {
-			$sql = $wpdb->prepare( "UPDATE {$bp->profile->table_name_groups} SET name = %s, description = %s WHERE id = %d", $this->name, $this->description, $this->id );
+			$sql = $wpdb->prepare( "UPDATE {$profiles->profile->table_name_groups} SET name = %s, description = %s WHERE id = %d", $this->name, $this->description, $this->id );
 		} else {
-			$sql = $wpdb->prepare( "INSERT INTO {$bp->profile->table_name_groups} (name, description, can_delete) VALUES (%s, %s, 1)", $this->name, $this->description );
+			$sql = $wpdb->prepare( "INSERT INTO {$profiles->profile->table_name_groups} (name, description, can_delete) VALUES (%s, %s, 1)", $this->name, $this->description );
 		}
 
 		// Attempt to insert or update.
@@ -198,8 +198,8 @@ class BP_XProfile_Group {
 		 */
 		do_action_ref_array( 'xprofile_group_before_delete', array( &$this ) );
 
-		$bp      = profiles();
-		$sql     = $wpdb->prepare( "DELETE FROM {$bp->profile->table_name_groups} WHERE id = %d", $this->id );
+		$profiles      = profiles();
+		$sql     = $wpdb->prepare( "DELETE FROM {$profiles->profile->table_name_groups} WHERE id = %d", $this->id );
 		$deleted = $wpdb->query( $sql );
 
 		// Delete field group.
@@ -296,13 +296,13 @@ class BP_XProfile_Group {
 			$where_sql = '';
 		}
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Include or exclude empty groups.
 		if ( ! empty( $r['hide_empty_groups'] ) ) {
-			$group_ids = $wpdb->get_col( "SELECT DISTINCT g.id FROM {$bp->profile->table_name_groups} g INNER JOIN {$bp->profile->table_name_fields} f ON g.id = f.group_id {$where_sql} ORDER BY g.group_order ASC" );
+			$group_ids = $wpdb->get_col( "SELECT DISTINCT g.id FROM {$profiles->profile->table_name_groups} g INNER JOIN {$profiles->profile->table_name_fields} f ON g.id = f.group_id {$where_sql} ORDER BY g.group_order ASC" );
 		} else {
-			$group_ids = $wpdb->get_col( "SELECT DISTINCT g.id FROM {$bp->profile->table_name_groups} g {$where_sql} ORDER BY g.group_order ASC" );
+			$group_ids = $wpdb->get_col( "SELECT DISTINCT g.id FROM {$profiles->profile->table_name_groups} g {$where_sql} ORDER BY g.group_order ASC" );
 		}
 
 		// Get all group data.
@@ -369,7 +369,7 @@ class BP_XProfile_Group {
 		}
 
 		// Fetch the fields.
-		$field_ids = $wpdb->get_col( "SELECT id FROM {$bp->profile->table_name_fields} WHERE group_id IN ( {$group_ids_in} ) AND parent_id = 0 {$exclude_fields_sql} {$in_sql} ORDER BY field_order" );
+		$field_ids = $wpdb->get_col( "SELECT id FROM {$profiles->profile->table_name_fields} WHERE group_id IN ( {$group_ids_in} ) AND parent_id = 0 {$exclude_fields_sql} {$in_sql} ORDER BY field_order" );
 
 		foreach( $groups as $group ) {
 			$group->fields = array();
@@ -386,7 +386,7 @@ class BP_XProfile_Group {
 		$uncached_field_ids = bp_get_non_cached_ids( $field_ids, 'bp_xprofile_fields' );
 		if ( ! empty( $uncached_field_ids ) ) {
 			$_uncached_field_ids = implode( ',', array_map( 'intval', $uncached_field_ids ) );
-			$uncached_fields = $wpdb->get_results( "SELECT * FROM {$bp->profile->table_name_fields} WHERE id IN ({$_uncached_field_ids})" );
+			$uncached_fields = $wpdb->get_results( "SELECT * FROM {$profiles->profile->table_name_fields} WHERE id IN ({$_uncached_field_ids})" );
 			foreach ( $uncached_fields as $uncached_field ) {
 				$fid = intval( $uncached_field->id );
 				wp_cache_set( $fid, $uncached_field, 'bp_xprofile_fields' );
@@ -608,9 +608,9 @@ class BP_XProfile_Group {
 		// Purge profile field group cache.
 		wp_cache_delete( 'all', 'bp_xprofile_groups' );
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->query( $wpdb->prepare( "UPDATE {$bp->profile->table_name_groups} SET group_order = %d WHERE id = %d", $position, $field_group_id ) );
+		return $wpdb->query( $wpdb->prepare( "UPDATE {$profiles->profile->table_name_groups} SET group_order = %d WHERE id = %d", $position, $field_group_id ) );
 	}
 
 	/**
@@ -675,9 +675,9 @@ class BP_XProfile_Group {
 		$default_visibility_levels = wp_cache_get( 'default_visibility_levels', 'bp_xprofile' );
 
 		if ( false === $default_visibility_levels ) {
-			$bp = profiles();
+			$profiles = profiles();
 
-			$levels = $wpdb->get_results( "SELECT object_id, meta_key, meta_value FROM {$bp->profile->table_name_meta} WHERE object_type = 'field' AND ( meta_key = 'default_visibility' OR meta_key = 'allow_custom_visibility' )" );
+			$levels = $wpdb->get_results( "SELECT object_id, meta_key, meta_value FROM {$profiles->profile->table_name_meta} WHERE object_type = 'field' AND ( meta_key = 'default_visibility' OR meta_key = 'allow_custom_visibility' )" );
 
 			// Arrange so that the field id is the key and the visibility level the value.
 			$default_visibility_levels = array();

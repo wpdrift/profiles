@@ -15,10 +15,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 2.2.0
  *
- * @param BP_User_Query $bp_user_query BP_User_Query object.
+ * @param BP_User_Query $profiles_user_query BP_User_Query object.
  */
-function bp_members_prefetch_member_type( BP_User_Query $bp_user_query ) {
-	$uncached_member_ids = bp_get_non_cached_ids( $bp_user_query->user_ids, 'bp_member_member_type' );
+function bp_members_prefetch_member_type( BP_User_Query $profiles_user_query ) {
+	$uncached_member_ids = bp_get_non_cached_ids( $profiles_user_query->user_ids, 'bp_member_member_type' );
 
 	$member_types = bp_get_object_terms( $uncached_member_ids, 'bp_member_type', array(
 		'fields' => 'all_with_object_id',

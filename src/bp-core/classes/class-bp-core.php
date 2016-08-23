@@ -44,7 +44,7 @@ class BP_Core extends BP_Component {
 	 * @since 1.5.0
 	 */
 	private function bootstrap() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		/**
 		 * Fires before the loading of individual components and after Profiles Core.
@@ -65,7 +65,7 @@ class BP_Core extends BP_Component {
 		 *
 		 * @param array $value Array of included and optional components.
 		 */
-		$bp->optional_components = apply_filters( 'bp_optional_components', array( 'activity', 'blogs', 'forums', 'friends', 'groups', 'messages', 'notifications', 'settings', 'xprofile' ) );
+		$profiles->optional_components = apply_filters( 'bp_optional_components', array( 'activity', 'blogs', 'forums', 'friends', 'groups', 'messages', 'notifications', 'settings', 'xprofile' ) );
 
 		/**
 		 * Filters the required components.
@@ -74,13 +74,13 @@ class BP_Core extends BP_Component {
 		 *
 		 * @param array $value Array of required components.
 		 */
-		$bp->required_components = apply_filters( 'bp_required_components', array( 'members' ) );
+		$profiles->required_components = apply_filters( 'bp_required_components', array( 'members' ) );
 
 		// Get a list of activated components.
 		if ( $active_components = bp_get_option( 'bp-active-components' ) ) {
 
 			/** This filter is documented in bp-core/admin/bp-core-admin-components.php */
-			$bp->active_components      = apply_filters( 'bp_active_components', $active_components );
+			$profiles->active_components      = apply_filters( 'bp_active_components', $active_components );
 
 			/**
 			 * Filters the deactivated components.
@@ -89,7 +89,7 @@ class BP_Core extends BP_Component {
 			 *
 			 * @param array $value Array of deactivated components.
 			 */
-			$bp->deactivated_components = apply_filters( 'bp_deactivated_components', array_values( array_diff( array_values( array_merge( $bp->optional_components, $bp->required_components ) ), array_keys( $bp->active_components ) ) ) );
+			$profiles->deactivated_components = apply_filters( 'bp_deactivated_components', array_values( array_diff( array_values( array_merge( $profiles->optional_components, $profiles->required_components ) ), array_keys( $profiles->active_components ) ) ) );
 
 		// Pre 1.5 Backwards compatibility.
 		} elseif ( $deactivated_components = bp_get_option( 'bp-deactivated-components' ) ) {
@@ -100,43 +100,43 @@ class BP_Core extends BP_Component {
 			}
 
 			/** This filter is documented in bp-core/bp-core-loader.php */
-			$bp->deactivated_components = apply_filters( 'bp_deactivated_components', $trimmed );
+			$profiles->deactivated_components = apply_filters( 'bp_deactivated_components', $trimmed );
 
 			// Setup the active components.
-			$active_components     = array_fill_keys( array_diff( array_values( array_merge( $bp->optional_components, $bp->required_components ) ), array_values( $bp->deactivated_components ) ), '1' );
+			$active_components     = array_fill_keys( array_diff( array_values( array_merge( $profiles->optional_components, $profiles->required_components ) ), array_values( $profiles->deactivated_components ) ), '1' );
 
 			/** This filter is documented in bp-core/admin/bp-core-admin-components.php */
-			$bp->active_components = apply_filters( 'bp_active_components', $bp->active_components );
+			$profiles->active_components = apply_filters( 'bp_active_components', $profiles->active_components );
 
 		// Default to all components active.
 		} else {
 
 			// Set globals.
-			$bp->deactivated_components = array();
+			$profiles->deactivated_components = array();
 
 			// Setup the active components.
-			$active_components     = array_fill_keys( array_values( array_merge( $bp->optional_components, $bp->required_components ) ), '1' );
+			$active_components     = array_fill_keys( array_values( array_merge( $profiles->optional_components, $profiles->required_components ) ), '1' );
 
 			/** This filter is documented in bp-core/admin/bp-core-admin-components.php */
-			$bp->active_components = apply_filters( 'bp_active_components', $bp->active_components );
+			$profiles->active_components = apply_filters( 'bp_active_components', $profiles->active_components );
 		}
 
 		// Loop through optional components.
-		foreach( $bp->optional_components as $component ) {
-			if ( bp_is_active( $component ) && file_exists( $bp->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' ) ) {
-				include( $bp->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' );
+		foreach( $profiles->optional_components as $component ) {
+			if ( bp_is_active( $component ) && file_exists( $profiles->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' ) ) {
+				include( $profiles->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' );
 			}
 		}
 
 		// Loop through required components.
-		foreach( $bp->required_components as $component ) {
-			if ( file_exists( $bp->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' ) ) {
-				include( $bp->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' );
+		foreach( $profiles->required_components as $component ) {
+			if ( file_exists( $profiles->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' ) ) {
+				include( $profiles->plugin_dir . '/bp-' . $component . '/bp-' . $component . '-loader.php' );
 			}
 		}
 
 		// Add Core to required components.
-		$bp->required_components[] = 'core';
+		$profiles->required_components[] = 'core';
 
 		/**
 		 * Fires after the loading of individual components.
@@ -181,29 +181,29 @@ class BP_Core extends BP_Component {
 	 * @param array $args See {@link BP_Component::setup_globals()}.
 	 */
 	public function setup_globals( $args = array() ) {
-		$bp = profiles();
+		$profiles = profiles();
 
 		/** Database *********************************************************
 		 */
 
 		// Get the base database prefix.
-		if ( empty( $bp->table_prefix ) ) {
-			$bp->table_prefix = bp_core_get_table_prefix();
+		if ( empty( $profiles->table_prefix ) ) {
+			$profiles->table_prefix = bp_core_get_table_prefix();
 		}
 
 		// The domain for the root of the site where the main blog resides.
-		if ( empty( $bp->root_domain ) ) {
-			$bp->root_domain = bp_core_get_root_domain();
+		if ( empty( $profiles->root_domain ) ) {
+			$profiles->root_domain = bp_core_get_root_domain();
 		}
 
 		// Fetches all of the core Profiles settings in one fell swoop.
-		if ( empty( $bp->site_options ) ) {
-			$bp->site_options = bp_core_get_root_options();
+		if ( empty( $profiles->site_options ) ) {
+			$profiles->site_options = bp_core_get_root_options();
 		}
 
 		// The names of the core WordPress pages used to display Profiles content.
-		if ( empty( $bp->pages ) ) {
-			$bp->pages = bp_core_get_directory_pages();
+		if ( empty( $profiles->pages ) ) {
+			$profiles->pages = bp_core_get_directory_pages();
 		}
 
 		/** Basic current user data ******************************************
@@ -213,14 +213,14 @@ class BP_Core extends BP_Component {
 		$current_user            = wp_get_current_user();
 
 		// The user ID of the user who is currently logged in.
-		$bp->loggedin_user       = new stdClass;
-		$bp->loggedin_user->id   = isset( $current_user->ID ) ? $current_user->ID : 0;
+		$profiles->loggedin_user       = new stdClass;
+		$profiles->loggedin_user->id   = isset( $current_user->ID ) ? $current_user->ID : 0;
 
 		/** Avatars **********************************************************
 		 */
 
 		// Fetches the default Gravatar image to use if the user/group/blog has no avatar or gravatar.
-		$bp->grav_default        = new stdClass;
+		$profiles->grav_default        = new stdClass;
 
 		/**
 		 * Filters the default user Gravatar.
@@ -229,7 +229,7 @@ class BP_Core extends BP_Component {
 		 *
 		 * @param string $value Default user Gravatar.
 		 */
-		$bp->grav_default->user  = apply_filters( 'bp_user_gravatar_default',  $bp->site_options['avatar_default'] );
+		$profiles->grav_default->user  = apply_filters( 'bp_user_gravatar_default',  $profiles->site_options['avatar_default'] );
 
 		/**
 		 * Filters the default group Gravatar.
@@ -238,7 +238,7 @@ class BP_Core extends BP_Component {
 		 *
 		 * @param string $value Default group Gravatar.
 		 */
-		$bp->grav_default->group = apply_filters( 'bp_group_gravatar_default', $bp->grav_default->user );
+		$profiles->grav_default->group = apply_filters( 'bp_group_gravatar_default', $profiles->grav_default->user );
 
 		/**
 		 * Filters the default blog Gravatar.
@@ -247,16 +247,16 @@ class BP_Core extends BP_Component {
 		 *
 		 * @param string $value Default blog Gravatar.
 		 */
-		$bp->grav_default->blog  = apply_filters( 'bp_blog_gravatar_default',  $bp->grav_default->user );
+		$profiles->grav_default->blog  = apply_filters( 'bp_blog_gravatar_default',  $profiles->grav_default->user );
 
 		// Notifications table. Included here for legacy purposes. Use
 		// bp-notifications instead.
-		$bp->core->table_name_notifications = $bp->table_prefix . 'bp_notifications';
+		$profiles->core->table_name_notifications = $profiles->table_prefix . 'bp_notifications';
 
 		// Backward compatibility for plugins modifying the legacy bp_nav and bp_options_nav global properties.
 		if ( profiles()->do_nav_backcompat ) {
-			$bp->bp_nav         = new BP_Core_BP_Nav_BackCompat();
-			$bp->bp_options_nav = new BP_Core_BP_Options_Nav_BackCompat();
+			$profiles->bp_nav         = new BP_Core_BP_Nav_BackCompat();
+			$profiles->bp_options_nav = new BP_Core_BP_Options_Nav_BackCompat();
 		}
 
 		/**

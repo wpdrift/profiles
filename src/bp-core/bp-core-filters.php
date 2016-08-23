@@ -90,16 +90,16 @@ function bp_core_exclude_pages( $pages = array() ) {
 	if ( ! bp_is_root_blog() )
 		return $pages;
 
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( !empty( $bp->pages->activate ) )
-		$pages[] = $bp->pages->activate->id;
+	if ( !empty( $profiles->pages->activate ) )
+		$pages[] = $profiles->pages->activate->id;
 
-	if ( !empty( $bp->pages->register ) )
-		$pages[] = $bp->pages->register->id;
+	if ( !empty( $profiles->pages->register ) )
+		$pages[] = $profiles->pages->register->id;
 
-	if ( !empty( $bp->pages->forums ) && ( !bp_is_active( 'forums' ) || ( bp_is_active( 'forums' ) && bp_forums_has_directory() && !bp_forums_is_installed_correctly() ) ) )
-		$pages[] = $bp->pages->forums->id;
+	if ( !empty( $profiles->pages->forums ) && ( !bp_is_active( 'forums' ) || ( bp_is_active( 'forums' ) && bp_forums_has_directory() && !bp_forums_is_installed_correctly() ) ) )
+		$pages[] = $profiles->pages->forums->id;
 
 	/**
 	 * Filters specific pages that shouldn't show up on page listings.
@@ -131,15 +131,15 @@ function bp_core_exclude_pages_from_nav_menu_admin( $object = null ) {
 		return $object;
 	}
 
-	$bp = profiles();
+	$profiles = profiles();
 	$pages = array();
 
-	if ( ! empty( $bp->pages->activate ) ) {
-		$pages[] = $bp->pages->activate->id;
+	if ( ! empty( $profiles->pages->activate ) ) {
+		$pages[] = $profiles->pages->activate->id;
 	}
 
-	if ( ! empty( $bp->pages->register ) ) {
-		$pages[] = $bp->pages->register->id;
+	if ( ! empty( $profiles->pages->register ) ) {
+		$pages[] = $profiles->pages->register->id;
 	}
 
 	if ( ! empty( $pages ) ) {
@@ -172,10 +172,10 @@ function bp_core_menu_highlight_parent_page( $retval, $page ) {
 	$page_id = false;
 
 	// Loop against all BP component pages.
-	foreach ( (array) profiles()->pages as $component => $bp_page ) {
+	foreach ( (array) profiles()->pages as $component => $profiles_page ) {
 		// Handles the majority of components.
 		if ( bp_is_current_component( $component ) ) {
-	                $page_id = (int) $bp_page->id;
+	                $page_id = (int) $profiles_page->id;
 		}
 
 		// Stop if not on a user page.
@@ -185,7 +185,7 @@ function bp_core_menu_highlight_parent_page( $retval, $page ) {
 
 		// Members component requires an explicit check due to overlapping components.
 		if ( bp_is_user() && 'members' === $component ) {
-			$page_id = (int) $bp_page->id;
+			$page_id = (int) $profiles_page->id;
 			break;
 		}
 	}
@@ -506,7 +506,7 @@ add_filter( 'wpmu_signup_user_notification', 'bp_core_activation_signup_user_not
  * @since 1.5.0
  *
  * @see wp_title()
- * @global object $bp Profiles global settings.
+ * @global object $profiles Profiles global settings.
  *
  * @param string $title       Original page title.
  * @param string $sep         How to separate the various items within the page title.
@@ -517,10 +517,10 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 	global $paged, $page, $_wp_theme_features;
 
 	// Get the Profiles title parts.
-	$bp_title_parts = bp_get_title_parts( $seplocation );
+	$profiles_title_parts = bp_get_title_parts( $seplocation );
 
 	// If not set, simply return the original title.
-	if ( ! $bp_title_parts ) {
+	if ( ! $profiles_title_parts ) {
 		return $title;
 	}
 
@@ -537,10 +537,10 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 
 	// Append the site title to title parts if theme supports title tag.
 	if ( true === $title_tag_compatibility ) {
-		$bp_title_parts['site'] = $blogname;
+		$profiles_title_parts['site'] = $blogname;
 
 		if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() && ! bp_is_single_activity() ) {
-			$bp_title_parts['page'] = sprintf( __( 'Page %s', 'profiles' ), max( $paged, $page ) );
+			$profiles_title_parts['page'] = sprintf( __( 'Page %s', 'profiles' ), max( $paged, $page ) );
 		}
 	}
 
@@ -548,7 +548,7 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 	$prefix = str_pad( $sep, strlen( $sep ) + 2, ' ', STR_PAD_BOTH );
 
 	// Join the parts together.
-	$new_title = join( $prefix, array_filter( $bp_title_parts ) );
+	$new_title = join( $prefix, array_filter( $profiles_title_parts ) );
 
 	// Append the prefix for pre `title-tag` compatibility.
 	if ( false === $title_tag_compatibility ) {
@@ -582,10 +582,10 @@ add_filter( 'bp_modify_page_title', 'esc_html'                    );
  */
 function bp_modify_document_title_parts( $title = array() ) {
 	// Get the Profiles title parts.
-	$bp_title_parts = bp_get_title_parts();
+	$profiles_title_parts = bp_get_title_parts();
 
 	// If not set, simply return the original title.
-	if ( ! $bp_title_parts ) {
+	if ( ! $profiles_title_parts ) {
 		return $title;
 	}
 
@@ -594,18 +594,18 @@ function bp_modify_document_title_parts( $title = array() ) {
 
 	// Build the Profiles portion of the title.
 	// We don't need to sanitize this as WordPress will take care of it.
-	$bp_title = array(
-		'title' => join( " $sep ", $bp_title_parts )
+	$profiles_title = array(
+		'title' => join( " $sep ", $profiles_title_parts )
 	);
 
 	// Add the pagination number if needed (not sure if this is necessary).
 	if ( isset( $title['page'] ) && ! bp_is_single_activity() ) {
-		$bp_title['page'] = $title['page'];
+		$profiles_title['page'] = $title['page'];
 	}
 
 	// Add the sitename if needed.
 	if ( isset( $title['site'] ) ) {
-		$bp_title['site'] = $title['site'];
+		$profiles_title['site'] = $title['site'];
 	}
 
 	/**
@@ -613,10 +613,10 @@ function bp_modify_document_title_parts( $title = array() ) {
 	 *
 	 * @since 2.4.3
 	 *
-	 * @param array $bp_title The Profiles page title parts.
+	 * @param array $profiles_title The Profiles page title parts.
 	 * @param array $title    The original WordPress title parts.
 	 */
-	return apply_filters( 'bp_modify_document_title_parts', $bp_title, $title );
+	return apply_filters( 'bp_modify_document_title_parts', $profiles_title, $title );
 }
 add_filter( 'document_title_parts', 'bp_modify_document_title_parts', 20, 1 );
 
@@ -722,20 +722,20 @@ add_filter( 'wp_setup_nav_menu_item', 'bp_setup_nav_menu_item', 10, 1 );
  */
 function bp_customizer_nav_menus_get_items( $items = array(), $type = '', $object = '', $page = 0 ) {
 	if ( 'bp_loggedin_nav' === $object ) {
-		$bp_items = bp_nav_menu_get_loggedin_pages();
+		$profiles_items = bp_nav_menu_get_loggedin_pages();
 	} elseif ( 'bp_loggedout_nav' === $object ) {
-		$bp_items = bp_nav_menu_get_loggedout_pages();
+		$profiles_items = bp_nav_menu_get_loggedout_pages();
 	} else {
 		return $items;
 	}
 
-	foreach ( $bp_items as $bp_item ) {
+	foreach ( $profiles_items as $profiles_item ) {
 		$items[] = array(
-			'id'         => "bp-{$bp_item->post_excerpt}",
-			'title'      => html_entity_decode( $bp_item->post_title, ENT_QUOTES, get_bloginfo( 'charset' ) ),
+			'id'         => "bp-{$profiles_item->post_excerpt}",
+			'title'      => html_entity_decode( $profiles_item->post_title, ENT_QUOTES, get_bloginfo( 'charset' ) ),
 			'type'       => $type,
-			'url'        => esc_url_raw( $bp_item->guid ),
-			'classes'    => "bp-menu bp-{$bp_item->post_excerpt}-nav",
+			'url'        => esc_url_raw( $profiles_item->guid ),
+			'classes'    => "bp-menu bp-{$profiles_item->post_excerpt}-nav",
 			'type_label' => _x( 'Custom Link', 'customizer menu type label', 'profiles' ),
 			'object'     => $object,
 			'object_id'  => -1,

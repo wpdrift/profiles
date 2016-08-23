@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function bp_core_set_avatar_constants() {
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	if ( !defined( 'BP_AVATAR_THUMB_WIDTH' ) )
 		define( 'BP_AVATAR_THUMB_WIDTH', 50 );
@@ -50,41 +50,41 @@ add_action( 'bp_init', 'bp_core_set_avatar_constants', 3 );
  * @since 1.5.0
  */
 function bp_core_set_avatar_globals() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	$bp->avatar        = new stdClass;
-	$bp->avatar->thumb = new stdClass;
-	$bp->avatar->full  = new stdClass;
+	$profiles->avatar        = new stdClass;
+	$profiles->avatar->thumb = new stdClass;
+	$profiles->avatar->full  = new stdClass;
 
 	// Dimensions.
-	$bp->avatar->thumb->width  = BP_AVATAR_THUMB_WIDTH;
-	$bp->avatar->thumb->height = BP_AVATAR_THUMB_HEIGHT;
-	$bp->avatar->full->width   = BP_AVATAR_FULL_WIDTH;
-	$bp->avatar->full->height  = BP_AVATAR_FULL_HEIGHT;
+	$profiles->avatar->thumb->width  = BP_AVATAR_THUMB_WIDTH;
+	$profiles->avatar->thumb->height = BP_AVATAR_THUMB_HEIGHT;
+	$profiles->avatar->full->width   = BP_AVATAR_FULL_WIDTH;
+	$profiles->avatar->full->height  = BP_AVATAR_FULL_HEIGHT;
 
 	// Upload maximums.
-	$bp->avatar->original_max_width    = BP_AVATAR_ORIGINAL_MAX_WIDTH;
-	$bp->avatar->original_max_filesize = BP_AVATAR_ORIGINAL_MAX_FILESIZE;
+	$profiles->avatar->original_max_width    = BP_AVATAR_ORIGINAL_MAX_WIDTH;
+	$profiles->avatar->original_max_filesize = BP_AVATAR_ORIGINAL_MAX_FILESIZE;
 
 	// Defaults.
-	$bp->avatar->thumb->default = bp_core_avatar_default_thumb();
-	$bp->avatar->full->default  = bp_core_avatar_default();
+	$profiles->avatar->thumb->default = bp_core_avatar_default_thumb();
+	$profiles->avatar->full->default  = bp_core_avatar_default();
 
 	// These have to be set on page load in order to avoid infinite filter loops at runtime.
-	$bp->avatar->upload_path = bp_core_avatar_upload_path();
-	$bp->avatar->url = bp_core_avatar_url();
+	$profiles->avatar->upload_path = bp_core_avatar_upload_path();
+	$profiles->avatar->url = bp_core_avatar_url();
 
 	// Cache the root blog's show_avatars setting, to avoid unnecessary
 	// calls to switch_to_blog().
-	$bp->avatar->show_avatars = (bool) BP_SHOW_AVATARS;
+	$profiles->avatar->show_avatars = (bool) BP_SHOW_AVATARS;
 
 	// Backpat for pre-1.5.
 	if ( ! defined( 'BP_AVATAR_UPLOAD_PATH' ) )
-		define( 'BP_AVATAR_UPLOAD_PATH', $bp->avatar->upload_path );
+		define( 'BP_AVATAR_UPLOAD_PATH', $profiles->avatar->upload_path );
 
 	// Backpat for pre-1.5.
 	if ( ! defined( 'BP_AVATAR_URL' ) )
-		define( 'BP_AVATAR_URL', $bp->avatar->url );
+		define( 'BP_AVATAR_URL', $profiles->avatar->url );
 
 	/**
 	 * Fires at the end of the core avatar globals setup.
@@ -190,10 +190,10 @@ add_action( 'bp_setup_globals', 'bp_core_set_avatar_globals' );
  * @return string Formatted HTML <img> element, or raw avatar URL based on $html arg.
  */
 function bp_core_fetch_avatar( $args = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// If avatars are disabled for the root site, obey that request and bail.
-	if ( ! $bp->avatar->show_avatars ) {
+	if ( ! $profiles->avatar->show_avatars ) {
 		return;
 	}
 
@@ -232,7 +232,7 @@ function bp_core_fetch_avatar( $args = '' ) {
 
 			case 'group' :
 				if ( bp_is_active( 'groups' ) ) {
-					$params['item_id'] = $bp->groups->current_group->id;
+					$params['item_id'] = $profiles->groups->current_group->id;
 				} else {
 					$params['item_id'] = false;
 				}
@@ -580,9 +580,9 @@ function bp_core_fetch_avatar( $args = '' ) {
 	if ( ! apply_filters( 'bp_core_fetch_avatar_no_grav', $params['no_grav'], $params ) ) {
 
 		// Set gravatar type.
-		if ( empty( $bp->grav_default->{$params['object']} ) ) {
+		if ( empty( $profiles->grav_default->{$params['object']} ) ) {
 			$default_grav = 'wavatar';
-		} elseif ( 'mystery' == $bp->grav_default->{$params['object']} ) {
+		} elseif ( 'mystery' == $profiles->grav_default->{$params['object']} ) {
 
 			/**
 			 * Filters the Mystery person avatar src value.
@@ -594,7 +594,7 @@ function bp_core_fetch_avatar( $args = '' ) {
 			 */
 			$default_grav = apply_filters( 'bp_core_mysteryman_src', 'mm', $params['width'] );
 		} else {
-			$default_grav = $bp->grav_default->{$params['object']};
+			$default_grav = $profiles->grav_default->{$params['object']};
 		}
 
 		// Set gravatar object.
@@ -891,16 +891,16 @@ function bp_core_avatar_handle_upload( $file, $upload_dir_filter ) {
 	}
 
 	// Setup some variables.
-	$bp          = profiles();
+	$profiles          = profiles();
 	$upload_path = bp_core_avatar_upload_path();
 
 	// Upload the file.
 	$avatar_attachment = new BP_Attachment_Avatar();
-	$bp->avatar_admin->original = $avatar_attachment->upload( $file, $upload_dir_filter );
+	$profiles->avatar_admin->original = $avatar_attachment->upload( $file, $upload_dir_filter );
 
 	// In case of an error, stop the process and display a feedback to the user.
-	if ( ! empty( $bp->avatar_admin->original['error'] ) ) {
-		bp_core_add_message( sprintf( __( 'Upload Failed! Error was: %s', 'profiles' ), $bp->avatar_admin->original['error'] ), 'error' );
+	if ( ! empty( $profiles->avatar_admin->original['error'] ) ) {
+		bp_core_add_message( sprintf( __( 'Upload Failed! Error was: %s', 'profiles' ), $profiles->avatar_admin->original['error'] ), 'error' );
 		return false;
 	}
 
@@ -908,37 +908,37 @@ function bp_core_avatar_handle_upload( $file, $upload_dir_filter ) {
 	$ui_available_width = 0;
 
 	// Try to set the ui_available_width using the avatar_admin global.
-	if ( isset( $bp->avatar_admin->ui_available_width ) ) {
-		$ui_available_width = $bp->avatar_admin->ui_available_width;
+	if ( isset( $profiles->avatar_admin->ui_available_width ) ) {
+		$ui_available_width = $profiles->avatar_admin->ui_available_width;
 	}
 
 	// Maybe resize.
-	$bp->avatar_admin->resized = $avatar_attachment->shrink( $bp->avatar_admin->original['file'], $ui_available_width );
-	$bp->avatar_admin->image   = new stdClass();
+	$profiles->avatar_admin->resized = $avatar_attachment->shrink( $profiles->avatar_admin->original['file'], $ui_available_width );
+	$profiles->avatar_admin->image   = new stdClass();
 
 	// We only want to handle one image after resize.
-	if ( empty( $bp->avatar_admin->resized ) ) {
-		$bp->avatar_admin->image->file = $bp->avatar_admin->original['file'];
-		$bp->avatar_admin->image->dir  = str_replace( $upload_path, '', $bp->avatar_admin->original['file'] );
+	if ( empty( $profiles->avatar_admin->resized ) ) {
+		$profiles->avatar_admin->image->file = $profiles->avatar_admin->original['file'];
+		$profiles->avatar_admin->image->dir  = str_replace( $upload_path, '', $profiles->avatar_admin->original['file'] );
 	} else {
-		$bp->avatar_admin->image->file = $bp->avatar_admin->resized['path'];
-		$bp->avatar_admin->image->dir  = str_replace( $upload_path, '', $bp->avatar_admin->resized['path'] );
-		@unlink( $bp->avatar_admin->original['file'] );
+		$profiles->avatar_admin->image->file = $profiles->avatar_admin->resized['path'];
+		$profiles->avatar_admin->image->dir  = str_replace( $upload_path, '', $profiles->avatar_admin->resized['path'] );
+		@unlink( $profiles->avatar_admin->original['file'] );
 	}
 
 	// Check for WP_Error on what should be an image.
-	if ( is_wp_error( $bp->avatar_admin->image->dir ) ) {
-		bp_core_add_message( sprintf( __( 'Upload failed! Error was: %s', 'profiles' ), $bp->avatar_admin->image->dir->get_error_message() ), 'error' );
+	if ( is_wp_error( $profiles->avatar_admin->image->dir ) ) {
+		bp_core_add_message( sprintf( __( 'Upload failed! Error was: %s', 'profiles' ), $profiles->avatar_admin->image->dir->get_error_message() ), 'error' );
 		return false;
 	}
 
 	// If the uploaded image is smaller than the "full" dimensions, throw a warning.
-	if ( $avatar_attachment->is_too_small( $bp->avatar_admin->image->file ) ) {
+	if ( $avatar_attachment->is_too_small( $profiles->avatar_admin->image->file ) ) {
 		bp_core_add_message( sprintf( __( 'You have selected an image that is smaller than recommended. For best results, upload a picture larger than %d x %d pixels.', 'profiles' ), bp_core_avatar_full_width(), bp_core_avatar_full_height() ), 'error' );
 	}
 
 	// Set the url value for the image.
-	$bp->avatar_admin->image->url = bp_core_avatar_url() . $bp->avatar_admin->image->dir;
+	$profiles->avatar_admin->image->url = bp_core_avatar_url() . $profiles->avatar_admin->image->dir;
 
 	return true;
 }
@@ -970,43 +970,43 @@ function bp_avatar_ajax_upload() {
 	check_admin_referer( 'bp-uploader' );
 
 	// Init the Profiles parameters.
-	$bp_params = array();
+	$profiles_params = array();
 
 	// We need it to carry on.
 	if ( ! empty( $_POST['bp_params' ] ) ) {
-		$bp_params = $_POST['bp_params' ];
+		$profiles_params = $_POST['bp_params' ];
 	} else {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
 	// We need the object to set the uploads dir filter.
-	if ( empty( $bp_params['object'] ) ) {
+	if ( empty( $profiles_params['object'] ) ) {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
 	// Capability check.
-	if ( ! bp_attachments_current_user_can( 'edit_avatar', $bp_params ) ) {
+	if ( ! bp_attachments_current_user_can( 'edit_avatar', $profiles_params ) ) {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
-	$bp = profiles();
-	$bp_params['upload_dir_filter'] = '';
+	$profiles = profiles();
+	$profiles_params['upload_dir_filter'] = '';
 	$needs_reset = array();
 
-	if ( 'user' === $bp_params['object'] && bp_is_active( 'xprofile' ) ) {
-		$bp_params['upload_dir_filter'] = 'xprofile_avatar_upload_dir';
+	if ( 'user' === $profiles_params['object'] && bp_is_active( 'xprofile' ) ) {
+		$profiles_params['upload_dir_filter'] = 'xprofile_avatar_upload_dir';
 
-		if ( ! bp_displayed_user_id() && ! empty( $bp_params['item_id'] ) ) {
-			$needs_reset = array( 'key' => 'displayed_user', 'value' => $bp->displayed_user );
-			$bp->displayed_user->id = $bp_params['item_id'];
+		if ( ! bp_displayed_user_id() && ! empty( $profiles_params['item_id'] ) ) {
+			$needs_reset = array( 'key' => 'displayed_user', 'value' => $profiles->displayed_user );
+			$profiles->displayed_user->id = $profiles_params['item_id'];
 		}
-	} elseif ( 'group' === $bp_params['object'] && bp_is_active( 'groups' ) ) {
-		$bp_params['upload_dir_filter'] = 'groups_avatar_upload_dir';
+	} elseif ( 'group' === $profiles_params['object'] && bp_is_active( 'groups' ) ) {
+		$profiles_params['upload_dir_filter'] = 'groups_avatar_upload_dir';
 
-		if ( ! bp_get_current_group_id() && ! empty( $bp_params['item_id'] ) ) {
-			$needs_reset = array( 'component' => 'groups', 'key' => 'current_group', 'value' => $bp->groups->current_group );
-			$bp->groups->current_group = groups_get_group( array(
-				'group_id'        => $bp_params['item_id'],
+		if ( ! bp_get_current_group_id() && ! empty( $profiles_params['item_id'] ) ) {
+			$needs_reset = array( 'component' => 'groups', 'key' => 'current_group', 'value' => $profiles->groups->current_group );
+			$profiles->groups->current_group = groups_get_group( array(
+				'group_id'        => $profiles_params['item_id'],
 				'populate_extras' => false,
 			) );
 		}
@@ -1016,44 +1016,44 @@ function bp_avatar_ajax_upload() {
 		 *
 		 * @since 2.3.0
 		 *
-		 * @var array $bp_params the Profiles Ajax parameters.
+		 * @var array $profiles_params the Profiles Ajax parameters.
 		 */
-		$bp_params = apply_filters( 'bp_core_avatar_ajax_upload_params', $bp_params );
+		$profiles_params = apply_filters( 'bp_core_avatar_ajax_upload_params', $profiles_params );
 	}
 
-	if ( ! isset( $bp->avatar_admin ) ) {
-		$bp->avatar_admin = new stdClass();
+	if ( ! isset( $profiles->avatar_admin ) ) {
+		$profiles->avatar_admin = new stdClass();
 	}
 
 	/**
 	 * The Profiles upload parameters is including the Avatar UI Available width,
 	 * add it to the avatar_admin global for a later use.
 	 */
-	if ( isset( $bp_params['ui_available_width'] ) ) {
-		$bp->avatar_admin->ui_available_width =  (int) $bp_params['ui_available_width'];
+	if ( isset( $profiles_params['ui_available_width'] ) ) {
+		$profiles->avatar_admin->ui_available_width =  (int) $profiles_params['ui_available_width'];
 	}
 
 	// Upload the avatar.
-	$avatar = bp_core_avatar_handle_upload( $_FILES, $bp_params['upload_dir_filter'] );
+	$avatar = bp_core_avatar_handle_upload( $_FILES, $profiles_params['upload_dir_filter'] );
 
 	// Reset objects.
 	if ( ! empty( $needs_reset ) ) {
 		if ( ! empty( $needs_reset['component'] ) ) {
-			$bp->{$needs_reset['component']}->{$needs_reset['key']} = $needs_reset['value'];
+			$profiles->{$needs_reset['component']}->{$needs_reset['key']} = $needs_reset['value'];
 		} else {
-			$bp->{$needs_reset['key']} = $needs_reset['value'];
+			$profiles->{$needs_reset['key']} = $needs_reset['value'];
 		}
 	}
 
 	// Init the feedback message.
 	$feedback_message = false;
 
-	if ( ! empty( $bp->template_message ) ) {
-		$feedback_message = $bp->template_message;
+	if ( ! empty( $profiles->template_message ) ) {
+		$feedback_message = $profiles->template_message;
 
 		// Remove template message.
-		$bp->template_message      = false;
-		$bp->template_message_type = false;
+		$profiles->template_message      = false;
+		$profiles->template_message_type = false;
 
 		@setcookie( 'bp-message', false, time() - 1000, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
 		@setcookie( 'bp-message-type', false, time() - 1000, COOKIEPATH, COOKIE_DOMAIN, is_ssl() );
@@ -1075,11 +1075,11 @@ function bp_avatar_ajax_upload() {
 		) );
 	}
 
-	if ( empty( $bp->avatar_admin->image->file ) ) {
+	if ( empty( $profiles->avatar_admin->image->file ) ) {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
-	$uploaded_image = @getimagesize( $bp->avatar_admin->image->file );
+	$uploaded_image = @getimagesize( $profiles->avatar_admin->image->file );
 
 	// Set the name of the file.
 	$name = $_FILES['file']['name'];
@@ -1089,7 +1089,7 @@ function bp_avatar_ajax_upload() {
 	// Finally return the avatar to the editor.
 	bp_attachments_json_response( true, $is_html4, array(
 		'name'      => $name,
-		'url'       => $bp->avatar_admin->image->url,
+		'url'       => $profiles->avatar_admin->image->url,
 		'width'     => $uploaded_image[0],
 		'height'    => $uploaded_image[1],
 		'feedback'  => $feedback_message,
@@ -1460,10 +1460,10 @@ function bp_core_fetch_avatar_filter( $avatar, $user, $size, $default, $alt = ''
 	}
 
 	// Let Profiles handle the fetching of the avatar.
-	$bp_avatar = bp_core_fetch_avatar( $avatar_args );
+	$profiles_avatar = bp_core_fetch_avatar( $avatar_args );
 
 	// If Profiles found an avatar, use it. If not, use the result of get_avatar.
-	return ( !$bp_avatar ) ? $avatar : $bp_avatar;
+	return ( !$profiles_avatar ) ? $avatar : $profiles_avatar;
 }
 add_filter( 'get_avatar', 'bp_core_fetch_avatar_filter', 10, 6 );
 
@@ -1557,12 +1557,12 @@ function bp_core_check_avatar_type( $file ) {
  *
  * @since 1.8.0
  *
- * @param string $type The variable we want to return from the $bp->avatars object.
+ * @param string $type The variable we want to return from the $profiles->avatars object.
  *                     Only 'upload_path' and 'url' are supported. Default: 'upload_path'.
  * @return string The avatar upload directory path.
  */
 function bp_core_get_upload_dir( $type = 'upload_path' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	switch ( $type ) {
 		case 'upload_path' :
@@ -1583,9 +1583,9 @@ function bp_core_get_upload_dir( $type = 'upload_path' ) {
 			break;
 	}
 
-	// See if the value has already been calculated and stashed in the $bp global.
-	if ( isset( $bp->avatar->$type ) ) {
-		$retval = $bp->avatar->$type;
+	// See if the value has already been calculated and stashed in the $profiles global.
+	if ( isset( $profiles->avatar->$type ) ) {
+		$retval = $profiles->avatar->$type;
 	} else {
 		// If this value has been set in a constant, just use that.
 		if ( defined( $constant ) ) {
@@ -1593,8 +1593,8 @@ function bp_core_get_upload_dir( $type = 'upload_path' ) {
 		} else {
 
 			// Use cached upload dir data if available.
-			if ( ! empty( $bp->avatar->upload_dir ) ) {
-				$upload_dir = $bp->avatar->upload_dir;
+			if ( ! empty( $profiles->avatar->upload_dir ) ) {
+				$upload_dir = $profiles->avatar->upload_dir;
 
 			// No cache, so query for it.
 			} else {
@@ -1603,7 +1603,7 @@ function bp_core_get_upload_dir( $type = 'upload_path' ) {
 				$upload_dir = bp_upload_dir();
 
 				// Stash upload directory data for later use.
-				$bp->avatar->upload_dir = $upload_dir;
+				$profiles->avatar->upload_dir = $upload_dir;
 			}
 
 			// Directory does not exist and cannot be created.
@@ -1622,8 +1622,8 @@ function bp_core_get_upload_dir( $type = 'upload_path' ) {
 
 		}
 
-		// Stash in $bp for later use.
-		$bp->avatar->$type = $retval;
+		// Stash in $profiles for later use.
+		$profiles->avatar->$type = $retval;
 	}
 
 	return $retval;
@@ -1707,8 +1707,8 @@ function bp_get_user_has_avatar( $user_id = 0 ) {
  * @return int|bool $dim The dimension.
  */
 function bp_core_avatar_dimension( $type = 'thumb', $h_or_w = 'height' ) {
-	$bp  = profiles();
-	$dim = isset( $bp->avatar->{$type}->{$h_or_w} ) ? (int) $bp->avatar->{$type}->{$h_or_w} : false;
+	$profiles  = profiles();
+	$dim = isset( $profiles->avatar->{$type}->{$h_or_w} ) ? (int) $profiles->avatar->{$type}->{$h_or_w} : false;
 
 	/**
 	 * Filters the avatar dimension setting.

@@ -370,7 +370,7 @@ function bp_core_get_js_dependencies() {
  *                      the css rules and the style handle
  */
 function bp_add_cover_image_inline_css( $return = false ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Find the component of the current item.
 	if ( bp_is_user() ) {
@@ -383,7 +383,7 @@ function bp_add_cover_image_inline_css( $return = false ) {
 
 		$cover_image_object = array(
 			'component' => 'xprofile',
-			'object' => $bp->displayed_user
+			'object' => $profiles->displayed_user
 		);
 	} elseif ( bp_is_group() ) {
 
@@ -395,7 +395,7 @@ function bp_add_cover_image_inline_css( $return = false ) {
 
 		$cover_image_object = array(
 			'component' =>'groups',
-			'object' => $bp->groups->current_group
+			'object' => $profiles->groups->current_group
 		);
 	} else {
 		$cover_image_object = apply_filters( 'bp_current_cover_image_object_inline_css', array() );

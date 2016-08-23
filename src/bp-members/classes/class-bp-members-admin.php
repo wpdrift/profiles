@@ -71,13 +71,13 @@ class BP_Members_Admin {
 			return;
 		}
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		if ( empty( $bp->members->admin ) ) {
-			$bp->members->admin = new self;
+		if ( empty( $profiles->members->admin ) ) {
+			$profiles->members->admin = new self;
 		}
 
-		return $bp->members->admin;
+		return $profiles->members->admin;
 	}
 
 	/**
@@ -96,11 +96,11 @@ class BP_Members_Admin {
 	 * @since 2.0.0
 	 */
 	private function setup_globals() {
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Paths and URLs
-		$this->admin_dir = trailingslashit( $bp->plugin_dir  . 'bp-members/admin' ); // Admin path.
-		$this->admin_url = trailingslashit( $bp->plugin_url  . 'bp-members/admin' ); // Admin URL.
+		$this->admin_dir = trailingslashit( $profiles->plugin_dir  . 'bp-members/admin' ); // Admin path.
+		$this->admin_url = trailingslashit( $profiles->plugin_url  . 'bp-members/admin' ); // Admin URL.
 		$this->css_url   = trailingslashit( $this->admin_url . 'css' ); // Admin CSS URL.
 		$this->js_url    = trailingslashit( $this->admin_url . 'js'  ); // Admin CSS URL.
 
@@ -630,10 +630,10 @@ class BP_Members_Admin {
 		$community_url = add_query_arg( $query_args, $this->edit_profile_url );
 		$wordpress_url = add_query_arg( $query_args, $this->edit_url         );
 
-		$bp_active = false;
+		$profiles_active = false;
 		$wp_active = ' nav-tab-active';
 		if ( 'Profiles' === $active ) {
-			$bp_active = ' nav-tab-active';
+			$profiles_active = ' nav-tab-active';
 			$wp_active = false;
 		} ?>
 
@@ -650,7 +650,7 @@ class BP_Members_Admin {
 
 			<?php endif; ?>
 
-			<a class="nav-tab<?php echo esc_attr( $bp_active ); ?>" href="<?php echo esc_url( $community_url );?>"><?php _e( 'Extended Profile', 'profiles' ); ?></a>
+			<a class="nav-tab<?php echo esc_attr( $profiles_active ); ?>" href="<?php echo esc_url( $community_url );?>"><?php _e( 'Extended Profile', 'profiles' ); ?></a>
 		</h2>
 
 		<?php
@@ -1393,10 +1393,10 @@ class BP_Members_Admin {
 	 *
 	 * @since 2.0.0
 	 *
-	 * @global $bp_members_signup_list_table
+	 * @global $profiles_members_signup_list_table
 	 */
 	public function signups_admin_load() {
-		global $bp_members_signup_list_table;
+		global $profiles_members_signup_list_table;
 
 		// Build redirection URL.
 		$redirect_to = remove_query_arg( array( 'action', 'error', 'updated', 'activated', 'notactivated', 'deleted', 'notdeleted', 'resent', 'notresent', 'do_delete', 'do_resend', 'do_activate', '_wpnonce', 'signup_ids' ), $_SERVER['REQUEST_URI'] );
@@ -1425,9 +1425,9 @@ class BP_Members_Admin {
 		if ( ! in_array( $doaction, $allowed_actions ) || ( -1 == $doaction ) ) {
 
 			if ( is_network_admin() ) {
-				$bp_members_signup_list_table = self::get_list_table_class( 'BP_Members_MS_List_Table', 'ms-users' );
+				$profiles_members_signup_list_table = self::get_list_table_class( 'BP_Members_MS_List_Table', 'ms-users' );
 			} else {
-				$bp_members_signup_list_table = self::get_list_table_class( 'BP_Members_List_Table', 'users' );
+				$profiles_members_signup_list_table = self::get_list_table_class( 'BP_Members_List_Table', 'users' );
 			}
 
 			// The per_page screen option.
@@ -1816,15 +1816,15 @@ class BP_Members_Admin {
 	 * @since 2.0.0
 	 *
 	 * @global $plugin_page
-	 * @global $bp_members_signup_list_table
+	 * @global $profiles_members_signup_list_table
 	 */
 	public function signups_admin_index() {
-		global $plugin_page, $bp_members_signup_list_table;
+		global $plugin_page, $profiles_members_signup_list_table;
 
 		$usersearch = ! empty( $_REQUEST['s'] ) ? stripslashes( $_REQUEST['s'] ) : '';
 
 		// Prepare the group items for display.
-		$bp_members_signup_list_table->prepare_items();
+		$profiles_members_signup_list_table->prepare_items();
 
 		if ( is_network_admin() ) {
 			$form_url = network_admin_url( 'users.php' );
@@ -1885,15 +1885,15 @@ class BP_Members_Admin {
 			</h1>
 
 			<?php // Display each signups on its own row. ?>
-			<?php $bp_members_signup_list_table->views(); ?>
+			<?php $profiles_members_signup_list_table->views(); ?>
 
 			<form id="bp-signups-search-form" action="<?php echo esc_url( $search_form_url ) ;?>">
 				<input type="hidden" name="page" value="<?php echo esc_attr( $plugin_page ); ?>" />
-				<?php $bp_members_signup_list_table->search_box( __( 'Search Pending Users', 'profiles' ), 'bp-signups' ); ?>
+				<?php $profiles_members_signup_list_table->search_box( __( 'Search Pending Users', 'profiles' ), 'bp-signups' ); ?>
 			</form>
 
 			<form id="bp-signups-form" action="<?php echo esc_url( $form_url );?>" method="post">
-				<?php $bp_members_signup_list_table->display(); ?>
+				<?php $profiles_members_signup_list_table->display(); ?>
 			</form>
 		</div>
 	<?php

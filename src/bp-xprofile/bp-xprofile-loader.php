@@ -23,10 +23,10 @@ if ( ! profiles()->do_autoload ) {
  * @since 1.6.0
  */
 function bp_setup_xprofile() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( ! isset( $bp->profile->id ) ) {
-		$bp->profile = new BP_XProfile_Component();
+	if ( ! isset( $profiles->profile->id ) ) {
+		$profiles->profile = new BP_XProfile_Component();
 	}
 }
 add_action( 'bp_setup_components', 'bp_setup_xprofile', 2 );

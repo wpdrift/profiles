@@ -38,15 +38,15 @@ if ( ! profiles()->do_autoload ) {
  * @param string $theme Optional. The unique ID identifier of a theme package.
  */
 function bp_setup_theme_compat( $theme = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Make sure theme package is available, set to default if not.
-	if ( ! isset( $bp->theme_compat->packages[$theme] ) || ! is_a( $bp->theme_compat->packages[$theme], 'BP_Theme_Compat' ) ) {
+	if ( ! isset( $profiles->theme_compat->packages[$theme] ) || ! is_a( $profiles->theme_compat->packages[$theme], 'BP_Theme_Compat' ) ) {
 		$theme = 'legacy';
 	}
 
 	// Set the active theme compat theme.
-	$bp->theme_compat->theme = $bp->theme_compat->packages[$theme];
+	$profiles->theme_compat->theme = $profiles->theme_compat->packages[$theme];
 }
 
 /**
@@ -240,13 +240,13 @@ function bp_detect_theme_compat_with_current_theme() {
  * @return bool True if the current page uses theme compatibility.
  */
 function bp_is_theme_compat_active() {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->theme_compat->active ) ) {
+	if ( empty( $profiles->theme_compat->active ) ) {
 		return false;
 	}
 
-	return $bp->theme_compat->active;
+	return $profiles->theme_compat->active;
 }
 
 /**
@@ -328,10 +328,10 @@ function bp_set_theme_compat_feature( $theme_id, $feature = array() ) {
 	}
 
 	// Get Profiles instance.
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Get current theme compat theme.
-	$theme_compat_theme = $bp->theme_compat->theme;
+	$theme_compat_theme = $profiles->theme_compat->theme;
 
 	// Bail if the Theme Compat theme is not in use.
 	if ( $theme_id !== bp_get_theme_compat_id() ) {
@@ -360,11 +360,11 @@ function bp_set_theme_compat_feature( $theme_id, $feature = array() ) {
 				$component = 'profile';
 			}
 
-			if ( isset( $bp->{$component} ) ) {
-				if ( isset( $bp->{$component}->features ) ) {
-					$bp->{$component}->features[] = $feature['name'];
+			if ( isset( $profiles->{$component} ) ) {
+				if ( isset( $profiles->{$component}->features ) ) {
+					$profiles->{$component}->features[] = $feature['name'];
 				} else {
-					$bp->{$component}->features = array( $feature['name'] );
+					$profiles->{$component}->features = array( $feature['name'] );
 				}
 			}
 		}
@@ -440,24 +440,24 @@ function bp_register_theme_compat_default_features() {
 	 *
 	 * Example: array( stylesheet => content width used by Profiles )
 	 */
-	$bp_content_widths = array(
+	$profiles_content_widths = array(
 		'twentyfifteen'  => 1300,
 		'twentyfourteen' => 955,
 		'twentythirteen' => 890,
 	);
 
 	// Default values.
-	$bp_content_width = (int) $content_width;
-	$bp_handle        = 'bp-legacy-css';
+	$profiles_content_width = (int) $content_width;
+	$profiles_handle        = 'bp-legacy-css';
 
 	// Specific to themes having companion stylesheets.
-	if ( isset( $bp_content_widths[ $theme_handle ] ) ) {
-		$bp_content_width = $bp_content_widths[ $theme_handle ];
-		$bp_handle        = 'bp-' . $theme_handle;
+	if ( isset( $profiles_content_widths[ $theme_handle ] ) ) {
+		$profiles_content_width = $profiles_content_widths[ $theme_handle ];
+		$profiles_handle        = 'bp-' . $theme_handle;
 	}
 
 	if ( is_rtl() ) {
-		$bp_handle .= '-rtl';
+		$profiles_handle .= '-rtl';
 	}
 
 	$top_offset    = 150;
@@ -471,10 +471,10 @@ function bp_register_theme_compat_default_features() {
 		'name'     => 'cover_image',
 		'settings' => array(
 			'components'   => array( 'xprofile', 'groups' ),
-			'width'        => $bp_content_width,
+			'width'        => $profiles_content_width,
 			'height'       => $top_offset + round( $avatar_height / 2 ),
 			'callback'     => 'bp_legacy_theme_cover_image',
-			'theme_handle' => $bp_handle,
+			'theme_handle' => $profiles_handle,
 		),
 	) );
 }
@@ -489,13 +489,13 @@ function bp_register_theme_compat_default_features() {
  *              "original_template" originally selected by WP. Otherwise false.
  */
 function bp_is_theme_compat_original_template( $template = '' ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( empty( $bp->theme_compat->original_template ) ) {
+	if ( empty( $profiles->theme_compat->original_template ) ) {
 		return false;
 	}
 
-	return (bool) ( $bp->theme_compat->original_template == $template );
+	return (bool) ( $profiles->theme_compat->original_template == $template );
 }
 
 /**
@@ -525,12 +525,12 @@ function bp_register_theme_package( $theme = array(), $override = true ) {
 	}
 
 	// Load up Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Only set if the theme package was not previously registered or if the
 	// override flag is set.
-	if ( empty( $bp->theme_compat->packages[$theme->id] ) || ( true === $override ) ) {
-		$bp->theme_compat->packages[$theme->id] = $theme;
+	if ( empty( $profiles->theme_compat->packages[$theme->id] ) || ( true === $override ) ) {
+		$profiles->theme_compat->packages[$theme->id] = $theme;
 	}
 }
 
@@ -800,7 +800,7 @@ function bp_do_theme_compat() {
 /**
  * Remove all filters from a WordPress filter hook.
  *
- * Removed filters are stashed in the $bp global, in case they need to be
+ * Removed filters are stashed in the $profiles global, in case they need to be
  * restored later.
  *
  * @since 1.7.0
@@ -817,7 +817,7 @@ function bp_do_theme_compat() {
 function bp_remove_all_filters( $tag, $priority = false ) {
 	global $wp_filter, $merged_filters;
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Filters exist.
 	if ( isset( $wp_filter[$tag] ) ) {
@@ -826,7 +826,7 @@ function bp_remove_all_filters( $tag, $priority = false ) {
 		if ( ! empty( $priority ) && isset( $wp_filter[$tag][$priority] ) ) {
 
 			// Store filters in a backup.
-			$bp->filters->wp_filter[$tag][$priority] = $wp_filter[$tag][$priority];
+			$profiles->filters->wp_filter[$tag][$priority] = $wp_filter[$tag][$priority];
 
 			// Unset the filters.
 			unset( $wp_filter[$tag][$priority] );
@@ -835,7 +835,7 @@ function bp_remove_all_filters( $tag, $priority = false ) {
 		} else {
 
 			// Store filters in a backup.
-			$bp->filters->wp_filter[$tag] = $wp_filter[$tag];
+			$profiles->filters->wp_filter[$tag] = $wp_filter[$tag];
 
 			// Unset the filters.
 			unset( $wp_filter[$tag] );
@@ -846,7 +846,7 @@ function bp_remove_all_filters( $tag, $priority = false ) {
 	if ( isset( $merged_filters[$tag] ) ) {
 
 		// Store filters in a backup.
-		$bp->filters->merged_filters[$tag] = $merged_filters[$tag];
+		$profiles->filters->merged_filters[$tag] = $merged_filters[$tag];
 
 		// Unset the filters.
 		unset( $merged_filters[$tag] );
@@ -872,39 +872,39 @@ function bp_remove_all_filters( $tag, $priority = false ) {
 function bp_restore_all_filters( $tag, $priority = false ) {
 	global $wp_filter, $merged_filters;
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Filters exist.
-	if ( isset( $bp->filters->wp_filter[$tag] ) ) {
+	if ( isset( $profiles->filters->wp_filter[$tag] ) ) {
 
 		// Filters exist in this priority.
-		if ( ! empty( $priority ) && isset( $bp->filters->wp_filter[$tag][$priority] ) ) {
+		if ( ! empty( $priority ) && isset( $profiles->filters->wp_filter[$tag][$priority] ) ) {
 
 			// Store filters in a backup.
-			$wp_filter[$tag][$priority] = $bp->filters->wp_filter[$tag][$priority];
+			$wp_filter[$tag][$priority] = $profiles->filters->wp_filter[$tag][$priority];
 
 			// Unset the filters.
-			unset( $bp->filters->wp_filter[$tag][$priority] );
+			unset( $profiles->filters->wp_filter[$tag][$priority] );
 
 		// Priority is empty.
 		} else {
 
 			// Store filters in a backup.
-			$wp_filter[$tag] = $bp->filters->wp_filter[$tag];
+			$wp_filter[$tag] = $profiles->filters->wp_filter[$tag];
 
 			// Unset the filters.
-			unset( $bp->filters->wp_filter[$tag] );
+			unset( $profiles->filters->wp_filter[$tag] );
 		}
 	}
 
 	// Check merged filters.
-	if ( isset( $bp->filters->merged_filters[$tag] ) ) {
+	if ( isset( $profiles->filters->merged_filters[$tag] ) ) {
 
 		// Store filters in a backup.
-		$merged_filters[$tag] = $bp->filters->merged_filters[$tag];
+		$merged_filters[$tag] = $profiles->filters->merged_filters[$tag];
 
 		// Unset the filters.
-		unset( $bp->filters->merged_filters[$tag] );
+		unset( $profiles->filters->merged_filters[$tag] );
 	}
 
 	return true;
@@ -977,10 +977,10 @@ add_filter( 'bp_replace_the_content', 'bp_theme_compat_toggle_is_page', 9999 );
 function bp_theme_compat_loop_end( $query ) {
 
 	// Get Profiles.
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Bail if page is not toggled.
-	if ( ! isset( $bp->theme_compat->is_page_toggled ) ) {
+	if ( ! isset( $profiles->theme_compat->is_page_toggled ) ) {
 		return;
 	}
 
@@ -988,6 +988,6 @@ function bp_theme_compat_loop_end( $query ) {
 	$query->is_page = true;
 
 	// Unset our switch.
-	unset( $bp->theme_compat->is_page_toggled );
+	unset( $profiles->theme_compat->is_page_toggled );
 }
 add_action( 'loop_end', 'bp_theme_compat_loop_end' );

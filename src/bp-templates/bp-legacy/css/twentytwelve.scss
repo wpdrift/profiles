@@ -165,7 +165,7 @@ $border-color:       #d4d0ba;    // border color is varied using rgba
 $border-light:       #eaeaea; // BP dividers
 $border-med:         #ddd;
 $background-hover:   #db572f; // 2012 link background hover
-$bp-button-hover:    #ededed; // this is the default BP button hover background
+$profiles-button-hover:    #ededed; // this is the default BP button hover background
 $notice-error:       #c85a6e;
 $notice-warning:     #d05656;
 $notice-info:        #9fd1e2;
@@ -1128,7 +1128,7 @@ http://codex.profiles.org/themes/profiles-companion-stylesheets/
 
 					&:focus,
 					&:hover {
-						background: $bp-button-hover;
+						background: $profiles-button-hover;
 					}
 				}
 

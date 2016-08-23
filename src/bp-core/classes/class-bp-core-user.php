@@ -242,7 +242,7 @@ class BP_Core_User {
 
 		_deprecated_function( __METHOD__, '1.7', 'BP_User_Query' );
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		$sql = array();
 
@@ -272,12 +272,12 @@ class BP_Core_User {
 
 		// We search against xprofile fields, so we must join the table.
 		if ( $search_terms && bp_is_active( 'xprofile' ) ) {
-			$sql['join_profiledata_search'] = "LEFT JOIN {$bp->profile->table_name_data} spd ON u.ID = spd.user_id";
+			$sql['join_profiledata_search'] = "LEFT JOIN {$profiles->profile->table_name_data} spd ON u.ID = spd.user_id";
 		}
 
 		// Alphabetical sorting is done by the xprofile Full Name field.
 		if ( 'alphabetical' == $type ) {
-			$sql['join_profiledata_alpha'] = "LEFT JOIN {$bp->profile->table_name_data} pd ON u.ID = pd.user_id";
+			$sql['join_profiledata_alpha'] = "LEFT JOIN {$profiles->profile->table_name_data} pd ON u.ID = pd.user_id";
 		}
 
 		if ( $meta_key ) {
@@ -460,7 +460,7 @@ class BP_Core_User {
 			}
 		}
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		$letter_like = bp_esc_like( $letter ) . '%';
 		$status_sql  = bp_core_get_status_sql( 'u.' );
@@ -479,7 +479,7 @@ class BP_Core_User {
 		 *
 		 * @param string $value SQL prepared statement for the user count query.
 		 */
-		$total_users_sql = apply_filters( 'bp_core_users_by_letter_count_sql', $wpdb->prepare( "SELECT COUNT(DISTINCT u.ID) FROM {$wpdb->users} u LEFT JOIN {$bp->profile->table_name_data} pd ON u.ID = pd.user_id LEFT JOIN {$bp->profile->table_name_fields} pf ON pd.field_id = pf.id WHERE {$status_sql} AND pf.name = %s {$exclude_sql} AND pd.value LIKE %s ORDER BY pd.value ASC", bp_xprofile_fullname_field_name(), $letter_like ) );
+		$total_users_sql = apply_filters( 'bp_core_users_by_letter_count_sql', $wpdb->prepare( "SELECT COUNT(DISTINCT u.ID) FROM {$wpdb->users} u LEFT JOIN {$profiles->profile->table_name_data} pd ON u.ID = pd.user_id LEFT JOIN {$profiles->profile->table_name_fields} pf ON pd.field_id = pf.id WHERE {$status_sql} AND pf.name = %s {$exclude_sql} AND pd.value LIKE %s ORDER BY pd.value ASC", bp_xprofile_fullname_field_name(), $letter_like ) );
 
 		/**
 		 * Filters the SQL used to query for users by first letter.
@@ -488,7 +488,7 @@ class BP_Core_User {
 		 *
 		 * @param string $value SQL prepared statement for the user query.
 		 */
-		$paged_users_sql = apply_filters( 'bp_core_users_by_letter_sql',       $wpdb->prepare( "SELECT DISTINCT u.ID as id, u.user_registered, u.user_nicename, u.user_login, u.user_email FROM {$wpdb->users} u LEFT JOIN {$bp->profile->table_name_data} pd ON u.ID = pd.user_id LEFT JOIN {$bp->profile->table_name_fields} pf ON pd.field_id = pf.id WHERE {$status_sql} AND pf.name = %s {$exclude_sql} AND pd.value LIKE %s ORDER BY pd.value ASC{$pag_sql}", bp_xprofile_fullname_field_name(), $letter_like ) );
+		$paged_users_sql = apply_filters( 'bp_core_users_by_letter_sql',       $wpdb->prepare( "SELECT DISTINCT u.ID as id, u.user_registered, u.user_nicename, u.user_login, u.user_email FROM {$wpdb->users} u LEFT JOIN {$profiles->profile->table_name_data} pd ON u.ID = pd.user_id LEFT JOIN {$profiles->profile->table_name_fields} pf ON pd.field_id = pf.id WHERE {$status_sql} AND pf.name = %s {$exclude_sql} AND pd.value LIKE %s ORDER BY pd.value ASC{$pag_sql}", bp_xprofile_fullname_field_name(), $letter_like ) );
 
 		$total_users = $wpdb->get_var( $total_users_sql );
 		$paged_users = $wpdb->get_results( $paged_users_sql );
@@ -624,7 +624,7 @@ class BP_Core_User {
 	public static function search_users( $search_terms, $limit = null, $page = 1, $populate_extras = true ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		$user_ids = array();
 		$pag_sql  = $limit && $page ? $wpdb->prepare( " LIMIT %d, %d", intval( ( $page - 1 ) * intval( $limit ) ), intval( $limit ) ) : '';
@@ -639,7 +639,7 @@ class BP_Core_User {
 		 *
 		 * @param string $value SQL statement for the searched users count query.
 		 */
-		$total_users_sql = apply_filters( 'bp_core_search_users_count_sql', $wpdb->prepare( "SELECT COUNT(DISTINCT u.ID) as id FROM {$wpdb->users} u LEFT JOIN {$bp->profile->table_name_data} pd ON u.ID = pd.user_id WHERE {$status_sql} AND pd.value LIKE %s ORDER BY pd.value ASC", $search_terms_like ), $search_terms );
+		$total_users_sql = apply_filters( 'bp_core_search_users_count_sql', $wpdb->prepare( "SELECT COUNT(DISTINCT u.ID) as id FROM {$wpdb->users} u LEFT JOIN {$profiles->profile->table_name_data} pd ON u.ID = pd.user_id WHERE {$status_sql} AND pd.value LIKE %s ORDER BY pd.value ASC", $search_terms_like ), $search_terms );
 
 		/**
 		 * Filters the SQL used to query for searched users.
@@ -648,7 +648,7 @@ class BP_Core_User {
 		 *
 		 * @param string $value SQL statement for the searched users query.
 		 */
-		$paged_users_sql = apply_filters( 'bp_core_search_users_sql',       $wpdb->prepare( "SELECT DISTINCT u.ID as id, u.user_registered, u.user_nicename, u.user_login, u.user_email FROM {$wpdb->users} u LEFT JOIN {$bp->profile->table_name_data} pd ON u.ID = pd.user_id WHERE {$status_sql} AND pd.value LIKE %s ORDER BY pd.value ASC{$pag_sql}", $search_terms_like ), $search_terms, $pag_sql );
+		$paged_users_sql = apply_filters( 'bp_core_search_users_sql',       $wpdb->prepare( "SELECT DISTINCT u.ID as id, u.user_registered, u.user_nicename, u.user_login, u.user_email FROM {$wpdb->users} u LEFT JOIN {$profiles->profile->table_name_data} pd ON u.ID = pd.user_id WHERE {$status_sql} AND pd.value LIKE %s ORDER BY pd.value ASC{$pag_sql}", $search_terms_like ), $search_terms, $pag_sql );
 
 		$total_users = $wpdb->get_var( $total_users_sql );
 		$paged_users = $wpdb->get_results( $paged_users_sql );
@@ -682,7 +682,7 @@ class BP_Core_User {
 	public static function get_user_extras( &$paged_users, &$user_ids, $type = false ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( empty( $user_ids ) )
 			return $paged_users;
@@ -692,7 +692,7 @@ class BP_Core_User {
 
 		// Fetch the user's full name.
 		if ( bp_is_active( 'xprofile' ) && 'alphabetical' != $type ) {
-			$names = $wpdb->get_results( $wpdb->prepare( "SELECT pd.user_id as id, pd.value as fullname FROM {$bp->profile->table_name_fields} pf, {$bp->profile->table_name_data} pd WHERE pf.id = pd.field_id AND pf.name = %s AND pd.user_id IN ( {$user_ids} )", bp_xprofile_fullname_field_name() ) );
+			$names = $wpdb->get_results( $wpdb->prepare( "SELECT pd.user_id as id, pd.value as fullname FROM {$profiles->profile->table_name_fields} pf, {$profiles->profile->table_name_data} pd WHERE pf.id = pd.field_id AND pf.name = %s AND pd.user_id IN ( {$user_ids} )", bp_xprofile_fullname_field_name() ) );
 			for ( $i = 0, $count = count( $paged_users ); $i < $count; ++$i ) {
 				foreach ( (array) $names as $name ) {
 					if ( $name->id == $paged_users[$i]->id )
@@ -714,7 +714,7 @@ class BP_Core_User {
 
 		// Fetch whether or not the user is a friend.
 		if ( bp_is_active( 'friends' ) ) {
-			$friend_status = $wpdb->get_results( $wpdb->prepare( "SELECT initiator_user_id, friend_user_id, is_confirmed FROM {$bp->friends->table_name} WHERE (initiator_user_id = %d AND friend_user_id IN ( {$user_ids} ) ) OR (initiator_user_id IN ( {$user_ids} ) AND friend_user_id = %d )", bp_loggedin_user_id(), bp_loggedin_user_id() ) );
+			$friend_status = $wpdb->get_results( $wpdb->prepare( "SELECT initiator_user_id, friend_user_id, is_confirmed FROM {$profiles->friends->table_name} WHERE (initiator_user_id = %d AND friend_user_id IN ( {$user_ids} ) ) OR (initiator_user_id IN ( {$user_ids} ) AND friend_user_id = %d )", bp_loggedin_user_id(), bp_loggedin_user_id() ) );
 			for ( $i = 0, $count = count( $paged_users ); $i < $count; ++$i ) {
 				foreach ( (array) $friend_status as $status ) {
 					if ( $status->initiator_user_id == $paged_users[$i]->id || $status->friend_user_id == $paged_users[$i]->id )
@@ -791,12 +791,12 @@ class BP_Core_User {
 
 		$uncached_user_ids = bp_get_non_cached_ids( $user_ids, 'bp_last_activity' );
 		if ( ! empty( $uncached_user_ids ) ) {
-			$bp = profiles();
+			$profiles = profiles();
 
 			$user_ids_sql = implode( ',', $uncached_user_ids );
 			$user_count   = count( $uncached_user_ids );
 
-			$last_activities = $wpdb->get_results( $wpdb->prepare( "SELECT id, user_id, date_recorded FROM {$bp->members->table_name_last_activity} WHERE component = %s AND type = 'last_activity' AND user_id IN ({$user_ids_sql}) LIMIT {$user_count}", $bp->members->id ) );
+			$last_activities = $wpdb->get_results( $wpdb->prepare( "SELECT id, user_id, date_recorded FROM {$profiles->members->table_name_last_activity} WHERE component = %s AND type = 'last_activity' AND user_id IN ({$user_ids_sql}) LIMIT {$user_count}", $profiles->members->id ) );
 
 			foreach ( $last_activities as $last_activity ) {
 				wp_cache_set( $last_activity->user_id, array(

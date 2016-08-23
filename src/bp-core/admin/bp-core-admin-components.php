@@ -273,18 +273,18 @@ function bp_core_admin_components_settings_handler() {
 	if ( isset( $_POST['bp_components'] ) ) {
 
 		// Load up Profiles.
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Save settings and upgrade schema.
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-		require_once( $bp->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
+		require_once( $profiles->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
 
 		$submitted = stripslashes_deep( $_POST['bp_components'] );
-		$bp->active_components = bp_core_admin_get_active_components_from_submitted_settings( $submitted );
+		$profiles->active_components = bp_core_admin_get_active_components_from_submitted_settings( $submitted );
 
-		bp_core_install( $bp->active_components );
-		bp_core_add_page_mappings( $bp->active_components );
-		bp_update_option( 'bp-active-components', $bp->active_components );
+		bp_core_install( $profiles->active_components );
+		bp_core_add_page_mappings( $profiles->active_components );
+		bp_update_option( 'bp-active-components', $profiles->active_components );
 	}
 
 	// Where are we redirecting to?
@@ -307,7 +307,7 @@ add_action( 'bp_admin_init', 'bp_core_admin_components_settings_handler' );
  * - When coming from Inactive, components can only be activated - already
  *   active components will not be passed in the $_POST global. Thus, we must
  *   parse the newly activated components with the already active components
- *   saved in the $bp global
+ *   saved in the $profiles global
  * - When activating a Retired component, the situation is similar to Inactive.
  * - When deactivating a Retired component, no value is passed in the $_POST
  *   global (because the component settings are checkboxes). So, in order to

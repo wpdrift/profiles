@@ -77,9 +77,9 @@ function bp_core_install( $active_components = false ) {
 function bp_core_install_notifications() {
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_notifications (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_notifications (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				user_id bigint(20) NOT NULL,
 				item_id bigint(20) NOT NULL,
@@ -97,7 +97,7 @@ function bp_core_install_notifications() {
 				KEY useritem (user_id,is_new)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_notifications_meta (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_notifications_meta (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				notification_id bigint(20) NOT NULL,
 				meta_key varchar(255) DEFAULT NULL,
@@ -118,9 +118,9 @@ function bp_core_install_notifications() {
 function bp_core_install_activity_streams() {
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_activity (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_activity (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				user_id bigint(20) NOT NULL,
 				component varchar(75) NOT NULL,
@@ -147,7 +147,7 @@ function bp_core_install_activity_streams() {
 				KEY is_spam (is_spam)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_activity_meta (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_activity_meta (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				activity_id bigint(20) NOT NULL,
 				meta_key varchar(255) DEFAULT NULL,
@@ -168,9 +168,9 @@ function bp_core_install_activity_streams() {
 function bp_core_install_friends() {
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_friends (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_friends (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				initiator_user_id bigint(20) NOT NULL,
 				friend_user_id bigint(20) NOT NULL,
@@ -193,9 +193,9 @@ function bp_core_install_friends() {
 function bp_core_install_groups() {
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_groups (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_groups (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				creator_id bigint(20) NOT NULL,
 				name varchar(100) NOT NULL,
@@ -208,7 +208,7 @@ function bp_core_install_groups() {
 				KEY status (status)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_groups_members (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_groups_members (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				group_id bigint(20) NOT NULL,
 				user_id bigint(20) NOT NULL,
@@ -229,7 +229,7 @@ function bp_core_install_groups() {
 				KEY is_confirmed (is_confirmed)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_groups_groupmeta (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_groups_groupmeta (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				group_id bigint(20) NOT NULL,
 				meta_key varchar(255) DEFAULT NULL,
@@ -250,9 +250,9 @@ function bp_core_install_groups() {
 function bp_core_install_private_messaging() {
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_messages_messages (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_messages_messages (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				thread_id bigint(20) NOT NULL,
 				sender_id bigint(20) NOT NULL,
@@ -263,7 +263,7 @@ function bp_core_install_private_messaging() {
 				KEY thread_id (thread_id)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_messages_recipients (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_messages_recipients (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				user_id bigint(20) NOT NULL,
 				thread_id bigint(20) NOT NULL,
@@ -277,7 +277,7 @@ function bp_core_install_private_messaging() {
 				KEY unread_count (unread_count)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_messages_notices (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_messages_notices (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				subject varchar(200) NOT NULL,
 				message longtext NOT NULL,
@@ -286,7 +286,7 @@ function bp_core_install_private_messaging() {
 				KEY is_active (is_active)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_messages_meta (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_messages_meta (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				message_id bigint(20) NOT NULL,
 				meta_key varchar(255) DEFAULT NULL,
@@ -309,7 +309,7 @@ function bp_core_install_extended_profiles() {
 
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
 	// These values should only be updated if they are not already present.
 	if ( ! bp_get_option( 'bp-xprofile-base-group-name' ) ) {
@@ -320,7 +320,7 @@ function bp_core_install_extended_profiles() {
 		bp_update_option( 'bp-xprofile-fullname-field-name', _x( 'Display Name', 'Display name field', 'profiles' ) );
 	}
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_xprofile_groups (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_xprofile_groups (
 				id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				name varchar(150) NOT NULL,
 				description mediumtext NOT NULL,
@@ -329,7 +329,7 @@ function bp_core_install_extended_profiles() {
 				KEY can_delete (can_delete)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_xprofile_fields (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_xprofile_fields (
 				id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				group_id bigint(20) unsigned NOT NULL,
 				parent_id bigint(20) unsigned NOT NULL,
@@ -349,7 +349,7 @@ function bp_core_install_extended_profiles() {
 				KEY is_required (is_required)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_xprofile_data (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_xprofile_data (
 				id bigint(20) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				field_id bigint(20) unsigned NOT NULL,
 				user_id bigint(20) unsigned NOT NULL,
@@ -359,7 +359,7 @@ function bp_core_install_extended_profiles() {
 				KEY user_id (user_id)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_xprofile_meta (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_xprofile_meta (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				object_id bigint(20) NOT NULL,
 				object_type varchar(150) NOT NULL,
@@ -374,12 +374,12 @@ function bp_core_install_extended_profiles() {
 	// Insert the default group and fields.
 	$insert_sql = array();
 
-	if ( ! $wpdb->get_var( "SELECT id FROM {$bp_prefix}bp_xprofile_groups WHERE id = 1" ) ) {
-		$insert_sql[] = "INSERT INTO {$bp_prefix}bp_xprofile_groups ( name, description, can_delete ) VALUES ( " . $wpdb->prepare( '%s', stripslashes( bp_get_option( 'bp-xprofile-base-group-name' ) ) ) . ", '', 0 );";
+	if ( ! $wpdb->get_var( "SELECT id FROM {$profiles_prefix}bp_xprofile_groups WHERE id = 1" ) ) {
+		$insert_sql[] = "INSERT INTO {$profiles_prefix}bp_xprofile_groups ( name, description, can_delete ) VALUES ( " . $wpdb->prepare( '%s', stripslashes( bp_get_option( 'bp-xprofile-base-group-name' ) ) ) . ", '', 0 );";
 	}
 
-	if ( ! $wpdb->get_var( "SELECT id FROM {$bp_prefix}bp_xprofile_fields WHERE id = 1" ) ) {
-		$insert_sql[] = "INSERT INTO {$bp_prefix}bp_xprofile_fields ( group_id, parent_id, type, name, description, is_required, can_delete ) VALUES ( 1, 0, 'textbox', " . $wpdb->prepare( '%s', stripslashes( bp_get_option( 'bp-xprofile-fullname-field-name' ) ) ) . ", '', 1, 0 );";
+	if ( ! $wpdb->get_var( "SELECT id FROM {$profiles_prefix}bp_xprofile_fields WHERE id = 1" ) ) {
+		$insert_sql[] = "INSERT INTO {$profiles_prefix}bp_xprofile_fields ( group_id, parent_id, type, name, description, is_required, can_delete ) VALUES ( 1, 0, 'textbox', " . $wpdb->prepare( '%s', stripslashes( bp_get_option( 'bp-xprofile-fullname-field-name' ) ) ) . ", '', 1, 0 );";
 	}
 
 	dbDelta( $insert_sql );
@@ -394,9 +394,9 @@ function bp_core_install_extended_profiles() {
 function bp_core_install_blog_tracking() {
 	$sql             = array();
 	$charset_collate = $GLOBALS['wpdb']->get_charset_collate();
-	$bp_prefix       = bp_core_get_table_prefix();
+	$profiles_prefix       = bp_core_get_table_prefix();
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_user_blogs (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_user_blogs (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				user_id bigint(20) NOT NULL,
 				blog_id bigint(20) NOT NULL,
@@ -404,7 +404,7 @@ function bp_core_install_blog_tracking() {
 				KEY blog_id (blog_id)
 			) {$charset_collate};";
 
-	$sql[] = "CREATE TABLE {$bp_prefix}bp_user_blogs_blogmeta (
+	$sql[] = "CREATE TABLE {$profiles_prefix}bp_user_blogs_blogmeta (
 				id bigint(20) NOT NULL AUTO_INCREMENT PRIMARY KEY,
 				blog_id bigint(20) NOT NULL,
 				meta_key varchar(255) DEFAULT NULL,

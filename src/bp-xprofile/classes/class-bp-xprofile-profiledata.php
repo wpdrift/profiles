@@ -86,9 +86,9 @@ class BP_XProfile_ProfileData {
 		$profiledata = wp_cache_get( $cache_key, 'bp_xprofile_data' );
 
 		if ( false === $profiledata ) {
-			$bp = profiles();
+			$profiles = profiles();
 
-			$sql         = $wpdb->prepare( "SELECT * FROM {$bp->profile->table_name_data} WHERE field_id = %d AND user_id = %d", $field_id, $user_id );
+			$sql         = $wpdb->prepare( "SELECT * FROM {$profiles->profile->table_name_data} WHERE field_id = %d AND user_id = %d", $field_id, $user_id );
 			$profiledata = $wpdb->get_row( $sql );
 
 			if ( $profiledata ) {
@@ -116,7 +116,7 @@ class BP_XProfile_ProfileData {
 	 * @since 1.0.0
 	 *
 	 * @global object $wpdb
-	 * @global array $bp
+	 * @global array $profiles
 	 *
 	 * @return bool
 	 */
@@ -130,8 +130,8 @@ class BP_XProfile_ProfileData {
 		if ( $cached && ! empty( $cached->id ) ) {
 			$retval = true;
 		} else {
-			$bp = profiles();
-			$retval = $wpdb->get_row( $wpdb->prepare( "SELECT id FROM {$bp->profile->table_name_data} WHERE user_id = %d AND field_id = %d", $this->user_id, $this->field_id ) );
+			$profiles = profiles();
+			$retval = $wpdb->get_row( $wpdb->prepare( "SELECT id FROM {$profiles->profile->table_name_data} WHERE user_id = %d AND field_id = %d", $this->user_id, $this->field_id ) );
 		}
 
 		/**
@@ -157,9 +157,9 @@ class BP_XProfile_ProfileData {
 	public function is_valid_field() {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		$retval = $wpdb->get_row( $wpdb->prepare( "SELECT id FROM {$bp->profile->table_name_fields} WHERE id = %d", $this->field_id ) );
+		$retval = $wpdb->get_row( $wpdb->prepare( "SELECT id FROM {$profiles->profile->table_name_fields} WHERE id = %d", $this->field_id ) );
 
 		/**
 		 * Filters whether or not data is for a valid field.
@@ -182,7 +182,7 @@ class BP_XProfile_ProfileData {
 	public function save() {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		$this->user_id      = apply_filters( 'xprofile_data_user_id_before_save',      $this->user_id,         $this->id );
 		$this->field_id     = apply_filters( 'xprofile_data_field_id_before_save',     $this->field_id,        $this->id );
@@ -202,14 +202,14 @@ class BP_XProfile_ProfileData {
 
 		if ( $this->is_valid_field() ) {
 			if ( $this->exists() && strlen( trim( $this->value ) ) ) {
-				$result   = $wpdb->query( $wpdb->prepare( "UPDATE {$bp->profile->table_name_data} SET value = %s, last_updated = %s WHERE user_id = %d AND field_id = %d", $this->value, $this->last_updated, $this->user_id, $this->field_id ) );
+				$result   = $wpdb->query( $wpdb->prepare( "UPDATE {$profiles->profile->table_name_data} SET value = %s, last_updated = %s WHERE user_id = %d AND field_id = %d", $this->value, $this->last_updated, $this->user_id, $this->field_id ) );
 
 			} elseif ( $this->exists() && empty( $this->value ) ) {
 				// Data removed, delete the entry.
 				$result   = $this->delete();
 
 			} else {
-				$result   = $wpdb->query( $wpdb->prepare("INSERT INTO {$bp->profile->table_name_data} (user_id, field_id, value, last_updated) VALUES (%d, %d, %s, %s)", $this->user_id, $this->field_id, $this->value, $this->last_updated ) );
+				$result   = $wpdb->query( $wpdb->prepare("INSERT INTO {$profiles->profile->table_name_data} (user_id, field_id, value, last_updated) VALUES (%d, %d, %s, %s)", $this->user_id, $this->field_id, $this->value, $this->last_updated ) );
 				$this->id = $wpdb->insert_id;
 			}
 
@@ -244,7 +244,7 @@ class BP_XProfile_ProfileData {
 	public function delete() {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		/**
 		 * Fires before the current profile data instance gets deleted.
@@ -255,7 +255,7 @@ class BP_XProfile_ProfileData {
 		 */
 		do_action_ref_array( 'xprofile_data_before_delete', array( $this ) );
 
-		$deleted = $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->profile->table_name_data} WHERE field_id = %d AND user_id = %d", $this->field_id, $this->user_id ) );
+		$deleted = $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->profile->table_name_data} WHERE field_id = %d AND user_id = %d", $this->field_id, $this->user_id ) );
 		if ( empty( $deleted ) ) {
 			return false;
 		}
@@ -292,9 +292,9 @@ class BP_XProfile_ProfileData {
 
 		// Prime the cache.
 		if ( ! empty( $uncached_field_ids ) ) {
-			$bp = profiles();
+			$profiles = profiles();
 			$uncached_field_ids_sql = implode( ',', wp_parse_id_list( $uncached_field_ids ) );
-			$uncached_data = $wpdb->get_results( $wpdb->prepare( "SELECT id, user_id, field_id, value, last_updated FROM {$bp->profile->table_name_data} WHERE field_id IN ({$uncached_field_ids_sql}) AND user_id = %d", $user_id ) );
+			$uncached_data = $wpdb->get_results( $wpdb->prepare( "SELECT id, user_id, field_id, value, last_updated FROM {$profiles->profile->table_name_data} WHERE field_id IN ({$uncached_field_ids_sql}) AND user_id = %d", $user_id ) );
 
 			// Rekey.
 			$queried_data = array();
@@ -404,13 +404,13 @@ class BP_XProfile_ProfileData {
 		if ( empty( $field_id ) || empty( $user_id ) ) {
 			$fielddata_id = 0;
 		} else {
-			$bp = profiles();
+			$profiles = profiles();
 
 			// Check cache first.
 			$cache_key = "{$user_id}:{$field_id}";
 			$fielddata = wp_cache_get( $cache_key, 'bp_xprofile_data' );
 			if ( false === $fielddata || empty( $fielddata->id ) ) {
-				$fielddata_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$bp->profile->table_name_data} WHERE field_id = %d AND user_id = %d", $field_id, $user_id ) );
+				$fielddata_id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$profiles->profile->table_name_data} WHERE field_id = %d AND user_id = %d", $field_id, $user_id ) );
 			} else {
 				$fielddata_id = $fielddata->id;
 			}
@@ -456,9 +456,9 @@ class BP_XProfile_ProfileData {
 
 		// Prime caches.
 		if ( ! empty( $uncached_ids ) ) {
-			$bp = profiles();
+			$profiles = profiles();
 			$uncached_ids_sql = implode( ',', $uncached_ids );
-			$queried_data = $wpdb->get_results( $wpdb->prepare( "SELECT id, user_id, field_id, value, last_updated FROM {$bp->profile->table_name_data} WHERE field_id = %d AND user_id IN ({$uncached_ids_sql})", $field_id ) );
+			$queried_data = $wpdb->get_results( $wpdb->prepare( "SELECT id, user_id, field_id, value, last_updated FROM {$profiles->profile->table_name_data} WHERE field_id = %d AND user_id IN ({$uncached_ids_sql})", $field_id ) );
 
 			// Rekey.
 			$qd = array();
@@ -520,7 +520,7 @@ class BP_XProfile_ProfileData {
 			return false;
 		}
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		if ( empty( $user_id ) ) {
 			$user_id = bp_displayed_user_id();
@@ -542,7 +542,7 @@ class BP_XProfile_ProfileData {
 			$field_sql .= $wpdb->prepare( "AND f.name = %s", $fields );
 		}
 
-		$sql    = $wpdb->prepare( "SELECT d.value, f.name FROM {$bp->profile->table_name_data} d, {$bp->profile->table_name_fields} f WHERE d.field_id = f.id AND d.user_id = %d AND f.parent_id = 0 $field_sql", $user_id );
+		$sql    = $wpdb->prepare( "SELECT d.value, f.name FROM {$profiles->profile->table_name_data} d, {$profiles->profile->table_name_fields} f WHERE d.field_id = f.id AND d.user_id = %d AND f.parent_id = 0 $field_sql", $user_id );
 		$values = $wpdb->get_results( $sql );
 
 		if ( empty( $values ) || is_wp_error( $values ) ) {
@@ -579,8 +579,8 @@ class BP_XProfile_ProfileData {
 	public static function delete_for_field( $field_id ) {
 		global $wpdb;
 
-		$bp      = profiles();
-		$deleted = $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->profile->table_name_data} WHERE field_id = %d", $field_id ) );
+		$profiles      = profiles();
+		$deleted = $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->profile->table_name_data} WHERE field_id = %d", $field_id ) );
 		if ( empty( $deleted ) || is_wp_error( $deleted ) ) {
 			return false;
 		}
@@ -599,9 +599,9 @@ class BP_XProfile_ProfileData {
 	public static function get_last_updated( $user_id ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		$last_updated = $wpdb->get_var( $wpdb->prepare( "SELECT last_updated FROM {$bp->profile->table_name_data} WHERE user_id = %d ORDER BY last_updated LIMIT 1", $user_id ) );
+		$last_updated = $wpdb->get_var( $wpdb->prepare( "SELECT last_updated FROM {$profiles->profile->table_name_data} WHERE user_id = %d ORDER BY last_updated LIMIT 1", $user_id ) );
 
 		return $last_updated;
 	}
@@ -617,9 +617,9 @@ class BP_XProfile_ProfileData {
 	public static function delete_data_for_user( $user_id ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->profile->table_name_data} WHERE user_id = %d", $user_id ) );
+		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->profile->table_name_data} WHERE user_id = %d", $user_id ) );
 	}
 
 	/**
@@ -636,9 +636,9 @@ class BP_XProfile_ProfileData {
 
 		$exclude_sql = ! empty( $exclude_fullname ) ? ' AND pf.id != 1' : '';
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT pf.type, pf.name, pd.value FROM {$bp->profile->table_name_data} pd INNER JOIN {$bp->profile->table_name_fields} pf ON pd.field_id = pf.id AND pd.user_id = %d {$exclude_sql} ORDER BY RAND() LIMIT 1", $user_id ) );
+		return $wpdb->get_results( $wpdb->prepare( "SELECT pf.type, pf.name, pd.value FROM {$profiles->profile->table_name_data} pd INNER JOIN {$profiles->profile->table_name_fields} pf ON pd.field_id = pf.id AND pd.user_id = %d {$exclude_sql} ORDER BY RAND() LIMIT 1", $user_id ) );
 	}
 
 	/**

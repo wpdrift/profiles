@@ -22,7 +22,7 @@ if ( ! profiles()->do_autoload ) {
  *
  * @since 0.0.1
  *
- * @global Profiles $bp Profiles global settings object.
+ * @global Profiles $profiles Profiles global settings object.
  */
 function bp_setup_core() {
 	profiles()->core = new BP_Core();

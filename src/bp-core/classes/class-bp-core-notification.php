@@ -99,15 +99,15 @@ class BP_Core_Notification {
 	public function save() {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		// Update.
 		if ( !empty( $this->id ) ) {
-			$sql = $wpdb->prepare( "UPDATE {$bp->core->table_name_notifications} SET item_id = %d, secondary_item_id = %d, user_id = %d, component_name = %s, component_action = %d, date_notified = %s, is_new = %d ) WHERE id = %d", $this->item_id, $this->secondary_item_id, $this->user_id, $this->component_name, $this->component_action, $this->date_notified, $this->is_new, $this->id );
+			$sql = $wpdb->prepare( "UPDATE {$profiles->core->table_name_notifications} SET item_id = %d, secondary_item_id = %d, user_id = %d, component_name = %s, component_action = %d, date_notified = %s, is_new = %d ) WHERE id = %d", $this->item_id, $this->secondary_item_id, $this->user_id, $this->component_name, $this->component_action, $this->date_notified, $this->is_new, $this->id );
 
 		// Save.
 		} else {
-			$sql = $wpdb->prepare( "INSERT INTO {$bp->core->table_name_notifications} ( item_id, secondary_item_id, user_id, component_name, component_action, date_notified, is_new ) VALUES ( %d, %d, %d, %s, %s, %s, %d )", $this->item_id, $this->secondary_item_id, $this->user_id, $this->component_name, $this->component_action, $this->date_notified, $this->is_new );
+			$sql = $wpdb->prepare( "INSERT INTO {$profiles->core->table_name_notifications} ( item_id, secondary_item_id, user_id, component_name, component_action, date_notified, is_new ) VALUES ( %d, %d, %d, %s, %s, %s, %d )", $this->item_id, $this->secondary_item_id, $this->user_id, $this->component_name, $this->component_action, $this->date_notified, $this->is_new );
 		}
 
 		if ( !$result = $wpdb->query( $sql ) )
@@ -128,9 +128,9 @@ class BP_Core_Notification {
 	public function populate() {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		if ( $notification = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$bp->core->table_name_notifications} WHERE id = %d", $this->id ) ) ) {
+		if ( $notification = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$profiles->core->table_name_notifications} WHERE id = %d", $this->id ) ) ) {
 			$this->item_id = $notification->item_id;
 			$this->secondary_item_id = $notification->secondary_item_id;
 			$this->user_id           = $notification->user_id;
@@ -153,9 +153,9 @@ class BP_Core_Notification {
 	public static function check_access( $user_id, $notification_id ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM {$bp->core->table_name_notifications} WHERE id = %d AND user_id = %d", $notification_id, $user_id ) );
+		return $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM {$profiles->core->table_name_notifications} WHERE id = %d AND user_id = %d", $notification_id, $user_id ) );
 	}
 
 	/**
@@ -172,13 +172,13 @@ class BP_Core_Notification {
 	public static function get_all_for_user( $user_id, $status = 'is_new' ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		$is_new = ( 'is_new' === $status )
 			? ' AND is_new = 1 '
 			: '';
 
-		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$bp->core->table_name_notifications} WHERE user_id = %d {$is_new}", $user_id ) );
+		return $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$profiles->core->table_name_notifications} WHERE user_id = %d {$is_new}", $user_id ) );
 	}
 
 	/**
@@ -196,9 +196,9 @@ class BP_Core_Notification {
 	public static function delete_for_user_by_type( $user_id, $component_name, $component_action ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
+		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->core->table_name_notifications} WHERE user_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
 	}
 
 	/**
@@ -219,13 +219,13 @@ class BP_Core_Notification {
 	public static function delete_for_user_by_item_id( $user_id, $item_id, $component_name, $component_action, $secondary_item_id = false ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
 		$secondary_item_sql = !empty( $secondary_item_id )
 			? $wpdb->prepare( " AND secondary_item_id = %d", $secondary_item_id )
 			: '';
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d AND item_id = %d AND component_name = %s AND component_action = %s{$secondary_item_sql}", $user_id, $item_id, $component_name, $component_action ) );
+		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->core->table_name_notifications} WHERE user_id = %d AND item_id = %d AND component_name = %s AND component_action = %s{$secondary_item_sql}", $user_id, $item_id, $component_name, $component_action ) );
 	}
 
 	/**
@@ -243,9 +243,9 @@ class BP_Core_Notification {
 	public static function delete_from_user_by_type( $user_id, $component_name, $component_action ) {
 		global $wpdb;
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE item_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
+		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->core->table_name_notifications} WHERE item_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
 	}
 
 	/**
@@ -275,8 +275,8 @@ class BP_Core_Notification {
 		else
 			$secondary_item_sql = '';
 
-		$bp = profiles();
+		$profiles = profiles();
 
-		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE item_id = %d AND component_name = %s {$component_action_sql} {$secondary_item_sql}", $item_id, $component_name ) );
+		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$profiles->core->table_name_notifications} WHERE item_id = %d AND component_name = %s {$component_action_sql} {$secondary_item_sql}", $item_id, $component_name ) );
 	}
 }

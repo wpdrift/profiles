@@ -55,12 +55,12 @@ class BP_Legacy extends BP_Theme_Compat {
 	 * @since 1.7.0
 	 */
 	protected function setup_globals() {
-		$bp            = profiles();
+		$profiles            = profiles();
 		$this->id      = 'legacy';
 		$this->name    = __( 'Profiles Legacy', 'profiles' );
 		$this->version = bp_get_version();
-		$this->dir     = trailingslashit( $bp->themes_dir . '/bp-legacy' );
-		$this->url     = trailingslashit( $bp->themes_url . '/bp-legacy' );
+		$this->dir     = trailingslashit( $profiles->themes_dir . '/bp-legacy' );
+		$this->url     = trailingslashit( $profiles->themes_url . '/bp-legacy' );
 	}
 
 	/**
@@ -435,11 +435,11 @@ class BP_Legacy extends BP_Theme_Compat {
 		$page_id = 0;
 
 		// Get the WordPress Page ID for the current view.
-		foreach ( (array) profiles()->pages as $component => $bp_page ) {
+		foreach ( (array) profiles()->pages as $component => $profiles_page ) {
 
 			// Handles the majority of components.
 			if ( bp_is_current_component( $component ) ) {
-				$page_id = (int) $bp_page->id;
+				$page_id = (int) $profiles_page->id;
 			}
 
 			// Stop if not on a user page.
@@ -449,7 +449,7 @@ class BP_Legacy extends BP_Theme_Compat {
 
 			// The Members component requires an explicit check due to overlapping components.
 			if ( bp_is_user() && ( 'members' === $component ) ) {
-				$page_id = (int) $bp_page->id;
+				$page_id = (int) $profiles_page->id;
 				break;
 			}
 		}
@@ -740,7 +740,7 @@ function bp_legacy_theme_requests_template_loader() {
 function bp_legacy_theme_new_activity_comment() {
 	global $activities_template;
 
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Bail if not a POST action.
 	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) ) {
@@ -887,7 +887,7 @@ function bp_legacy_theme_delete_activity_comment() {
  * @return mixed String on error, void on success.
  */
 function bp_legacy_theme_spam_activity() {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Bail if not a POST action.
 	if ( 'POST' !== strtoupper( $_SERVER['REQUEST_METHOD'] ) )

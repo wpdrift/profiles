@@ -180,7 +180,7 @@ function bp_delete_options() {
 }
 
 /**
- * Add filters to each BP option, allowing them to be overloaded from inside the $bp->options array.
+ * Add filters to each BP option, allowing them to be overloaded from inside the $profiles->options array.
  *
  * Currently unused.
  *
@@ -207,7 +207,7 @@ function bp_setup_option_filters() {
 }
 
 /**
- * Filter default options and allow them to be overloaded from inside the $bp->options array.
+ * Filter default options and allow them to be overloaded from inside the $profiles->options array.
  *
  * Currently unused.
  *
@@ -217,7 +217,7 @@ function bp_setup_option_filters() {
  * @return mixed False if not overloaded, mixed if set.
  */
 function bp_pre_get_option( $value = false ) {
-	$bp = profiles();
+	$profiles = profiles();
 
 	// Get the name of the current filter so we can manipulate it.
 	$filter = current_filter();
@@ -226,8 +226,8 @@ function bp_pre_get_option( $value = false ) {
 	$option = str_replace( 'pre_option_', '', $filter );
 
 	// Check the options global for preset value.
-	if ( ! empty( $bp->options[ $option ] ) ) {
-		$value = $bp->options[ $option ];
+	if ( ! empty( $profiles->options[ $option ] ) ) {
+		$value = $profiles->options[ $option ];
 	}
 
 	// Always return a value, even if false.
@@ -328,15 +328,15 @@ function bp_delete_option( $option_name ) {
 function bp_core_activate_site_options( $keys = array() ) {
 
 	if ( !empty( $keys ) && is_array( $keys ) ) {
-		$bp = profiles();
+		$profiles = profiles();
 
 		$errors = false;
 
 		foreach ( $keys as $key => $default ) {
-			if ( empty( $bp->site_options[ $key ] ) ) {
-				$bp->site_options[ $key ] = bp_get_option( $key, $default );
+			if ( empty( $profiles->site_options[ $key ] ) ) {
+				$profiles->site_options[ $key ] = bp_get_option( $key, $default );
 
-				if ( !bp_update_option( $key, $bp->site_options[ $key ] ) ) {
+				if ( !bp_update_option( $key, $profiles->site_options[ $key ] ) ) {
 					$errors = true;
 				}
 			}
@@ -493,15 +493,15 @@ function bp_core_get_root_options() {
  * @return mixed Value, if found.
  */
 function bp_core_get_root_option( $option ) {
-	$bp = profiles();
+	$profiles = profiles();
 
-	if ( ! isset( $bp->site_options ) ) {
-		$bp->site_options = bp_core_get_root_options();
+	if ( ! isset( $profiles->site_options ) ) {
+		$profiles->site_options = bp_core_get_root_options();
 	}
 
 	$value = '';
-	if ( isset( $bp->site_options[ $option ] ) ) {
-		$value = $bp->site_options[ $option ];
+	if ( isset( $profiles->site_options[ $option ] ) ) {
+		$value = $profiles->site_options[ $option ];
 	}
 
 	return $value;

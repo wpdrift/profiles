@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || exit;
  *
  *           v--WordPress Actions       v--Profiles Sub-actions
   */
-add_action( 'plugins_loaded',          'bp_loaded',                 10    );
+add_action( 'plugins_loaded',          'profiles_loaded',                 10    );
 add_action( 'init',                    'bp_init',                   10    );
 add_action( 'rest_api_init',           'bp_rest_api_init',          20    ); // After WP core.
 add_action( 'customize_register',      'bp_customize_register',     20    ); // After WP core.
@@ -47,19 +47,19 @@ add_action( 'widgets_init',            'bp_widgets_init',           10    );
 add_action( 'generate_rewrite_rules',  'bp_generate_rewrite_rules', 10    );
 
 /**
- * The bp_loaded hook - Attached to 'plugins_loaded' above.
+ * The profiles_loaded hook - Attached to 'plugins_loaded' above.
  *
- * Attach various loader actions to the bp_loaded action.
+ * Attach various loader actions to the profiles_loaded action.
  * The load order helps to execute code at the correct time.
  *                                                      v---Load order
  */
-add_action( 'bp_loaded', 'bp_setup_components',         2  );
-add_action( 'bp_loaded', 'bp_include',                  4  );
-add_action( 'bp_loaded', 'bp_setup_cache_groups',       5  );
-add_action( 'bp_loaded', 'bp_setup_widgets',            6  );
-add_action( 'bp_loaded', 'bp_register_member_types',    8  );
-add_action( 'bp_loaded', 'bp_register_theme_packages',  12 );
-add_action( 'bp_loaded', 'bp_register_theme_directory', 14 );
+add_action( 'profiles_loaded', 'bp_setup_components',         2  );
+add_action( 'profiles_loaded', 'bp_include',                  4  );
+add_action( 'profiles_loaded', 'bp_setup_cache_groups',       5  );
+add_action( 'profiles_loaded', 'bp_setup_widgets',            6  );
+add_action( 'profiles_loaded', 'bp_register_member_types',    8  );
+add_action( 'profiles_loaded', 'bp_register_theme_packages',  12 );
+add_action( 'profiles_loaded', 'bp_register_theme_directory', 14 );
 
 /**
  * The bp_init hook - Attached to 'init' above.
@@ -105,7 +105,7 @@ add_action( 'bp_after_setup_theme', 'bp_register_theme_compat_default_features',
 
 // Load the admin.
 if ( is_admin() ) {
-	add_action( 'bp_loaded', 'bp_admin' );
+	add_action( 'profiles_loaded', 'bp_admin' );
 }
 
 // Activation redirect.

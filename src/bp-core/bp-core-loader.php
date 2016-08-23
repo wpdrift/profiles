@@ -27,4 +27,4 @@ if ( ! profiles()->do_autoload ) {
 function bp_setup_core() {
 	profiles()->core = new BP_Core();
 }
-add_action( 'bp_loaded', 'bp_setup_core', 0 );
+add_action( 'profiles_loaded', 'bp_setup_core', 0 );

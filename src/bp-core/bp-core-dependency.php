@@ -288,20 +288,20 @@ function bp_customize_register( WP_Customize_Manager $customizer ) {
 }
 
 /**
- * Fire the 'bp_loaded' action, which fires after BP's core plugin files have been loaded.
+ * Fire the 'profiles_loaded' action, which fires after BP's core plugin files have been loaded.
  *
  * Attached to 'plugins_loaded'.
  *
  * @since 1.2.0
  */
-function bp_loaded() {
+function profiles_loaded() {
 
 	/**
-	 * Fires inside the 'bp_loaded' function, which fires after BP's core plugin files have been loaded.
+	 * Fires inside the 'profiles_loaded' function, which fires after BP's core plugin files have been loaded.
 	 *
 	 * @since 1.2.5
 	 */
-	do_action( 'bp_loaded' );
+	do_action( 'profiles_loaded' );
 }
 
 /**

@@ -8,7 +8,7 @@
  * plugin that could be easily extended for more specific use-cases.
  *
  * @package Profiles
- * @subpackage Main
+ * @suprofilesackage Main
  */
 
 /**
@@ -30,7 +30,7 @@ defined( 'ABSPATH' ) || exit;
 $profiles_loader = dirname( __FILE__ ) . '/build/profiles-loader.php';
 
 // Load from source if no build exists
-if ( ! file_exists( $profiles_loader ) || defined( 'BP_LOAD_SOURCE' ) ) {
+if ( ! file_exists( $profiles_loader ) || defined( 'Profiles_LOAD_SOURCE' ) ) {
 	$profiles_loader = dirname( __FILE__ ) . '/src/profiles-loader.php';
 	$subdir = 'src';
 } else {
@@ -38,15 +38,15 @@ if ( ! file_exists( $profiles_loader ) || defined( 'BP_LOAD_SOURCE' ) ) {
 }
 
 // Set source subdirectory
-define( 'BP_SOURCE_SUBDIRECTORY', $subdir );
+define( 'Profiles_SOURCE_SUBDIRECTORY', $subdir );
 
 // Define overrides - only applicable to those running trunk
-if ( ! defined( 'BP_PLUGIN_DIR' ) ) {
-	define( 'BP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'Profiles_PLUGIN_DIR' ) ) {
+	define( 'Profiles_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
-if ( ! defined( 'BP_PLUGIN_URL' ) ) {
+if ( ! defined( 'Profiles_PLUGIN_URL' ) ) {
 	// Be nice to symlinked directories
-	define( 'BP_PLUGIN_URL', plugins_url( trailingslashit( basename( constant( 'BP_PLUGIN_DIR' ) ) ) ) );
+	define( 'Profiles_PLUGIN_URL', plugins_url( trailingslashit( basename( constant( 'Profiles_PLUGIN_DIR' ) ) ) ) );
 }
 
 // Include Profiles

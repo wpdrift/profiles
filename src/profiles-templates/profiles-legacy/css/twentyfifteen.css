@@ -1,0 +1,1958 @@
+@charset "UTF-8";
+/*------------------------------------------------------------------------------
+
+This is the Profiles companion stylesheet for
+the WordPress Twentyfifteen theme.
+
+This sheet supports the primary Profiles styles in profiles.css
+
+If you are running as a child theme of twentyfifteen this stylesheet will be
+loaded by default. If you want to modify the styles the normal BP Theme Compat
+hierarchy works and you can copy the file to profiles/css/ or community/css/
+in your child themes root & either start over or modify the rulesets.
+
+If you do not require the styles you can dequeue them from the themes functions file.
+
+Please see this codex article for more information:
+http://codex.profiles.org/themes/profiles-companion-stylesheets/
+
+--------------------------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+--------------------------------------------------------------------------------
+1.0 Theme Structural Elements & overrides
+2.0 - Navigation - General
+	2.1 - Navs - Object Nav / Sub Nav (item-list-tabs)
+	2.2 - Pagination
+3.0 - Images
+4.0 - BP Lists / Loops Generic
+	4.1 - Activity Loop
+		4.1.1 Whats New Activity
+		4.1.2 - Activity Listing
+		4.1.3 - Activity Comments
+	4.2 - Members Loop
+	4.3 - Groups Loop
+	4.4 - Blogs Loop
+5.0 - Directories - Members, Groups, Blogs, Forums
+6.0 - Single Item screens: User Account & Single Group Screens
+	6.1 - Item Headers: Global
+		6.1.1 - item-header: Groups
+		6.1.2 - item-header: User Accounts
+	6.2 - Item Body: Global
+		6.2.1 - item-body: Groups
+			6.2.1.1 - Management settings screens
+			6.2.1.2 - Group members list
+			6.2.1.3 - Group Send Invites
+		6.2.2 - item-body: User Accounts
+			6.2.2.1 - classes, pag, filters
+			6.2.2.2 - Extended Profiles
+			6.2.2.3 - Groups
+			6.2.2.4 - friends
+			6.2.2.5 - Private Messaging Threads
+			6.2.2.6 - Settings
+7.0 - Forms  -  General
+8.0 - Tables -  General
+9.0 - Error / Success Messages
+10.0 - Ajax Loading, Widgets, General classes
+------------------------------------------------------------------------------*/
+/**
+*-------------------------------------------------------------------------------
+* @section 1.0 - Theme - Structural Elements & overrides
+*-------------------------------------------------------------------------------
+*/
+#profiles h1,
+#profiles h2,
+#profiles h3,
+#profiles h4,
+#profiles h5,
+#profiles h6 {
+	clear: none;
+}
+
+.profiles div.clear {
+	display: none;
+}
+
+.profiles main {
+	padding-top: 4%;
+}
+
+@media screen and (min-width: 59.6875em) {
+	.profiles main {
+		padding-top: 0;
+	}
+}
+
+.profiles main article {
+	margin: 0 4%;
+	padding-top: 8.3333%;
+}
+
+@media screen and (min-width: 59.6875em) {
+	.profiles main article {
+		margin: 0 0 0 1px;
+	}
+}
+
+@media screen and (min-width: 87.6875em) {
+	.profiles main article {
+		margin: 0 4.3333% 0 8.3333%;
+	}
+}
+
+.profiles main article .entry-header,
+.profiles main article .entry-content {
+	padding: 0 3rem 3rem 3rem;
+}
+
+.profiles main article #profiles {
+	margin-bottom: 40px;
+}
+
+.profiles .site-footer {
+	margin: 0 4%;
+}
+
+@media screen and (min-width: 59.6875em) {
+	.profiles .site-footer {
+		margin: 0 0 0 35.2941%;
+		width: 61.8235%;
+	}
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 2.0 - Navigation - General
+*-------------------------------------------------------------------------------
+*/
+.profiles #profiles .item-list-tabs a,
+.profiles #profiles .activity-header a,
+.profiles #profiles .activity-inner a,
+.profiles #profiles .activity-comments a,
+.profiles #profiles .item-title a,
+.profiles #profiles .load-more a,
+.profiles #profiles .field-visibility-settings-toggle a,
+.profiles #profiles #latest-update a,
+.profiles #profiles table a,
+.profiles #profiles .avatar-nav-items a {
+	border-bottom: 0;
+}
+
+.profiles #profiles .pagination-links a,
+.profiles #profiles .pagination-links span {
+	border-bottom: 0;
+}
+
+/**
+*----------------------------------------------------------
+* @section 2.1 - Navs Object Nav / Sub Nav (item-list-tabs)
+*
+* The main navigational elements for all BP screens
+*----------------------------------------------------------
+*/
+#profiles {
+	/*__ Horizontal menus __*/
+}
+
+#profiles div.item-list-tabs ul li.selected a {
+	background: #555;
+	color: #fff;
+	opacity: 1;
+}
+
+#profiles div.item-list-tabs ul {
+	background-color: #f7f7f7;
+	border-bottom: 1px solid rgba(234, 234, 234, 0.9);
+	border-top: 1px solid rgba(234, 234, 234, 0.9);
+	overflow: hidden;
+	padding: 5px 0;
+}
+
+#profiles div.item-list-tabs ul li a span {
+	border-radius: 25%;
+}
+
+#profiles #object-nav ul {
+	overflow: hidden;
+}
+
+#profiles #object-nav ul li {
+	float: none;
+}
+
+#profiles #object-nav ul li:not(.selected) a {
+	opacity: 0.7;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles #object-nav ul li {
+		float: left;
+	}
+}
+
+#profiles div#subnav.item-list-tabs {
+	margin-top: 0;
+}
+
+#profiles div#subnav.item-list-tabs ul {
+	background-color: #f7f7f7;
+	border-bottom: 0;
+	padding: 0;
+}
+
+#profiles div#subnav.item-list-tabs ul li.last {
+	background: #fff;
+	margin-top: 0;
+	padding: 5px 5px 5px 0;
+	width: 100%;
+}
+
+#profiles div#subnav.item-list-tabs ul li.last select,
+#profiles div#subnav.item-list-tabs ul li.last select:focus {
+	background: transparent;
+	border: 0;
+	outline: 0;
+}
+
+#profiles div#subnav.item-list-tabs ul li.last select,
+#profiles div#subnav.item-list-tabs ul li.last label,
+#profiles div#subnav.item-list-tabs ul li.last option {
+	font-size: 14px;
+	font-size: 1.4rem;
+}
+
+#profiles div#subnav.item-list-tabs ul li.last select {
+	font-style: italic;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles div#subnav.item-list-tabs ul li.last {
+		text-align: right;
+	}
+}
+
+#profiles div.item-list-tabs ul li.selected a,
+#profiles div.item-list-tabs ul li.current a {
+	background: #555;
+	color: #fff;
+	opacity: 1;
+}
+
+/*__ Vertical menu User Account / Group single screens __*/
+@media screen and (min-width: 55em) {
+	.profiles-user #profiles,
+	.single-item.groups #profiles {
+		background: #f7f7f7;
+	}
+	#profiles #item-header,
+	#profiles #item-body {
+		background: #fff;
+	}
+	#profiles #object-nav {
+		border-right: 1px solid #ddd;
+		float: left;
+		margin-right: -1px;
+		width: 200px;
+	}
+	#profiles #object-nav ul {
+		border-bottom: 0;
+		padding: 0;
+	}
+	#profiles #object-nav ul li {
+		float: none;
+		overflow: hidden;
+	}
+	#profiles #object-nav ul li span {
+		background: #fff;
+		border-radius: 10%;
+		float: right;
+		margin-right: 2px;
+	}
+	#profiles #item-body {
+		border-left: 1px solid #ddd;
+		overflow: hidden;
+		padding: 0 0 0 20px;
+		width: auto;
+	}
+	#profiles #item-body #subnav {
+		margin: 0 0 0 -20px;
+	}
+}
+
+/**
+*----------------------------------------------------------
+* @section 2.2 - Pagination
+*----------------------------------------------------------
+*/
+#profiles div.pagination {
+	box-shadow: none;
+}
+
+#profiles div.pagination .pag-count {
+	margin-left: 0;
+}
+
+#profiles div.pagination .pagination-links {
+	margin-right: 0;
+}
+
+#profiles div.pagination .pagination-links span,
+#profiles div.pagination .pagination-links a {
+	height: auto;
+	line-height: 1;
+	padding: 5px;
+}
+
+#profiles div.pagination .pagination-links .prev,
+#profiles div.pagination .pagination-links .next {
+	background-color: transparent;
+	color: inherit;
+	overflow: visible;
+	width: auto;
+}
+
+#profiles div.pagination .pagination-links .prev:before,
+#profiles div.pagination .pagination-links .next:before {
+	display: none;
+}
+
+#profiles div.pagination .pagination-links .prev {
+	left: auto;
+	position: static;
+}
+
+#profiles div.pagination .pagination-links .next {
+	position: static;
+	right: auto;
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 4.0 - BP Lists / Loops Generic
+*-------------------------------------------------------------------------------
+*/
+#profiles .item-list .activity-header,
+#profiles .item-list .activity-meta {
+	font-family: "Noto Sans", sans-serif;
+}
+
+#profiles ul.item-list li {
+	overflow: hidden !important;
+}
+
+#profiles ul.item-list li .item-avatar {
+	margin-bottom: 10px;
+	text-align: center;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles ul.item-list li .item-avatar {
+		margin-bottom: 0;
+	}
+}
+
+#profiles ul.item-list li .item-avatar a {
+	border-bottom: 0;
+}
+
+#profiles ul.item-list li .item-avatar img.avatar {
+	display: inline-block;
+	float: none;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles ul.item-list li .item-avatar img.avatar {
+		display: block;
+		float: left;
+	}
+}
+
+#profiles ul.item-list li .item {
+	margin-left: 25%;
+}
+
+#profiles ul.item-list li .item span.activity {
+	font-style: italic;
+}
+
+#profiles ul.item-list li .item .item-desc {
+	margin-left: 0;
+	width: 70%;
+}
+
+@media screen and (min-width: 59.6875em) {
+	#profiles ul.item-list li .item-avatar,
+	#profiles ul.item-list li .item,
+	#profiles ul.item-list li .action {
+		float: left;
+	}
+	#profiles ul.item-list li .item {
+		left: 10%;
+		margin-left: 0;
+		position: relative;
+		width: 55%;
+	}
+}
+
+#profiles ul.item-list li div.action {
+	clear: left;
+	float: none;
+	margin-bottom: -20px;
+	margin-left: 0;
+	padding: 20px 0 5px;
+	position: relative;
+	text-align: left;
+	top: 0;
+}
+
+@media screen and (min-width: 59.6875em) {
+	#profiles ul.item-list li div.action {
+		clear: none;
+		float: right;
+		margin-bottom: 0;
+		padding: 0;
+	}
+}
+
+#profiles ul.item-list li div.action div {
+	display: inline-block;
+	margin: 10px 0;
+	width: 100%;
+}
+
+#profiles ul.item-list li div.action div a {
+	display: block;
+	width: 100%;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles ul.item-list li div.action div {
+		margin: 0 10px 10px 0;
+		width: auto;
+	}
+}
+
+@media screen and (min-width: 59.6875em) {
+	#profiles ul.item-list li div.action div {
+		clear: right;
+		float: right;
+		margin: 0 0 10px 0;
+	}
+}
+
+#profiles ul.item-list li div.action .meta {
+	font-style: italic;
+}
+
+/**
+*----------------------------------------------------------
+* @section 4.1 - Activity
+*----------------------------------------------------------
+*/
+/**
+*-----------------------------------------------------
+* @section 4.1.1 - Activity Whats New
+*-----------------------------------------------------
+*/
+#profiles form#whats-new-form p.activity-greeting {
+	line-height: 1.4;
+}
+
+@media screen and (max-width: 30em) {
+	#profiles form#whats-new-form #whats-new-post-in-box select {
+		font-size: 14px;
+		font-size: 1.4rem;
+		max-width: 120px;
+	}
+}
+
+@media screen and (max-width: 38.75em) {
+	#profiles form#whats-new-form #whats-new-content {
+		clear: left;
+		margin: 10px 0 40px;
+		padding: 10px 0 0;
+	}
+	#profiles form#whats-new-form #whats-new-content #whats-new-submit {
+		float: none;
+	}
+	#profiles form#whats-new-form #whats-new-content #whats-new-submit input {
+		width: 100%;
+	}
+	#profiles form#whats-new-form #whats-new-options {
+		display: flex;
+		flex-direction: column;
+	}
+	#profiles form#whats-new-form #whats-new-options #whats-new-submit {
+		order: 2;
+	}
+	#profiles form#whats-new-form #whats-new-options #whats-new-post-in-box {
+		order: 1;
+	}
+}
+
+#profiles form#whats-new-form #whats-new-options[style] #whats-new-post-in-box {
+	border: 1px solid rgba(153, 153, 153, 0.5);
+	float: left;
+	line-height: 1.5em;
+	margin-top: 12px;
+	padding-left: 0.2em;
+	width: 100%;
+}
+
+#profiles form#whats-new-form #whats-new-options[style] #whats-new-post-in-box select {
+	background: none;
+	border: 0;
+	float: right;
+	margin: 0;
+	min-height: 1.5em;
+	outline: 0;
+	padding-left: 0.4em;
+}
+
+@media screen and (min-width: 30em) {
+	#profiles form#whats-new-form #whats-new-options[style] #whats-new-post-in-box {
+		width: auto;
+	}
+	#profiles form#whats-new-form #whats-new-options[style] #whats-new-submit {
+		float: right;
+	}
+}
+
+#profiles #item-body form#whats-new-form {
+	margin: 40px 0;
+}
+
+/**
+*-----------------------------------------------------
+* @section 4.1.2 - Activity Listing
+*-----------------------------------------------------
+*/
+#profiles #activity-stream li {
+	padding: 25px 0 15px;
+}
+
+#profiles #activity-stream li .activity-avatar {
+	float: none;
+	text-align: center;
+}
+
+#profiles #activity-stream li .activity-avatar a {
+	display: inline-block;
+}
+
+#profiles #activity-stream li .activity-avatar a img.avatar {
+	display: inline;
+	float: none;
+	height: 60px;
+	margin-bottom: 20px;
+	margin-left: 0;
+	width: 60px;
+}
+
+#profiles #activity-stream li .activity-content {
+	margin-left: 0;
+}
+
+#profiles #activity-stream li .activity-content .activity-header {
+	font-size: 14px;
+	font-size: 1.4rem;
+}
+
+@media screen and (min-width: 46.25em) {
+	#profiles #activity-stream li .activity-avatar {
+		float: left;
+		margin-right: 10px;
+		text-align: left;
+	}
+	#profiles #activity-stream li .activity-avatar a {
+		border-bottom: 0;
+	}
+	#profiles #activity-stream li .activity-content {
+		margin: 0;
+		overflow: hidden;
+	}
+	#profiles #activity-stream li .activity-content .activity-header {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+}
+
+#profiles #activity-stream li.mini .activity-avatar a img.avatar {
+	height: 30px;
+	margin-left: 15px;
+	width: 30px;
+}
+
+#profiles #activity-stream li.mini .activity-content .activity-header {
+	font-size: 13px;
+	font-size: 1.3rem;
+}
+
+#profiles #activity-stream .activity-content {
+	margin-top: -12px;
+}
+
+#profiles #activity-stream .activity-content .activity-header {
+	line-height: inherit;
+	margin-right: 0;
+}
+
+#profiles #activity-stream .activity-content .activity-header p {
+	background-color: #f7f7f7;
+	border: 1px solid rgba(234, 234, 234, 0.6);
+	padding: 0 0.2em;
+}
+
+#profiles #activity-stream .activity-content .activity-header img.avatar {
+	display: inline-block;
+	margin-bottom: 0 !important;
+}
+
+#profiles #activity-stream .activity-content .activity-meta a {
+	display: block;
+	margin: 0 0 5px;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles #activity-stream .activity-content .activity-meta a {
+		display: inline-block;
+		margin: 0;
+	}
+}
+
+#profiles #activity-stream .load-more {
+	background: #f7f7f7;
+	border: 1px solid transparent;
+	padding: 10px;
+}
+
+#profiles #activity-stream .load-more:focus, #profiles #activity-stream .load-more:hover {
+	background: #f4f4f4;
+	border: 1px solid rgba(159, 209, 226, 0.3);
+}
+
+#profiles #activity-stream .load-more:focus a, #profiles #activity-stream .load-more:hover a {
+	font-style: italic;
+}
+
+#profiles #activity-stream .load-more a {
+	display: block;
+}
+
+/* Single activity view  - activity permalink */
+.activity-permalink #profiles {
+	background: none;
+}
+
+.activity-permalink #profiles #activity-stream li.activity-item {
+	padding: 20px 0;
+}
+
+.activity-permalink #profiles #activity-stream li.mini .activity-header {
+	font-size: 16px;
+	font-size: 1.6rem;
+	margin-bottom: 40px;
+}
+
+@media screen and (min-width: 46.25em) {
+	.activity-permalink #profiles #activity-stream li.mini .activity-header {
+		font-size: 20px;
+		font-size: 2rem;
+	}
+}
+
+.activity-permalink #profiles #activity-stream li.mini .activity-header p {
+	padding: 20px;
+}
+
+/**
+*-----------------------------------------------------
+* @section 4.1.3 - Activity Comments
+*-----------------------------------------------------
+*/
+#profiles #activity-stream .activity-comments {
+	margin: 10px 0 0;
+}
+
+#profiles #activity-stream .activity-comments.has-comments {
+	border-left: 1px solid #eaeaea;
+}
+
+#profiles #activity-stream .activity-comments .ac-form {
+	padding: 20px 0 0;
+}
+
+#profiles #activity-stream .activity-comments > ul {
+	background: rgba(247, 247, 247, 0.6);
+	margin: 15px 0 0 2px;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles #activity-stream .activity-comments > ul {
+		margin-left: 70px;
+	}
+}
+
+#profiles #activity-stream .activity-comments > ul ul {
+	margin-left: 1%;
+	padding-left: 0;
+}
+
+@media screen and (min-width: 30em) {
+	#profiles #activity-stream .activity-comments > ul ul {
+		margin-left: 1%;
+		padding-left: 1em;
+	}
+}
+
+#profiles #activity-stream .activity-comments > ul ul li {
+	border-left: 1px solid #eaeaea;
+	border-top: 0;
+	padding-left: 0.2em;
+}
+
+#profiles #activity-stream .activity-comments > ul .acomment-meta {
+	border-bottom: 1px solid #eaeaea;
+	font-style: italic;
+}
+
+@media screen and (max-width: 38.75em) {
+	#profiles #activity-stream .activity-comments > ul .acomment-avatar {
+		display: block;
+		text-align: center;
+	}
+	#profiles #activity-stream .activity-comments > ul .acomment-avatar a,
+	#profiles #activity-stream .activity-comments > ul .acomment-avatar img.avatar {
+		display: inline;
+		float: none;
+	}
+	#profiles #activity-stream .activity-comments > ul .acomment-content,
+	#profiles #activity-stream .activity-comments > ul .acomment-meta,
+	#profiles #activity-stream .activity-comments > ul .acomment-options {
+		margin: 5px;
+	}
+	#profiles #activity-stream .activity-comments > ul .acomment-content {
+		padding: 0 10px;
+	}
+}
+
+#profiles #activity-stream .activity-comments .ac-reply-avatar {
+	display: none;
+}
+
+#profiles #activity-stream .activity-comments .ac-reply-content {
+	margin-left: 0;
+	padding-left: 0;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles #activity-stream .activity-comments .ac-reply-avatar {
+		display: block;
+	}
+	#profiles #activity-stream .activity-comments .ac-reply-content {
+		overflow: hidden;
+	}
+}
+
+#profiles #activity-stream .activity-comments .ac-form input[type="submit"],
+#profiles #activity-stream .activity-comments .ac-form .ac-reply-cancel {
+	color: rgba(51, 51, 51, 0.8);
+	display: inline-block;
+	font-family: inherit;
+	font-size: 12px;
+	font-size: 1.2rem;
+	font-weight: normal;
+	line-height: 1.2;
+	padding: 4px 10px;
+	text-transform: lowercase;
+	width: 100px;
+}
+
+#profiles #activity-stream .activity-comments .ac-form .ac-reply-cancel {
+	border: 1px solid rgba(153, 153, 153, 0.7);
+	text-align: center;
+}
+
+#profiles #activity-stream .activity-comments .ac-form .ac-reply-cancel:focus, #profiles #activity-stream .activity-comments .ac-form .ac-reply-cancel:hover {
+	background: #ededed;
+}
+
+/**
+*----------------------------------------------------------
+* @section 4.2 - Members Loop
+*----------------------------------------------------------
+*/
+@media screen and (min-width: 59.6875em) {
+	#profiles #members-list li .item-avatar,
+	#profiles #members-list li .item {
+		float: left;
+	}
+	#profiles #members-list li .action {
+		float: right;
+	}
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 6.0 - Single Item screens: User Account & Single Group Screens
+*-------------------------------------------------------------------------------
+*/
+/**
+*-----------------------------------------------------------
+* @subsection 6.1 - Item Header Global
+*-----------------------------------------------------------
+*/
+@media screen and (max-width: 46.25em) {
+	.profiles-user main header.entry-header,
+	.single-item.groups main header.entry-header {
+		padding-bottom: 1rem;
+	}
+}
+
+@media screen and (max-width: 38.75em) {
+	.profiles-user h1,
+	.profiles-user #item-header-content,
+	.single-item.groups h1,
+	.single-item.groups #item-header-content {
+		text-align: center;
+	}
+}
+
+@media screen and (max-width: 46.25em) {
+	.profiles-user #profiles #item-header .generic-button,
+	.single-item.groups #profiles #item-header .generic-button {
+		float: none;
+		margin: 1.5em 0 0 0;
+	}
+}
+
+@media screen and (max-width: 38.75em) {
+	.profiles-user #profiles h1,
+	.single-item.groups #profiles h1 {
+		margin-bottom: 0;
+	}
+	.profiles-user #profiles #item-header-avatar img.avatar,
+	.single-item.groups #profiles #item-header-avatar img.avatar {
+		margin-right: 0;
+	}
+	.profiles-user #profiles #item-header-content,
+	.single-item.groups #profiles #item-header-content {
+		width: 100%;
+	}
+}
+
+/**
+*-----------------------------------------------------
+* @subsection 6.1.1 - item-header Groups
+*
+* Group Specific Item Header
+*-----------------------------------------------------
+*/
+@media screen and (max-width: 46.25em) {
+	.single-item.groups #profiles #item-header #item-meta {
+		margin-bottom: 20px;
+	}
+}
+
+@media screen and (max-width: 38.75em) {
+	.single-item.groups #profiles div#item-header {
+		display: flex;
+		flex-direction: column;
+	}
+	.single-item.groups #profiles div#item-header #item-header-avatar {
+		order: 1;
+		text-align: center;
+	}
+	.single-item.groups #profiles div#item-header #item-header-avatar a {
+		border-bottom: 0;
+	}
+	.single-item.groups #profiles div#item-header #item-header-avatar a img {
+		display: inline-block;
+		float: none;
+	}
+	.single-item.groups #profiles div#item-header #item-header-content {
+		order: 2;
+	}
+	.single-item.groups #profiles div#item-header #item-actions {
+		order: 3;
+	}
+}
+
+.single-item.groups #profiles div#item-header {
+	padding-bottom: 40px;
+}
+
+.single-item.groups #profiles div#item-header div#item-actions {
+	margin: 0;
+	width: 100%;
+}
+
+@media screen and (min-width: 38.75em) {
+	.single-item.groups #profiles div#item-header div#item-actions {
+		clear: none;
+		float: right;
+		width: 50%;
+	}
+}
+
+.single-item.groups #profiles div#item-header div#item-actions h2 {
+	background: #555;
+	color: #fff;
+	font-size: 14px;
+	font-size: 1.4rem;
+	padding: 0.2em;
+}
+
+@media screen and (min-width: 46.25em) {
+	.single-item.groups #profiles div#item-header div#item-actions h2 {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+}
+
+@media screen and (min-width: 46.25em) {
+	.single-item.groups #profiles div#item-header #item-header-avatar,
+	.single-item.groups #profiles div#item-header #item-header-content {
+		float: left;
+	}
+	.single-item.groups #profiles div#item-header #item-header-avatar {
+		width: 21%;
+	}
+	.single-item.groups #profiles div#item-header #item-header-content {
+		margin-left: 4%;
+		width: 40%;
+	}
+	.single-item.groups #profiles div#item-header div#item-actions {
+		float: right;
+		width: 28%;
+	}
+}
+
+/**
+*-----------------------------------------------------
+* @subsection 6.1.2 - Item Header User Accounts
+*
+* User Accounts Specific Item Header
+*-----------------------------------------------------
+*/
+.profiles-user #profiles #item-header {
+	padding: 20px 0;
+}
+
+.profiles-user #profiles #item-header #item-header-avatar {
+	text-align: center;
+	width: 100%;
+}
+
+.profiles-user #profiles #item-header #item-header-avatar a {
+	border-bottom: 0;
+	display: inline-block;
+	float: none;
+}
+
+@media screen and (min-width: 46.25em) {
+	.profiles-user #profiles #item-header #item-header-avatar {
+		float: left;
+		width: 20%;
+	}
+	.profiles-user #profiles #item-header #item-header-avatar img.avatar,
+	.profiles-user #profiles #item-header #item-header-avatar a {
+		float: left;
+	}
+	.profiles-user #profiles #item-header #item-header-content {
+		float: right;
+		margin-right: 5%;
+		width: 69%;
+	}
+}
+
+/**
+*-----------------------------------------------------------
+* @subsection 6.2 - Item Body: Global
+*-----------------------------------------------------------
+*/
+#item-body h1,
+#item-body h2,
+#item-body h3,
+#item-body h4,
+#item-body h5,
+#item-body h6 {
+	margin: 1em 0;
+}
+
+#item-body h1 a,
+#item-body h2 a,
+#item-body h3 a,
+#item-body h4 a,
+#item-body h5 a,
+#item-body h6 a {
+	border-bottom: 0;
+}
+
+/**
+*----------------------------------------------------
+* @subsection 6.2.1 - Item Body Groups
+*
+* Groups specific item body rules -  screens
+*----------------------------------------------------
+*/
+/**
+*-----------------------------------------
+* @subsection 6.2.1.1 - Group Management
+*-----------------------------------------
+*/
+.groups #group-settings-form h4 {
+	background: #555;
+	color: #fff;
+	padding: 0.2em;
+}
+
+.groups #group-settings-form #request-list h4 {
+	background: none;
+	color: inherit;
+}
+
+.groups.edit-details #group-settings-form label {
+	background: #555;
+	-webkit-border-top-right-radius: 4px;
+	border-top-right-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	border-top-left-radius: 4px;
+	background-clip: padding-box;
+	color: #fff;
+	display: inline-block;
+	margin-bottom: 0;
+	padding: 0.2em;
+	width: 80%;
+}
+
+@media screen and (min-width: 38.75em) {
+	.groups.edit-details #group-settings-form label {
+		width: 60%;
+	}
+}
+
+.groups.edit-details #group-settings-form textarea + p label {
+	background: none;
+	color: inherit;
+	font-size: 14px;
+	font-size: 1.4rem;
+	width: auto;
+}
+
+.groups.group-settings #group-settings-form div.radio label,
+.groups.group-settings #create-group-form div.radio label {
+	border: 1px solid #eaeaea;
+	padding: 0.2em;
+}
+
+.groups.group-settings #group-settings-form div.radio ul,
+.groups.group-settings #create-group-form div.radio ul {
+	color: rgba(51, 51, 51, 0.6);
+	font-size: 14px;
+	font-size: 1.4rem;
+}
+
+.groups.group-avatar form > p {
+	margin-top: 20px;
+}
+
+.groups.manage-members #group-settings-form .item-list li {
+	border-bottom: 1px solid #eaeaea;
+}
+
+.groups.manage-members #group-settings-form .item-list li img,
+.groups.manage-members #group-settings-form .item-list li h5 {
+	float: left;
+}
+
+.groups.manage-members #group-settings-form .item-list li img > a,
+.groups.manage-members #group-settings-form .item-list li h5 > a {
+	border-bottom: 0;
+}
+
+.groups.manage-members #group-settings-form .item-list li span.small {
+	clear: left;
+	display: block;
+	float: none;
+	margin-top: 10px;
+}
+
+.groups.manage-members #group-settings-form .item-list li span.small a {
+	display: inline-block;
+	margin: 5px 0;
+	width: 100%;
+}
+
+@media screen and (min-width: 38.75em) {
+	.groups.manage-members #group-settings-form .item-list li span.small a {
+		width: auto;
+	}
+}
+
+.groups.manage-members #group-settings-form .item-list li h5 {
+	margin: 0;
+}
+
+/**
+*-----------------------------------------
+* @subsection 6.2.1.2 - Group members
+*-----------------------------------------
+*/
+/* Members loop */
+@media screen and (max-width: 30em) {
+	.groups.group-members #profiles #members-group-list li > a {
+		border-bottom: 0;
+		display: block;
+		margin-bottom: 10px;
+		text-align: center;
+	}
+	.groups.group-members #profiles #members-group-list li > a img.avatar {
+		display: inline;
+		float: none;
+	}
+}
+
+.groups.group-members #profiles #members-group-list li h5 {
+	display: inline-block;
+	font-size: 14px;
+	font-size: 1.4rem;
+	margin: 0;
+}
+
+@media screen and (min-width: 59.6875em) {
+	.groups.group-members #profiles #members-group-list li h5 {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+}
+
+.groups.group-members #profiles #members-group-list li h5 a {
+	border-bottom: 0;
+}
+
+.groups.group-members #profiles #members-group-list li span.activity {
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+.groups.group-members #profiles #members-group-list li .action {
+	top: 0;
+}
+
+.groups.group-members #subnav li {
+	width: 100%;
+}
+
+@media screen and (max-width: 38.75em) {
+	.groups.group-members #subnav li {
+		background: #fff;
+		padding: 20px 0;
+	}
+}
+
+.groups.group-members #subnav li #search-members-form {
+	float: right;
+	margin: 5px 5px 0 0;
+}
+
+@media screen and (max-width: 38.75em) {
+	.groups.group-members #subnav li #search-members-form {
+		margin: 0;
+		width: 100%;
+	}
+	.groups.group-members #subnav li #search-members-form label input[type="text"] {
+		width: 100%;
+	}
+}
+
+/**
+*-----------------------------------------
+* @subsection 6.2.1.3 - Group Send Invites
+*-----------------------------------------
+*/
+.groups.group-invites #item-body .item-list .action {
+	margin-bottom: 0;
+}
+
+@media screen and (min-width: 46.25em) {
+	.groups.group-invites #profiles #item-body #message {
+		margin-top: 0;
+	}
+}
+
+@media screen and (min-width: 55em) {
+	.groups.group-invites #profiles #send-invite-form {
+		margin-top: 0;
+	}
+}
+
+@media screen and (max-width: 46.25em) {
+	.groups.group-invites #item-body .left-menu {
+		float: none;
+		margin: 10px 0;
+	}
+	.groups.group-invites #item-body .left-menu #invite-list {
+		height: auto;
+		width: auto;
+	}
+	.groups.group-invites #item-body .main-column {
+		margin-left: 0;
+	}
+	.groups.group-invites #item-body .submit input {
+		display: inline-block;
+		width: 100%;
+	}
+}
+
+/**
+*-----------------------------------------------------
+* @subsection 6.2.2 - Item Body User Accounts
+*
+* User Account specific item body rules
+*-----------------------------------------------------
+*/
+.profiles-user .entry-title {
+	margin-bottom: 0.5em;
+}
+
+/**
+*--------------------------------------------
+* @subsection 6.2.2.1 - classes, pag, filters
+*--------------------------------------------
+*/
+.profiles-user #profiles table th {
+	font-size: 14px;
+	font-size: 1.4rem;
+}
+
+.profiles-user #profiles table td {
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+@media screen and (min-width: 46.25em) {
+	.profiles-user #profiles table th {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+	.profiles-user #profiles table td {
+		font-size: 14px;
+		font-size: 1.4rem;
+	}
+}
+
+@media screen and (min-width: 77.5em) {
+	.profiles-user #profiles table th {
+		font-size: 18px;
+		font-size: 1.8rem;
+	}
+	.profiles-user #profiles table td {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+}
+
+.profiles-user #profiles .pag-count {
+	font-style: italic;
+}
+
+.profiles-user #profiles .notifications-options-nav,
+.profiles-user #profiles .messages-options-nav {
+	float: left;
+	width: 100%;
+}
+
+@media screen and (min-width: 30em) {
+	.profiles-user #profiles .notifications-options-nav,
+	.profiles-user #profiles .messages-options-nav {
+		width: 50%;
+	}
+}
+
+.profiles-user #profiles .notifications-options-nav select,
+.profiles-user #profiles .notifications-options-nav input,
+.profiles-user #profiles .messages-options-nav select,
+.profiles-user #profiles .messages-options-nav input {
+	font-size: 14px;
+	font-size: 1.4rem;
+	outline: 0;
+	padding: 0;
+}
+
+.profiles-user #profiles .notifications-options-nav select,
+.profiles-user #profiles .messages-options-nav select {
+	float: left;
+	margin-right: 0;
+	width: 100%;
+}
+
+@media screen and (min-width: 30em) {
+	.profiles-user #profiles .notifications-options-nav select,
+	.profiles-user #profiles .messages-options-nav select {
+		width: 60%;
+	}
+}
+
+.profiles-user #profiles .notifications-options-nav input,
+.profiles-user #profiles .messages-options-nav input {
+	float: right;
+	font-family: "Noto Serif", serif;
+	line-height: 1.5;
+	margin-top: 10px;
+	width: 100%;
+}
+
+.profiles-user #profiles .notifications-options-nav input[disabled]:hover,
+.profiles-user #profiles .messages-options-nav input[disabled]:hover {
+	background: none;
+}
+
+@media screen and (min-width: 30em) {
+	.profiles-user #profiles .notifications-options-nav input,
+	.profiles-user #profiles .messages-options-nav input {
+		margin-top: 0;
+		width: 38%;
+	}
+}
+
+/**
+	*-------------------------------------------
+	* @subsection 6.2.2.2 - Extended Profiles
+	*-------------------------------------------
+	*/
+.profiles-user #profiles .profile .profiles-widget h2 {
+	background: #6f6f6f;
+	color: #fff;
+	margin-bottom: 0;
+	padding: 0.4em;
+}
+
+.profiles-user #profiles .profile .profiles-widget table {
+	margin-top: 0;
+}
+
+/* Edit Profile */
+.profiles-user #profiles .profile #profile-edit-form .button-nav:before,
+.profiles-user #profiles .profile #profile-edit-form .button-nav:after {
+	content: " ";
+	display: table;
+}
+
+.profiles-user #profiles .profile #profile-edit-form .button-nav:after {
+	clear: both;
+}
+
+.profiles-user #profiles .profile #profile-edit-form ul.button-nav {
+	border-bottom: 1px solid #eaeaea;
+	margin-left: 0;
+}
+
+.profiles-user #profiles .profile #profile-edit-form ul.button-nav li {
+	float: left;
+	margin-bottom: 0;
+}
+
+.profiles-user #profiles .profile #profile-edit-form ul.button-nav li.current {
+	border: 1px solid #eaeaea;
+	border-bottom-color: #fff;
+	margin-bottom: -1px;
+}
+
+.profiles-user #profiles .profile #profile-edit-form ul.button-nav a {
+	background: none;
+	border: 0;
+	font-size: 18px;
+	font-size: 1.8rem;
+}
+
+.profiles-user #profiles .profile #profile-edit-form .field-visibility-settings-toggle,
+.profiles-user #profiles .profile #profile-edit-form .field-visibility-settings {
+	font-size: 14px;
+	font-size: 1.4rem;
+}
+
+.profiles-user #profiles .profile #profile-edit-form .field-visibility-settings-close,
+.profiles-user #profiles .profile #profile-edit-form .visibility-toggle-link {
+	background: #555;
+	color: #fff;
+	padding: 0.2em 0.5em;
+}
+
+.profiles-user #profiles .profile .profiles-avatar #profiles-delete-avatar a {
+	font-size: inherit;
+}
+
+/**
+	*-------------------------------------------
+	* @subsection 6.2.2.3 - Groups
+	*-------------------------------------------
+	*/
+@media screen and (min-width: 77.5em) {
+	.profiles-user #profiles #groups-list li .item {
+		left: 5%;
+		width: 50%;
+	}
+}
+
+/**
+	*-------------------------------------------
+	* @subsection 6.2.2.5 - Private Messaging
+	*-------------------------------------------
+	*/
+.profiles-user #profiles #message-thread a {
+	border-bottom: 0;
+}
+
+.profiles-user #profiles #message-thread #message-subject {
+	background: #6f6f6f;
+	color: #fff;
+	padding: 0.3em 0 0.3em 0.2em;
+}
+
+.profiles-user #profiles #message-thread #message-recipients {
+	font-style: italic;
+}
+
+.profiles-user #profiles #message-thread #message-recipients a.confirm {
+	border: 1px solid #eaeaea;
+	font-style: normal;
+}
+
+.profiles-user #profiles #message-thread .message-metadata {
+	overflow: hidden;
+}
+
+.profiles-user #profiles #message-thread .message-metadata img.avatar {
+	float: none;
+}
+
+@media screen and (min-width: 46.25em) {
+	.profiles-user #profiles #message-thread .message-metadata img.avatar {
+		float: left;
+	}
+}
+
+.profiles-user #profiles #message-thread .message-metadata .message-star-actions {
+	float: right;
+	margin-right: 5px;
+	position: static;
+}
+
+.profiles-user #profiles #message-thread .message-content {
+	background: #f7f7f7;
+	border: 1px solid #eaeaea;
+	margin: 10px 0 0 0;
+	padding: 0.3em;
+}
+
+.profiles-user #profiles #message-thread #send-reply .message-content {
+	background: #fff;
+	border: 0;
+}
+
+.profiles-user #profiles #message-thread .alt {
+	background: #fff;
+}
+
+.profiles-user #profiles #message-threads thead tr {
+	background: #6f6f6f;
+}
+
+.profiles-user #profiles #message-threads tr td {
+	background: #fff;
+	display: inline-block;
+	float: left;
+}
+
+.profiles-user #profiles #message-threads tr td.thread-star,
+.profiles-user #profiles #message-threads tr td.thread-options {
+	border-bottom-color: #b7b7b7;
+	border-bottom-width: 2px;
+	height: 2.4em;
+	padding-bottom: 0.2em;
+	padding-top: 0.2em;
+}
+
+@media screen and (max-width: 46.25em) {
+	.profiles-user #profiles #message-threads tr td.thread-star,
+	.profiles-user #profiles #message-threads tr td.thread-options {
+		padding-top: 0;
+	}
+}
+
+.profiles-user #profiles #message-threads tr td.bulk-select-check,
+.profiles-user #profiles #message-threads tr td.thread-from {
+	height: 2.6em;
+}
+
+@media screen and (max-width: 38.75em) {
+	.profiles-user #profiles #message-threads tr td.bulk-select-check,
+	.profiles-user #profiles #message-threads tr td.thread-from {
+		height: 5.2em;
+	}
+}
+
+.profiles-user #profiles #message-threads tr td.thread-from,
+.profiles-user #profiles #message-threads tr td.thread-options {
+	border-left: 0 !important;
+	width: -webkit-calc(100% - 30px);
+	width: -moz-calc(100% - 30px);
+	width: calc(100% - 30px);
+	margin-left: 0;
+}
+
+.profiles-user #profiles #message-threads tr td.thread-info {
+	padding-left: 41px;
+	width: 100%;
+}
+
+.profiles-user #profiles #message-threads tr td.thread-info a::after {
+	content: " – " attr(title);
+	font-size: 12px;
+	font-size: 1.2rem;
+}
+
+.profiles-user #profiles #message-threads tr td.thread-options {
+	text-align: right;
+}
+
+.profiles-user #profiles #message-threads tr td.thread-options a {
+	font-size: 12px;
+	font-size: 1.2rem;
+	line-height: 2.2;
+}
+
+.profiles-user #profiles #message-threads tr span.from {
+	display: none;
+}
+
+.profiles-user #profiles #message-threads tr span.activity {
+	display: block;
+	float: right;
+	line-height: 2;
+}
+
+@media screen and (max-width: 38.75em) {
+	.profiles-user #profiles #message-threads tr span.activity {
+		clear: both;
+		font-size: 11px;
+		font-size: 1.1rem;
+		width: 100%;
+	}
+}
+
+.profiles-user #profiles #message-threads tr.unread td {
+	background: #dce5ff;
+	border-bottom-color: #b7b7b7;
+	border-color: #d1d1d1;
+}
+
+.profiles-user #profiles #message-threads th {
+	display: none;
+}
+
+.profiles-user #profiles #message-threads th.bulk-select-all {
+	border-bottom: 0;
+	display: inline-block;
+	text-align: left;
+}
+
+.profiles-user #profiles #message-threads th.bulk-select-all,
+.profiles-user #profiles #message-threads td.bulk-select-check,
+.profiles-user #profiles #message-threads td.thread-star {
+	border-right: 0;
+	width: 30px;
+}
+
+.profiles-user #profiles .acfb-holder {
+	list-style: none;
+}
+
+.profiles-user #profiles .acfb-holder li {
+	margin-left: 0;
+}
+
+.profiles-user #profiles .acfb-holder li.friend-tab {
+	background: #edf7fa;
+	border: inherit;
+	margin-right: 0;
+	padding: 0.5em;
+}
+
+.profiles-user #profiles .acfb-holder li.friend-tab span.p {
+	padding-left: 10px;
+}
+
+.profiles-user #profiles .acfb-holder li.friend-tab span.p:focus, .profiles-user #profiles .acfb-holder li.friend-tab span.p:hover {
+	color: #c82b2b;
+	cursor: pointer;
+}
+
+.profiles-user #profiles .acfb-holder li.friend-tab a {
+	border-bottom: 0;
+	text-decoration: none;
+}
+
+.profiles-user #profiles .acfb-holder li.friend-tab a img {
+	display: inline;
+	height: 20px;
+	vertical-align: middle;
+	width: 20px !important;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td {
+	width: 100%;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td strong {
+	background: #6f6f6f;
+	color: #fff;
+	display: block;
+	margin-bottom: 0.4em;
+	padding-left: 0.2em;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td a {
+	display: inline-block;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td:first-child {
+	display: none;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td:first-child + td + td {
+	border-bottom: 0;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td:first-child + td + td span {
+	line-height: 1;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td:last-child {
+	border-bottom-color: #b7b7b7;
+	line-height: 1;
+	text-align: right;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td:last-child a:last-child {
+	line-height: 0;
+	margin-left: 0.7em;
+	text-indent: -999em;
+}
+
+.profiles-user #profiles #message-threads.sitewide-notices td:last-child a:last-child::after {
+	content: attr(title);
+	display: block;
+	line-height: initial;
+	text-indent: 0;
+}
+
+.profiles-user .ac_results {
+	background: #eee;
+	padding-left: 10px;
+}
+
+.profiles-user .ac_results ul {
+	margin: 0;
+}
+
+.profiles-user .ac_results li {
+	margin: 10px 0;
+}
+
+.profiles-user .ac_results li:focus, .profiles-user .ac_results li:hover {
+	cursor: pointer;
+}
+
+/**
+	*------------------------------
+	* @subsection 6.2.2.6 - Settings
+	*------------------------------
+	*/
+.profiles-user #profiles #settings-form > p {
+	font-size: 20px;
+	font-size: 2rem;
+	margin: 20px 0 10px;
+}
+
+.profiles-user #profiles table.notification-settings th.title {
+	width: 75%;
+}
+
+.profiles-user #profiles table.notification-settings td.yes,
+.profiles-user #profiles table.notification-settings td.no {
+	vertical-align: middle;
+}
+
+.profiles-user #profiles table.profile-settings {
+	width: 100%;
+}
+
+.profiles-user #profiles table.profile-settings th.field-group-name,
+.profiles-user #profiles table.profile-settings td.field-name {
+	width: 50%;
+}
+
+@media screen and (min-width: 46.25em) {
+	.profiles-user #profiles table.profile-settings th.field-group-name,
+	.profiles-user #profiles table.profile-settings td.field-name {
+		width: 70%;
+	}
+}
+
+.profiles-user #profiles table.profile-settings th.title,
+.profiles-user #profiles table.profile-settings td.field-visibility {
+	width: 30%;
+}
+
+.profiles-user #profiles table.profile-settings td.field-visibility select {
+	width: 100%;
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 7.0 - Forms  - General
+*-------------------------------------------------------------------------------
+*/
+#profiles div.activity-comments form .ac-textarea {
+	background: #f7f7f7;
+	border: 1px solid rgba(153, 153, 153, 0.3);
+}
+
+#profiles div.activity-comments form .ac-textarea textarea {
+	background: none;
+	border: 0;
+}
+
+#profiles select {
+	border: 1px solid rgba(153, 153, 153, 0.5);
+}
+
+#profiles .wp-editor-wrap a.button,
+#profiles .wp-editor-wrap button,
+#profiles .wp-editor-wrap input[type=submit],
+#profiles .wp-editor-wrap input[type=button],
+#profiles .wp-editor-wrap input[type=reset] {
+	padding: 0 5px 1px;
+}
+
+#profiles .standard-form li,
+#profiles .group-create-form li {
+	float: none;
+	list-style: none;
+}
+
+#profiles .standard-form input[type='text'],
+#profiles .standard-form textarea,
+#profiles .group-create-form input[type='text'],
+#profiles .group-create-form textarea {
+	width: 100%;
+}
+
+#profiles div.dir-search,
+#profiles div.message-search,
+#profiles li.groups-members-search {
+	float: none;
+	margin: 10px 0;
+}
+
+#profiles div.dir-search form,
+#profiles div.message-search form,
+#profiles li.groups-members-search form {
+	border: 1px solid rgba(153, 153, 153, 0.4);
+	overflow: hidden;
+}
+
+#profiles div.dir-search form label,
+#profiles div.message-search form label,
+#profiles li.groups-members-search form label {
+	float: left;
+	width: 80%;
+}
+
+#profiles div.dir-search form input[type='text'],
+#profiles div.message-search form input[type='text'],
+#profiles li.groups-members-search form input[type='text'] {
+	float: left;
+	margin: 0;
+	width: 80%;
+}
+
+#profiles div.dir-search form input[type='text'],
+#profiles div.dir-search form input[type='submit'],
+#profiles div.message-search form input[type='text'],
+#profiles div.message-search form input[type='submit'],
+#profiles li.groups-members-search form input[type='text'],
+#profiles li.groups-members-search form input[type='submit'] {
+	font-size: 14px;
+	font-size: 1.4rem;
+	border: 0;
+	line-height: inherit;
+}
+
+#profiles div.dir-search form input[type='text'],
+#profiles div.message-search form input[type='text'],
+#profiles li.groups-members-search form input[type='text'] {
+	border-right: 1px solid rgba(153, 153, 153, 0.4);
+	padding: 0.2em 0 0.2em 0.2em;
+}
+
+#profiles div.dir-search form input[type='submit'],
+#profiles div.message-search form input[type='submit'],
+#profiles li.groups-members-search form input[type='submit'] {
+	float: right;
+	font-weight: normal;
+	padding: 0.2em 1em;
+	text-align: center;
+	text-transform: none;
+	width: 20%;
+}
+
+@media screen and (min-width: 38.75em) {
+	#profiles div.dir-search,
+	#profiles div.message-search,
+	#profiles li.groups-members-search {
+		float: right;
+		margin-bottom: 5px !important;
+	}
+	#profiles div.dir-search form label,
+	#profiles div.dir-search form input[type='text'],
+	#profiles div.dir-search form input[type='submit'],
+	#profiles div.message-search form label,
+	#profiles div.message-search form input[type='text'],
+	#profiles div.message-search form input[type='submit'],
+	#profiles li.groups-members-search form label,
+	#profiles li.groups-members-search form input[type='text'],
+	#profiles li.groups-members-search form input[type='submit'] {
+		width: auto;
+	}
+}
+
+@media screen and (min-width: 77.5em) {
+	#profiles .dir-search form input[type='text'],
+	#profiles .message-search form input[type='text'] {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+	#profiles .dir-search form input[type='submit'],
+	#profiles .message-search form input[type='submit'] {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 8.0 - Tables - General
+*-------------------------------------------------------------------------------
+*/
+#profiles table {
+	font-size: 14px;
+	font-size: 1.4rem;
+	margin: 20px 0;
+}
+
+#profiles table tr th {
+	background: #6f6f6f;
+	border-color: #b7b7b7;
+	color: #fff;
+}
+
+#profiles table p {
+	margin-bottom: 0.5em;
+}
+
+@media screen and (min-width: 55em) {
+	#profiles table {
+		font-size: 16px;
+		font-size: 1.6rem;
+	}
+}
+
+/*__ User Account tables __*/
+#profiles .notifications th,
+#profiles .messages-notices th {
+	width: 30%;
+}
+
+#profiles .notifications th.bulk-select-all,
+#profiles .messages-notices th.bulk-select-all {
+	text-align: center;
+	width: 10%;
+}
+
+#profiles .notifications .bulk-select-check,
+#profiles .notifications .thread-star,
+#profiles .messages-notices .bulk-select-check,
+#profiles .messages-notices .thread-star {
+	text-align: center;
+}
+
+#profiles .notifications .notification-actions,
+#profiles .notifications td.thread-options,
+#profiles .messages-notices .notification-actions,
+#profiles .messages-notices td.thread-options {
+	text-align: center;
+}
+
+#profiles .notifications .notification-actions a,
+#profiles .notifications td.thread-options a,
+#profiles .messages-notices .notification-actions a,
+#profiles .messages-notices td.thread-options a {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+}
+
+#profiles .notifications td .button,
+#profiles .messages-notices td .button {
+	border: 0;
+	display: block;
+	padding: 0;
+	text-align: center;
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 9.0 - Error / Success messages
+*-------------------------------------------------------------------------------
+*/
+#profiles #item-body div#message {
+	margin-top: 20px;
+}
+
+@media screen and (min-width: 55em) {
+	#profiles #item-body div#message {
+		margin-right: 20px;
+	}
+}
+
+#profiles div#message p {
+	font-size: 18px;
+	font-size: 1.8rem;
+	font-weight: bold;
+}
+
+#profiles div#message.info p {
+	background: #c6e4ee;
+	border: 1px solid #78bed6;
+	color: #1e5264;
+}
+
+#profiles div#message.updated p {
+	background: #dee6b2;
+	border: 1px solid #becc66;
+	color: #454d19;
+}
+
+.delete-group #profiles div#message.info p {
+	background: #db7e7e;
+	border: 1px solid #be3535;
+	color: #1f0808;
+}
+
+/**
+*-------------------------------------------------------------------------------
+* @section 10.0 - Ajax Loading, Widgets, General classes
+*-------------------------------------------------------------------------------
+*/

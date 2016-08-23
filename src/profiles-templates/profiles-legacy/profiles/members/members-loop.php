@@ -1,0 +1,148 @@
+<?php
+/**
+ * Profiles - Members Loop
+ *
+ * Querystring is set via AJAX in _inc/ajax.php - profiles_legacy_theme_object_filter()
+ *
+ * @package Profiles
+ * @suprofilesackage profiles-legacy
+ */
+
+/**
+ * Fires before the display of the members loop.
+ *
+ * @since 1.2.0
+ */
+do_action( 'profiles_before_members_loop' ); ?>
+
+<?php if ( profiles_get_current_member_type() ) : ?>
+	<p class="current-member-type"><?php profiles_current_member_type_message() ?></p>
+<?php endif; ?>
+
+<?php if ( profiles_has_members( profiles_ajax_querystring( 'members' ) ) ) : ?>
+
+	<div id="pag-top" class="pagination">
+
+		<div class="pag-count" id="member-dir-count-top">
+
+			<?php profiles_members_pagination_count(); ?>
+
+		</div>
+
+		<div class="pagination-links" id="member-dir-pag-top">
+
+			<?php profiles_members_pagination_links(); ?>
+
+		</div>
+
+	</div>
+
+	<?php
+
+	/**
+	 * Fires before the display of the members list.
+	 *
+	 * @since 1.1.0
+	 */
+	do_action( 'profiles_before_directory_members_list' ); ?>
+
+	<ul id="members-list" class="item-list">
+
+	<?php while ( profiles_members() ) : profiles_the_member(); ?>
+
+		<li <?php profiles_member_class(); ?>>
+			<div class="item-avatar">
+				<a href="<?php profiles_member_permalink(); ?>"><?php profiles_member_avatar(); ?></a>
+			</div>
+
+			<div class="item">
+				<div class="item-title">
+					<a href="<?php profiles_member_permalink(); ?>"><?php profiles_member_name(); ?></a>
+
+				</div>
+
+				<div class="item-meta"><span class="activity"><?php profiles_member_last_active(); ?></span></div>
+
+				<?php
+
+				/**
+				 * Fires inside the display of a directory member item.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'profiles_directory_members_item' ); ?>
+
+				<?php
+				 /***
+				  * If you want to show specific profile fields here you can,
+				  * but it'll add an extra query for each member in the loop
+				  * (only one regardless of the number of fields you show):
+				  *
+				  * profiles_member_profile_data( 'field=the field name' );
+				  */
+				?>
+			</div>
+
+			<div class="action">
+
+				<?php
+
+				/**
+				 * Fires inside the members action HTML markup to display actions.
+				 *
+				 * @since 1.1.0
+				 */
+				do_action( 'profiles_directory_members_actions' ); ?>
+
+			</div>
+
+			<div class="clear"></div>
+		</li>
+
+	<?php endwhile; ?>
+
+	</ul>
+
+	<?php
+
+	/**
+	 * Fires after the display of the members list.
+	 *
+	 * @since 1.1.0
+	 */
+	do_action( 'profiles_after_directory_members_list' ); ?>
+
+	<?php profiles_member_hidden_fields(); ?>
+
+	<div id="pag-bottom" class="pagination">
+
+		<div class="pag-count" id="member-dir-count-bottom">
+
+			<?php profiles_members_pagination_count(); ?>
+
+		</div>
+
+		<div class="pagination-links" id="member-dir-pag-bottom">
+
+			<?php profiles_members_pagination_links(); ?>
+
+		</div>
+
+	</div>
+
+<?php else: ?>
+
+	<div id="message" class="info">
+		<p><?php _e( "Sorry, no members were found.", 'profiles' ); ?></p>
+	</div>
+
+<?php endif; ?>
+
+<?php
+
+/**
+ * Fires after the display of the members loop.
+ *
+ * @since 1.2.0
+ */
+do_action( 'profiles_after_members_loop' ); ?>

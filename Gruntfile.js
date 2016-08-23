@@ -4,21 +4,21 @@ module.exports = function( grunt ) {
 	var SOURCE_DIR = 'src/',
 		BUILD_DIR = 'build/',
 
-		BP_CSS = [
+		Profiles_CSS = [
 			'**/*.css'
 		],
 
 		// CSS exclusions, for excluding files from certain tasks, e.g. rtlcss
-		BP_EXCLUDED_CSS = [
+		Profiles_EXCLUDED_CSS = [
 			'!**/*-rtl.css'
 		],
 
-		BP_JS = [
+		Profiles_JS = [
 			'**/*.js'
 		],
 
-		BP_EXCLUDED_MISC = [
-			'!bp-forums/bbpress/**/*'
+		Profiles_EXCLUDED_MISC = [
+			'!profiles-forums/bprofilesress/**/*'
 		];
 
 	require( 'matchdep' ).filterDev( ['grunt-*', '!grunt-legacy-util'] ).forEach( grunt.loadNpmTasks );
@@ -40,7 +40,7 @@ module.exports = function( grunt ) {
 			core: {
 				expand: true,
 				cwd: SOURCE_DIR,
-				src: BP_JS,
+				src: Profiles_JS,
 
 				/**
 				 * Limit JSHint's run to a single specified file:
@@ -82,8 +82,8 @@ module.exports = function( grunt ) {
 				expand: true,
 				ext: '.css',
 				flatten: true,
-				src: ['bp-templates/bp-legacy/css/*.scss'],
-				dest: SOURCE_DIR + 'bp-templates/bp-legacy/css/',
+				src: ['profiles-templates/profiles-legacy/css/*.scss'],
+				dest: SOURCE_DIR + 'profiles-templates/profiles-legacy/css/',
 				options: {
 					outputStyle: 'expanded',
 					indentType: 'tab',
@@ -106,7 +106,7 @@ module.exports = function( grunt ) {
 				dest: SOURCE_DIR,
 				extDot: 'last',
 				ext: '-rtl.css',
-				src: BP_CSS.concat( BP_EXCLUDED_CSS, BP_EXCLUDED_MISC )
+				src: Profiles_CSS.concat( Profiles_EXCLUDED_CSS, Profiles_EXCLUDED_MISC )
 			}
 		},
 		checktextdomain: {
@@ -132,7 +132,7 @@ module.exports = function( grunt ) {
 			},
 			files: {
 				cwd: SOURCE_DIR,
-				src: ['**/*.php'].concat( BP_EXCLUDED_MISC ),
+				src: ['**/*.php'].concat( Profiles_EXCLUDED_MISC ),
 				expand: true
 			}
 		},
@@ -141,7 +141,7 @@ module.exports = function( grunt ) {
 				options: {
 					cwd: BUILD_DIR,
 					domainPath: '.',
-					mainFile: 'bp-loader.php',
+					mainFile: 'profiles-loader.php',
 					potFilename: 'profiles.pot',
 					processPot: function( pot ) {
 						pot.headers['report-msgid-bugs-to'] = 'https://profiles.trac.wordpress.org';
@@ -157,7 +157,7 @@ module.exports = function( grunt ) {
 			core: {
 				expand: true,
 				cwd: SOURCE_DIR,
-				src: ['**/*.{gif,jpg,jpeg,png}'].concat( BP_EXCLUDED_MISC ),
+				src: ['**/*.{gif,jpg,jpeg,png}'].concat( Profiles_EXCLUDED_MISC ),
 				dest: SOURCE_DIR
 			}
 		},
@@ -172,7 +172,7 @@ module.exports = function( grunt ) {
 						dest: BUILD_DIR,
 						dot: true,
 						expand: true,
-						src: ['**', '!**/.{svn,git}/**'].concat( BP_EXCLUDED_MISC )
+						src: ['**', '!**/.{svn,git}/**'].concat( Profiles_EXCLUDED_MISC )
 					}
 				]
 			}
@@ -184,7 +184,7 @@ module.exports = function( grunt ) {
 				extDot: 'last',
 				expand: true,
 				ext: '.min.js',
-				src: BP_JS
+				src: Profiles_JS
 			}
 		},
 		scsslint: {
@@ -193,7 +193,7 @@ module.exports = function( grunt ) {
 				colorizeOutput: true,
 				config: '.scss-lint.yml'
 			},
-			core: [ SOURCE_DIR + 'bp-templates/bp-legacy/css/*.scss' ]
+			core: [ SOURCE_DIR + 'profiles-templates/profiles-legacy/css/*.scss' ]
 		},
 		cssmin: {
 			minify: {
@@ -202,7 +202,7 @@ module.exports = function( grunt ) {
 				extDot: 'last',
 				expand: true,
 				ext: '.min.css',
-				src: BP_CSS
+				src: Profiles_CSS
 			}
 		},
 		phpunit: {
@@ -216,13 +216,13 @@ module.exports = function( grunt ) {
 			}
 		},
 		exec: {
-			bbpress: {
-				command: 'svn export --force https://bbpress.svn.wordpress.org/tags/1.2 bbpress',
-				cwd: BUILD_DIR + 'bp-forums',
+			bprofilesress: {
+				command: 'svn export --force https://bprofilesress.svn.wordpress.org/tags/1.2 bprofilesress',
+				cwd: BUILD_DIR + 'profiles-forums',
 				stdout: false
 			},
-			bpdefault: {
-				command: 'svn export --force https://github.com/profiles/BP-Default.git/trunk bp-themes/bp-default',
+			profilesdefault: {
+				command: 'svn export --force https://github.com/profiles/BP-Default.git/trunk profiles-themes/profiles-default',
 				cwd: BUILD_DIR,
 				stdout: false
 			}
@@ -240,7 +240,7 @@ module.exports = function( grunt ) {
 			},
 			src: {
 				files: {
-					src: [SOURCE_DIR + '/**/*.js'].concat( BP_EXCLUDED_MISC )
+					src: [SOURCE_DIR + '/**/*.js'].concat( Profiles_EXCLUDED_MISC )
 				}
 			}
 		},
@@ -262,8 +262,8 @@ module.exports = function( grunt ) {
 	 */
 	grunt.registerTask( 'src',     ['checkDependencies', 'jsvalidate:src', 'jshint', 'scsslint', 'sass', 'rtlcss'] );
 	grunt.registerTask( 'commit',  ['src', 'checktextdomain', 'imagemin'] );
-	grunt.registerTask( 'build',   ['commit', 'clean:all', 'copy:files', 'uglify', 'jsvalidate:build', 'cssmin', 'makepot', 'exec:bpdefault'] );
-	grunt.registerTask( 'release', ['build', 'exec:bbpress'] );
+	grunt.registerTask( 'build',   ['commit', 'clean:all', 'copy:files', 'uglify', 'jsvalidate:build', 'cssmin', 'makepot', 'exec:profilesdefault'] );
+	grunt.registerTask( 'release', ['build', 'exec:bprofilesress'] );
 
 	// Testing tasks.
 	grunt.registerMultiTask( 'phpunit', 'Runs PHPUnit tests, including the ajax and multisite tests.', function() {

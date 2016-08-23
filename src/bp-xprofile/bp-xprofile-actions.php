@@ -37,9 +37,9 @@ function xprofile_action_delete_avatar() {
 	}
 
 	if ( bp_core_delete_existing_avatar( array( 'item_id' => bp_displayed_user_id() ) ) ) {
-		bp_core_add_message( __( 'Your profile photo was deleted successfully!', 'buddypress' ) );
+		bp_core_add_message( __( 'Your profile photo was deleted successfully!', 'profiles' ) );
 	} else {
-		bp_core_add_message( __( 'There was a problem deleting your profile photo. Please try again.', 'buddypress' ), 'error' );
+		bp_core_add_message( __( 'There was a problem deleting your profile photo. Please try again.', 'profiles' ), 'error' );
 	}
 
 	bp_core_redirect( wp_get_referer() );

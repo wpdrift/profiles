@@ -138,7 +138,7 @@ class BP_XProfile_Group {
 		 */
 		do_action_ref_array( 'xprofile_group_before_save', array( &$this ) );
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Update or insert.
 		if ( ! empty( $this->id ) ) {
@@ -198,7 +198,7 @@ class BP_XProfile_Group {
 		 */
 		do_action_ref_array( 'xprofile_group_before_delete', array( &$this ) );
 
-		$bp      = buddypress();
+		$bp      = profiles();
 		$sql     = $wpdb->prepare( "DELETE FROM {$bp->profile->table_name_groups} WHERE id = %d", $this->id );
 		$deleted = $wpdb->query( $sql );
 
@@ -296,7 +296,7 @@ class BP_XProfile_Group {
 			$where_sql = '';
 		}
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Include or exclude empty groups.
 		if ( ! empty( $r['hide_empty_groups'] ) ) {
@@ -541,7 +541,7 @@ class BP_XProfile_Group {
 			$uncached_gids_sql = implode( ',', wp_parse_id_list( $uncached_gids ) );
 
 			// Get table name to query.
-			$table_name = buddypress()->profile->table_name_groups;
+			$table_name = profiles()->profile->table_name_groups;
 
 			// Fetch data, preserving order.
 			$queried_gdata = $wpdb->get_results( "SELECT * FROM {$table_name} WHERE id IN ({$uncached_gids_sql}) ORDER BY FIELD( id, {$uncached_gids_sql} )");
@@ -580,7 +580,7 @@ class BP_XProfile_Group {
 
 		// Validate Form.
 		if ( empty( $_POST['group_name'] ) ) {
-			$message = __( 'Please make sure you give the group a name.', 'buddypress' );
+			$message = __( 'Please make sure you give the group a name.', 'profiles' );
 			return false;
 		} else {
 			return true;
@@ -608,7 +608,7 @@ class BP_XProfile_Group {
 		// Purge profile field group cache.
 		wp_cache_delete( 'all', 'bp_xprofile_groups' );
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		return $wpdb->query( $wpdb->prepare( "UPDATE {$bp->profile->table_name_groups} SET group_order = %d WHERE id = %d", $position, $field_group_id ) );
 	}
@@ -675,7 +675,7 @@ class BP_XProfile_Group {
 		$default_visibility_levels = wp_cache_get( 'default_visibility_levels', 'bp_xprofile' );
 
 		if ( false === $default_visibility_levels ) {
-			$bp = buddypress();
+			$bp = profiles();
 
 			$levels = $wpdb->get_results( "SELECT object_id, meta_key, meta_value FROM {$bp->profile->table_name_meta} WHERE object_type = 'field' AND ( meta_key = 'default_visibility' OR meta_key = 'allow_custom_visibility' )" );
 
@@ -712,15 +712,15 @@ class BP_XProfile_Group {
 
 		// New field group.
 		if ( empty( $this->id ) ) {
-			$title	= __( 'Add New Field Group', 'buddypress' );
+			$title	= __( 'Add New Field Group', 'profiles' );
 			$action	= add_query_arg( array( 'page' => 'bp-profile-setup', 'mode' => 'add_group' ), 'users.php' );
-			$button	= __( 'Save', 'buddypress' );
+			$button	= __( 'Save', 'profiles' );
 
 		// Existing field group.
 		} else {
-			$title  = __( 'Edit Field Group', 'buddypress' );
+			$title  = __( 'Edit Field Group', 'profiles' );
 			$action	= add_query_arg( array( 'page' => 'bp-profile-setup', 'mode' => 'edit_group', 'group_id' => $this->id ), 'users.php' );
-			$button	= __( 'Update', 'buddypress' );
+			$button	= __( 'Update', 'profiles' );
 		} ?>
 
 		<div class="wrap">
@@ -741,16 +741,16 @@ class BP_XProfile_Group {
 						<div id="post-body-content">
 							<div id="titlediv">
 								<div class="titlewrap">
-									<label id="title-prompt-text" for="title"><?php esc_html_e( 'Field Group Name', 'buddypress') ?></label>
+									<label id="title-prompt-text" for="title"><?php esc_html_e( 'Field Group Name', 'profiles') ?></label>
 									<input type="text" name="group_name" id="title" value="<?php echo esc_attr( $this->name ); ?>" autocomplete="off" />
 								</div>
 							</div>
 							<div class="postbox">
-								<h2><?php esc_html_e( 'Field Group Description', 'buddypress' ); ?></h2>
+								<h2><?php esc_html_e( 'Field Group Description', 'profiles' ); ?></h2>
 								<div class="inside">
 									<label for="group_description" class="screen-reader-text"><?php
 										/* translators: accessibility text */
-										esc_html_e( 'Add description', 'buddypress' );
+										esc_html_e( 'Add description', 'profiles' );
 									?></label>
 									<textarea name="group_description" id="group_description" rows="8" cols="60"><?php echo esc_textarea( $this->description ); ?></textarea>
 								</div>
@@ -783,7 +783,7 @@ class BP_XProfile_Group {
 							do_action( 'xprofile_group_before_submitbox', $this ); ?>
 
 							<div id="submitdiv" class="postbox">
-								<h2><?php _e( 'Submit', 'buddypress' ); ?></h2>
+								<h2><?php _e( 'Submit', 'profiles' ); ?></h2>
 								<div class="inside">
 									<div id="submitcomment" class="submitbox">
 										<div id="major-publishing-actions">
@@ -804,7 +804,7 @@ class BP_XProfile_Group {
 												<input type="submit" name="save_group" value="<?php echo esc_attr( $button ); ?>" class="button-primary"/>
 											</div>
 											<div id="delete-action">
-												<a href="users.php?page=bp-profile-setup" class="deletion"><?php _e( 'Cancel', 'buddypress' ); ?></a>
+												<a href="users.php?page=bp-profile-setup" class="deletion"><?php _e( 'Cancel', 'profiles' ); ?></a>
 											</div>
 											<div class="clear"></div>
 										</div>

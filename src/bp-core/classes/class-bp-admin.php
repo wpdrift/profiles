@@ -95,7 +95,7 @@ class BP_Admin {
 	 * @since 1.6.0
 	 */
 	private function setup_globals() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Paths and URLs
 		$this->admin_dir  = trailingslashit( $bp->plugin_dir  . 'bp-core/admin' ); // Admin path.
@@ -117,7 +117,7 @@ class BP_Admin {
 	 * @since 1.6.0
 	 */
 	private function includes() {
-		if ( ! buddypress()->do_autoload ) {
+		if ( ! profiles()->do_autoload ) {
 			require( $this->admin_dir . 'bp-core-admin-classes.php'    );
 		}
 
@@ -205,8 +205,8 @@ class BP_Admin {
 
 		// About.
 		add_dashboard_page(
-			__( 'Welcome to Profiles',  'buddypress' ),
-			__( 'Welcome to Profiles',  'buddypress' ),
+			__( 'Welcome to Profiles',  'profiles' ),
+			__( 'Welcome to Profiles',  'profiles' ),
 			'manage_options',
 			'bp-about',
 			array( $this, 'about_screen' )
@@ -214,8 +214,8 @@ class BP_Admin {
 
 		// Credits.
 		add_dashboard_page(
-			__( 'Welcome to Profiles',  'buddypress' ),
-			__( 'Welcome to Profiles',  'buddypress' ),
+			__( 'Welcome to Profiles',  'profiles' ),
+			__( 'Welcome to Profiles',  'profiles' ),
 			'manage_options',
 			'bp-credits',
 			array( $this, 'credits_screen' )
@@ -225,8 +225,8 @@ class BP_Admin {
 
 		// Changed in BP 1.6 . See bp_core_admin_backpat_menu().
 		$hooks[] = add_menu_page(
-			__( 'Profiles', 'buddypress' ),
-			__( 'Profiles', 'buddypress' ),
+			__( 'Profiles', 'profiles' ),
+			__( 'Profiles', 'profiles' ),
 			$this->capability,
 			'bp-general-settings',
 			'bp_core_admin_backpat_menu',
@@ -235,8 +235,8 @@ class BP_Admin {
 
 		$hooks[] = add_submenu_page(
 			'bp-general-settings',
-			__( 'Profiles Help', 'buddypress' ),
-			__( 'Help', 'buddypress' ),
+			__( 'Profiles Help', 'profiles' ),
+			__( 'Help', 'profiles' ),
 			$this->capability,
 			'bp-general-settings',
 			'bp_core_admin_backpat_page'
@@ -245,8 +245,8 @@ class BP_Admin {
 		// Add the option pages.
 		$hooks[] = add_submenu_page(
 			$this->settings_page,
-			__( 'Profiles Components', 'buddypress' ),
-			__( 'Profiles', 'buddypress' ),
+			__( 'Profiles Components', 'profiles' ),
+			__( 'Profiles', 'profiles' ),
 			$this->capability,
 			'bp-components',
 			'bp_core_admin_components_settings'
@@ -254,8 +254,8 @@ class BP_Admin {
 
 		$hooks[] = add_submenu_page(
 			$this->settings_page,
-			__( 'Profiles Pages', 'buddypress' ),
-			__( 'Profiles Pages', 'buddypress' ),
+			__( 'Profiles Pages', 'profiles' ),
+			__( 'Profiles Pages', 'profiles' ),
 			$this->capability,
 			'bp-page-settings',
 			'bp_core_admin_slugs_settings'
@@ -263,8 +263,8 @@ class BP_Admin {
 
 		$hooks[] = add_submenu_page(
 			$this->settings_page,
-			__( 'Profiles Options', 'buddypress' ),
-			__( 'Profiles Options', 'buddypress' ),
+			__( 'Profiles Options', 'profiles' ),
+			__( 'Profiles Options', 'profiles' ),
 			$this->capability,
 			'bp-settings',
 			'bp_core_admin_settings'
@@ -276,8 +276,8 @@ class BP_Admin {
 			$tools_parent = 'network-tools';
 
 			$hooks[] = add_menu_page(
-				__( 'Tools', 'buddypress' ),
-				__( 'Tools', 'buddypress' ),
+				__( 'Tools', 'profiles' ),
+				__( 'Tools', 'profiles' ),
 				$this->capability,
 				$tools_parent,
 				'bp_core_tools_top_level_item',
@@ -287,8 +287,8 @@ class BP_Admin {
 
 			$hooks[] = add_submenu_page(
 				$tools_parent,
-				__( 'Available Tools', 'buddypress' ),
-				__( 'Available Tools', 'buddypress' ),
+				__( 'Available Tools', 'profiles' ),
+				__( 'Available Tools', 'profiles' ),
 				$this->capability,
 				'available-tools',
 				'bp_core_admin_available_tools_page'
@@ -299,8 +299,8 @@ class BP_Admin {
 
 		$hooks[] = add_submenu_page(
 			$tools_parent,
-			__( 'Profiles Tools', 'buddypress' ),
-			__( 'Profiles', 'buddypress' ),
+			__( 'Profiles Tools', 'profiles' ),
+			__( 'Profiles', 'profiles' ),
 			$this->capability,
 			'bp-tools',
 			'bp_core_admin_tools'
@@ -346,8 +346,8 @@ class BP_Admin {
 		if ( bp_is_root_blog() && version_compare( $GLOBALS['wp_version'], '4.0', '>=' ) ) {
 			// Appearance > Emails.
 			$hooks[] = add_theme_page(
-				_x( 'Emails', 'screen heading', 'buddypress' ),
-				_x( 'Emails', 'screen heading', 'buddypress' ),
+				_x( 'Emails', 'screen heading', 'profiles' ),
+				_x( 'Emails', 'screen heading', 'profiles' ),
 				$this->capability,
 				'bp-emails-customizer-redirect',
 				'bp_email_redirect_to_customizer'
@@ -356,8 +356,8 @@ class BP_Admin {
 			// Emails > Customize.
 			$hooks[] = add_submenu_page(
 				'edit.php?post_type=' . bp_get_email_post_type(),
-				_x( 'Customize', 'email menu label', 'buddypress' ),
-				_x( 'Customize', 'email menu label', 'buddypress' ),
+				_x( 'Customize', 'email menu label', 'profiles' ),
+				_x( 'Customize', 'email menu label', 'profiles' ),
 				$this->capability,
 				'bp-emails-customizer-redirect',
 				'bp_email_redirect_to_customizer'
@@ -380,42 +380,42 @@ class BP_Admin {
 		/* Main Section ******************************************************/
 
 		// Add the main section.
-		add_settings_section( 'bp_main', __( 'Main Settings', 'buddypress' ), 'bp_admin_setting_callback_main_section', 'buddypress' );
+		add_settings_section( 'bp_main', __( 'Main Settings', 'profiles' ), 'bp_admin_setting_callback_main_section', 'profiles' );
 
 		// Hide toolbar for logged out users setting.
-		add_settings_field( 'hide-loggedout-adminbar', __( 'Toolbar', 'buddypress' ), 'bp_admin_setting_callback_admin_bar', 'buddypress', 'bp_main' );
-		register_setting( 'buddypress', 'hide-loggedout-adminbar', 'intval' );
+		add_settings_field( 'hide-loggedout-adminbar', __( 'Toolbar', 'profiles' ), 'bp_admin_setting_callback_admin_bar', 'profiles', 'bp_main' );
+		register_setting( 'profiles', 'hide-loggedout-adminbar', 'intval' );
 
 		// Only show 'switch to Toolbar' option if the user chose to retain the BuddyBar during the 1.6 upgrade.
 		if ( (bool) bp_get_option( '_bp_force_buddybar', false ) ) {
-			add_settings_field( '_bp_force_buddybar', __( 'Toolbar', 'buddypress' ), 'bp_admin_setting_callback_force_buddybar', 'buddypress', 'bp_main' );
-			register_setting( 'buddypress', '_bp_force_buddybar', 'bp_admin_sanitize_callback_force_buddybar' );
+			add_settings_field( '_bp_force_buddybar', __( 'Toolbar', 'profiles' ), 'bp_admin_setting_callback_force_buddybar', 'profiles', 'bp_main' );
+			register_setting( 'profiles', '_bp_force_buddybar', 'bp_admin_sanitize_callback_force_buddybar' );
 		}
 
 		// Allow account deletion.
-		add_settings_field( 'bp-disable-account-deletion', __( 'Account Deletion', 'buddypress' ), 'bp_admin_setting_callback_account_deletion', 'buddypress', 'bp_main' );
-		register_setting( 'buddypress', 'bp-disable-account-deletion', 'intval' );
+		add_settings_field( 'bp-disable-account-deletion', __( 'Account Deletion', 'profiles' ), 'bp_admin_setting_callback_account_deletion', 'profiles', 'bp_main' );
+		register_setting( 'profiles', 'bp-disable-account-deletion', 'intval' );
 
 		/* XProfile Section **************************************************/
 
 		if ( bp_is_active( 'xprofile' ) ) {
 
 			// Add the main section.
-			add_settings_section( 'bp_xprofile', _x( 'Profile Settings', 'Profiles setting tab', 'buddypress' ), 'bp_admin_setting_callback_xprofile_section', 'buddypress' );
+			add_settings_section( 'bp_xprofile', _x( 'Profile Settings', 'Profiles setting tab', 'profiles' ), 'bp_admin_setting_callback_xprofile_section', 'profiles' );
 
 			// Avatars.
-			add_settings_field( 'bp-disable-avatar-uploads', __( 'Profile Photo Uploads', 'buddypress' ), 'bp_admin_setting_callback_avatar_uploads', 'buddypress', 'bp_xprofile' );
-			register_setting( 'buddypress', 'bp-disable-avatar-uploads', 'intval' );
+			add_settings_field( 'bp-disable-avatar-uploads', __( 'Profile Photo Uploads', 'profiles' ), 'bp_admin_setting_callback_avatar_uploads', 'profiles', 'bp_xprofile' );
+			register_setting( 'profiles', 'bp-disable-avatar-uploads', 'intval' );
 
 			// Cover images.
 			if ( bp_is_active( 'xprofile', 'cover_image' ) ) {
-				add_settings_field( 'bp-disable-cover-image-uploads', __( 'Cover Image Uploads', 'buddypress' ), 'bp_admin_setting_callback_cover_image_uploads', 'buddypress', 'bp_xprofile' );
-				register_setting( 'buddypress', 'bp-disable-cover-image-uploads', 'intval' );
+				add_settings_field( 'bp-disable-cover-image-uploads', __( 'Cover Image Uploads', 'profiles' ), 'bp_admin_setting_callback_cover_image_uploads', 'profiles', 'bp_xprofile' );
+				register_setting( 'profiles', 'bp-disable-cover-image-uploads', 'intval' );
 			}
 
 			// Profile sync setting.
-			add_settings_field( 'bp-disable-profile-sync',   __( 'Profile Syncing',  'buddypress' ), 'bp_admin_setting_callback_profile_sync', 'buddypress', 'bp_xprofile' );
-			register_setting  ( 'buddypress', 'bp-disable-profile-sync', 'intval' );
+			add_settings_field( 'bp-disable-profile-sync',   __( 'Profile Syncing',  'profiles' ), 'bp_admin_setting_callback_profile_sync', 'profiles', 'bp_xprofile' );
+			register_setting  ( 'profiles', 'bp-disable-profile-sync', 'intval' );
 		}
 
 	}
@@ -432,7 +432,7 @@ class BP_Admin {
 			$wp_admin_bar->add_menu( array(
 				'parent' => 'wp-logo',
 				'id'     => 'bp-about',
-				'title'  => esc_html__( 'About Profiles', 'buddypress' ),
+				'title'  => esc_html__( 'About Profiles', 'profiles' ),
 				'href'   => add_query_arg( array( 'page' => 'bp-about' ), bp_get_admin_url( 'index.php' ) ),
 			) );
 		}
@@ -450,14 +450,14 @@ class BP_Admin {
 	public function modify_plugin_action_links( $links, $file ) {
 
 		// Return normal links if not Profiles.
-		if ( plugin_basename( buddypress()->basename ) != $file ) {
+		if ( plugin_basename( profiles()->basename ) != $file ) {
 			return $links;
 		}
 
 		// Add a few links to the existing links array.
 		return array_merge( $links, array(
-			'settings' => '<a href="' . esc_url( add_query_arg( array( 'page' => 'bp-components' ), bp_get_admin_url( $this->settings_page ) ) ) . '">' . esc_html__( 'Settings', 'buddypress' ) . '</a>',
-			'about'    => '<a href="' . esc_url( add_query_arg( array( 'page' => 'bp-about'      ), bp_get_admin_url( 'index.php'          ) ) ) . '">' . esc_html__( 'About',    'buddypress' ) . '</a>'
+			'settings' => '<a href="' . esc_url( add_query_arg( array( 'page' => 'bp-components' ), bp_get_admin_url( $this->settings_page ) ) ) . '">' . esc_html__( 'Settings', 'profiles' ) . '</a>',
+			'about'    => '<a href="' . esc_url( add_query_arg( array( 'page' => 'bp-about'      ), bp_get_admin_url( 'index.php'          ) ) ) . '">' . esc_html__( 'About',    'profiles' ) . '</a>'
 		) );
 	}
 
@@ -500,7 +500,7 @@ class BP_Admin {
 		$embedded_activity = '';
 
 		if ( version_compare( $GLOBALS['wp_version'], '4.5', '>=' ) ) {
-			$embedded_activity = wp_oembed_get( 'https://buddypress.org/members/djpaul/activity/573821/' );
+			$embedded_activity = wp_oembed_get( 'https://profiles.org/members/djpaul/activity/573821/' );
 		}
 	?>
 
@@ -514,41 +514,41 @@ class BP_Admin {
 
 				<div id="welcome-panel" class="welcome-panel">
 					<div class="welcome-panel-content">
-						<h3 style="margin:0"><?php _e( 'Getting Started with Profiles', 'buddypress' ); ?></h3>
+						<h3 style="margin:0"><?php _e( 'Getting Started with Profiles', 'profiles' ); ?></h3>
 						<div class="welcome-panel-column-container">
 							<div class="welcome-panel-column">
-								<h4><?php _e( 'Configure Profiles', 'buddypress' ); ?></h4>
+								<h4><?php _e( 'Configure Profiles', 'profiles' ); ?></h4>
 								<ul>
 									<li><?php printf(
-									'<a href="%s" class="welcome-icon welcome-edit-page">' . __( 'Set Up Components', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-components' ), $this->settings_page ) ) )
+									'<a href="%s" class="welcome-icon welcome-edit-page">' . __( 'Set Up Components', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-components' ), $this->settings_page ) ) )
 									); ?></li>
 									<li><?php printf(
-									'<a href="%s" class="welcome-icon welcome-edit-page">' . __( 'Assign Components to Pages', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), $this->settings_page ) ) )
+									'<a href="%s" class="welcome-icon welcome-edit-page">' . __( 'Assign Components to Pages', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-page-settings' ), $this->settings_page ) ) )
 									); ?></li>
 									<li><?php printf(
-									'<a href="%s" class="welcome-icon welcome-edit-page">' . __( 'Customize Settings', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-settings' ), $this->settings_page ) ) )
+									'<a href="%s" class="welcome-icon welcome-edit-page">' . __( 'Customize Settings', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-settings' ), $this->settings_page ) ) )
 									); ?></li>
 								</ul>
-								<a class="button button-primary button-hero" style="margin-bottom:20px;margin-top:0;" href="<?php echo esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-components' ), $this->settings_page ) ) ); ?>"><?php _e( 'Get Started', 'buddypress' ); ?></a>
+								<a class="button button-primary button-hero" style="margin-bottom:20px;margin-top:0;" href="<?php echo esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-components' ), $this->settings_page ) ) ); ?>"><?php _e( 'Get Started', 'profiles' ); ?></a>
 							</div>
 							<div class="welcome-panel-column">
-								<h4><?php _e( 'Administration Tools', 'buddypress' ); ?></h4>
+								<h4><?php _e( 'Administration Tools', 'profiles' ); ?></h4>
 								<ul>
 									<?php if ( bp_is_active( 'members' ) ) : ?>
-										<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Add User Profile Fields', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-profile-setup' ), 'users.php' ) ) ) ); ?></li>
+										<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Add User Profile Fields', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-profile-setup' ), 'users.php' ) ) ) ); ?></li>
 									<?php endif; ?>
-									<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Manage User Signups', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-signups' ), 'users.php' ) ) ) ); ?></li>
+									<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Manage User Signups', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-signups' ), 'users.php' ) ) ) ); ?></li>
 									<?php if ( bp_is_active( 'groups' ) ) : ?>
-										<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Manage Groups', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-groups' ), 'admin.php' ) ) ) ); ?></li>
+										<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Manage Groups', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-groups' ), 'admin.php' ) ) ) ); ?></li>
 									<?php endif; ?>
-									<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Repair Data', 'buddypress' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-tools' ), 'tools.php' ) ) ) ); ?>
+									<li><?php printf( '<a href="%s" class="welcome-icon welcome-add-page">' . __( 'Repair Data', 'profiles' ) . '</a>', esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-tools' ), 'tools.php' ) ) ) ); ?>
 									</li>
 								</ul>
 							</div>
 							<div class="welcome-panel-column welcome-panel-last">
-								<h4><?php _e( 'Community and Support', 'buddypress'  ); ?></h4>
-								<p class="welcome-icon welcome-learn-more" style="margin-right:10px"><?php _e( 'Looking for help? The <a href="https://codex.buddypress.org/">Profiles Codex</a> has you covered.', 'buddypress' ) ?></p>
-								<p class="welcome-icon welcome-learn-more" style="margin-right:10px"><?php _e( 'Can&#8217;t find what you need? Stop by <a href="https://buddypress.org/support/">our support forums</a>, where active Profiles users and developers are waiting to share tips and more.', 'buddypress' ) ?></p>
+								<h4><?php _e( 'Community and Support', 'profiles'  ); ?></h4>
+								<p class="welcome-icon welcome-learn-more" style="margin-right:10px"><?php _e( 'Looking for help? The <a href="https://codex.profiles.org/">Profiles Codex</a> has you covered.', 'profiles' ) ?></p>
+								<p class="welcome-icon welcome-learn-more" style="margin-right:10px"><?php _e( 'Can&#8217;t find what you need? Stop by <a href="https://profiles.org/support/">our support forums</a>, where active Profiles users and developers are waiting to share tips and more.', 'profiles' ) ?></p>
 							</div>
 						</div>
 					</div>
@@ -557,7 +557,7 @@ class BP_Admin {
 			<?php endif; ?>
 
 			<div class="bp-headline-feature">
-				<h3 class="headline-title"><?php esc_html_e( 'Activity Embeds', 'buddypress' ); ?></h3>
+				<h3 class="headline-title"><?php esc_html_e( 'Activity Embeds', 'profiles' ); ?></h3>
 
 				<?php if ( $embedded_activity ) :
 					wp_enqueue_script( 'wp-embed' );
@@ -569,15 +569,15 @@ class BP_Admin {
 				<?php else : ?>
 
 					<div class="featured-image">
-						<a href="http://wordpress.tv/2016/06/15/buddypress-2-6-introducing-buddypress-activity-embeds/" title="<?php esc_attr_e( 'View the Activity Embeds demo', 'buddypress' ); ?>">
-						<img src="<?php echo esc_url( buddypress()->plugin_url . 'bp-core/admin/images/activity-embeds.png' ); ?>" alt="<?php esc_attr_e( 'Embed activities into your WordPress posts or pages.', 'buddypress' ); ?>">
+						<a href="http://wordpress.tv/2016/06/15/profiles-2-6-introducing-profiles-activity-embeds/" title="<?php esc_attr_e( 'View the Activity Embeds demo', 'profiles' ); ?>">
+						<img src="<?php echo esc_url( profiles()->plugin_url . 'bp-core/admin/images/activity-embeds.png' ); ?>" alt="<?php esc_attr_e( 'Embed activities into your WordPress posts or pages.', 'profiles' ); ?>">
 						</a>
 					</div>
 
 				<?php endif ; ?>
 
-				<p class="introduction"><?php _e( 'Embed activities into your WordPress posts or pages.', 'buddypress' ); ?>  </p>
-				<p><?php _e( 'Copy the permalink URL of the activity of your choice, paste it into the content editor of your WordPress post or page, and <em>voilà</em>&#33;, you&#39;ve embedded an activity update.', 'buddypress' ); ?> <a href="http://wordpress.tv/2016/06/15/buddypress-2-6-introducing-buddypress-activity-embeds/"><?php esc_html_e( 'View the Activity Embeds demo', 'buddypress' ); ?></a></p>
+				<p class="introduction"><?php _e( 'Embed activities into your WordPress posts or pages.', 'profiles' ); ?>  </p>
+				<p><?php _e( 'Copy the permalink URL of the activity of your choice, paste it into the content editor of your WordPress post or page, and <em>voilà</em>&#33;, you&#39;ve embedded an activity update.', 'profiles' ); ?> <a href="http://wordpress.tv/2016/06/15/profiles-2-6-introducing-profiles-activity-embeds/"><?php esc_html_e( 'View the Activity Embeds demo', 'profiles' ); ?></a></p>
 
 				<div class="clear"></div>
 			</div>
@@ -585,60 +585,60 @@ class BP_Admin {
 			<hr />
 
 			<div class="bp-features-section">
-				<h3 class="headline-title"><?php esc_html_e( 'Features', 'buddypress' ); ?></h3>
+				<h3 class="headline-title"><?php esc_html_e( 'Features', 'profiles' ); ?></h3>
 
 				<div class="bp-feature">
-					<h4 class="feature-title"><?php esc_html_e( 'Custom Front Page for Member Profile ', 'buddypress' ); ?></h4>
-					<img src="<?php echo esc_url( buddypress()->plugin_url . 'bp-core/admin/images/user-frontpage.png' ); ?>" alt="<?php esc_attr_e( 'A member custom front page using widgets.', 'buddypress' ); ?>">
-					<p><?php _e( 'Theme developers or site owners can create custom front pages for their community&#39;s members by adding a <code>front.php</code> template to their template overrides. A specific template hierarchy is also available to make them even more unique.', 'buddypress' ); ?> <a href="https://bpdevel.wordpress.com/2016/05/24/custom-front-pages-for-your-users-profiles/"><?php esc_html_e( 'Read all about this new feature.', 'buddypress' ); ?></a></p>
+					<h4 class="feature-title"><?php esc_html_e( 'Custom Front Page for Member Profile ', 'profiles' ); ?></h4>
+					<img src="<?php echo esc_url( profiles()->plugin_url . 'bp-core/admin/images/user-frontpage.png' ); ?>" alt="<?php esc_attr_e( 'A member custom front page using widgets.', 'profiles' ); ?>">
+					<p><?php _e( 'Theme developers or site owners can create custom front pages for their community&#39;s members by adding a <code>front.php</code> template to their template overrides. A specific template hierarchy is also available to make them even more unique.', 'profiles' ); ?> <a href="https://bpdevel.wordpress.com/2016/05/24/custom-front-pages-for-your-users-profiles/"><?php esc_html_e( 'Read all about this new feature.', 'profiles' ); ?></a></p>
 				</div>
 
 				<div class="bp-feature opposite">
-					<h4 class="feature-title"><?php esc_html_e( 'Group Types API', 'buddypress' ); ?></h4>
-					<img src="<?php echo esc_url( buddypress()->plugin_url . 'bp-core/admin/images/group-type-pop.png' ); ?>" alt="<?php esc_attr_e( 'Group types metabox in Groups admin page.', 'buddypress' ); ?>">
-					<p><?php esc_html_e( 'Registering group types finally enables a strict separation of different and explicit types of groups. This new feature is available to plugin developers starting with Profiles 2.6.', 'buddypress' ); ?> <a href="https://codex.buddypress.org/developer/group-types/"><?php esc_html_e( 'Learn how to set up Group Types.', 'buddypress' ); ?></a></p>
+					<h4 class="feature-title"><?php esc_html_e( 'Group Types API', 'profiles' ); ?></h4>
+					<img src="<?php echo esc_url( profiles()->plugin_url . 'bp-core/admin/images/group-type-pop.png' ); ?>" alt="<?php esc_attr_e( 'Group types metabox in Groups admin page.', 'profiles' ); ?>">
+					<p><?php esc_html_e( 'Registering group types finally enables a strict separation of different and explicit types of groups. This new feature is available to plugin developers starting with Profiles 2.6.', 'profiles' ); ?> <a href="https://codex.profiles.org/developer/group-types/"><?php esc_html_e( 'Learn how to set up Group Types.', 'profiles' ); ?></a></p>
 				</div>
 
 				<div class="bp-feature">
-					<h4 class="feature-title"><?php esc_html_e( 'New Navigation API', 'buddypress' ); ?></h4>
-					<img src="<?php echo esc_url( buddypress()->plugin_url . 'bp-core/admin/images/new-nav-api.png' ); ?>" alt="<?php esc_attr_e( 'Sample code for using the new navigation API', 'buddypress' ); ?>">
-					<p><?php esc_html_e( 'The member and group navigation system has been totally rewritten, making it easier than ever to customize Profiles nav items.', 'buddypress' ); ?> <a href="https://codex.buddypress.org/developer/navigation-api/"><?php esc_html_e( 'Read the informative commit message.', 'buddypress' ); ?></a></p>
+					<h4 class="feature-title"><?php esc_html_e( 'New Navigation API', 'profiles' ); ?></h4>
+					<img src="<?php echo esc_url( profiles()->plugin_url . 'bp-core/admin/images/new-nav-api.png' ); ?>" alt="<?php esc_attr_e( 'Sample code for using the new navigation API', 'profiles' ); ?>">
+					<p><?php esc_html_e( 'The member and group navigation system has been totally rewritten, making it easier than ever to customize Profiles nav items.', 'profiles' ); ?> <a href="https://codex.profiles.org/developer/navigation-api/"><?php esc_html_e( 'Read the informative commit message.', 'profiles' ); ?></a></p>
 				</div>
 
 				<div class="bp-feature opposite">
-					<h4 class="feature-title"><?php esc_html_e( 'Stylesheets for Twenty Eleven and Twenty Ten', 'buddypress' ); ?></h4>
-					<img src="<?php echo esc_url( buddypress()->plugin_url . 'bp-core/admin/images/default-themes.png' ); ?>" alt="<?php esc_attr_e( 'Styled Profiles components in Twenty Eleven and Twenty Ten', 'buddypress' ); ?>">
-					<p><?php esc_html_e( 'Profiles feels right at home now in the classic default themes, Twenty Ten and Twenty Eleven.', 'buddypress' ); ?></p>
+					<h4 class="feature-title"><?php esc_html_e( 'Stylesheets for Twenty Eleven and Twenty Ten', 'profiles' ); ?></h4>
+					<img src="<?php echo esc_url( profiles()->plugin_url . 'bp-core/admin/images/default-themes.png' ); ?>" alt="<?php esc_attr_e( 'Styled Profiles components in Twenty Eleven and Twenty Ten', 'profiles' ); ?>">
+					<p><?php esc_html_e( 'Profiles feels right at home now in the classic default themes, Twenty Ten and Twenty Eleven.', 'profiles' ); ?></p>
 				</div>
 			</div>
 
 			<div class="bp-changelog-section">
-				<h3 class="changelog-title"><?php esc_html_e( 'Under The Hood', 'buddypress' ); ?></h3>
+				<h3 class="changelog-title"><?php esc_html_e( 'Under The Hood', 'profiles' ); ?></h3>
 
 				<div class="bp-changelog col two-col">
 					<div>
-						<h4 class="title"><?php esc_html_e( 'Performance Enhancements', 'buddypress' ); ?></h4>
-						<p><?php esc_html_e( 'Class autoloading reduces the memory needed to run Profiles on your server. Improved caching strategies for group membership statuses mean fewer round trips to your overworked database server.', 'buddypress' ); ?></p>
-						<h4 class="title"><?php esc_html_e( 'Localization Improvements', 'buddypress' ); ?></h4>
-						<p><?php esc_html_e( 'Improved localization strings and comments help translators do their much-appreciated work: making Profiles available in many languages.', 'buddypress' ); ?></p>
+						<h4 class="title"><?php esc_html_e( 'Performance Enhancements', 'profiles' ); ?></h4>
+						<p><?php esc_html_e( 'Class autoloading reduces the memory needed to run Profiles on your server. Improved caching strategies for group membership statuses mean fewer round trips to your overworked database server.', 'profiles' ); ?></p>
+						<h4 class="title"><?php esc_html_e( 'Localization Improvements', 'profiles' ); ?></h4>
+						<p><?php esc_html_e( 'Improved localization strings and comments help translators do their much-appreciated work: making Profiles available in many languages.', 'profiles' ); ?></p>
 					</div>
 
 					<div class="last-feature">
-						<h4 class="title"><?php esc_html_e( 'Notifications Updates', 'buddypress' ); ?></h4>
-						<p><?php esc_html_e( 'Adjustments to the notifications component allow members to receive timely and relevant updates about activity in your community.', 'buddypress' ); ?></p>
-						<h4 class="title"><?php esc_html_e( 'Accessibility Upgrades', 'buddypress' ); ?></h4>
-						<p><?php esc_html_e( 'Continued improvements help make Profiles&#39; back- and front-end screens usable for everyone &#40;and on more devices&#41;.', 'buddypress' ); ?></p>
-						<h4 class="title"><?php esc_html_e( 'Developer Reference', 'buddypress' ); ?></h4>
-						<p><?php esc_html_e( 'Regular updates to inline code documentation make it easier for developers to understand how Profiles works.', 'buddypress' ); ?></p>
+						<h4 class="title"><?php esc_html_e( 'Notifications Updates', 'profiles' ); ?></h4>
+						<p><?php esc_html_e( 'Adjustments to the notifications component allow members to receive timely and relevant updates about activity in your community.', 'profiles' ); ?></p>
+						<h4 class="title"><?php esc_html_e( 'Accessibility Upgrades', 'profiles' ); ?></h4>
+						<p><?php esc_html_e( 'Continued improvements help make Profiles&#39; back- and front-end screens usable for everyone &#40;and on more devices&#41;.', 'profiles' ); ?></p>
+						<h4 class="title"><?php esc_html_e( 'Developer Reference', 'profiles' ); ?></h4>
+						<p><?php esc_html_e( 'Regular updates to inline code documentation make it easier for developers to understand how Profiles works.', 'profiles' ); ?></p>
 					</div>
 				</div>
 
 			</div>
 
 			<div class="bp-assets">
-				<p><?php _ex( 'Learn more:', 'About screen, website links', 'buddypress' ); ?> <a href="https://buddypress.org/blog/"><?php _ex( 'News', 'About screen, link to project blog', 'buddypress' ); ?></a> &bullet; <a href="https://buddypress.org/support/"><?php _ex( 'Support', 'About screen, link to support site', 'buddypress' ); ?></a> &bullet; <a href="https://codex.buddypress.org/"><?php _ex( 'Documentation', 'About screen, link to documentation', 'buddypress' ); ?></a> &bullet; <a href="https://bpdevel.wordpress.com/"><?php _ex( 'Development Blog', 'About screen, link to development blog', 'buddypress' ); ?></a></p>
+				<p><?php _ex( 'Learn more:', 'About screen, website links', 'profiles' ); ?> <a href="https://profiles.org/blog/"><?php _ex( 'News', 'About screen, link to project blog', 'profiles' ); ?></a> &bullet; <a href="https://profiles.org/support/"><?php _ex( 'Support', 'About screen, link to support site', 'profiles' ); ?></a> &bullet; <a href="https://codex.profiles.org/"><?php _ex( 'Documentation', 'About screen, link to documentation', 'profiles' ); ?></a> &bullet; <a href="https://bpdevel.wordpress.com/"><?php _ex( 'Development Blog', 'About screen, link to development blog', 'profiles' ); ?></a></p>
 
-				<p><?php _ex( 'Twitter:', 'official Twitter accounts:', 'buddypress' ); ?> <a href="https://twitter.com/buddypress/"><?php _ex( 'Profiles', '@buddypress twitter account name', 'buddypress' ); ?></a> &bullet; <a href="https://twitter.com/bptrac/"><?php _ex( 'Trac', '@bptrac twitter account name', 'buddypress' ); ?></a> &bullet; <a href="https://twitter.com/buddypressdev/"><?php _ex( 'Development', '@buddypressdev twitter account name', 'buddypress' ); ?></a></p>
+				<p><?php _ex( 'Twitter:', 'official Twitter accounts:', 'profiles' ); ?> <a href="https://twitter.com/profiles/"><?php _ex( 'Profiles', '@profiles twitter account name', 'profiles' ); ?></a> &bullet; <a href="https://twitter.com/bptrac/"><?php _ex( 'Trac', '@bptrac twitter account name', 'profiles' ); ?></a> &bullet; <a href="https://twitter.com/profilesdev/"><?php _ex( 'Development', '@profilesdev twitter account name', 'profiles' ); ?></a></p>
 			</div>
 
 		</div>
@@ -663,62 +663,62 @@ class BP_Admin {
 
 			<?php self::tab_navigation( __METHOD__ ); ?>
 
-			<p class="about-description"><?php _e( 'Profiles is created by a worldwide network of friendly folks like these.', 'buddypress' ); ?></p>
+			<p class="about-description"><?php _e( 'Profiles is created by a worldwide network of friendly folks like these.', 'profiles' ); ?></p>
 
-			<h3 class="wp-people-group"><?php _e( 'Project Leaders', 'buddypress' ); ?></h3>
+			<h3 class="wp-people-group"><?php _e( 'Project Leaders', 'profiles' ); ?></h3>
 			<ul class="wp-people-group " id="wp-people-group-project-leaders">
 				<li class="wp-person" id="wp-person-johnjamesjacoby">
 					<a class="web" href="https://profiles.wordpress.org/johnjamesjacoby"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/81ec16063d89b162d55efe72165c105f?s=60">
 					John James Jacoby</a>
-					<span class="title"><?php _e( 'Project Lead', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Project Lead', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-boonebgorges">
 					<a class="web" href="https://profiles.wordpress.org/boonebgorges"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/9cf7c4541a582729a5fc7ae484786c0c?s=60">
 					Boone B. Gorges</a>
-					<span class="title"><?php _e( 'Lead Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Lead Developer', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-djpaul">
 					<a class="web" href="https://profiles.wordpress.org/djpaul"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/3bc9ab796299d67ce83dceb9554f75df?s=60">
 					Paul Gibbs</a>
-					<span class="title"><?php _e( 'Lead Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Lead Developer', 'profiles' ); ?></span>
 				</li>
 			</ul>
 
-			<h3 class="wp-people-group"><?php _e( 'Core Team', 'buddypress' ); ?></h3>
+			<h3 class="wp-people-group"><?php _e( 'Core Team', 'profiles' ); ?></h3>
 			<ul class="wp-people-group " id="wp-people-group-core-team">
 				<li class="wp-person" id="wp-person-r-a-y">
 					<a class="web" href="https://profiles.wordpress.org/r-a-y"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/3bfa556a62b5bfac1012b6ba5f42ebfa?s=60">
 					Ray</a>
-					<span class="title"><?php _e( 'Core Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Core Developer', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-imath">
 					<a class="web" href="https://profiles.wordpress.org/imath"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/8b208ca408dad63888253ee1800d6a03?s=60">
 					Mathieu Viet</a>
-					<span class="title"><?php _e( 'Core Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Core Developer', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-mercime">
 					<a class="web" href="https://profiles.wordpress.org/mercime"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/fae451be6708241627983570a1a1817a?s=60">
 					Mercime</a>
-					<span class="title"><?php _e( 'Navigator', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Navigator', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-dcavins">
 					<a class="web" href="https://profiles.wordpress.org/dcavins"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/a5fa7e83d59cb45ebb616235a176595a?s=60">
 					David Cavins</a>
-					<span class="title"><?php _e( 'Core Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Core Developer', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-tw2113">
 					<a class="web" href="https://profiles.wordpress.org/tw2113"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/a5d7c934621fa1c025b83ee79bc62366?s=60">
 					Michael Beckwith</a>
-					<span class="title"><?php _e( 'Core Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Core Developer', 'profiles' ); ?></span>
 				</li>
 				<li class="wp-person" id="wp-person-hnla">
 					<a class="web" href="https://profiles.wordpress.org/hnla"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/3860c955aa3f79f13b92826ae47d07fe?s=60">
 					Hugo</a>
-					<span class="title"><?php _e( 'Core Developer', 'buddypress' ); ?></span>
+					<span class="title"><?php _e( 'Core Developer', 'profiles' ); ?></span>
 				</li>
 			</ul>
 
-			<h3 class="wp-people-group"><?php _e( '&#x1f31f;Recent Rockstars&#x1f31f;', 'buddypress' ); ?></h3>
+			<h3 class="wp-people-group"><?php _e( '&#x1f31f;Recent Rockstars&#x1f31f;', 'profiles' ); ?></h3>
 			<ul class="wp-people-group " id="wp-people-group-rockstars">
 				<li class="wp-person" id="wp-person-henry-wright">
 					<a class="web" href="https://profiles.wordpress.org/henry.wright"><img alt="" class="gravatar" src="//www.gravatar.com/avatar/0da2f1a9340d6af196b870f6c107a248?s=60">
@@ -759,7 +759,7 @@ class BP_Admin {
 
 			</ul>
 
-			<h3 class="wp-people-group"><?php printf( esc_html__( 'Contributors to Profiles %s', 'buddypress' ), self::display_version() ); ?></h3>
+			<h3 class="wp-people-group"><?php printf( esc_html__( 'Contributors to Profiles %s', 'profiles' ), self::display_version() ); ?></h3>
 			<p class="wp-credits-list">
 				<a href="https://profiles.wordpress.org/abweb/">abweb</a>,
 				<a href="https://profiles.wordpress.org/boonebgorges/">Boone B Gorges (boonebgorges)</a>,
@@ -805,7 +805,7 @@ class BP_Admin {
 				<a href="https://profiles.wordpress.org/w3dzign/">w3dzign</a>.
 			</p>
 
-			<h3 class="wp-people-group"><?php _e( '&#x1f496;With our thanks to these Open Source projects&#x1f496;', 'buddypress' ); ?></h3>
+			<h3 class="wp-people-group"><?php _e( '&#x1f496;With our thanks to these Open Source projects&#x1f496;', 'profiles' ); ?></h3>
 			<p class="wp-credits-list">
 				<a href="https://github.com/ichord/At.js">At.js</a>,
 				<a href="https://bbpress.org">bbPress</a>,
@@ -831,12 +831,12 @@ class BP_Admin {
 
 		// Switch welcome text based on whether this is a new installation or not.
 		$welcome_text = ( self::is_new_install() )
-			? __( 'Thank you for installing Profiles! Profiles helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.', 'buddypress' )
-			: __( 'Thank you for updating! Profiles %s has many new features that you will enjoy.', 'buddypress' );
+			? __( 'Thank you for installing Profiles! Profiles helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.', 'profiles' )
+			: __( 'Thank you for updating! Profiles %s has many new features that you will enjoy.', 'profiles' );
 
 		?>
 
-		<h1><?php printf( esc_html__( 'Welcome to Profiles %s', 'buddypress' ), self::display_version() ); ?></h1>
+		<h1><?php printf( esc_html__( 'Welcome to Profiles %s', 'profiles' ), self::display_version() ); ?></h1>
 
 		<div class="about-text">
 			<?php
@@ -865,9 +865,9 @@ class BP_Admin {
 
 		<h2 class="nav-tab-wrapper">
 			<a class="nav-tab <?php if ( 'BP_Admin::about_screen' === $tab ) : ?>nav-tab-active<?php endif; ?>" href="<?php echo esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-about' ), 'index.php' ) ) ); ?>">
-				<?php esc_html_e( 'What&#8217;s New', 'buddypress' ); ?>
+				<?php esc_html_e( 'What&#8217;s New', 'profiles' ); ?>
 			</a><a class="nav-tab <?php if ( 'BP_Admin::credits_screen' === $tab ) : ?>nav-tab-active<?php endif; ?>" href="<?php echo esc_url( bp_get_admin_url( add_query_arg( array( 'page' => 'bp-credits' ), 'index.php' ) ) ); ?>">
-				<?php esc_html_e( 'Credits', 'buddypress' ); ?>
+				<?php esc_html_e( 'Credits', 'profiles' ); ?>
 			</a>
 		</h2>
 
@@ -886,7 +886,7 @@ class BP_Admin {
 	 */
 	public function emails_register_situation_column( $columns = array() ) {
 		$situation = array(
-			'situation' => _x( 'Situations', 'Email post type', 'buddypress' )
+			'situation' => _x( 'Situations', 'Email post type', 'profiles' )
 		);
 
 		// Inject our 'Situations' column just before the last 'Date' column.

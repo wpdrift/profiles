@@ -159,17 +159,17 @@ $link-action:        #c82b2b;
 This is the Profiles companion stylesheet for
 the WordPress Twentythirteen theme.
 
-This sheet supports the primary Profiles styles in buddypress.css
+This sheet supports the primary Profiles styles in profiles.css
 
 If you are running as a child theme of twentyfifteen this stylesheet will be
 loaded by default. If you want to modify the styles the normal BP Theme Compat
-hierarchy works and you can copy the file to buddypress/css/ or community/css/
+hierarchy works and you can copy the file to profiles/css/ or community/css/
 in your child themes root & either start over or modify the rulesets.
 
 If you do not require the styles you can dequeue them from the themes functions file.
 
 Please see this codex article for more information:
-http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
+http://codex.profiles.org/themes/profiles-companion-stylesheets/
 
 ----------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -219,7 +219,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // As BP screens have specific content lets adjust the themes primary elements
 // to maximise the screen real estate for BP pages.
 
-.buddypress {
+.profiles {
 	div.clear {display: none;}
 
 	// re-factor main themes primary elements widths for BP screens
@@ -238,7 +238,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		max-width: 890px;
 	}
 
-} // .buddypress (body class)
+} // .profiles (body class)
 
 /**
 *-------------------------------------------------------------------------------
@@ -259,7 +259,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // We have a need to override BP specifity
 // so some rulesets sets will appear over weighted in selectors
 
-#buddypress {
+#profiles {
 
 	// Global Nav Styles
 	div.item-list-tabs {
@@ -281,7 +281,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // .bp-user #object-nav @ small screen as a dropdown
 
 .bp-user {
-	#buddypress {
+	#profiles {
 		@media screen and (max-width: 38.75em) {
 
 			#object-nav {
@@ -324,7 +324,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 }
 /*__ Horizontal menus & small screen __*/
 
-#buddypress {
+#profiles {
 
 	#object-nav {
 
@@ -414,7 +414,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 
 /*__ Vertical menu User Account / Group single screens __*/
 
@@ -426,7 +426,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 @media screen and (min-width: 55em) {
 
 	body:not(.sidebar) {
-		#buddypress {
+		#profiles {
 
 			#item-header,
 			#item-body {
@@ -471,7 +471,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 				}
 			}
 
-		} // close  #buddypress
+		} // close  #profiles
 	} // close body:not(.sidebar)
 } // close @media
 
@@ -481,7 +481,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 @media screen and (min-width: 46.25em) {
 	#main {
-		#buddypress {
+		#profiles {
 
 			#group-create-tabs.item-list-tabs {
 
@@ -530,7 +530,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 				}
 
 			} // close #subnav
-		} // close #buddypress
+		} // close #profiles
 	}
 } // close @media
 
@@ -540,7 +540,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 *----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	div.pagination {
 		box-shadow: none;
 		.pag-count {margin-left: 0;}
@@ -574,7 +574,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 			}
 		} // close .pagination-links
 	} // close .pagination
-} // close #buddypress
+} // close #profiles
 
 /**
 *-------------------------------------------------------------------------------
@@ -583,7 +583,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 */
 
 // Adjusts Meta items and various elements to match 2013 font-family
-#buddypress {
+#profiles {
 	.item-list {
 		.activity-header,
 		.activity-meta {
@@ -592,7 +592,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 	}
 }
 
-#buddypress {
+#profiles {
 	.activity-meta {
 		.button {
 			&:focus,
@@ -614,7 +614,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 			}
 		}
 	}
-} // close #buddypress
+} // close #profiles
 
 // Trying to position the action div absolute has bad consequences where
 // aditional items are displayed, floating is an alternative that
@@ -624,7 +624,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // * Adjusts display of action buttons at small screen mobile up.
 // Adjusts Meta items to match 2013 font-family
 
-#buddypress {
+#profiles {
 	ul.item-list {
 		li {
 			overflow: hidden !important;
@@ -772,7 +772,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 		} // close li
 	} // close .item-list
-} // close #buddypress
+} // close #profiles
 
 /**
 *----------------------------------------------------------
@@ -786,7 +786,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 *-----------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	form#whats-new-form {
 
 		// Line-height issue inherited from BP rules, override.
@@ -845,7 +845,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 			margin: $spacing-val-lg 0;
 		}
 	}
-} // close #buddypress
+} // close #profiles
 
 /**
 *-----------------------------------------------------
@@ -853,7 +853,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 *-----------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 
 	#activity-stream {
 
@@ -980,12 +980,12 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 
 	} // close #activity-stream
-} // close #buddypress
+} // close #profiles
 
 /* Single activity view  - activity permalink */
 
 .activity-permalink {
-	#buddypress {
+	#profiles {
 		#activity-stream {
 
 			li.activity-item {
@@ -1012,7 +1012,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 * @section 4.1.3 - Activity Comments
 *-----------------------------------------------------
 */
-#buddypress {
+#profiles {
 
 	#activity-stream {
 		.activity-comments {
@@ -1054,7 +1054,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		} // close .activity-comments
 	} // close .activity
 
-} // close #buddypress
+} // close #profiles
 
 /**
 *----------------------------------------------------------
@@ -1062,7 +1062,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 *----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	#members-list {
 
 		@media screen and (min-width: 59.6875em) {
@@ -1093,7 +1093,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 *-----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	#signup_form.standard-form {
 
 		#profile-details-section,
@@ -1146,7 +1146,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 	}
 
-	#buddypress {
+	#profiles {
 		#item-header-content {
 			#item-meta {
 				@include font-size(14);
@@ -1172,7 +1172,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 	}
 
-	#buddypress {
+	#profiles {
 		@media screen and (max-width: 46.25em) {
 			#item-header {
 				.generic-button {
@@ -1209,7 +1209,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 */
 
 .single-item.groups {
-	#buddypress {
+	#profiles {
 		@media screen and (max-width: 46.25em) {
 			#item-header {
 				#item-meta {
@@ -1351,7 +1351,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 			}
 
 		} // close #item-header
-	} // close #buddypress
+	} // close #profiles
 } // close .groups
 
 /**
@@ -1364,7 +1364,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 		#item-header {
 			padding: $spacing-val-md 0;
 
@@ -1431,7 +1431,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 			}
 		}
 
-	} // close #buddypress
+	} // close #profiles
 } // close .bp-user
 
 /**
@@ -1592,7 +1592,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 * @subsection 6.2.1.3 - Group send Invites
 *-----------------------------------------
 */
-#buddypress {
+#profiles {
 
 	div.invite {
 		.left-menu {
@@ -1650,7 +1650,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		table {
 			th {@include font-size(14)}
@@ -1700,7 +1700,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 			}
 
 		} // close .notifications-options-nav
-	} // close #buddypress
+	} // close #profiles
 } // close .bp-user
 
 /**
@@ -1711,7 +1711,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		.profile {
 			.bp-widget {
@@ -1790,7 +1790,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		#groups-list {
 			li {
@@ -1813,7 +1813,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		#message-thread {
 			//Single message view
@@ -2044,7 +2044,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 				}
 			}
 		}
-	} // close #buddypress
+	} // close #profiles
 
 	// acfb auto complete name list sits in doc footer before body close
 	.ac_results {
@@ -2077,7 +2077,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		#settings-form {
 			padding: 0 $spacing-val-sm;
@@ -2131,7 +2131,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 */
 // Attempt to reset form control widths
 #main {
-	#buddypress {
+	#profiles {
 		.standard-form {
 
 			li {float: none;}
@@ -2146,7 +2146,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 }
 
 
-#buddypress {
+#profiles {
 
 	// Match BP form elements to Themes(2013) styling where styles
 	// are not inherited or being overriden.
@@ -2188,9 +2188,9 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 
-#buddypress {
+#profiles {
 	div.dir-search,
 	div.message-search,
 	li.groups-members-search {
@@ -2279,7 +2279,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 
 /**
 *-------------------------------------------------------------------------------
@@ -2292,7 +2292,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // a more general typography section to manage BP elements grouped under
 // breakpoints. Provide top/bottom margins for tables, lacking in BP styles
 
-#buddypress {
+#profiles {
 
 	table {
 		@include font-size(14);
@@ -2321,7 +2321,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 /*__ User Account tables __*/
 
-#buddypress {
+#profiles {
 
 	// Manage some table cells widths that are disproportionate to their content
 	.notifications,
@@ -2363,7 +2363,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 
 	} // .notifications, .message-notices
-} // #buddypress
+} // #profiles
 
 /**
 *-------------------------------------------------------------------------------
@@ -2375,7 +2375,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // Leave text-color undefined to automagically set text color
 // to background color darker by 50%
 
-#buddypress {
+#profiles {
 	div#message {
 		p {
 			@include font-size(18);
@@ -2396,13 +2396,13 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 	} // close #message
 
-} // close  #buddypress
+} // close  #profiles
 
 // Without direct classes on our mesages ( 'warning' )
 // we need to use the body classes
 // todo: If this is class .warning is included in main BP styles remove from here
 .delete-group {
-	#buddypress {
+	#profiles {
 		div#message.info {
 			p {
 				@include message-box($notice-warning);

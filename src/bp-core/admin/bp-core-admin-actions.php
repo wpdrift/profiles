@@ -75,7 +75,7 @@ add_action( 'bp_admin_menu', 'bp_admin_separator' );
 function bp_new_site( $blog_id, $user_id, $domain, $path, $site_id, $meta ) {
 
 	// Bail if plugin is not network activated.
-	if ( ! is_plugin_active_for_network( buddypress()->basename ) )
+	if ( ! is_plugin_active_for_network( profiles()->basename ) )
 		return;
 
 	// Switch to the new blog.

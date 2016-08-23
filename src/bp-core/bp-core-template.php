@@ -32,7 +32,7 @@ defined( 'ABSPATH' ) || exit;
  * @return string
  */
 function bp_get_options_nav( $parent_slug = '' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// If we are looking at a member profile, then the we can use the current
 	// component as an index. Otherwise we need to use the component's root_slug.
@@ -114,10 +114,10 @@ function bp_get_options_nav( $parent_slug = '' ) {
  * @todo Deprecate.
  */
 function bp_get_options_title() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( empty( $bp->bp_options_title ) ) {
-		$bp->bp_options_title = __( 'Options', 'buddypress' );
+		$bp->bp_options_title = __( 'Options', 'profiles' );
 	}
 
 	echo apply_filters( 'bp_get_options_title', esc_attr( $bp->bp_options_title ) );
@@ -138,12 +138,12 @@ function bp_get_directory_title( $component = '' ) {
 	$title = '';
 
 	// Use the string provided by the component.
-	if ( ! empty( buddypress()->{$component}->directory_title ) ) {
-		$title = buddypress()->{$component}->directory_title;
+	if ( ! empty( profiles()->{$component}->directory_title ) ) {
+		$title = profiles()->{$component}->directory_title;
 
 	// If none is found, concatenate.
-	} elseif ( isset( buddypress()->{$component}->name ) ) {
-		$title = sprintf( __( '%s Directory', 'buddypress' ), buddypress()->{$component}->name );
+	} elseif ( isset( profiles()->{$component}->name ) ) {
+		$title = sprintf( __( '%s Directory', 'profiles' ), profiles()->{$component}->name );
 	}
 
 	/**
@@ -170,7 +170,7 @@ function bp_get_directory_title( $component = '' ) {
  * @return bool $value Returns true if an options avatar has been set, otherwise false.
  */
 function bp_has_options_avatar() {
-	return (bool) buddypress()->bp_options_avatar;
+	return (bool) profiles()->bp_options_avatar;
 }
 
 /**
@@ -181,7 +181,7 @@ function bp_has_options_avatar() {
  * @todo Deprecate.
  */
 function bp_get_options_avatar() {
-	echo apply_filters( 'bp_get_options_avatar', buddypress()->bp_options_avatar );
+	echo apply_filters( 'bp_get_options_avatar', profiles()->bp_options_avatar );
 }
 
 /**
@@ -196,7 +196,7 @@ function bp_comment_author_avatar() {
 		echo apply_filters( 'bp_comment_author_avatar', bp_core_fetch_avatar( array(
 			'item_id' => $comment->user_id,
 			'type'    => 'thumb',
-			'alt'     => sprintf( __( 'Profile photo of %s', 'buddypress' ), bp_core_get_user_displayname( $comment->user_id ) )
+			'alt'     => sprintf( __( 'Profile photo of %s', 'profiles' ), bp_core_get_user_displayname( $comment->user_id ) )
 		) ) );
 	} elseif ( function_exists( 'get_avatar' ) ) {
 		get_avatar();
@@ -215,7 +215,7 @@ function bp_post_author_avatar() {
 		echo apply_filters( 'bp_post_author_avatar', bp_core_fetch_avatar( array(
 			'item_id' => $post->post_author,
 			'type'    => 'thumb',
-			'alt'     => sprintf( __( 'Profile photo of %s', 'buddypress' ), bp_core_get_user_displayname( $post->post_author ) )
+			'alt'     => sprintf( __( 'Profile photo of %s', 'profiles' ), bp_core_get_user_displayname( $post->post_author ) )
 		) ) );
 	} elseif ( function_exists( 'get_avatar' ) ) {
 		get_avatar();
@@ -239,7 +239,7 @@ function bp_avatar_admin_step() {
 	 *         if none is found.
 	 */
 	function bp_get_avatar_admin_step() {
-		$bp   = buddypress();
+		$bp   = profiles();
 		$step = isset( $bp->avatar_admin->step )
 			? $step = $bp->avatar_admin->step
 			: 'upload-image';
@@ -270,7 +270,7 @@ function bp_avatar_to_crop() {
 	 * @return string URL of the avatar awaiting cropping.
 	 */
 	function bp_get_avatar_to_crop() {
-		$bp  = buddypress();
+		$bp  = profiles();
 		$url = isset( $bp->avatar_admin->image->url )
 			? $bp->avatar_admin->image->url
 			: '';
@@ -301,7 +301,7 @@ function bp_avatar_to_crop_src() {
 	 * @return string Relative file path to the avatar.
 	 */
 	function bp_get_avatar_to_crop_src() {
-		$bp  = buddypress();
+		$bp  = profiles();
 		$src = isset( $bp->avatar_admin->image->dir )
 			? str_replace( WP_CONTENT_DIR, '', $bp->avatar_admin->image->dir )
 			: '';
@@ -325,7 +325,7 @@ function bp_avatar_to_crop_src() {
  */
 function bp_avatar_cropper() {
 ?>
-	<img id="avatar-to-crop" class="avatar" src="<?php echo esc_url( buddypress()->avatar_admin->image ); ?>" />
+	<img id="avatar-to-crop" class="avatar" src="<?php echo esc_url( profiles()->avatar_admin->image ); ?>" />
 <?php
 }
 
@@ -423,7 +423,7 @@ function bp_format_time( $time = '', $exclude_time = false, $gmt = true ) {
 		$formatted_time = date_i18n( bp_get_option( 'time_format' ), $calculated_time, $gmt );
 
 		// Return string formatted with date and time.
-		$formatted_date = sprintf( esc_html__( '%1$s at %2$s', 'buddypress' ), $formatted_date, $formatted_time );
+		$formatted_date = sprintf( esc_html__( '%1$s at %2$s', 'profiles' ), $formatted_date, $formatted_time );
 	}
 
 	/**
@@ -539,25 +539,25 @@ function bp_search_form_type_select() {
 	$options = array();
 
 	if ( bp_is_active( 'xprofile' ) ) {
-		$options['members'] = _x( 'Members', 'search form', 'buddypress' );
+		$options['members'] = _x( 'Members', 'search form', 'profiles' );
 	}
 
 	if ( bp_is_active( 'groups' ) ) {
-		$options['groups']  = _x( 'Groups', 'search form', 'buddypress' );
+		$options['groups']  = _x( 'Groups', 'search form', 'profiles' );
 	}
 
 	if ( bp_is_active( 'blogs' ) && is_multisite() ) {
-		$options['blogs']   = _x( 'Blogs', 'search form', 'buddypress' );
+		$options['blogs']   = _x( 'Blogs', 'search form', 'profiles' );
 	}
 
 	if ( bp_is_active( 'forums' ) && bp_forums_is_installed_correctly() && bp_forums_has_directory() ) {
-		$options['forums']  = _x( 'Forums', 'search form', 'buddypress' );
+		$options['forums']  = _x( 'Forums', 'search form', 'profiles' );
 	}
 
-	$options['posts'] = _x( 'Posts', 'search form', 'buddypress' );
+	$options['posts'] = _x( 'Posts', 'search form', 'profiles' );
 
 	// Eventually this won't be needed and a page will be built to integrate all search results.
-	$selection_box  = '<label for="search-which" class="accessibly-hidden">' . _x( 'Search these:', 'search form', 'buddypress' ) . '</label>';
+	$selection_box  = '<label for="search-which" class="accessibly-hidden">' . _x( 'Search these:', 'search form', 'profiles' ) . '</label>';
 	$selection_box .= '<select name="search-which" id="search-which" style="width: auto">';
 
 	/**
@@ -606,13 +606,13 @@ function bp_search_default_text( $component = '' ) {
 	 */
 	function bp_get_search_default_text( $component = '' ) {
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( empty( $component ) ) {
 			$component = bp_current_component();
 		}
 
-		$default_text = __( 'Search anything...', 'buddypress' );
+		$default_text = __( 'Search anything...', 'profiles' );
 
 		// Most of the time, $component will be the actual component ID.
 		if ( !empty( $component ) ) {
@@ -812,7 +812,7 @@ function bp_create_excerpt( $text, $length = 225, $options = array() ) {
 	$filter_shortcodes_default = is_bool( $options ) ? $options : true;
 
 	$r = bp_parse_args( $options, array(
-		'ending'            => __( ' [&hellip;]', 'buddypress' ),
+		'ending'            => __( ' [&hellip;]', 'profiles' ),
 		'exact'             => false,
 		'html'              => true,
 		'filter_shortcodes' => $filter_shortcodes_default,
@@ -1089,7 +1089,7 @@ function bp_blog_signup_allowed() {
  *              otherwise false.
  */
 function bp_account_was_activated() {
-	$bp                  = buddypress();
+	$bp                  = profiles();
 	$activation_complete = !empty( $bp->activation_complete )
 		? $bp->activation_complete
 		: false;
@@ -1129,7 +1129,7 @@ function bp_registration_needs_activation() {
  * @since 1.7.0
  * @since 2.5.0 No longer used by Profiles, but not deprecated in case any existing plugins use it.
  *
- * @see https://buddypress.trac.wordpress.org/ticket/4401
+ * @see https://profiles.trac.wordpress.org/ticket/4401
  *
  * @param array $args {
  *     Array of optional parameters.
@@ -1149,7 +1149,7 @@ function bp_get_email_subject( $args = array() ) {
 	$r = bp_parse_args( $args, array(
 		'before'  => '[',
 		'after'   => ']',
-		'default' => __( 'Community', 'buddypress' ),
+		'default' => __( 'Community', 'profiles' ),
 		'text'    => ''
 	), 'get_email_subject' );
 
@@ -1182,7 +1182,7 @@ function bp_get_email_subject( $args = array() ) {
  * @return string The AJAX querystring.
  */
 function bp_ajax_querystring( $object = false ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( ! isset( $bp->ajax_querystring ) ) {
 		$bp->ajax_querystring = '';
@@ -1211,7 +1211,7 @@ function bp_ajax_querystring( $object = false ) {
  * @return string Component name.
  */
 function bp_current_component() {
-	$bp                = buddypress();
+	$bp                = profiles();
 	$current_component = !empty( $bp->current_component )
 		? $bp->current_component
 		: false;
@@ -1234,7 +1234,7 @@ function bp_current_component() {
  * @return string Action name.
  */
 function bp_current_action() {
-	$bp             = buddypress();
+	$bp             = profiles();
 	$current_action = !empty( $bp->current_action )
 		? $bp->current_action
 		: '';
@@ -1257,7 +1257,7 @@ function bp_current_action() {
  * @return string|bool
  */
 function bp_current_item() {
-	$bp           = buddypress();
+	$bp           = profiles();
 	$current_item = !empty( $bp->current_item )
 		? $bp->current_item
 		: false;
@@ -1281,7 +1281,7 @@ function bp_current_item() {
  *                                      if the array is empty.
  */
 function bp_action_variables() {
-	$bp               = buddypress();
+	$bp               = profiles();
 	$action_variables = !empty( $bp->action_variables )
 		? $bp->action_variables
 		: false;
@@ -1338,7 +1338,7 @@ function bp_root_domain() {
 	 * @return string URL of the BP root blog.
 	 */
 	function bp_get_root_domain() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( ! empty( $bp->root_domain ) ) {
 			$domain = $bp->root_domain;
@@ -1398,7 +1398,7 @@ function bp_root_slug( $component = '' ) {
 	 * @return string $root_slug The root slug.
 	 */
 	function bp_get_root_slug( $component = '' ) {
-		$bp        = buddypress();
+		$bp        = profiles();
 		$root_slug = '';
 
 		// Use current global component if none passed.
@@ -1446,7 +1446,7 @@ function bp_root_slug( $component = '' ) {
  * @return mixed False if none found, component name if found.
  */
 function bp_get_name_from_root_slug( $root_slug = '' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// If no slug is passed, look at current_component.
 	if ( empty( $root_slug ) ) {
@@ -1524,7 +1524,7 @@ function bp_search_slug() {
  * @return int $id ID of the currently displayed user.
  */
 function bp_displayed_user_id() {
-	$bp = buddypress();
+	$bp = profiles();
 	$id = !empty( $bp->displayed_user->id )
 		? $bp->displayed_user->id
 		: 0;
@@ -1547,7 +1547,7 @@ function bp_displayed_user_id() {
  * @return int ID of the logged-in user.
  */
 function bp_loggedin_user_id() {
-	$bp = buddypress();
+	$bp = profiles();
 	$id = !empty( $bp->loggedin_user->id )
 		? $bp->loggedin_user->id
 		: 0;
@@ -1593,7 +1593,7 @@ function bp_is_current_component( $component = '' ) {
 		$component = 'profile';
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Only check if Profiles found a current_component.
 	if ( ! empty( $bp->current_component ) ) {
@@ -1749,7 +1749,7 @@ function bp_is_current_item( $item = '' ) {
  * @return bool True if looking at a single item, otherwise false.
  */
 function bp_is_single_item() {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$retval = false;
 
 	if ( isset( $bp->is_single_item ) ) {
@@ -1775,7 +1775,7 @@ function bp_is_single_item() {
  *              otherwise false.
  */
 function bp_is_item_admin() {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$retval = false;
 
 	if ( isset( $bp->is_item_admin ) ) {
@@ -1801,7 +1801,7 @@ function bp_is_item_admin() {
  *              otherwise false.
  */
 function bp_is_item_mod() {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$retval = false;
 
 	if ( isset( $bp->is_item_mod ) ) {
@@ -1826,7 +1826,7 @@ function bp_is_item_mod() {
  * @return bool True if the current page is a component directory, otherwise false.
  */
 function bp_is_directory() {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$retval = false;
 
 	if ( isset( $bp->is_directory ) ) {
@@ -1859,7 +1859,7 @@ function bp_is_directory() {
  * @return bool True if root component, else false.
  */
 function bp_is_root_component( $component_name = '' ) {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$retval = false;
 
 	// Default to the current component if none is passed.
@@ -1904,7 +1904,7 @@ function bp_is_root_component( $component_name = '' ) {
 function bp_is_component_front_page( $component = '' ) {
 	global $current_blog;
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Default to the current component if none is passed.
 	if ( empty( $component ) ) {
@@ -1980,7 +1980,7 @@ function bp_is_blog_page() {
  *
  * @return bool True if it's a Profiles page, false otherwise.
  */
-function is_buddypress() {
+function is_profiles() {
 	$retval = (bool) ( bp_current_component() || bp_is_user() );
 
 	/**
@@ -1990,7 +1990,7 @@ function is_buddypress() {
 	 *
 	 * @param bool $retval Whether or not this is a Profiles component.
 	 */
-	return apply_filters( 'is_buddypress', $retval );
+	return apply_filters( 'is_profiles', $retval );
 }
 
 /** Components ****************************************************************/
@@ -2014,7 +2014,7 @@ function bp_is_active( $component = '', $feature = '' ) {
 	}
 
 	// Is component in either the active or required components arrays.
-	if ( isset( buddypress()->active_components[ $component ] ) || isset( buddypress()->required_components[ $component ] ) ) {
+	if ( isset( profiles()->active_components[ $component ] ) || isset( profiles()->required_components[ $component ] ) ) {
 		$retval = true;
 
 		// Is feature active?
@@ -2024,7 +2024,7 @@ function bp_is_active( $component = '', $feature = '' ) {
 				$component = 'profile';
 			}
 
-			if ( empty( buddypress()->$component->features ) || false === in_array( $feature, buddypress()->$component->features, true ) ) {
+			if ( empty( profiles()->$component->features ) || false === in_array( $feature, profiles()->$component->features, true ) ) {
 				$retval = false;
 			}
 
@@ -2810,7 +2810,7 @@ function bp_is_group_single() {
  * @return bool True if the current group page is a custom front.
  */
 function bp_is_group_custom_front() {
-	$bp = buddypress();
+	$bp = profiles();
 	return (bool) bp_is_group_home() && ! empty( $bp->groups->current_group->front_template );
 }
 
@@ -2972,7 +2972,7 @@ function bp_is_register_page() {
  * @return array the title parts
  */
 function bp_get_title_parts( $seplocation = 'right' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Defaults to an empty array.
 	$bp_title_parts = array();
@@ -2993,7 +2993,7 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 	}
 
 	// Return the empty array if not a Profiles page.
-	if ( ! is_buddypress() ) {
+	if ( ! is_profiles() ) {
 		return $bp_title_parts;
 	}
 
@@ -3085,7 +3085,7 @@ function bp_get_title_parts( $seplocation = 'right' ) {
 		$current_component = bp_current_component();
 
 		// No current component (when does this happen?).
-		$bp_title_parts = array( _x( 'Directory', 'component directory title', 'buddypress' ) );
+		$bp_title_parts = array( _x( 'Directory', 'component directory title', 'profiles' ) );
 
 		if ( ! empty( $current_component ) ) {
 			$bp_title_parts = array( bp_get_directory_title( $current_component ) );
@@ -3282,7 +3282,7 @@ function bp_the_body_class() {
 
 		// Add Profiles class if we are within a Profiles page.
 		if ( ! bp_is_blog_page() ) {
-			$bp_classes[] = 'buddypress';
+			$bp_classes[] = 'profiles';
 		}
 
 		// Merge WP classes with Profiles classes and remove any duplicates.
@@ -3314,7 +3314,7 @@ function bp_the_body_class() {
  */
 function bp_get_the_post_class( $wp_classes = array() ) {
 	// Don't do anything if we're not on a BP page.
-	if ( ! is_buddypress() ) {
+	if ( ! is_profiles() ) {
 		return $wp_classes;
 	}
 
@@ -3391,7 +3391,7 @@ function _bp_nav_menu_sort( $a, $b ) {
  * @return array A multidimensional array of all navigation items.
  */
 function bp_get_nav_menu_items( $component = 'members' ) {
-	$bp    = buddypress();
+	$bp    = profiles();
 	$menus = array();
 
 	if ( ! isset( $bp->{$component}->nav ) ) {
@@ -3400,7 +3400,7 @@ function bp_get_nav_menu_items( $component = 'members' ) {
 
 	// Get the item nav and build the menus.
 	foreach ( $bp->{$component}->nav->get_item_nav() as $nav_menu ) {
-		// Get the correct menu link. See https://buddypress.trac.wordpress.org/ticket/4624.
+		// Get the correct menu link. See https://profiles.trac.wordpress.org/ticket/4624.
 		$link = bp_loggedin_user_domain() ? str_replace( bp_loggedin_user_domain(), bp_displayed_user_domain(), $nav_menu->link ) : trailingslashit( bp_displayed_user_domain() . $nav_menu->link );
 
 		// Add this menu.
@@ -3650,5 +3650,5 @@ function bp_email_the_salutation( $settings = array() ) {
 		 * @param array  $settings Email Settings.
 		 * @param string $token    The Recipient token.
 		 */
-		return apply_filters( 'bp_email_get_salutation', sprintf( _x( 'Hi %s,', 'recipient salutation', 'buddypress' ), $token ), $settings, $token );
+		return apply_filters( 'bp_email_get_salutation', sprintf( _x( 'Hi %s,', 'recipient salutation', 'profiles' ), $token ), $settings, $token );
 	}

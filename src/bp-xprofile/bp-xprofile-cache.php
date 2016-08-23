@@ -62,7 +62,7 @@ function bp_xprofile_update_meta_cache( $object_ids = array() ) {
 		return false;
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Define the array where uncached object IDs will be stored.
 	$uncached_object_ids = array(

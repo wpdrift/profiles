@@ -213,17 +213,17 @@ $link-action:        #c82b2b;
 This is the Profiles companion stylesheet for
 the WordPress Twentyeleven theme.
 
-This sheet supports the primary Profiles styles in buddypress.css
+This sheet supports the primary Profiles styles in profiles.css
 
 If you are running as a child theme of twentyeleven this stylesheet will be
 loaded by default. If you want to modify the styles the normal BP Theme Compat
-hierarchy works and you can copy the file to buddypress/css/ or community/css/
+hierarchy works and you can copy the file to profiles/css/ or community/css/
 in your child themes root & either start over or modify the rulesets.
 
 If you do not require the styles you can dequeue them from the themes functions file.
 
 Please see this codex article for more information:
-http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
+http://codex.profiles.org/themes/profiles-companion-stylesheets/
 
 ----------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -271,11 +271,11 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 */
 
 
-.buddypress {
+.profiles {
 	// Remove any empty clearing elements, CSS provides clearing.
 	div.clear {display: none;}
 
-} // .buddypress (body class)
+} // .profiles (body class)
 
 // 2011 page templates do not support sidebars, page entry element kept to a
 // narrow width - we override this to allow bp-user screens to
@@ -284,7 +284,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // Main dir pages: sidebar or not to sidebar
 // If no sidebar lets fatten the contents girth
 // User account single screens never have a sidebar
-body.buddypress:not(.page-template-sidebar-page) {
+body.profiles:not(.page-template-sidebar-page) {
 
 	#content {
 		margin: 0 10% 0;
@@ -298,7 +298,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 }
 
 // Reduce the top padding for single pages, too extreme for BP screens.
-.buddypress.singular.page {
+.profiles.singular.page {
 	.hentry {
 		padding-top: 0;
 	}
@@ -322,7 +322,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 // We have a need to override BP specifity
 // so some rulesets sets will appear over weighted in selectors
 /* Here we start things off */
-#buddypress {
+#profiles {
 
 	// active/current states all navs
 	div.item-list-tabs {
@@ -361,13 +361,13 @@ body.buddypress:not(.page-template-sidebar-page) {
 		}
 	} // close item-list-tabs
 
-} // close #buddypress
+} // close #profiles
 
 // .bp-user #object-nav @ small screen as a dropdown
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		@include max450 {
 
@@ -412,7 +412,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 }
 
 /*__ Horizontal menus __*/
-#buddypress {
+#profiles {
 
 	#object-nav {
 
@@ -497,10 +497,10 @@ body.buddypress:not(.page-template-sidebar-page) {
 		} // close ul
 	} // close #subnav
 
-} // close #buddypress
+} // close #profiles
 
 .bp-user {
-	#buddypress {
+	#profiles {
 		div#subnav.item-list-tabs {
 			li.last {
 				margin-left: 0;
@@ -527,7 +527,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 @include large-up {
 
 	body.bp-user {
-		#buddypress {
+		#profiles {
 
 			#item-header,
 			#item-body {
@@ -576,7 +576,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 				}
 			}
 
-		} // close  #buddypress
+		} // close  #profiles
 	} // close body.bp-user
 } // close @media
 
@@ -586,7 +586,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 @include medium-up {
 	#main {
-		#buddypress {
+		#profiles {
 
 			#group-create-tabs.item-list-tabs {
 
@@ -635,7 +635,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 				}
 
 			} // close #subnav
-		} // close #buddypress
+		} // close #profiles
 	}
 } // close @media
 
@@ -645,7 +645,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 *----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 
 	div.pagination {
 		box-shadow: none;
@@ -688,7 +688,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 			}
 		} // close .pagination-links
 	} // close .pagination
-} // close #buddypress
+} // close #profiles
 
 /**
 *-------------------------------------------------------------------------------
@@ -704,7 +704,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 // * Adjusts display of action buttons at small screen mobile up.
 // Adjusts Meta items to match 2011 font-family
 
-#buddypress {
+#profiles {
 	ul.item-list {
 		border-top: 0;
 
@@ -865,7 +865,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 		} // close li
 	} // close .item-list
-} // close #buddypress
+} // close #profiles
 
 /**
 *----------------------------------------------------------
@@ -879,7 +879,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 *-----------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	form#whats-new-form {
 
 		// Line-height issue inherited from BP rules, override.
@@ -945,7 +945,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 			margin: $spacing-val-lg 0;
 		}
 	}
-} // close #buddypress
+} // close #profiles
 
 /**
 *-----------------------------------------------------
@@ -953,7 +953,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 *-----------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 
 	#activity-stream {
 
@@ -1109,12 +1109,12 @@ body.buddypress:not(.page-template-sidebar-page) {
 		}
 
 	} // close #activity-stream
-} // close #buddypress
+} // close #profiles
 
 /* Single activity view  - activity permalink */
 
 .activity-permalink {
-	#buddypress {
+	#profiles {
 		#activity-stream {
 
 			li.activity-item {
@@ -1146,7 +1146,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 * @section 4.1.3 - Activity Comments
 *-----------------------------------------------------
 */
-#buddypress {
+#profiles {
 
 	#activity-stream {
 
@@ -1207,7 +1207,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 	} // close #activity-steam
 
-} // close #buddypress
+} // close #profiles
 
 /**
 *----------------------------------------------------------
@@ -1215,7 +1215,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 *----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	#members-list {
 
 		@include medium-up {
@@ -1246,7 +1246,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 *-----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	#signup_form.standard-form {
 
 		#profile-details-section,
@@ -1275,7 +1275,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 */
 
 .bp-user {
-	#buddypress {
+	#profiles {
 		// On object nav links, table links (notifications etc) we don't really need :visited
 		// inheritance, so set pseudo class to :link color.
 		a {
@@ -1294,7 +1294,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 .bp-user,
 .single-item.groups {
-	#buddypress {
+	#profiles {
 		#item-header-content {
 			#item-meta {
 				@include font-size(14);
@@ -1320,7 +1320,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 		}
 	}
 
-	#buddypress {
+	#profiles {
 		@media screen and (max-width: 37.500em) {
 			h1 {
 				margin-bottom: 0;
@@ -1349,13 +1349,13 @@ body.buddypress:not(.page-template-sidebar-page) {
 				}
 			}
 		}
-	} // close #buddypress
+	} // close #profiles
 
 }
 
 // Manage cover images
 @include max800 {
-	#buddypress {
+	#profiles {
 		#item-header-cover-image {
 			#item-header-content {
 				.user-nicename {
@@ -1376,7 +1376,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 */
 
 .single-item.groups {
-	#buddypress {
+	#profiles {
 		@media screen and (max-width: 46.25em) {
 			#item-header {
 				#item-meta {
@@ -1489,14 +1489,14 @@ body.buddypress:not(.page-template-sidebar-page) {
 				}
 			}
 		} // close #item-header
-	} // close #buddypress
+	} // close #profiles
 
 	// These rules handle the specific instance of Cover Images on single groups
 	// activated & attempt to address positioning concerns arising from themes
 	// breakpoints.
 	// Due to cover image styles being applied via embedded styles & thus carrying
 	// heavier weight than linked styles the use of !important to override may be required.
-	#buddypress {
+	#profiles {
 		#cover-image-container {
 			#item-header-cover-image {
 
@@ -1539,7 +1539,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 */
 
 .bp-user {
-	#buddypress {
+	#profiles {
 		#item-header {
 
 			#item-header-avatar {
@@ -1580,7 +1580,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 		} // close #item-header
 
-	} // close #buddypress
+	} // close #profiles
 } // close .bp-user
 
 /**
@@ -1754,7 +1754,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 */
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		table {
 			th {@include font-size(13)}
@@ -1813,7 +1813,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 		} // close .notifications-options-nav/messages-options-nav
 
-	} //close #buddypress
+	} //close #profiles
 } // close .bp-user
 
 /**
@@ -1824,7 +1824,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		.profile {
 			.bp-widget {
@@ -1905,7 +1905,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 			}
 		} // close .profile
 
-	} // close #buddypress
+	} // close #profiles
 } // close .bp-user
 
 
@@ -1917,7 +1917,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		#message-thread {
 			//Single message view
@@ -2210,7 +2210,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 			}
 		}
 
-	} // #buddypress
+	} // #profiles
 
 	// acfb auto complete name list sits in doc footer before body close
 	.ac_results {
@@ -2240,7 +2240,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 .bp-user {
 
-	#buddypress {
+	#profiles {
 
 		#settings-form {
 
@@ -2303,7 +2303,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 // Attempt to reset form control widths
 #main {
-	#buddypress {
+	#profiles {
 		.standard-form {
 
 			li {float: none;}
@@ -2318,7 +2318,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 }
 
 
-#buddypress {
+#profiles {
 
 	// Match BP form elements to Themes(2012) styling where styles
 	// are not inherited or being overriden.
@@ -2360,9 +2360,9 @@ body.buddypress:not(.page-template-sidebar-page) {
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 
-#buddypress {
+#profiles {
 	div.dir-search,
 	div.message-search,
 	li.groups-members-search {
@@ -2441,7 +2441,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 
 /**
 *-------------------------------------------------------------------------------
@@ -2449,7 +2449,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 *-------------------------------------------------------------------------------
 */
 .bp-user {
-	#buddypress {
+	#profiles {
 
 		table {
 			@include font-size(14);
@@ -2521,7 +2521,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 		} // .notifications, .message-notices
 
-	} // #buddypress
+	} // #profiles
 } // .bp-user
 
 /**
@@ -2534,7 +2534,7 @@ body.buddypress:not(.page-template-sidebar-page) {
 // Leave text-color undefined to automagically set text color
 // to background color darker by 50%
 
-#buddypress {
+#profiles {
 	div#message {
 		p {
 			@include font-size(18);
@@ -2555,13 +2555,13 @@ body.buddypress:not(.page-template-sidebar-page) {
 
 	} // close #message
 
-} // close  #buddypress
+} // close  #profiles
 
 // Without direct classes on our mesages ( 'warning' )
 // we need to use the body classes
 // todo: If this is class .warning is included in main BP styles remove from here
 .delete-group {
-	#buddypress {
+	#profiles {
 		div#message.info {
 			p {
 				@include message-box($notice-warning);

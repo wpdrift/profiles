@@ -25,8 +25,8 @@ class BP_XProfile_Field_Type_Multiselectbox extends BP_XProfile_Field_Type {
 	public function __construct() {
 		parent::__construct();
 
-		$this->category = _x( 'Multi Fields', 'xprofile field type category', 'buddypress' );
-		$this->name     = _x( 'Multi Select Box', 'xprofile field type', 'buddypress' );
+		$this->category = _x( 'Multi Fields', 'xprofile field type category', 'profiles' );
+		$this->name     = _x( 'Multi Select Box', 'xprofile field type', 'profiles' );
 
 		$this->supports_multiple_defaults = true;
 		$this->accepts_null_value         = true;
@@ -92,7 +92,7 @@ class BP_XProfile_Field_Type_Multiselectbox extends BP_XProfile_Field_Type {
 		<?php if ( ! bp_get_the_profile_field_is_required() ) : ?>
 
 			<a class="clear-value" href="javascript:clear( '<?php echo esc_js( bp_get_the_profile_field_input_name() ); ?>[]' );">
-				<?php esc_html_e( 'Clear', 'buddypress' ); ?>
+				<?php esc_html_e( 'Clear', 'profiles' ); ?>
 			</a>
 
 		<?php endif; ?>
@@ -185,7 +185,7 @@ class BP_XProfile_Field_Type_Multiselectbox extends BP_XProfile_Field_Type {
 
 		<label for="<?php bp_the_profile_field_input_name(); ?>" class="screen-reader-text"><?php
 			/* translators: accessibility text */
-			esc_html_e( 'Select', 'buddypress' );
+			esc_html_e( 'Select', 'profiles' );
 		?></label>
 		<select <?php echo $this->get_edit_field_html_elements( $r ); ?>>
 			<?php bp_the_profile_field_options(); ?>

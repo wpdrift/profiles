@@ -32,8 +32,8 @@ function bp_admin_bar_my_account_root() {
 		// Add secondary parent item for all Profiles components.
 		$wp_admin_bar->add_menu( array(
 			'parent'    => 'my-account',
-			'id'        => 'my-account-buddypress',
-			'title'     => __( 'My Account', 'buddypress' ),
+			'id'        => 'my-account-profiles',
+			'title'     => __( 'My Account', 'profiles' ),
 			'group'     => true,
 			'meta'      => array(
 				'class' => 'ab-sub-secondary'
@@ -42,7 +42,7 @@ function bp_admin_bar_my_account_root() {
 
 		// Remove 'Edit' post link as it's not applicable to BP.
 		// Remove when https://core.trac.wordpress.org/ticket/29538 is addressed.
-		if ( is_buddypress() ) {
+		if ( is_profiles() ) {
 			$wp_admin_bar->remove_node( 'edit' );
 		}
 	}
@@ -65,7 +65,7 @@ function bp_core_load_admin_bar() {
 
 	// Hide the WordPress Toolbar and show the BuddyBar.
 	if ( ! bp_use_wp_admin_bar() ) {
-		_doing_it_wrong( __FUNCTION__, __( 'The BuddyBar is no longer supported. Please migrate to the WordPress toolbar as soon as possible.', 'buddypress' ), '2.1.0' );
+		_doing_it_wrong( __FUNCTION__, __( 'The BuddyBar is no longer supported. Please migrate to the WordPress toolbar as soon as possible.', 'profiles' ), '2.1.0' );
 
 		// Keep the WP Toolbar from loading.
 		show_admin_bar( false );

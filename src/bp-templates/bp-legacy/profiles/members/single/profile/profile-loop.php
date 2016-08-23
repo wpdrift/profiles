@@ -6,7 +6,7 @@
  * @subpackage bp-legacy
  */
 
-/** This action is documented in bp-templates/bp-legacy/buddypress/members/single/profile/profile-wp.php */
+/** This action is documented in bp-templates/bp-legacy/profiles/members/single/profile/profile-wp.php */
 do_action( 'bp_before_profile_loop_content' ); ?>
 
 <?php if ( bp_has_profile() ) : ?>
@@ -17,7 +17,7 @@ do_action( 'bp_before_profile_loop_content' ); ?>
 
 			<?php
 
-			/** This action is documented in bp-templates/bp-legacy/buddypress/members/single/profile/profile-wp.php */
+			/** This action is documented in bp-templates/bp-legacy/profiles/members/single/profile/profile-wp.php */
 			do_action( 'bp_before_profile_field_content' ); ?>
 
 			<div class="bp-widget <?php bp_the_profile_group_slug(); ?>">
@@ -56,7 +56,7 @@ do_action( 'bp_before_profile_loop_content' ); ?>
 
 			<?php
 
-			/** This action is documented in bp-templates/bp-legacy/buddypress/members/single/profile/profile-wp.php */
+			/** This action is documented in bp-templates/bp-legacy/profiles/members/single/profile/profile-wp.php */
 			do_action( 'bp_after_profile_field_content' ); ?>
 
 		<?php endif; ?>
@@ -65,12 +65,12 @@ do_action( 'bp_before_profile_loop_content' ); ?>
 
 	<?php
 
-	/** This action is documented in bp-templates/bp-legacy/buddypress/members/single/profile/profile-wp.php */
+	/** This action is documented in bp-templates/bp-legacy/profiles/members/single/profile/profile-wp.php */
 	do_action( 'bp_profile_field_buttons' ); ?>
 
 <?php endif; ?>
 
 <?php
 
-/** This action is documented in bp-templates/bp-legacy/buddypress/members/single/profile/profile-wp.php */
+/** This action is documented in bp-templates/bp-legacy/profiles/members/single/profile/profile-wp.php */
 do_action( 'bp_after_profile_loop_content' ); ?>

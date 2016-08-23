@@ -8,7 +8,7 @@
 
 ?>
 
-<h2><?php _e( 'Change Cover Image', 'buddypress' ); ?></h2>
+<h2><?php _e( 'Change Cover Image', 'profiles' ); ?></h2>
 
 <?php
 
@@ -19,7 +19,7 @@
  */
 do_action( 'bp_before_profile_edit_cover_image' ); ?>
 
-<p><?php _e( 'Your Cover Image will be used to customize the header of your profile.', 'buddypress' ); ?></p>
+<p><?php _e( 'Your Cover Image will be used to customize the header of your profile.', 'profiles' ); ?></p>
 
 <?php bp_attachments_get_template_part( 'cover-images/index' ); ?>
 

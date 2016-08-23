@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  * @return bool True if found, otherwise false.
  */
 function bp_members_has_directory() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	return (bool) !empty( $bp->pages->members->id );
 }
@@ -39,7 +39,7 @@ function bp_members_has_directory() {
  * @since 1.5.0
  */
 function bp_core_define_slugs() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// No custom members slug.
 	if ( !defined( 'BP_MEMBERS_SLUG' ) ) {
@@ -309,7 +309,7 @@ function bp_core_get_userid_from_nicename( $user_nicename = '' ) {
  * @return string|bool The username of the matched user, or false.
  */
 function bp_core_get_username( $user_id = 0, $user_nicename = false, $user_login = false ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Check cache for user nicename.
 	$username = wp_cache_get( 'bp_user_username_' . $user_id, 'bp' );
@@ -392,7 +392,7 @@ function bp_core_get_username( $user_id = 0, $user_nicename = false, $user_login
  * @return string|bool The username of the matched user, or false.
  */
 function bp_members_get_user_nicename( $user_id ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( !$user_nicename = wp_cache_get( 'bp_members_user_nicename_' . $user_id, 'bp' ) ) {
 		$update_cache = true;
@@ -748,7 +748,7 @@ function bp_core_get_active_member_count() {
 
 	$count = get_transient( 'bp_active_member_count' );
 	if ( false === $count ) {
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Avoid a costly join by splitting the lookup.
 		if ( is_multisite() ) {
@@ -950,7 +950,7 @@ function bp_is_user_spammer( $user_id = 0 ) {
 		return false;
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Assume user is not spam.
 	$is_spammer = false;
@@ -1016,7 +1016,7 @@ function bp_is_user_deleted( $user_id = 0 ) {
 		return false;
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Assume user is not deleted.
 	$is_deleted = false;
@@ -1189,7 +1189,7 @@ function _bp_get_user_meta_last_activity_warning( $retval, $object_id, $meta_key
 	if ( 'last_activity' === $meta_key ) {
 		// Don't send the warning more than once per pageload.
 		if ( false === $warned ) {
-			_doing_it_wrong( 'get_user_meta( $user_id, \'last_activity\' )', __( 'User last_activity data is no longer stored in usermeta. Use bp_get_user_last_activity() instead.', 'buddypress' ), '2.0.0' );
+			_doing_it_wrong( 'get_user_meta( $user_id, \'last_activity\' )', __( 'User last_activity data is no longer stored in usermeta. Use bp_get_user_last_activity() instead.', 'profiles' ), '2.0.0' );
 			$warned = true;
 		}
 
@@ -1219,7 +1219,7 @@ add_filter( 'get_user_metadata', '_bp_get_user_meta_last_activity_warning', 10, 
  */
 function _bp_update_user_meta_last_activity_warning( $meta_id, $object_id, $meta_key, $meta_value ) {
 	if ( 'last_activity' === $meta_key ) {
-		_doing_it_wrong( 'update_user_meta( $user_id, \'last_activity\' )', __( 'User last_activity data is no longer stored in usermeta. Use bp_update_user_last_activity() instead.', 'buddypress' ), '2.0.0' );
+		_doing_it_wrong( 'update_user_meta( $user_id, \'last_activity\' )', __( 'User last_activity data is no longer stored in usermeta. Use bp_update_user_last_activity() instead.', 'profiles' ), '2.0.0' );
 		bp_update_user_last_activity( $object_id, $meta_value );
 	}
 }
@@ -1267,7 +1267,7 @@ function bp_get_user_last_activity( $user_id = 0 ) {
 function bp_last_activity_migrate() {
 	global $wpdb;
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Wipe out existing last_activity data in the activity table -
 	// this helps to prevent duplicates when pulling from the usermeta
@@ -1434,7 +1434,7 @@ function bp_core_boot_spammer( $user ) {
 	// The user exists; now do a check to see if the user is a spammer
 	// if the user is a spammer, stop them in their tracks!
 	if ( is_a( $user, 'WP_User' ) && ( ( is_multisite() && (int) $user->spam ) || 1 == $user->user_status ) ) {
-		return new WP_Error( 'invalid_username', __( '<strong>ERROR</strong>: Your account has been marked as a spammer.', 'buddypress' ) );
+		return new WP_Error( 'invalid_username', __( '<strong>ERROR</strong>: Your account has been marked as a spammer.', 'profiles' ) );
 	}
 
 	// User is good to go!
@@ -1650,19 +1650,19 @@ function bp_core_validate_email_address( $user_email ) {
  */
 function bp_core_add_validation_error_messages( WP_Error $errors, $validation_results ) {
 	if ( ! empty( $validation_results['invalid'] ) ) {
-		$errors->add( 'user_email', __( 'Please check your email address.', 'buddypress' ) );
+		$errors->add( 'user_email', __( 'Please check your email address.', 'profiles' ) );
 	}
 
 	if ( ! empty( $validation_results['domain_banned'] ) ) {
-		$errors->add( 'user_email',  __( 'Sorry, that email address is not allowed!', 'buddypress' ) );
+		$errors->add( 'user_email',  __( 'Sorry, that email address is not allowed!', 'profiles' ) );
 	}
 
 	if ( ! empty( $validation_results['domain_not_allowed'] ) ) {
-		$errors->add( 'user_email', __( 'Sorry, that email address is not allowed!', 'buddypress' ) );
+		$errors->add( 'user_email', __( 'Sorry, that email address is not allowed!', 'profiles' ) );
 	}
 
 	if ( ! empty( $validation_results['in_use'] ) ) {
-		$errors->add( 'user_email', __( 'Sorry, that email address is already used!', 'buddypress' ) );
+		$errors->add( 'user_email', __( 'Sorry, that email address is already used!', 'profiles' ) );
 	}
 }
 
@@ -1702,35 +1702,35 @@ function bp_core_validate_user_signup( $user_name, $user_email ) {
 
 		// User name can't be empty.
 		if ( empty( $user_name ) ) {
-			$errors->add( 'user_name', __( 'Please enter a username', 'buddypress' ) );
+			$errors->add( 'user_name', __( 'Please enter a username', 'profiles' ) );
 		}
 
 		// User name can't be on the blacklist.
 		$illegal_names = get_site_option( 'illegal_names' );
 		if ( in_array( $user_name, (array) $illegal_names ) ) {
-			$errors->add( 'user_name', __( 'That username is not allowed', 'buddypress' ) );
+			$errors->add( 'user_name', __( 'That username is not allowed', 'profiles' ) );
 		}
 
 		// User name must pass WP's validity check.
 		if ( ! validate_username( $user_name ) ) {
-			$errors->add( 'user_name', __( 'Usernames can contain only letters, numbers, ., -, and @', 'buddypress' ) );
+			$errors->add( 'user_name', __( 'Usernames can contain only letters, numbers, ., -, and @', 'profiles' ) );
 		}
 
 		// Minimum of 4 characters.
 		if ( strlen( $user_name ) < 4 ) {
-			$errors->add( 'user_name',  __( 'Username must be at least 4 characters', 'buddypress' ) );
+			$errors->add( 'user_name',  __( 'Username must be at least 4 characters', 'profiles' ) );
 		}
 
 		// No underscores. @todo Why not?
 		if ( false !== strpos( ' ' . $user_name, '_' ) ) {
-			$errors->add( 'user_name', __( 'Sorry, usernames may not contain the character "_"!', 'buddypress' ) );
+			$errors->add( 'user_name', __( 'Sorry, usernames may not contain the character "_"!', 'profiles' ) );
 		}
 
 		// No usernames that are all numeric. @todo Why?
 		$match = array();
 		preg_match( '/[0-9]*/', $user_name, $match );
 		if ( $match[0] == $user_name ) {
-			$errors->add( 'user_name', __( 'Sorry, usernames must have letters too!', 'buddypress' ) );
+			$errors->add( 'user_name', __( 'Sorry, usernames must have letters too!', 'profiles' ) );
 		}
 
 		// Check into signups.
@@ -1742,7 +1742,7 @@ function bp_core_validate_user_signup( $user_name, $user_email ) {
 
 		// Check if the username has been used already.
 		if ( username_exists( $user_name ) || ! empty( $signup ) ) {
-			$errors->add( 'user_name', __( 'Sorry, that username already exists!', 'buddypress' ) );
+			$errors->add( 'user_name', __( 'Sorry, that username already exists!', 'profiles' ) );
 		}
 
 		// Validate the email address and process the validation results into
@@ -1812,7 +1812,7 @@ function bp_core_validate_blog_signup( $blog_url, $blog_title ) {
  * @return bool|WP_Error True on success, WP_Error on failure.
  */
 function bp_core_signup_user( $user_login, $user_password, $user_email, $usermeta ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// We need to cast $user_id to pass to the filters.
 	$user_id = false;
@@ -1956,16 +1956,16 @@ function bp_core_activate_signup( $key ) {
 		) );
 
 		if ( empty( $signups['signups'] ) ) {
-			return new WP_Error( 'invalid_key', __( 'Invalid activation key.', 'buddypress' ) );
+			return new WP_Error( 'invalid_key', __( 'Invalid activation key.', 'profiles' ) );
 		}
 
 		$signup = $signups['signups'][0];
 
 		if ( $signup->active ) {
 			if ( empty( $signup->domain ) ) {
-				return new WP_Error( 'already_active', __( 'The user is already active.', 'buddypress' ), $signup );
+				return new WP_Error( 'already_active', __( 'The user is already active.', 'profiles' ), $signup );
 			} else {
-				return new WP_Error( 'already_active', __( 'The site is already active.', 'buddypress' ), $signup );
+				return new WP_Error( 'already_active', __( 'The site is already active.', 'profiles' ), $signup );
 			}
 		}
 
@@ -1983,7 +1983,7 @@ function bp_core_activate_signup( $key ) {
 
 			// Change the user's status so they become active.
 			if ( ! $wpdb->query( $wpdb->prepare( "UPDATE {$wpdb->users} SET user_status = 0 WHERE ID = %d", $user_id ) ) ) {
-				return new WP_Error( 'invalid_key', __( 'Invalid activation key.', 'buddypress' ) );
+				return new WP_Error( 'invalid_key', __( 'Invalid activation key.', 'profiles' ) );
 			}
 
 			bp_delete_user_meta( $user_id, 'activation_key' );
@@ -1998,7 +1998,7 @@ function bp_core_activate_signup( $key ) {
 		}
 
 		if ( ! $user_id ) {
-			return new WP_Error( 'create_user', __( 'Could not create user', 'buddypress' ), $signup );
+			return new WP_Error( 'create_user', __( 'Could not create user', 'profiles' ), $signup );
 		}
 
 		// Fetch the signup so we have the data later on.
@@ -2012,7 +2012,7 @@ function bp_core_activate_signup( $key ) {
 		BP_Signup::validate( $key );
 
 		if ( isset( $user_already_exists ) ) {
-			return new WP_Error( 'user_already_exists', __( 'That username is already activated.', 'buddypress' ), $signup );
+			return new WP_Error( 'user_already_exists', __( 'That username is already activated.', 'profiles' ), $signup );
 		}
 
 		// Set up data to pass to the legacy filter.
@@ -2215,7 +2215,7 @@ add_action( 'user_register', 'bp_core_map_user_registration' );
  * @return string|bool Directory path on success, false on failure.
  */
 function bp_core_signup_avatar_upload_dir() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( empty( $bp->signup->avatar_dir ) ) {
 		return false;
@@ -2329,9 +2329,9 @@ function bp_core_signup_disable_inactive( $user = null, $username = '', $passwor
 		'bp-resend-activation'
 	);
 
-	$resend_string = '<br /><br />' . sprintf( __( 'If you have not received an email yet, <a href="%s">click here to resend it</a>.', 'buddypress' ), esc_url( $resend_url ) );
+	$resend_string = '<br /><br />' . sprintf( __( 'If you have not received an email yet, <a href="%s">click here to resend it</a>.', 'profiles' ), esc_url( $resend_url ) );
 
-	return new WP_Error( 'bp_account_not_activated', __( '<strong>ERROR</strong>: Your account has not been activated. Check your email for the activation link.', 'buddypress' ) . $resend_string );
+	return new WP_Error( 'bp_account_not_activated', __( '<strong>ERROR</strong>: Your account has not been activated. Check your email for the activation link.', 'profiles' ) . $resend_string );
 }
 add_filter( 'authenticate', 'bp_core_signup_disable_inactive', 30, 3 );
 
@@ -2362,9 +2362,9 @@ function bp_members_login_resend_activation_email() {
 
 	// Add feedback message.
 	if ( ! empty( $resend['errors'] ) ) {
-		$error = __( '<strong>ERROR</strong>: Your account has already been activated.', 'buddypress' );
+		$error = __( '<strong>ERROR</strong>: Your account has already been activated.', 'profiles' );
 	} else {
-		$error = __( 'Activation email resent! Please check your inbox or spam folder.', 'buddypress' );
+		$error = __( 'Activation email resent! Please check your inbox or spam folder.', 'profiles' );
 	}
 }
 add_action( 'login_form_bp-resend-activation', 'bp_members_login_resend_activation_email' );
@@ -2443,7 +2443,7 @@ add_action( 'bp_init', 'bp_stop_live_spammer', 5 );
 function bp_live_spammer_login_error() {
 	global $error;
 
-	$error = __( '<strong>ERROR</strong>: Your account has been marked as a spammer.', 'buddypress' );
+	$error = __( '<strong>ERROR</strong>: Your account has been marked as a spammer.', 'profiles' );
 
 	// Shake shake shake!
 	add_action( 'login_head', 'wp_shake_js', 12 );
@@ -2458,7 +2458,7 @@ add_action( 'login_form_bp-spam', 'bp_live_spammer_login_error' );
  * @return object The displayed user object, null otherwise.
  */
 function bp_get_displayed_user() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$displayed_user = null;
 	if ( ! empty( $bp->displayed_user->id ) ) {
@@ -2500,10 +2500,10 @@ function bp_get_displayed_user() {
  * @return object|WP_Error Member type object on success, WP_Error object on failure.
  */
 function bp_register_member_type( $member_type, $args = array() ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( isset( $bp->members->types[ $member_type ] ) ) {
-		return new WP_Error( 'bp_member_type_exists', __( 'Member type already exists.', 'buddypress' ), $member_type );
+		return new WP_Error( 'bp_member_type_exists', __( 'Member type already exists.', 'profiles' ), $member_type );
 	}
 
 	$r = bp_parse_args( $args, array(
@@ -2526,7 +2526,7 @@ function bp_register_member_type( $member_type, $args = array() ) {
 	 */
 	$illegal_names = apply_filters( 'bp_member_type_illegal_names', array( 'any', 'null', '_none' ) );
 	if ( in_array( $member_type, $illegal_names, true ) ) {
-		return new WP_Error( 'bp_member_type_illegal_name', __( 'You may not register a member type with this name.', 'buddypress' ), $member_type );
+		return new WP_Error( 'bp_member_type_illegal_name', __( 'You may not register a member type with this name.', 'profiles' ), $member_type );
 	}
 
 	// Store the post type name as data in the object (not just as the array key).
@@ -2606,7 +2606,7 @@ function bp_get_member_type_object( $member_type ) {
  * @return array A list of member type names or objects.
  */
 function bp_get_member_types( $args = array(), $output = 'names', $operator = 'and' ) {
-	$types = buddypress()->members->types;
+	$types = profiles()->members->types;
 
 	$types = wp_filter_object_list( $types, $args, $operator );
 
@@ -2803,5 +2803,5 @@ function bp_get_current_member_type() {
 	 *
 	 * @param string $value "Current" member type.
 	 */
-	return apply_filters( 'bp_get_current_member_type', buddypress()->current_member_type );
+	return apply_filters( 'bp_get_current_member_type', profiles()->current_member_type );
 }

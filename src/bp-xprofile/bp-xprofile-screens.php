@@ -108,7 +108,7 @@ function xprofile_screen_edit_profile() {
 
 		// There are errors.
 		if ( !empty( $errors ) ) {
-			bp_core_add_message( __( 'Please make sure you fill in all required fields in this profile field group before saving.', 'buddypress' ), 'error' );
+			bp_core_add_message( __( 'Please make sure you fill in all required fields in this profile field group before saving.', 'profiles' ), 'error' );
 
 		// No errors.
 		} else {
@@ -174,9 +174,9 @@ function xprofile_screen_edit_profile() {
 
 			// Set the feedback messages.
 			if ( !empty( $errors ) ) {
-				bp_core_add_message( __( 'There was a problem updating some of your profile information. Please try again.', 'buddypress' ), 'error' );
+				bp_core_add_message( __( 'There was a problem updating some of your profile information. Please try again.', 'profiles' ), 'error' );
 			} else {
-				bp_core_add_message( __( 'Changes saved.', 'buddypress' ) );
+				bp_core_add_message( __( 'Changes saved.', 'profiles' ) );
 			}
 
 			// Redirect back to the edit screen to display the updates and message.
@@ -220,7 +220,7 @@ function xprofile_screen_change_avatar() {
 		return;
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( ! isset( $bp->avatar_admin ) ) {
 		$bp->avatar_admin = new stdClass();
@@ -258,7 +258,7 @@ function xprofile_screen_change_avatar() {
 		);
 
 		if ( ! bp_core_avatar_handle_crop( $args ) ) {
-			bp_core_add_message( __( 'There was a problem cropping your profile photo.', 'buddypress' ), 'error' );
+			bp_core_add_message( __( 'There was a problem cropping your profile photo.', 'profiles' ), 'error' );
 		} else {
 
 			/**
@@ -272,7 +272,7 @@ function xprofile_screen_change_avatar() {
 			 * @param string $value   Inform about the way the avatar was set ('crop').
 			 */
 			do_action( 'xprofile_avatar_uploaded', (int) $args['item_id'], 'crop' );
-			bp_core_add_message( __( 'Your new profile photo was uploaded successfully.', 'buddypress' ) );
+			bp_core_add_message( __( 'Your new profile photo was uploaded successfully.', 'profiles' ) );
 			bp_core_redirect( bp_displayed_user_domain() );
 		}
 	}

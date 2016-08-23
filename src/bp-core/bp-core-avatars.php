@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function bp_core_set_avatar_constants() {
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( !defined( 'BP_AVATAR_THUMB_WIDTH' ) )
 		define( 'BP_AVATAR_THUMB_WIDTH', 50 );
@@ -50,7 +50,7 @@ add_action( 'bp_init', 'bp_core_set_avatar_constants', 3 );
  * @since 1.5.0
  */
 function bp_core_set_avatar_globals() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$bp->avatar        = new stdClass;
 	$bp->avatar->thumb = new stdClass;
@@ -190,7 +190,7 @@ add_action( 'bp_setup_globals', 'bp_core_set_avatar_globals' );
  * @return string Formatted HTML <img> element, or raw avatar URL based on $html arg.
  */
 function bp_core_fetch_avatar( $args = '' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// If avatars are disabled for the root site, obey that request and bail.
 	if ( ! $bp->avatar->show_avatars ) {
@@ -340,7 +340,7 @@ function bp_core_fetch_avatar( $args = '' ) {
 
 	// Get a fallback for the 'alt' parameter, create html output.
 	if ( empty( $params['alt'] ) ) {
-		$params['alt'] = __( 'Profile Photo', 'buddypress' );
+		$params['alt'] = __( 'Profile Photo', 'profiles' );
 	}
 	$html_alt = ' alt="' . esc_attr( $params['alt'] ) . '"';
 
@@ -748,7 +748,7 @@ function bp_core_delete_existing_avatar( $args = '' ) {
 		if ( 'user' == $object )
 			$item_id = bp_displayed_user_id();
 		elseif ( 'group' == $object )
-			$item_id = buddypress()->groups->current_group->id;
+			$item_id = profiles()->groups->current_group->id;
 		elseif ( 'blog' == $object )
 			$item_id = $current_blog->id;
 
@@ -891,7 +891,7 @@ function bp_core_avatar_handle_upload( $file, $upload_dir_filter ) {
 	}
 
 	// Setup some variables.
-	$bp          = buddypress();
+	$bp          = profiles();
 	$upload_path = bp_core_avatar_upload_path();
 
 	// Upload the file.
@@ -900,7 +900,7 @@ function bp_core_avatar_handle_upload( $file, $upload_dir_filter ) {
 
 	// In case of an error, stop the process and display a feedback to the user.
 	if ( ! empty( $bp->avatar_admin->original['error'] ) ) {
-		bp_core_add_message( sprintf( __( 'Upload Failed! Error was: %s', 'buddypress' ), $bp->avatar_admin->original['error'] ), 'error' );
+		bp_core_add_message( sprintf( __( 'Upload Failed! Error was: %s', 'profiles' ), $bp->avatar_admin->original['error'] ), 'error' );
 		return false;
 	}
 
@@ -928,13 +928,13 @@ function bp_core_avatar_handle_upload( $file, $upload_dir_filter ) {
 
 	// Check for WP_Error on what should be an image.
 	if ( is_wp_error( $bp->avatar_admin->image->dir ) ) {
-		bp_core_add_message( sprintf( __( 'Upload failed! Error was: %s', 'buddypress' ), $bp->avatar_admin->image->dir->get_error_message() ), 'error' );
+		bp_core_add_message( sprintf( __( 'Upload failed! Error was: %s', 'profiles' ), $bp->avatar_admin->image->dir->get_error_message() ), 'error' );
 		return false;
 	}
 
 	// If the uploaded image is smaller than the "full" dimensions, throw a warning.
 	if ( $avatar_attachment->is_too_small( $bp->avatar_admin->image->file ) ) {
-		bp_core_add_message( sprintf( __( 'You have selected an image that is smaller than recommended. For best results, upload a picture larger than %d x %d pixels.', 'buddypress' ), bp_core_avatar_full_width(), bp_core_avatar_full_height() ), 'error' );
+		bp_core_add_message( sprintf( __( 'You have selected an image that is smaller than recommended. For best results, upload a picture larger than %d x %d pixels.', 'profiles' ), bp_core_avatar_full_width(), bp_core_avatar_full_height() ), 'error' );
 	}
 
 	// Set the url value for the image.
@@ -989,7 +989,7 @@ function bp_avatar_ajax_upload() {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 	$bp_params['upload_dir_filter'] = '';
 	$needs_reset = array();
 
@@ -1061,7 +1061,7 @@ function bp_avatar_ajax_upload() {
 
 	if ( empty( $avatar ) ) {
 		// Default upload error.
-		$message = __( 'Upload failed.', 'buddypress' );
+		$message = __( 'Upload failed.', 'profiles' );
 
 		// Use the template message if set.
 		if ( ! empty( $feedback_message ) ) {
@@ -1415,7 +1415,7 @@ function bp_core_fetch_avatar_filter( $avatar, $user, $size, $default, $alt = ''
 
 	// Image alt tag.
 	if ( empty( $alt ) ) {
-		$alt = sprintf( __( 'Profile photo of %s', 'buddypress' ), bp_core_get_user_displayname( $id ) );
+		$alt = sprintf( __( 'Profile photo of %s', 'profiles' ), bp_core_get_user_displayname( $id ) );
 	}
 
 	// Use the 'thumb' type, unless the requested width is bigger than
@@ -1562,7 +1562,7 @@ function bp_core_check_avatar_type( $file ) {
  * @return string The avatar upload directory path.
  */
 function bp_core_get_upload_dir( $type = 'upload_path' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	switch ( $type ) {
 		case 'upload_path' :
@@ -1707,7 +1707,7 @@ function bp_get_user_has_avatar( $user_id = 0 ) {
  * @return int|bool $dim The dimension.
  */
 function bp_core_avatar_dimension( $type = 'thumb', $h_or_w = 'height' ) {
-	$bp  = buddypress();
+	$bp  = profiles();
 	$dim = isset( $bp->avatar->{$type}->{$h_or_w} ) ? (int) $bp->avatar->{$type}->{$h_or_w} : false;
 
 	/**
@@ -1814,7 +1814,7 @@ function bp_core_avatar_original_max_width() {
 	 *
 	 * @param int $value Value for the max width.
 	 */
-	return apply_filters( 'bp_core_avatar_original_max_width', (int) buddypress()->avatar->original_max_width );
+	return apply_filters( 'bp_core_avatar_original_max_width', (int) profiles()->avatar->original_max_width );
 }
 
 /**
@@ -1833,7 +1833,7 @@ function bp_core_avatar_original_max_filesize() {
 	 *
 	 * @param int $value Value for the max filesize.
 	 */
-	return apply_filters( 'bp_core_avatar_original_max_filesize', (int) buddypress()->avatar->original_max_filesize );
+	return apply_filters( 'bp_core_avatar_original_max_filesize', (int) profiles()->avatar->original_max_filesize );
 }
 
 /**
@@ -1864,7 +1864,7 @@ function bp_core_avatar_default( $type = 'gravatar', $params = array() ) {
 			$size = '-50';
 		}
 
-		$avatar = buddypress()->plugin_url . "bp-core/images/mystery-man{$size}.jpg";
+		$avatar = profiles()->plugin_url . "bp-core/images/mystery-man{$size}.jpg";
 
 	// Use Gravatar's mystery person as fallback.
 	} else {
@@ -1911,7 +1911,7 @@ function bp_core_avatar_default_thumb( $type = 'gravatar', $params = array() ) {
 
 	// Use the local default image.
 	} elseif ( 'local' === $type ) {
-		$avatar = buddypress()->plugin_url . 'bp-core/images/mystery-man-50.jpg';
+		$avatar = profiles()->plugin_url . 'bp-core/images/mystery-man-50.jpg';
 
 	// Use Gravatar's mystery person as fallback.
 	} else {

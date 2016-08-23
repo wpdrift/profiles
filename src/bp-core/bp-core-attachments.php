@@ -35,7 +35,7 @@ function bp_attachments_is_wp_version_supported() {
  * @return string|array The needed Upload dir data.
  */
 function bp_attachments_uploads_dir_get( $data = '' ) {
-	$attachments_dir = 'buddypress';
+	$attachments_dir = 'profiles';
 	$retval          = '';
 
 	if ( 'dir' === $data ) {
@@ -589,29 +589,29 @@ function bp_attachments_get_plupload_default_settings() {
 function bp_attachments_get_plupload_l10n() {
 	// Localization strings.
 	return apply_filters( 'bp_attachments_get_plupload_l10n', array(
-			'queue_limit_exceeded'      => __( 'You have attempted to queue too many files.', 'buddypress' ),
-			'file_exceeds_size_limit'   => __( '%s exceeds the maximum upload size for this site.', 'buddypress' ),
-			'zero_byte_file'            => __( 'This file is empty. Please try another.', 'buddypress' ),
-			'invalid_filetype'          => __( 'This file type is not allowed. Please try another.', 'buddypress' ),
-			'not_an_image'              => __( 'This file is not an image. Please try another.', 'buddypress' ),
-			'image_memory_exceeded'     => __( 'Memory exceeded. Please try another smaller file.', 'buddypress' ),
-			'image_dimensions_exceeded' => __( 'This is larger than the maximum size. Please try another.', 'buddypress' ),
-			'default_error'             => __( 'An error occurred. Please try again later.', 'buddypress' ),
-			'missing_upload_url'        => __( 'There was a configuration error. Please contact the server administrator.', 'buddypress' ),
-			'upload_limit_exceeded'     => __( 'You may only upload 1 file.', 'buddypress' ),
-			'http_error'                => __( 'HTTP error.', 'buddypress' ),
-			'upload_failed'             => __( 'Upload failed.', 'buddypress' ),
-			'big_upload_failed'         => __( 'Please try uploading this file with the %1$sbrowser uploader%2$s.', 'buddypress' ),
-			'big_upload_queued'         => __( '%s exceeds the maximum upload size for the multi-file uploader when used in your browser.', 'buddypress' ),
-			'io_error'                  => __( 'IO error.', 'buddypress' ),
-			'security_error'            => __( 'Security error.', 'buddypress' ),
-			'file_cancelled'            => __( 'File canceled.', 'buddypress' ),
-			'upload_stopped'            => __( 'Upload stopped.', 'buddypress' ),
-			'dismiss'                   => __( 'Dismiss', 'buddypress' ),
-			'crunching'                 => __( 'Crunching&hellip;', 'buddypress' ),
-			'unique_file_warning'       => __( 'Make sure to upload a unique file', 'buddypress' ),
-			'error_uploading'           => __( '&#8220;%s&#8221; has failed to upload.', 'buddypress' ),
-			'has_avatar_warning'        => __( 'If you&#39;d like to delete the existing profile photo but not upload a new one, please use the delete tab.', 'buddypress' )
+			'queue_limit_exceeded'      => __( 'You have attempted to queue too many files.', 'profiles' ),
+			'file_exceeds_size_limit'   => __( '%s exceeds the maximum upload size for this site.', 'profiles' ),
+			'zero_byte_file'            => __( 'This file is empty. Please try another.', 'profiles' ),
+			'invalid_filetype'          => __( 'This file type is not allowed. Please try another.', 'profiles' ),
+			'not_an_image'              => __( 'This file is not an image. Please try another.', 'profiles' ),
+			'image_memory_exceeded'     => __( 'Memory exceeded. Please try another smaller file.', 'profiles' ),
+			'image_dimensions_exceeded' => __( 'This is larger than the maximum size. Please try another.', 'profiles' ),
+			'default_error'             => __( 'An error occurred. Please try again later.', 'profiles' ),
+			'missing_upload_url'        => __( 'There was a configuration error. Please contact the server administrator.', 'profiles' ),
+			'upload_limit_exceeded'     => __( 'You may only upload 1 file.', 'profiles' ),
+			'http_error'                => __( 'HTTP error.', 'profiles' ),
+			'upload_failed'             => __( 'Upload failed.', 'profiles' ),
+			'big_upload_failed'         => __( 'Please try uploading this file with the %1$sbrowser uploader%2$s.', 'profiles' ),
+			'big_upload_queued'         => __( '%s exceeds the maximum upload size for the multi-file uploader when used in your browser.', 'profiles' ),
+			'io_error'                  => __( 'IO error.', 'profiles' ),
+			'security_error'            => __( 'Security error.', 'profiles' ),
+			'file_cancelled'            => __( 'File canceled.', 'profiles' ),
+			'upload_stopped'            => __( 'Upload stopped.', 'profiles' ),
+			'dismiss'                   => __( 'Dismiss', 'profiles' ),
+			'crunching'                 => __( 'Crunching&hellip;', 'profiles' ),
+			'unique_file_warning'       => __( 'Make sure to upload a unique file', 'profiles' ),
+			'error_uploading'           => __( '&#8220;%s&#8221; has failed to upload.', 'profiles' ),
+			'has_avatar_warning'        => __( 'If you&#39;d like to delete the existing profile photo but not upload a new one, please use the delete tab.', 'profiles' )
 	) );
 }
 
@@ -713,26 +713,26 @@ function bp_attachments_enqueue_scripts( $class = '' ) {
 
 		// Init the Avatar nav.
 		$avatar_nav = array(
-			'upload' => array( 'id' => 'upload', 'caption' => __( 'Upload', 'buddypress' ), 'order' => 0  ),
+			'upload' => array( 'id' => 'upload', 'caption' => __( 'Upload', 'profiles' ), 'order' => 0  ),
 
 			// The delete view will only show if the object has an avatar.
-			'delete' => array( 'id' => 'delete', 'caption' => __( 'Delete', 'buddypress' ), 'order' => 100, 'hide' => (int) ! $has_avatar ),
+			'delete' => array( 'id' => 'delete', 'caption' => __( 'Delete', 'profiles' ), 'order' => 100, 'hide' => (int) ! $has_avatar ),
 		);
 
 		// Create the Camera Nav if the WebCam capture feature is enabled.
 		if ( bp_avatar_use_webcam() && 'user' === $object ) {
-			$avatar_nav['camera'] = array( 'id' => 'camera', 'caption' => __( 'Take Photo', 'buddypress' ), 'order' => 10 );
+			$avatar_nav['camera'] = array( 'id' => 'camera', 'caption' => __( 'Take Photo', 'profiles' ), 'order' => 10 );
 
 			// Set warning messages.
 			$strings['camera_warnings'] = array(
-				'requesting'  => __( 'Please allow us to access to your camera.', 'buddypress'),
-				'loading'     => __( 'Please wait as we access your camera.', 'buddypress' ),
-				'loaded'      => __( 'Camera loaded. Click on the "Capture" button to take your photo.', 'buddypress' ),
-				'noaccess'    => __( 'It looks like you do not have a webcam or we were unable to get permission to use your webcam. Please upload a photo instead.', 'buddypress' ),
-				'errormsg'    => __( 'Your browser is not supported. Please upload a photo instead.', 'buddypress' ),
-				'videoerror'  => __( 'Video error. Please upload a photo instead.', 'buddypress' ),
-				'ready'       => __( 'Your profile photo is ready. Click on the "Save" button to use this photo.', 'buddypress' ),
-				'nocapture'   => __( 'No photo was captured. Click on the "Capture" button to take your photo.', 'buddypress' ),
+				'requesting'  => __( 'Please allow us to access to your camera.', 'profiles'),
+				'loading'     => __( 'Please wait as we access your camera.', 'profiles' ),
+				'loaded'      => __( 'Camera loaded. Click on the "Capture" button to take your photo.', 'profiles' ),
+				'noaccess'    => __( 'It looks like you do not have a webcam or we were unable to get permission to use your webcam. Please upload a photo instead.', 'profiles' ),
+				'errormsg'    => __( 'Your browser is not supported. Please upload a photo instead.', 'profiles' ),
+				'videoerror'  => __( 'Video error. Please upload a photo instead.', 'profiles' ),
+				'ready'       => __( 'Your profile photo is ready. Click on the "Save" button to use this photo.', 'profiles' ),
+				'nocapture'   => __( 'No photo was captured. Click on the "Capture" button to take your photo.', 'profiles' ),
 			);
 		}
 
@@ -779,7 +779,7 @@ function bp_attachments_enqueue_scripts( $class = '' ) {
 		// Set warning messages.
 		$strings['cover_image_warnings'] = apply_filters( 'bp_attachments_cover_image_ui_warnings', array(
 			'dimensions'  => sprintf(
-					__( 'For better results, make sure to upload an image that is larger than %1$spx wide, and %2$spx tall.', 'buddypress' ),
+					__( 'For better results, make sure to upload an image that is larger than %1$spx wide, and %2$spx tall.', 'profiles' ),
 					(int) $cover_dimensions['width'],
 					(int) $cover_dimensions['height']
 				),
@@ -920,7 +920,7 @@ function bp_attachments_get_template_part( $slug ) {
 
 	// Load the attachment template in WP Administration screens.
 	if ( is_admin() && ( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) ) {
-		$attachment_admin_template_part = buddypress()->themes_dir . '/bp-legacy/buddypress/' . $attachment_template_part . '.php';
+		$attachment_admin_template_part = profiles()->themes_dir . '/bp-legacy/profiles/' . $attachment_template_part . '.php';
 
 		// Check whether the template part exists.
 		if ( ! file_exists( $attachment_admin_template_part ) ) {
@@ -1224,7 +1224,7 @@ function bp_attachments_cover_image_ajax_upload() {
 		bp_attachments_json_response( false, $is_html4 );
 	}
 
-	$bp          = buddypress();
+	$bp          = profiles();
 	$needs_reset = array();
 
 	// Member's cover image.
@@ -1291,12 +1291,12 @@ function bp_attachments_cover_image_ajax_upload() {
 		// Upload error response.
 		bp_attachments_json_response( false, $is_html4, array(
 			'type'    => 'upload_error',
-			'message' => sprintf( __( 'Upload Failed! Error was: %s', 'buddypress' ), $uploaded['error'] ),
+			'message' => sprintf( __( 'Upload Failed! Error was: %s', 'profiles' ), $uploaded['error'] ),
 		) );
 	}
 
 	// Default error message.
-	$error_message = __( 'There was a problem uploading the cover image.', 'buddypress' );
+	$error_message = __( 'There was a problem uploading the cover image.', 'profiles' );
 
 	// Get Profiles Attachments Uploads Dir datas.
 	$bp_attachments_uploads_dir = bp_attachments_uploads_dir_get();

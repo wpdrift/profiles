@@ -25,8 +25,8 @@ class BP_XProfile_Field_Type_Radiobutton extends BP_XProfile_Field_Type {
 	public function __construct() {
 		parent::__construct();
 
-		$this->category = _x( 'Multi Fields', 'xprofile field type category', 'buddypress' );
-		$this->name     = _x( 'Radio Buttons', 'xprofile field type', 'buddypress' );
+		$this->category = _x( 'Multi Fields', 'xprofile field type category', 'profiles' );
+		$this->name     = _x( 'Radio Buttons', 'xprofile field type', 'profiles' );
 
 		$this->supports_options = true;
 
@@ -82,7 +82,7 @@ class BP_XProfile_Field_Type_Radiobutton extends BP_XProfile_Field_Type {
 			if ( ! bp_get_the_profile_field_is_required() ) : ?>
 
 				<a class="clear-value" href="javascript:clear( '<?php echo esc_js( bp_get_the_profile_field_input_name() ); ?>' );">
-					<?php esc_html_e( 'Clear', 'buddypress' ); ?>
+					<?php esc_html_e( 'Clear', 'profiles' ); ?>
 				</a>
 
 			<?php endif; ?>
@@ -177,7 +177,7 @@ class BP_XProfile_Field_Type_Radiobutton extends BP_XProfile_Field_Type {
 		} ?>
 
 		<a class="clear-value" href="javascript:clear( '<?php echo esc_js( bp_get_the_profile_field_input_name() ); ?>' );">
-			<?php esc_html_e( 'Clear', 'buddypress' ); ?>
+			<?php esc_html_e( 'Clear', 'profiles' ); ?>
 		</a>
 
 		<?php

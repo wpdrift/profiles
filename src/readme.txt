@@ -44,79 +44,79 @@ Enable registered members to create profiles.
 
 == Languages ==
 
-Profiles is available in many languages thanks to the volunteer efforts of individuals all around the world. Check out our <a href="https://codex.buddypress.org/translations/">translations page</a> on the Profiles Codex for more details.
+Profiles is available in many languages thanks to the volunteer efforts of individuals all around the world. Check out our <a href="https://codex.profiles.org/translations/">translations page</a> on the Profiles Codex for more details.
 
-Please consider helping translate Profiles at our <a href="https://translate.wordpress.org/projects/wp-plugins/buddypress">GlotPress project</a>. Growing the Profiles community means better software for everyone!
+Please consider helping translate Profiles at our <a href="https://translate.wordpress.org/projects/wp-plugins/profiles">GlotPress project</a>. Growing the Profiles community means better software for everyone!
 
 == Upgrade Notice ==
 
 = 2.6.1.1 =
-See: https://codex.buddypress.org/releases/version-2-6-1-1/
+See: https://codex.profiles.org/releases/version-2-6-1-1/
 
 = 2.6.1 =
-See: https://codex.buddypress.org/releases/version-2-6-1/
+See: https://codex.profiles.org/releases/version-2-6-1/
 
 = 2.6.0 =
-See: https://codex.buddypress.org/releases/version-2-6-0/
+See: https://codex.profiles.org/releases/version-2-6-0/
 
 == Changelog ==
 
 = 2.6.1.1 =
-See: https://codex.buddypress.org/releases/version-2-6-1-1/
+See: https://codex.profiles.org/releases/version-2-6-1-1/
 
 = 2.6.1 =
-See: https://codex.buddypress.org/releases/version-2-6-1/
+See: https://codex.profiles.org/releases/version-2-6-1/
 
 = 2.6.0 =
-See: https://codex.buddypress.org/releases/version-2-6-0/
+See: https://codex.profiles.org/releases/version-2-6-0/
 
 = 2.5.3 =
-See: https://codex.buddypress.org/releases/version-2-5-3/
+See: https://codex.profiles.org/releases/version-2-5-3/
 
 = 2.5.2 =
-See: https://codex.buddypress.org/releases/version-2-5-2/
+See: https://codex.profiles.org/releases/version-2-5-2/
 
 = 2.5.1 =
-See: https://codex.buddypress.org/releases/version-2-5-1/
+See: https://codex.profiles.org/releases/version-2-5-1/
 
 = 2.5 =
-See: https://codex.buddypress.org/releases/version-2-5-0/
+See: https://codex.profiles.org/releases/version-2-5-0/
 
 = 2.4.3 =
-See: https://codex.buddypress.org/releases/version-2-4-3/
+See: https://codex.profiles.org/releases/version-2-4-3/
 
 = 2.4.2 =
-See: https://codex.buddypress.org/releases/version-2-4-2/
+See: https://codex.profiles.org/releases/version-2-4-2/
 
 = 2.4.1 =
-See: https://codex.buddypress.org/releases/version-2-4-1/
+See: https://codex.profiles.org/releases/version-2-4-1/
 
 = 2.4 =
-See: https://codex.buddypress.org/releases/version-2-4-0/
+See: https://codex.profiles.org/releases/version-2-4-0/
 
 = 2.3.5 =
-See: https://codex.buddypress.org/releases/version-2-3-5/
+See: https://codex.profiles.org/releases/version-2-3-5/
 
 = 2.3.4 =
-See: https://codex.buddypress.org/releases/version-2-3-4/
+See: https://codex.profiles.org/releases/version-2-3-4/
 
 = 2.3.3 =
-See: https://codex.buddypress.org/releases/version-2-3-3/
+See: https://codex.profiles.org/releases/version-2-3-3/
 
 = 2.3.2 =
-See: https://codex.buddypress.org/releases/version-2-3-2/
+See: https://codex.profiles.org/releases/version-2-3-2/
 
 = 2.3.1 =
-See: https://codex.buddypress.org/releases/version-2-3-1/
+See: https://codex.profiles.org/releases/version-2-3-1/
 
 = 2.3 =
-See: https://codex.buddypress.org/releases/version-2-3-0/
+See: https://codex.profiles.org/releases/version-2-3-0/
 
 = 2.2.1 =
-See: https://codex.buddypress.org/releases/version-2-2-1/
+See: https://codex.profiles.org/releases/version-2-2-1/
 
 = 2.2 =
-See: https://codex.buddypress.org/releases/version-2-2/
+See: https://codex.profiles.org/releases/version-2-2/
 
 = Older =
-See: https://codex.buddypress.org/releases/
+See: https://codex.profiles.org/releases/

@@ -21,15 +21,15 @@ function bp_core_admin_slugs_settings() {
 
 	<div class="wrap">
 
-		<h1><?php _e( 'Profiles Settings', 'buddypress' ); ?> </h1>
+		<h1><?php _e( 'Profiles Settings', 'profiles' ); ?> </h1>
 
-		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Pages', 'buddypress' ) ); ?></h2>
+		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Pages', 'profiles' ) ); ?></h2>
 		<form action="" method="post" id="bp-admin-page-form">
 
 			<?php bp_core_admin_slugs_options(); ?>
 
 			<p class="submit clear">
-				<input class="button-primary" type="submit" name="bp-admin-pages-submit" id="bp-admin-pages-submit" value="<?php esc_attr_e( 'Save Settings', 'buddypress' ) ?>"/>
+				<input class="button-primary" type="submit" name="bp-admin-pages-submit" id="bp-admin-pages-submit" value="<?php esc_attr_e( 'Save Settings', 'profiles' ) ?>"/>
 			</p>
 
 			<?php wp_nonce_field( 'bp-admin-pages-setup' ); ?>
@@ -48,7 +48,7 @@ function bp_core_admin_slugs_settings() {
  * @return array
  */
 function bp_core_admin_get_directory_pages() {
-	$bp = buddypress();
+	$bp = profiles();
 	$directory_pages = array();
 
 	// Loop through loaded components and collect directories.
@@ -87,8 +87,8 @@ function bp_core_admin_get_directory_pages() {
  */
 function bp_core_admin_get_static_pages() {
 	$static_pages = array(
-		'register' => __( 'Register', 'buddypress' ),
-		'activate' => __( 'Activate', 'buddypress' ),
+		'register' => __( 'Register', 'profiles' ),
+		'activate' => __( 'Activate', 'profiles' ),
 	);
 
 	/**
@@ -109,7 +109,7 @@ function bp_core_admin_get_static_pages() {
  * @todo Use settings API
  */
 function bp_core_admin_slugs_options() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Get the existing WP pages
 	$existing_pages = bp_core_get_directory_page_ids();
@@ -119,9 +119,9 @@ function bp_core_admin_slugs_options() {
 
 	if ( !empty( $directory_pages ) ) : ?>
 
-		<h3><?php _e( 'Directories', 'buddypress' ); ?></h3>
+		<h3><?php _e( 'Directories', 'profiles' ); ?></h3>
 
-		<p><?php _e( 'Associate a WordPress Page with each Profiles component directory.', 'buddypress' ); ?></p>
+		<p><?php _e( 'Associate a WordPress Page with each Profiles component directory.', 'profiles' ); ?></p>
 
 		<table class="form-table">
 			<tbody>
@@ -140,13 +140,13 @@ function bp_core_admin_slugs_options() {
 							<?php echo wp_dropdown_pages( array(
 								'name'             => 'bp_pages[' . esc_attr( $name ) . ']',
 								'echo'             => false,
-								'show_option_none' => __( '- None -', 'buddypress' ),
+								'show_option_none' => __( '- None -', 'profiles' ),
 								'selected'         => !empty( $existing_pages[$name] ) ? $existing_pages[$name] : false
 							) ); ?>
 
 							<?php if ( !empty( $existing_pages[$name] ) ) : ?>
 
-								<a href="<?php echo get_permalink( $existing_pages[$name] ); ?>" class="button-secondary" target="_bp"><?php _e( 'View', 'buddypress' ); ?></a>
+								<a href="<?php echo get_permalink( $existing_pages[$name] ); ?>" class="button-secondary" target="_bp"><?php _e( 'View', 'profiles' ); ?></a>
 
 							<?php endif; ?>
 

@@ -10,7 +10,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
+if ( ! profiles()->do_autoload ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-members-component.php';
 }
 
@@ -20,6 +20,6 @@ if ( ! buddypress()->do_autoload ) {
  * @since 1.6.0
  */
 function bp_setup_members() {
-	buddypress()->members = new BP_Members_Component();
+	profiles()->members = new BP_Members_Component();
 }
 add_action( 'bp_setup_components', 'bp_setup_members', 1 );

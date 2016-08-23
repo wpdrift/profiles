@@ -31,7 +31,7 @@ class BP_XProfile_User_Admin {
 			return;
 		}
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( empty( $bp->profile->admin ) ) {
 			$bp->profile->admin = new self;
@@ -76,7 +76,7 @@ class BP_XProfile_User_Admin {
 		if ( ( false === strpos( $screen_id, 'users_page_bp-profile-edit' )
 			&& false === strpos( $screen_id, 'profile_page_bp-profile-edit' ) )
 			|| bp_core_get_root_option( 'bp-disable-avatar-uploads' )
-			|| ! buddypress()->avatar->show_avatars
+			|| ! profiles()->avatar->show_avatars
 			|| ! bp_attachments_is_wp_version_supported() ) {
 			return;
 		}
@@ -109,7 +109,7 @@ class BP_XProfile_User_Admin {
 
 		// Set the screen ID if none was passed.
 		if ( empty( $screen_id ) ) {
-			$screen_id = buddypress()->members->admin->user_page;
+			$screen_id = profiles()->members->admin->user_page;
 		}
 
 		// Setup a new metabox class if none was passed.
@@ -147,7 +147,7 @@ class BP_XProfile_User_Admin {
 			// If member is already a spammer, show a generic metabox.
 			add_meta_box(
 				'bp_xprofile_user_admin_empty_profile',
-				_x( 'User marked as a spammer', 'xprofile user-admin edit screen', 'buddypress' ),
+				_x( 'User marked as a spammer', 'xprofile user-admin edit screen', 'profiles' ),
 				array( $this, 'user_admin_spammer_metabox' ),
 				$screen_id,
 				'normal',
@@ -155,11 +155,11 @@ class BP_XProfile_User_Admin {
 			);
 		}
 
-		if ( buddypress()->avatar->show_avatars ) {
+		if ( profiles()->avatar->show_avatars ) {
 			// Avatar Metabox.
 			add_meta_box(
 				'bp_xprofile_user_admin_avatar',
-				_x( 'Profile Photo', 'xprofile user-admin edit screen', 'buddypress' ),
+				_x( 'Profile Photo', 'xprofile user-admin edit screen', 'profiles' ),
 				array( $this, 'user_admin_avatar_metabox' ),
 				$screen_id,
 				'side',
@@ -390,14 +390,14 @@ class BP_XProfile_User_Admin {
 
 						<?php
 						printf(
-							__( 'This field can be seen by: %s', 'buddypress' ),
+							__( 'This field can be seen by: %s', 'profiles' ),
 							'<span class="current-visibility-level">' . bp_get_the_profile_field_visibility_level_label() . '</span>'
 						);
 						?>
 
 						<?php if ( $can_change_visibility ) : ?>
 
-							<a href="#" class="button visibility-toggle-link"><?php esc_html_e( 'Change', 'buddypress' ); ?></a>
+							<a href="#" class="button visibility-toggle-link"><?php esc_html_e( 'Change', 'profiles' ); ?></a>
 
 						<?php endif; ?>
 					</p>
@@ -406,12 +406,12 @@ class BP_XProfile_User_Admin {
 
 						<div class="field-visibility-settings" id="field-visibility-settings-<?php bp_the_profile_field_id() ?>">
 							<fieldset>
-								<legend><?php _e( 'Who can see this field?', 'buddypress' ); ?></legend>
+								<legend><?php _e( 'Who can see this field?', 'profiles' ); ?></legend>
 
 								<?php bp_profile_visibility_radio_buttons(); ?>
 
 							</fieldset>
-							<a class="button field-visibility-settings-close" href="#"><?php esc_html_e( 'Close', 'buddypress' ); ?></a>
+							<a class="button field-visibility-settings-close" href="#"><?php esc_html_e( 'Close', 'profiles' ); ?></a>
 						</div>
 
 					<?php endif; ?>
@@ -441,7 +441,7 @@ class BP_XProfile_User_Admin {
 	 */
 	public function user_admin_spammer_metabox( $user = null ) {
 	?>
-		<p><?php printf( __( '%s has been marked as a spammer. All Profiles data associated with the user has been removed', 'buddypress' ), esc_html( bp_core_get_user_displayname( $user->ID ) ) ) ;?></p>
+		<p><?php printf( __( '%s has been marked as a spammer. All Profiles data associated with the user has been removed', 'profiles' ), esc_html( bp_core_get_user_displayname( $user->ID ) ) ) ;?></p>
 	<?php
 	}
 
@@ -478,16 +478,16 @@ class BP_XProfile_User_Admin {
 					$query_args['wp_http_referer'] = urlencode( wp_unslash( $_REQUEST['wp_http_referer'] ) );
 				}
 
-				$community_url = add_query_arg( $query_args, buddypress()->members->admin->edit_profile_url );
+				$community_url = add_query_arg( $query_args, profiles()->members->admin->edit_profile_url );
 				$delete_link   = wp_nonce_url( $community_url, 'delete_avatar' ); ?>
 
-				<a href="<?php echo esc_url( $delete_link ); ?>" class="bp-xprofile-avatar-user-admin"><?php esc_html_e( 'Delete Profile Photo', 'buddypress' ); ?></a>
+				<a href="<?php echo esc_url( $delete_link ); ?>" class="bp-xprofile-avatar-user-admin"><?php esc_html_e( 'Delete Profile Photo', 'profiles' ); ?></a>
 
 			<?php endif;
 
 			// Load the Avatar UI templates if user avatar uploads are enabled and current WordPress version is supported.
 			if ( ! bp_core_get_root_option( 'bp-disable-avatar-uploads' ) && bp_attachments_is_wp_version_supported() ) : ?>
-				<a href="#TB_inline?width=800px&height=400px&inlineId=bp-xprofile-avatar-editor" class="thickbox bp-xprofile-avatar-user-edit"><?php esc_html_e( 'Edit Profile Photo', 'buddypress' ); ?></a>
+				<a href="#TB_inline?width=800px&height=400px&inlineId=bp-xprofile-avatar-editor" class="thickbox bp-xprofile-avatar-user-edit"><?php esc_html_e( 'Edit Profile Photo', 'profiles' ); ?></a>
 				<div id="bp-xprofile-avatar-editor" style="display:none;">
 					<?php bp_attachments_get_template_part( 'avatars/index' ); ?>
 				</div>

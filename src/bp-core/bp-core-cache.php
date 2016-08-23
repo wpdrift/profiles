@@ -79,7 +79,7 @@ function bp_core_clear_directory_pages_cache_page_edit( $post_id ) {
 	}
 
 	// Bail if BP is not defined here.
-	if ( ! buddypress() ) {
+	if ( ! profiles() ) {
 		return;
 	}
 

@@ -229,7 +229,7 @@ class BP_User_Query {
 	public function prepare_user_ids_query() {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Default query variables used here.
 		$type         = '';
@@ -266,7 +266,7 @@ class BP_User_Query {
 				$this->uid_name = 'user_id';
 				$this->uid_table = $bp->members->table_name_last_activity;
 				$sql['select']  = "SELECT u.{$this->uid_name} as id FROM {$this->uid_table} u";
-				$sql['where'][] = $wpdb->prepare( "u.component = %s AND u.type = 'last_activity'", buddypress()->members->id );
+				$sql['where'][] = $wpdb->prepare( "u.component = %s AND u.type = 'last_activity'", profiles()->members->id );
 
 				/**
 				 * Filters the threshold for activity timestamp minutes since to indicate online status.
@@ -289,7 +289,7 @@ class BP_User_Query {
 				$this->uid_name = 'user_id';
 				$this->uid_table = $bp->members->table_name_last_activity;
 				$sql['select']  = "SELECT u.{$this->uid_name} as id FROM {$this->uid_table} u";
-				$sql['where'][] = $wpdb->prepare( "u.component = %s AND u.type = 'last_activity'", buddypress()->members->id );
+				$sql['where'][] = $wpdb->prepare( "u.component = %s AND u.type = 'last_activity'", profiles()->members->id );
 
 				if ( 'newest' == $type ) {
 					$sql['orderby'] = "ORDER BY u.user_id";

@@ -22,7 +22,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * The URIs are broken down as follows:
  *   - http:// example.com / members / andy / [current_component] / [current_action] / [action_variables] / [action_variables] / ...
- *   - OUTSIDE ROOT: http:// example.com / sites / buddypress / members / andy / [current_component] / [current_action] / [action_variables] / [action_variables] / ...
+ *   - OUTSIDE ROOT: http:// example.com / sites / profiles / members / andy / [current_component] / [current_action] / [action_variables] / [action_variables] / ...
  *
  * Example:
  *    - http://example.com/members/andy/profile/edit/group/5/
@@ -39,7 +39,7 @@ function bp_core_set_uri_globals() {
 	if ( !bp_is_root_blog() && !bp_is_multiblog_mode() )
 		return false;
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Define local variables.
 	$root_profile = $match   = false;
@@ -327,7 +327,7 @@ function bp_core_set_uri_globals() {
 			// If the displayed user is marked as a spammer, 404 (unless logged-in user is a super admin).
 			if ( bp_displayed_user_id() && bp_is_user_spammer( bp_displayed_user_id() ) ) {
 				if ( bp_current_user_can( 'bp_moderate' ) ) {
-					bp_core_add_message( __( 'This user has been marked as a spammer. Only site admins can view this profile.', 'buddypress' ), 'warning' );
+					bp_core_add_message( __( 'This user has been marked as a spammer. Only site admins can view this profile.', 'profiles' ), 'warning' );
 				} else {
 					bp_do_404();
 					return;
@@ -510,7 +510,7 @@ function bp_core_load_template( $templates ) {
 
 		// We know where we are, so reset important $wp_query bits here early.
 		// The rest will be done by bp_theme_compat_reset_post() later.
-		if ( is_buddypress() ) {
+		if ( is_profiles() ) {
 			status_header( 200 );
 			$wp_query->is_page     = true;
 			$wp_query->is_singular = true;
@@ -595,7 +595,7 @@ add_filter( 'bp_core_set_uri_globals_member_slug', 'bp_core_members_shortlink_re
 function bp_core_catch_no_access() {
 	global $wp_query;
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// If coming from bp_core_redirect() and $bp_no_status_set is true,
 	// we are redirecting to an accessible page so skip this check.
@@ -640,7 +640,7 @@ function bp_core_no_access( $args = '' ) {
 		'mode'     => 2,                    // 1 = $root, 2 = wp-login.php.
 		'redirect' => $redirect_url,        // the URL you get redirected to when a user successfully logs in.
 		'root'     => bp_get_root_domain(), // the landing page you get redirected to when a user doesn't have access.
-		'message'  => __( 'You must log in to access the page you requested.', 'buddypress' )
+		'message'  => __( 'You must log in to access the page you requested.', 'profiles' )
 	);
 
 	$r = wp_parse_args( $args, $defaults );
@@ -717,7 +717,7 @@ function bp_core_no_access_wp_login_error() {
 	 * @param string $value Error message to display.
 	 * @param string $value URL to redirect user to after successful login.
 	 */
-	$error = apply_filters( 'bp_wp_login_error', __( 'You must log in to access the page you requested.', 'buddypress' ), $_REQUEST['redirect_to'] );
+	$error = apply_filters( 'bp_wp_login_error', __( 'You must log in to access the page you requested.', 'profiles' ), $_REQUEST['redirect_to'] );
 
 	// Shake shake shake!.
 	add_action( 'login_head', 'wp_shake_js', 12 );
@@ -770,7 +770,7 @@ function bp_redirect_canonical() {
 		// Only redirect if we've assembled a URL different from the request.
 		if ( $canonical_url !== $req_url_clean ) {
 
-			$bp = buddypress();
+			$bp = profiles();
 
 			// Template messages have been deleted from the cookie by this point, so
 			// they must be readded before redirecting.
@@ -821,7 +821,7 @@ function bp_get_canonical_url( $args = array() ) {
 		return bp_get_requested_url();
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	$defaults = array(
 		'include_query_args' => false // Include URL arguments, eg ?foo=bar&foo2=bar2.
@@ -914,7 +914,7 @@ function bp_get_canonical_url( $args = array() ) {
  * @return string Requested URL string.
  */
 function bp_get_requested_url() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( empty( $bp->canonical_stack['requested_url'] ) ) {
 		$bp->canonical_stack['requested_url']  = is_ssl() ? 'https://' : 'http://';
@@ -972,8 +972,8 @@ add_action( 'bp_init', '_bp_maybe_remove_redirect_canonical' );
  *
  * @since 1.6.1
  *
- * @link https://buddypress.trac.wordpress.org/ticket/4329
- * @link https://buddypress.trac.wordpress.org/ticket/4415
+ * @link https://profiles.trac.wordpress.org/ticket/4329
+ * @link https://profiles.trac.wordpress.org/ticket/4415
  */
 function _bp_rehook_maybe_redirect_404() {
 	if ( defined( 'NOBLOGREDIRECT' ) ) {

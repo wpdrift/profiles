@@ -213,7 +213,7 @@ function bp_setup_cache_groups() {
  *
  * @since 1.7.0
  *
- * @link https://buddypress.trac.wordpress.org/ticket/6046
+ * @link https://profiles.trac.wordpress.org/ticket/6046
  * @link https://core.trac.wordpress.org/ticket/24169
  */
 function bp_setup_current_user() {
@@ -226,7 +226,7 @@ function bp_setup_current_user() {
 		$e = new Exception;
 		$trace = $e->getTraceAsString();
 
-		_doing_it_wrong( __FUNCTION__, __( 'The current user is being initialized without using $wp->init().', 'buddypress' ) . "\n===\nTrace:\n" . substr( $trace, strpos( $trace, '#6' ) ) . "\n===\n", '1.7' );
+		_doing_it_wrong( __FUNCTION__, __( 'The current user is being initialized without using $wp->init().', 'profiles' ) . "\n===\nTrace:\n" . substr( $trace, strpos( $trace, '#6' ) ) . "\n===\n", '1.7' );
 	}
 
 	/**
@@ -475,7 +475,7 @@ function bp_enqueue_scripts() {
  * @since 2.6.0
  */
 function bp_enqueue_embed_scripts() {
-	if ( ! is_buddypress() ) {
+	if ( ! is_profiles() ) {
 		return;
 	}
 

@@ -55,7 +55,7 @@ div.bp-cover-image-status .bp-bar {
 	padding: 10px 15px;
 }
 
-#buddypress p.warning,
+#profiles p.warning,
 body.users_page_bp-profile-edit.modal-open #TB_ajaxContent p.warning,
 body.profile_page_bp-profile-edit.modal-open #TB_ajaxContent p.warning {
 	background-color: #ffd;

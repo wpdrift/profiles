@@ -1,7 +1,7 @@
 {
   "author": "The Profiles Contributors",
   "bugs": {
-    "url": "https://buddypress.trac.wordpress.org/"
+    "url": "https://profiles.trac.wordpress.org/"
   },
   "description": "Profiles helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.",
   "devDependencies": {
@@ -39,12 +39,12 @@
     "profiles",
     "social network"
   ],
-  "homepage": "https://buddypress.org",
+  "homepage": "https://profiles.org",
   "license": "GPL-2.0+",
-  "name": "buddypress",
+  "name": "profiles",
   "repository": {
     "type": "svn",
-    "url": "https://buddypress.svn.wordpress.org/trunk/"
+    "url": "https://profiles.svn.wordpress.org/trunk/"
   },
   "version": "2.6.0"
 }

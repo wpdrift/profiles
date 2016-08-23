@@ -8,7 +8,7 @@
 
 ?>
 
-<div id="buddypress">
+<div id="profiles">
 
 	<?php
 
@@ -94,4 +94,4 @@
 	 */
 	do_action( 'bp_after_member_home_content' ); ?>
 
-</div><!-- #buddypress -->
+</div><!-- #profiles -->

@@ -25,8 +25,8 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 	public function __construct() {
 		parent::__construct();
 
-		$this->category = _x( 'Single Fields', 'xprofile field type category', 'buddypress' );
-		$this->name     = _x( 'Date Selector', 'xprofile field type', 'buddypress' );
+		$this->category = _x( 'Single Fields', 'xprofile field type category', 'profiles' );
+		$this->name     = _x( 'Date Selector', 'xprofile field type', 'profiles' );
 
 		$this->set_format( '/^\d{4}-\d{1,2}-\d{1,2} 00:00:00$/', 'replace' ); // "Y-m-d 00:00:00"
 
@@ -103,7 +103,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 				<label for="<?php bp_the_profile_field_input_name(); ?>_day" class="<?php echo is_admin() ? 'screen-reader-text' : 'bp-screen-reader-text' ;?>"><?php
 					/* translators: accessibility text */
-					esc_html_e( 'Select day', 'buddypress' );
+					esc_html_e( 'Select day', 'profiles' );
 				?></label>
 				<select <?php echo $this->get_edit_field_html_elements( $day_r ); ?>>
 					<?php bp_the_profile_field_options( array(
@@ -114,7 +114,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 				<label for="<?php bp_the_profile_field_input_name(); ?>_month" class="<?php echo is_admin() ? 'screen-reader-text' : 'bp-screen-reader-text' ;?>"><?php
 					/* translators: accessibility text */
-					esc_html_e( 'Select month', 'buddypress' );
+					esc_html_e( 'Select month', 'profiles' );
 				?></label>
 				<select <?php echo $this->get_edit_field_html_elements( $month_r ); ?>>
 					<?php bp_the_profile_field_options( array(
@@ -125,7 +125,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 				<label for="<?php bp_the_profile_field_input_name(); ?>_year" class="<?php echo is_admin() ? 'screen-reader-text' : 'bp-screen-reader-text' ;?>"><?php
 					/* translators: accessibility text */
-					esc_html_e( 'Select year', 'buddypress' );
+					esc_html_e( 'Select year', 'profiles' );
 				?></label>
 				<select <?php echo $this->get_edit_field_html_elements( $year_r ); ?>>
 					<?php bp_the_profile_field_options( array(
@@ -206,7 +206,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 		// $type will be passed by calling function when needed.
 		switch ( $args['type'] ) {
 			case 'day':
-				$html = sprintf( '<option value="" %1$s>%2$s</option>', selected( $day, 0, false ), /* translators: no option picked in select box */ __( '----', 'buddypress' ) );
+				$html = sprintf( '<option value="" %1$s>%2$s</option>', selected( $day, 0, false ), /* translators: no option picked in select box */ __( '----', 'profiles' ) );
 
 				for ( $i = 1; $i < 32; ++$i ) {
 					$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', (int) $i, selected( $day, $i, false ), (int) $i );
@@ -215,21 +215,21 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 			case 'month':
 				$months = array(
-					__( 'January',   'buddypress' ),
-					__( 'February',  'buddypress' ),
-					__( 'March',     'buddypress' ),
-					__( 'April',     'buddypress' ),
-					__( 'May',       'buddypress' ),
-					__( 'June',      'buddypress' ),
-					__( 'July',      'buddypress' ),
-					__( 'August',    'buddypress' ),
-					__( 'September', 'buddypress' ),
-					__( 'October',   'buddypress' ),
-					__( 'November',  'buddypress' ),
-					__( 'December',  'buddypress' )
+					__( 'January',   'profiles' ),
+					__( 'February',  'profiles' ),
+					__( 'March',     'profiles' ),
+					__( 'April',     'profiles' ),
+					__( 'May',       'profiles' ),
+					__( 'June',      'profiles' ),
+					__( 'July',      'profiles' ),
+					__( 'August',    'profiles' ),
+					__( 'September', 'profiles' ),
+					__( 'October',   'profiles' ),
+					__( 'November',  'profiles' ),
+					__( 'December',  'profiles' )
 				);
 
-				$html = sprintf( '<option value="" %1$s>%2$s</option>', selected( $month, 0, false ), /* translators: no option picked in select box */ __( '----', 'buddypress' ) );
+				$html = sprintf( '<option value="" %1$s>%2$s</option>', selected( $month, 0, false ), /* translators: no option picked in select box */ __( '----', 'profiles' ) );
 
 				for ( $i = 0; $i < 12; ++$i ) {
 					$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', esc_attr( $eng_months[$i] ), selected( $month, $eng_months[$i], false ), $months[$i] );
@@ -237,7 +237,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 			break;
 
 			case 'year':
-				$html = sprintf( '<option value="" %1$s>%2$s</option>', selected( $year, 0, false ), /* translators: no option picked in select box */ __( '----', 'buddypress' ) );
+				$html = sprintf( '<option value="" %1$s>%2$s</option>', selected( $year, 0, false ), /* translators: no option picked in select box */ __( '----', 'profiles' ) );
 
 				for ( $i = 2037; $i > 1901; $i-- ) {
 					$html .= sprintf( '<option value="%1$s" %2$s>%3$s</option>', (int) $i, selected( $year, $i, false ), (int) $i );
@@ -289,7 +289,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 		<label for="<?php bp_the_profile_field_input_name(); ?>_day" class="screen-reader-text"><?php
 			/* translators: accessibility text */
-			esc_html_e( 'Select day', 'buddypress' );
+			esc_html_e( 'Select day', 'profiles' );
 		?></label>
 		<select <?php echo $this->get_edit_field_html_elements( $day_r ); ?>>
 			<?php bp_the_profile_field_options( array( 'type' => 'day' ) ); ?>
@@ -297,7 +297,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 		<label for="<?php bp_the_profile_field_input_name(); ?>_month" class="screen-reader-text"><?php
 			/* translators: accessibility text */
-			esc_html_e( 'Select month', 'buddypress' );
+			esc_html_e( 'Select month', 'profiles' );
 		?></label>
 		<select <?php echo $this->get_edit_field_html_elements( $month_r ); ?>>
 			<?php bp_the_profile_field_options( array( 'type' => 'month' ) ); ?>
@@ -305,7 +305,7 @@ class BP_XProfile_Field_Type_Datebox extends BP_XProfile_Field_Type {
 
 		<label for="<?php bp_the_profile_field_input_name(); ?>_year" class="screen-reader-text"><?php
 			/* translators: accessibility text */
-			esc_html_e( 'Select year', 'buddypress' );
+			esc_html_e( 'Select year', 'profiles' );
 		?></label>
 		<select <?php echo $this->get_edit_field_html_elements( $year_r ); ?>>
 			<?php bp_the_profile_field_options( array( 'type' => 'year' ) ); ?>

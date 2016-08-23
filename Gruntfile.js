@@ -112,7 +112,7 @@ module.exports = function( grunt ) {
 		checktextdomain: {
 			options: {
 				correct_domain: false,
-				text_domain: 'buddypress',
+				text_domain: 'profiles',
 				keywords: [
 					'__:1,2d',
 					'_e:1,2d',
@@ -142,11 +142,11 @@ module.exports = function( grunt ) {
 					cwd: BUILD_DIR,
 					domainPath: '.',
 					mainFile: 'bp-loader.php',
-					potFilename: 'buddypress.pot',
+					potFilename: 'profiles.pot',
 					processPot: function( pot ) {
-						pot.headers['report-msgid-bugs-to'] = 'https://buddypress.trac.wordpress.org';
-						pot.headers['last-translator'] = 'JOHN JAMES JACOBY <jjj@buddypress.org>';
-						pot.headers['language-team'] = 'ENGLISH <jjj@buddypress.org>';
+						pot.headers['report-msgid-bugs-to'] = 'https://profiles.trac.wordpress.org';
+						pot.headers['last-translator'] = 'JOHN JAMES JACOBY <jjj@profiles.org>';
+						pot.headers['language-team'] = 'ENGLISH <jjj@profiles.org>';
 						return pot;
 					},
 					type: 'wp-plugin'
@@ -222,7 +222,7 @@ module.exports = function( grunt ) {
 				stdout: false
 			},
 			bpdefault: {
-				command: 'svn export --force https://github.com/buddypress/BP-Default.git/trunk bp-themes/bp-default',
+				command: 'svn export --force https://github.com/profiles/BP-Default.git/trunk bp-themes/bp-default',
 				cwd: BUILD_DIR,
 				stdout: false
 			}
@@ -246,12 +246,12 @@ module.exports = function( grunt ) {
 		},
 		patch: {
 			options: {
-				tracUrl: 'buddypress.trac.wordpress.org'
+				tracUrl: 'profiles.trac.wordpress.org'
 			}
 		},
 		upload_patch: {
 			options: {
-				tracUrl: 'buddypress.trac.wordpress.org'
+				tracUrl: 'profiles.trac.wordpress.org'
 			}
 		}
 	});

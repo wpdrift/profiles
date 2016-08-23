@@ -1,6 +1,6 @@
 # Profiles
 
-Profiles is built on the solid foundation of the [BuddyPress plugin](https://wordpress.org/plugins/buddypress/). 
+Profiles is built on the solid foundation of the [BuddyPress plugin](https://wordpress.org/plugins/profiles/). 
 We decided to fork this project to provide a more generic Profiles plugin that could be easily extended for more specific use-cases.
 
 * It adds profile for each user.

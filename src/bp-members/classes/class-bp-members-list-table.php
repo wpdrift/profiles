@@ -147,12 +147,12 @@ class BP_Members_List_Table extends WP_Users_List_Table {
 		 */
 		return apply_filters( 'bp_members_signup_columns', array(
 			'cb'         => '<input type="checkbox" />',
-			'username'   => __( 'Username',    'buddypress' ),
-			'name'       => __( 'Name',        'buddypress' ),
-			'email'      => __( 'Email',       'buddypress' ),
-			'registered' => __( 'Registered',  'buddypress' ),
-			'date_sent'  => __( 'Last Sent',   'buddypress' ),
-			'count_sent' => __( 'Emails Sent', 'buddypress' )
+			'username'   => __( 'Username',    'profiles' ),
+			'name'       => __( 'Name',        'profiles' ),
+			'email'      => __( 'Email',       'profiles' ),
+			'registered' => __( 'Registered',  'profiles' ),
+			'date_sent'  => __( 'Last Sent',   'profiles' ),
+			'count_sent' => __( 'Emails Sent', 'profiles' )
 		) );
 	}
 
@@ -163,12 +163,12 @@ class BP_Members_List_Table extends WP_Users_List_Table {
 	 */
 	public function get_bulk_actions() {
 		$actions = array(
-			'activate' => _x( 'Activate', 'Pending signup action', 'buddypress' ),
-			'resend'   => _x( 'Email',    'Pending signup action', 'buddypress' ),
+			'activate' => _x( 'Activate', 'Pending signup action', 'profiles' ),
+			'resend'   => _x( 'Email',    'Pending signup action', 'profiles' ),
 		);
 
 		if ( current_user_can( 'delete_users' ) ) {
-			$actions['delete'] = __( 'Delete', 'buddypress' );
+			$actions['delete'] = __( 'Delete', 'profiles' );
 		}
 
 		return $actions;
@@ -236,7 +236,7 @@ class BP_Members_List_Table extends WP_Users_List_Table {
 	?>
 		<label class="screen-reader-text" for="signup_<?php echo intval( $signup_object->id ); ?>"><?php
 			/* translators: accessibility text */
-			printf( esc_html__( 'Select user: %s', 'buddypress' ), $signup_object->user_login );
+			printf( esc_html__( 'Select user: %s', 'profiles' ), $signup_object->user_login );
 		?></label>
 		<input type="checkbox" id="signup_<?php echo intval( $signup_object->id ) ?>" name="allsignups[]" value="<?php echo esc_attr( $signup_object->id ) ?>" />
 		<?php
@@ -282,15 +282,15 @@ class BP_Members_List_Table extends WP_Users_List_Table {
 			bp_get_admin_url( 'users.php' )
 		);
 
-		echo $avatar . sprintf( '<strong><a href="%1$s" class="edit" title="%2$s">%3$s</a></strong><br/>', esc_url( $activate_link ), esc_attr__( 'Activate', 'buddypress' ), $signup_object->user_login );
+		echo $avatar . sprintf( '<strong><a href="%1$s" class="edit" title="%2$s">%3$s</a></strong><br/>', esc_url( $activate_link ), esc_attr__( 'Activate', 'profiles' ), $signup_object->user_login );
 
 		$actions = array();
 
-		$actions['activate'] = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $activate_link ), __( 'Activate', 'buddypress' ) );
-		$actions['resend']   = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $email_link ), __( 'Email', 'buddypress' ) );
+		$actions['activate'] = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $activate_link ), __( 'Activate', 'profiles' ) );
+		$actions['resend']   = sprintf( '<a href="%1$s">%2$s</a>', esc_url( $email_link ), __( 'Email', 'profiles' ) );
 
 		if ( current_user_can( 'delete_users' ) ) {
-			$actions['delete'] = sprintf( '<a href="%1$s" class="delete">%2$s</a>', esc_url( $delete_link ), __( 'Delete', 'buddypress' ) );
+			$actions['delete'] = sprintf( '<a href="%1$s" class="delete">%2$s</a>', esc_url( $delete_link ), __( 'Delete', 'profiles' ) );
 		}
 
 		/**

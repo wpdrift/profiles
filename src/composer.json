@@ -1,5 +1,5 @@
 {
-  "name": "buddypress/buddypress",
+  "name": "profiles/profiles",
   "description": "Profiles helps site builders and WordPress developers add community features to their websites, with user profile fields, activity streams, messaging, and notifications.",
   "type": "wordpress-plugin",
   "keywords": [
@@ -13,18 +13,18 @@
     "profiles",
     "social network"
   ],
-  "homepage": "https://buddypress.org",
+  "homepage": "https://profiles.org",
   "license": "GPL-2.0+",
   "authors": [ {
     "name": "Profiles Community",
-    "homepage": "https://buddypress.org/about/"
+    "homepage": "https://profiles.org/about/"
   } ],
   "support": {
-    "forum": "https://buddypress.org/support/",
-    "irc": "irc://irc.freenode.net/buddypress-dev",
-    "issues": "https://buddypress.trac.wordpress.org/",
-    "wiki": "https://codex.buddypress.org/",
-    "source": "https://buddypress.trac.wordpress.org/browser"
+    "forum": "https://profiles.org/support/",
+    "irc": "irc://irc.freenode.net/profiles-dev",
+    "issues": "https://profiles.trac.wordpress.org/",
+    "wiki": "https://codex.profiles.org/",
+    "source": "https://profiles.trac.wordpress.org/browser"
   },
   "require": {
     "composer/installers": "~1.0",

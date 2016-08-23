@@ -235,7 +235,7 @@ function bp_set_current_user_default_role() {
 	}
 
 	// Set the current users default role.
-	buddypress()->current_user->set_role( bp_get_option( 'default_role', 'subscriber' ) );
+	profiles()->current_user->set_role( bp_get_option( 'default_role', 'subscriber' ) );
 }
 
 /**
@@ -405,7 +405,7 @@ add_filter( 'map_meta_cap', '_bp_enforce_bp_moderate_cap_for_admins', 10, 4 );
  * @deprecated 1.7.0
  */
 function bp_add_roles() {
-	_doing_it_wrong( 'bp_add_roles', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'buddypress' ), '1.7' );
+	_doing_it_wrong( 'bp_add_roles', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'profiles' ), '1.7' );
 }
 
 /**
@@ -417,7 +417,7 @@ function bp_add_roles() {
  * @deprecated 1.7.0
  */
 function bp_remove_roles() {
-	_doing_it_wrong( 'bp_remove_roles', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'buddypress' ), '1.7' );
+	_doing_it_wrong( 'bp_remove_roles', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'profiles' ), '1.7' );
 }
 
 
@@ -431,7 +431,7 @@ function bp_remove_roles() {
  * @deprecated 1.7.0
  */
 function bp_get_participant_role() {
-	_doing_it_wrong( 'bp_get_participant_role', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'buddypress' ), '1.7' );
+	_doing_it_wrong( 'bp_get_participant_role', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'profiles' ), '1.7' );
 }
 
 /**
@@ -441,5 +441,5 @@ function bp_get_participant_role() {
  * @deprecated 1.7.0
  */
 function bp_get_moderator_role() {
-	_doing_it_wrong( 'bp_get_moderator_role', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'buddypress' ), '1.7' );
+	_doing_it_wrong( 'bp_get_moderator_role', __( 'Special community roles no longer exist. Use mapped capabilities instead', 'profiles' ), '1.7' );
 }

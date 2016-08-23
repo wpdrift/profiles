@@ -19,7 +19,7 @@ function xprofile_add_admin_css() {
 	if ( !empty( $_GET['page'] ) && strpos( $_GET['page'], 'bp-profile-setup' ) !== false ) {
 		$min = bp_core_get_minified_asset_suffix();
 
-		wp_enqueue_style( 'xprofile-admin-css', buddypress()->plugin_url . "bp-xprofile/admin/css/admin{$min}.css", array(), bp_get_version() );
+		wp_enqueue_style( 'xprofile-admin-css', profiles()->plugin_url . "bp-xprofile/admin/css/admin{$min}.css", array(), bp_get_version() );
 
 		wp_style_add_data( 'xprofile-admin-css', 'rtl', true );
 		if ( $min ) {
@@ -44,7 +44,7 @@ function xprofile_add_admin_js() {
 		wp_enqueue_script( 'jquery-ui-sortable'  );
 
 		$min = bp_core_get_minified_asset_suffix();
-		wp_enqueue_script( 'xprofile-admin-js', buddypress()->plugin_url . "bp-xprofile/admin/js/admin{$min}.js", array( 'jquery', 'jquery-ui-sortable' ), bp_get_version() );
+		wp_enqueue_script( 'xprofile-admin-js', profiles()->plugin_url . "bp-xprofile/admin/js/admin{$min}.js", array( 'jquery', 'jquery-ui-sortable' ), bp_get_version() );
 
 		// Localize strings.
 		// supports_options_field_types is a dynamic list of field

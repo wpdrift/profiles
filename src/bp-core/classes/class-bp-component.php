@@ -152,7 +152,7 @@ class BP_Component {
 	 *
 	 * @param string $id   Unique ID. Letters, numbers, and underscores only.
 	 * @param string $name Unique name. This should be a translatable name, eg.
-	 *                     __( 'Groups', 'buddypress' ).
+	 *                     __( 'Groups', 'profiles' ).
 	 * @param string $path The file path for the component's files. Used by {@link BP_Component::includes()}.
 	 * @param array  $params {
 	 *     Additional parameters used by the component.
@@ -230,7 +230,7 @@ class BP_Component {
 
 		// If a WP directory page exists for the component, it should
 		// be the default value of 'root_slug'.
-		$default_root_slug = isset( buddypress()->pages->{$this->id}->slug ) ? buddypress()->pages->{$this->id}->slug : '';
+		$default_root_slug = isset( profiles()->pages->{$this->id}->slug ) ? profiles()->pages->{$this->id}->slug : '';
 
 		$r = wp_parse_args( $args, array(
 			'slug'                  => $this->id,
@@ -311,7 +311,7 @@ class BP_Component {
 		 */
 
 		// Register this component in the loaded components array.
-		buddypress()->loaded_components[$this->slug] = $this->id;
+		profiles()->loaded_components[$this->slug] = $this->id;
 
 		/**
 		 * Fires at the end of the setup_globals method inside BP_Component.

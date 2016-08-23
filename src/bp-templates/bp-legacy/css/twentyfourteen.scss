@@ -151,17 +151,17 @@ $link-action:            #c82b2b;
 This is the Profiles companion stylesheet for
 the WordPress Twentyfourteen theme.
 
-This sheet supports the primary Profiles styles in buddypress.css
+This sheet supports the primary Profiles styles in profiles.css
 
 If you are running as a child theme of twentyfourteen this stylesheet will be
 loaded by default. If you want to modify the styles the normal BP Theme Compat
-hierarchy works and you can copy the file to buddypress/css/ or community/css/
+hierarchy works and you can copy the file to profiles/css/ or community/css/
 in your child themes root & either start over or modify the ruelesets.
 
 If you do not require the styles you can dequeue them from the themes functions file.
 
 Please see this codex article for more information:
-http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
+http://codex.profiles.org/themes/profiles-companion-stylesheets/
 
 --------------------------------------------------------------------------------
 >>> TABLE OF CONTENTS:
@@ -211,8 +211,8 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 // Twentyfourteen  adds a generic grouped ruleset of clear:both;
 // for all heading h# elements this is problematic where floats are concerned
-// We reset this here under our #buddypress namespace
-#buddypress {
+// We reset this here under our #profiles namespace
+#profiles {
 	h1,
 	h2,
 	h3,
@@ -226,7 +226,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 // As BP screens have specific content lets adjust the themes primary elements
 // to maximise the screen real estate for BP pages.
 
-.buddypress {
+.profiles {
 
 	.site-content {
 		padding-bottom: $spacing-val-md;
@@ -246,13 +246,13 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 				padding: 0;
 			}
 
-			#buddypress {
+			#profiles {
 				margin-bottom: $spacing-val-lg;
 			}
 
 		} // .article
 	} // .content
-} // .buddypress ( body class )
+} // .profiles ( body class )
 
 /**
 * ------------------------------------------------------------------------------
@@ -267,7 +267,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 * The main navigational elements for all BP screens
 *----------------------------------------------------------
 */
-#buddypress {
+#profiles {
 	.item-list-tabs {
 		ul {
 
@@ -290,7 +290,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 	}
 }
 
-.directory #buddypress {
+.directory #profiles {
 	.item-list-tabs {
 
 		ul:before,
@@ -333,10 +333,10 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 		}
 
 	} // close #subnav
-} // close .directory #buddypress
+} // close .directory #profiles
 
 /* List last filters global */
-#buddypress {
+#profiles {
 	#subnav {
 		li#activity-filter-select.last {
 			line-height: 2.1;
@@ -350,7 +350,7 @@ http://codex.buddypress.org/themes/buddypress-companion-stylesheets/
 
 @media screen and (max-width: 783px) {
 
-	#buddypress {
+	#profiles {
 		#object-nav {
 			ul {
 				border-bottom: 1px solid $border-med;
@@ -385,12 +385,12 @@ $nav-background-border: #bebebe;
 
 	.bp-user,
 	.single-item.groups {
-		#buddypress {
+		#profiles {
 			background: lighten($nav-background-border, 10%);
 		}
 	}
 
-	#buddypress {
+	#profiles {
 
 		#item-header,
 		#item-body {
@@ -467,7 +467,7 @@ $nav-background-border: #bebebe;
 
 			}
 		}
-	} // close  #buddypress
+	} // close  #profiles
 } // close @media
 
 /**
@@ -476,7 +476,7 @@ $nav-background-border: #bebebe;
 *----------------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	div.pagination {
 		.pag-count {
 			margin-left: 0;
@@ -489,7 +489,7 @@ $nav-background-border: #bebebe;
 * @section 4.0 - BP Lists / Loops Generic
 *-------------------------------------------------------------------------------
 */
-#buddypress {
+#profiles {
 	.item-list {
 		.item-title {
 
@@ -511,10 +511,10 @@ $nav-background-border: #bebebe;
 // - Manages li items, Stacks them small screen, floated left at wider screens.
 // - Adjusts display of action buttons at small screen
 
-#buddypress {
+#profiles {
 	ul.item-list {
 		li {
-			overflow: hidden !important; // buddypress styles over specified
+			overflow: hidden !important; // profiles styles over specified
 
 			.item-avatar {
 				float: none;
@@ -651,7 +651,7 @@ $nav-background-border: #bebebe;
 * @subsection 4.1.1 - Activity What's New
 *-------------------------------------------------
 */
-#buddypress {
+#profiles {
 	form#whats-new-form {
 		margin: $spacing-val-lg 0;
 
@@ -716,7 +716,7 @@ $nav-background-border: #bebebe;
 		}
 	} // close form#whats-new-form
 
-} // close #buddypress
+} // close #profiles
 
 /**
 *-------------------------------------------------
@@ -724,7 +724,7 @@ $nav-background-border: #bebebe;
 *-------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	#activity-stream {margin-top: $spacing-val-lg;}
 	.activity-list {
 
@@ -800,11 +800,11 @@ $nav-background-border: #bebebe;
 		}
 
 	} // close .activity-list
-} // close #buddypress
+} // close #profiles
 
 // Activity Single Item 'Permalink' Page
 body.activity-permalink {
-	#buddypress {
+	#profiles {
 		// remove user account faux column background
 		background: transparent;
 
@@ -827,7 +827,7 @@ body.activity-permalink {
 *-------------------------------------------------
 */
 
-#buddypress {
+#profiles {
 	.activity {
 		.activity-comments {
 			margin-left: 0;
@@ -897,7 +897,7 @@ body.activity-permalink {
 		} // close .activity-comments
 	} // close .activity
 
-} // close #buddypress
+} // close #profiles
 
 
 /**
@@ -930,14 +930,14 @@ body.activity-permalink {
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 /**
 *------------------------------------------------------------
 * @subsection 6.1 - Item Header: Global
 *------------------------------------------------------------
 */
 // override BP margins - users/groups manage their own styles later on
-#buddypress {
+#profiles {
 	div#item-header {
 		padding-bottom: $spacing-val-sm;
 
@@ -962,7 +962,7 @@ body.activity-permalink {
 *-------------------------------------------------
 */
 .single-item.groups {
-	#buddypress {
+	#profiles {
 
 		@media screen and (max-width: 594px) {
 			div#item-header {
@@ -1052,7 +1052,7 @@ body.activity-permalink {
 *-------------------------------------------------
 */
 
-.bp-user #buddypress {
+.bp-user #profiles {
 	#item-header {
 
 		#item-header-avatar {
@@ -1105,7 +1105,7 @@ body.activity-permalink {
 
 	} // close #item-header
 
-} // close .bp-user #buddypress
+} // close .bp-user #profiles
 
 /**
 *------------------------------------------------------------
@@ -1197,7 +1197,7 @@ body.activity-permalink {
 	*------------------------------
 	*/
 
-#buddypress {
+#profiles {
 	#members-group-list {
 		.item-list {
 			h5 {
@@ -1210,9 +1210,9 @@ body.activity-permalink {
 			}
 		}
 	}
-} // close #buddypress
+} // close #profiles
 
-#buddypress {
+#profiles {
 	#item-body {
 		#subnav {
 			li.groups-members-search:focus,
@@ -1280,7 +1280,7 @@ body.activity-permalink {
 	*/
 
 .send-invites {
-	#buddypress {
+	#profiles {
 		#item-body {
 			@media screen and (min-width: 783px) {
 				border-top: 1px solid $nav-background-border;
@@ -1349,7 +1349,7 @@ body.activity-permalink {
 	*/
 
 
-#buddypress {
+#profiles {
 	.profile {
 
 		.bp-widget {
@@ -1409,7 +1409,7 @@ body.activity-permalink {
 		} // close profile form
 
 	} // close .profile
-} // close #buddypress - user acounts item-body
+} // close #profiles - user acounts item-body
 
 /**
 	*------------------------------
@@ -1417,7 +1417,7 @@ body.activity-permalink {
 	*------------------------------
 	*/
 
-#buddypress {
+#profiles {
 
 	table#message-threads {
 		border-left: 1px solid $border-med;
@@ -1647,7 +1647,7 @@ body.activity-permalink {
 		}
 	}
 
-} // close #buddypress - user acounts item-body
+} // close #profiles - user acounts item-body
 
 .bp-user {
 
@@ -1676,7 +1676,7 @@ body.activity-permalink {
 	*------------------------------
 	*/
 
-#buddypress {
+#profiles {
 	#settings-form {
 		// 'p' = email notification screen sub heading
 		> p { @include font-size(20); }
@@ -1708,7 +1708,7 @@ body.activity-permalink {
 			select {width: 100%;}
 		}
 	}
-} // close #buddypress - user acounts item-body
+} // close #profiles - user acounts item-body
 
 /*------------------------------------------------------------------------------
 * @section - 7.0 - Forms  - General
@@ -1717,7 +1717,7 @@ body.activity-permalink {
 
 // Match BP form elements to Themes(2014) styling where styles
 // are not inherited or being overriden.
-#buddypress {
+#profiles {
 
 	input[type="text"],
 	input[type="email"],
@@ -1755,9 +1755,9 @@ body.activity-permalink {
 		}
 	}
 
-} // close #buddypress
+} // close #profiles
 
-#buddypress {
+#profiles {
 
 	div.dir-search,
 	div.message-search,
@@ -1838,14 +1838,14 @@ body.activity-permalink {
 
 	} // close @media
 
-} // close #buddypress
+} // close #profiles
 
 /**
 *-------------------------------------------------------------------------------
 * @section 8.0 - Tables General
 *-------------------------------------------------------------------------------
 */
-#buddypress {
+#profiles {
 	table {
 		border-color: $border-med;
 	}
@@ -1860,7 +1860,7 @@ body.activity-permalink {
 // message args ($variable-color, text-color)
 // Leave text-color undefined to automagically set text color
 // to background color darker by 50%
-#buddypress {
+#profiles {
 
 	div#message {
 		p {
@@ -1882,13 +1882,13 @@ body.activity-permalink {
 
 	} // close #message
 
-} // close  #buddypress
+} // close  #profiles
 
 // Without direct classes on our messages ( 'warning' )
 // we need to use the body classes
 // todo: If this is class .warning is included in main BP styles remove from here
 .delete-group {
-	#buddypress {
+	#profiles {
 		div#message.info {
 			p {
 				@include message-box($notice-warning);

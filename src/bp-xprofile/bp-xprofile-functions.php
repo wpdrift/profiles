@@ -247,7 +247,7 @@ function xprofile_insert_field( $args = '' ) {
 	}
 
 	// Check this is a non-empty, valid field type.
-	if ( ! in_array( $r['type'], (array) buddypress()->profile->field_types ) ) {
+	if ( ! in_array( $r['type'], (array) profiles()->profile->field_types ) ) {
 		return false;
 	}
 
@@ -671,7 +671,7 @@ function xprofile_update_field_position( $field_id, $position, $field_group_id )
  * Replace the displayed and logged-in users fullnames with the xprofile name, if required.
  *
  * The Members component uses the logged-in user's display_name to set the
- * value of buddypress()->loggedin_user->fullname. However, in cases where
+ * value of profiles()->loggedin_user->fullname. However, in cases where
  * profile sync is disabled, display_name may diverge from the xprofile
  * fullname field value, and the xprofile field should take precedence.
  *
@@ -687,11 +687,11 @@ function xprofile_override_user_fullnames() {
 	}
 
 	if ( bp_loggedin_user_id() ) {
-		buddypress()->loggedin_user->fullname = bp_core_get_user_displayname( bp_loggedin_user_id() );
+		profiles()->loggedin_user->fullname = bp_core_get_user_displayname( bp_loggedin_user_id() );
 	}
 
 	if ( bp_displayed_user_id() ) {
-		buddypress()->displayed_user->fullname = bp_core_get_user_displayname( bp_displayed_user_id() );
+		profiles()->displayed_user->fullname = bp_core_get_user_displayname( bp_displayed_user_id() );
 	}
 }
 add_action( 'bp_setup_globals', 'xprofile_override_user_fullnames', 100 );
@@ -758,7 +758,7 @@ function bp_xprofile_bp_user_query_search( $sql, BP_User_Query $query ) {
 		return $sql;
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	$search_terms_clean = bp_esc_like( wp_kses_normalize_entities( $query->query_vars['search_terms'] ) );
 
@@ -1062,7 +1062,7 @@ function bp_xprofile_fullname_field_id() {
 	if ( false === $id ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 		$id = $wpdb->get_var( $wpdb->prepare( "SELECT id FROM {$bp->profile->table_name_fields} WHERE name = %s", bp_xprofile_fullname_field_name() ) );
 
 		wp_cache_set( 'fullname_field_id', $id, 'bp_xprofile' );
@@ -1139,7 +1139,7 @@ function bp_xprofile_get_visibility_levels() {
 	 *
 	 * @param array $visibility_levels Array of visibility levels.
 	 */
-	return apply_filters( 'bp_xprofile_get_visibility_levels', buddypress()->profile->visibility_levels );
+	return apply_filters( 'bp_xprofile_get_visibility_levels', profiles()->profile->visibility_levels );
 }
 
 /**

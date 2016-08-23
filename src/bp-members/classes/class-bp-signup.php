@@ -103,7 +103,7 @@ class BP_Signup {
 	public function populate() {
 		global $wpdb;
 
-		$signups_table = buddypress()->members->table_name_signups;
+		$signups_table = profiles()->members->table_name_signups;
 		$signup        = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$signups_table} WHERE signup_id = %d AND active = 0", $this->id ) );
 
 		$this->avatar         = get_avatar( $signup->user_email, 32 );
@@ -153,7 +153,7 @@ class BP_Signup {
 		$r['orderby'] = sanitize_title( $r['orderby'] );
 
 		$sql = array();
-		$signups_table  = buddypress()->members->table_name_signups;
+		$signups_table  = profiles()->members->table_name_signups;
 		$sql['select']  = "SELECT * FROM {$signups_table}";
 		$sql['where']   = array();
 		$sql['where'][] = "active = 0";
@@ -292,7 +292,7 @@ class BP_Signup {
 		$r['meta'] = maybe_serialize( $r['meta'] );
 
 		$inserted = $wpdb->insert(
-			buddypress()->members->table_name_signups,
+			profiles()->members->table_name_signups,
 			$r,
 			array( '%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s' )
 		);
@@ -429,7 +429,7 @@ class BP_Signup {
 
 		$activated = $wpdb->update(
 			// Signups table.
-			buddypress()->members->table_name_signups,
+			profiles()->members->table_name_signups,
 			array(
 				'active' => 1,
 				'activated' => current_time( 'mysql', true ),
@@ -468,7 +468,7 @@ class BP_Signup {
 	public static function count_signups() {
 		global $wpdb;
 
-		$signups_table = buddypress()->members->table_name_signups;
+		$signups_table = profiles()->members->table_name_signups;
 		$count_signups = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) AS total FROM {$signups_table} WHERE active = %d", 0 ) );
 
 		/**
@@ -509,7 +509,7 @@ class BP_Signup {
 
 		$wpdb->update(
 			// Signups table.
-			buddypress()->members->table_name_signups,
+			profiles()->members->table_name_signups,
 			// Data to update.
 			array(
 				'meta' => serialize( $r['meta'] ),
@@ -587,7 +587,7 @@ class BP_Signup {
 				if ( ! empty( $user_id ) && 2 != self::check_user_status( $user_id ) ) {
 
 					// Status is not 2, so user's account has been activated.
-					$result['errors'][ $signup->signup_id ] = array( $signup->user_login, esc_html__( 'the sign-up has already been activated.', 'buddypress' ) );
+					$result['errors'][ $signup->signup_id ] = array( $signup->user_login, esc_html__( 'the sign-up has already been activated.', 'profiles' ) );
 
 					// Repair signups table.
 					self::validate( $signup->activation_key );
@@ -674,7 +674,7 @@ class BP_Signup {
 				if ( empty( $user_id ) ) {
 
 					// Status is not 2, so user's account has been activated.
-					$result['errors'][ $signup->signup_id ] = array( $signup->user_login, esc_html__( 'the sign-up has already been activated.', 'buddypress' ) );
+					$result['errors'][ $signup->signup_id ] = array( $signup->user_login, esc_html__( 'the sign-up has already been activated.', 'profiles' ) );
 
 					// Repair signups table.
 					self::validate( $signup->activation_key );
@@ -751,7 +751,7 @@ class BP_Signup {
 				if ( 2 != self::check_user_status( $user_id ) ) {
 
 					// Status is not 2, so user's account has been activated.
-					$result['errors'][ $signup->signup_id ] = array( $signup->user_login, esc_html__( 'the sign-up has already been activated.', 'buddypress' ) );
+					$result['errors'][ $signup->signup_id ] = array( $signup->user_login, esc_html__( 'the sign-up has already been activated.', 'profiles' ) );
 
 					// Repair signups table.
 					self::validate( $signup->activation_key );
@@ -765,7 +765,7 @@ class BP_Signup {
 			if ( empty( $result['errors'][ $signup->signup_id ] ) ) {
 				$wpdb->delete(
 					// Signups table.
-					buddypress()->members->table_name_signups,
+					profiles()->members->table_name_signups,
 					// Where.
 					array( 'signup_id' => $signup->signup_id, ),
 					// WHERE sanitization format.

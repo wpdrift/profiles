@@ -27,7 +27,7 @@ function bp_admin_setting_callback_admin_bar() {
 ?>
 
 	<input id="hide-loggedout-adminbar" name="hide-loggedout-adminbar" type="checkbox" value="1" <?php checked( !bp_hide_loggedout_adminbar( false ) ); ?> />
-	<label for="hide-loggedout-adminbar"><?php _e( 'Show the Toolbar for logged out users', 'buddypress' ); ?></label>
+	<label for="hide-loggedout-adminbar"><?php _e( 'Show the Toolbar for logged out users', 'profiles' ); ?></label>
 
 <?php
 }
@@ -42,7 +42,7 @@ function bp_admin_setting_callback_account_deletion() {
 ?>
 
 	<input id="bp-disable-account-deletion" name="bp-disable-account-deletion" type="checkbox" value="1" <?php checked( !bp_disable_account_deletion( false ) ); ?> />
-	<label for="bp-disable-account-deletion"><?php _e( 'Allow registered members to delete their own accounts', 'buddypress' ); ?></label>
+	<label for="bp-disable-account-deletion"><?php _e( 'Allow registered members to delete their own accounts', 'profiles' ); ?></label>
 
 <?php
 }
@@ -66,7 +66,7 @@ function bp_admin_setting_callback_activity_akismet() {
 ?>
 
 	<input id="_bp_enable_akismet" name="_bp_enable_akismet" type="checkbox" value="1" <?php checked( bp_is_akismet_active( true ) ); ?> />
-	<label for="_bp_enable_akismet"><?php _e( 'Allow Akismet to scan for activity stream spam', 'buddypress' ); ?></label>
+	<label for="_bp_enable_akismet"><?php _e( 'Allow Akismet to scan for activity stream spam', 'profiles' ); ?></label>
 
 <?php
 }
@@ -80,7 +80,7 @@ function bp_admin_setting_callback_blogforum_comments() {
 ?>
 
 	<input id="bp-disable-blogforum-comments" name="bp-disable-blogforum-comments" type="checkbox" value="1" <?php checked( !bp_disable_blogforum_comments( false ) ); ?> />
-	<label for="bp-disable-blogforum-comments"><?php _e( 'Allow activity stream commenting on blog and forum posts', 'buddypress' ); ?></label>
+	<label for="bp-disable-blogforum-comments"><?php _e( 'Allow activity stream commenting on blog and forum posts', 'profiles' ); ?></label>
 
 <?php
 }
@@ -94,7 +94,7 @@ function bp_admin_setting_callback_heartbeat() {
 ?>
 
 	<input id="_bp_enable_heartbeat_refresh" name="_bp_enable_heartbeat_refresh" type="checkbox" value="1" <?php checked( bp_is_activity_heartbeat_active( true ) ); ?> />
-	<label for="_bp_enable_heartbeat_refresh"><?php _e( 'Automatically check for new items while viewing the activity stream', 'buddypress' ); ?></label>
+	<label for="_bp_enable_heartbeat_refresh"><?php _e( 'Automatically check for new items while viewing the activity stream', 'profiles' ); ?></label>
 
 <?php
 }
@@ -134,7 +134,7 @@ function bp_admin_setting_callback_profile_sync() {
 ?>
 
 	<input id="bp-disable-profile-sync" name="bp-disable-profile-sync" type="checkbox" value="1" <?php checked( !bp_disable_profile_sync( false ) ); ?> />
-	<label for="bp-disable-profile-sync"><?php _e( 'Enable Profiles to WordPress profile syncing', 'buddypress' ); ?></label>
+	<label for="bp-disable-profile-sync"><?php _e( 'Enable Profiles to WordPress profile syncing', 'profiles' ); ?></label>
 
 <?php
 }
@@ -149,7 +149,7 @@ function bp_admin_setting_callback_avatar_uploads() {
 ?>
 
 	<input id="bp-disable-avatar-uploads" name="bp-disable-avatar-uploads" type="checkbox" value="1" <?php checked( !bp_disable_avatar_uploads( false ) ); ?> />
-	<label for="bp-disable-avatar-uploads"><?php _e( 'Allow registered members to upload avatars', 'buddypress' ); ?></label>
+	<label for="bp-disable-avatar-uploads"><?php _e( 'Allow registered members to upload avatars', 'profiles' ); ?></label>
 
 <?php
 }
@@ -162,7 +162,7 @@ function bp_admin_setting_callback_avatar_uploads() {
 function bp_admin_setting_callback_cover_image_uploads() {
 ?>
 	<input id="bp-disable-cover-image-uploads" name="bp-disable-cover-image-uploads" type="checkbox" value="1" <?php checked( ! bp_disable_cover_image_uploads() ); ?> />
-	<label for="bp-disable-cover-image-uploads"><?php _e( 'Allow registered members to upload cover images', 'buddypress' ); ?></label>
+	<label for="bp-disable-cover-image-uploads"><?php _e( 'Allow registered members to upload cover images', 'profiles' ); ?></label>
 <?php
 }
 
@@ -185,8 +185,8 @@ function bp_admin_setting_callback_group_creation() {
 ?>
 
 	<input id="bp_restrict_group_creation" name="bp_restrict_group_creation" type="checkbox"value="1" <?php checked( !bp_restrict_group_creation( false ) ); ?> />
-	<label for="bp_restrict_group_creation"><?php _e( 'Enable group creation for all users', 'buddypress' ); ?></label>
-	<p class="description"><?php _e( 'Administrators can always create groups, regardless of this setting.', 'buddypress' ); ?></p>
+	<label for="bp_restrict_group_creation"><?php _e( 'Enable group creation for all users', 'profiles' ); ?></label>
+	<p class="description"><?php _e( 'Administrators can always create groups, regardless of this setting.', 'profiles' ); ?></p>
 
 <?php
 }
@@ -199,7 +199,7 @@ function bp_admin_setting_callback_group_creation() {
 function bp_admin_setting_callback_group_avatar_uploads() {
 ?>
 	<input id="bp-disable-group-avatar-uploads" name="bp-disable-group-avatar-uploads" type="checkbox" value="1" <?php checked( ! bp_disable_group_avatar_uploads() ); ?> />
-	<label for="bp-disable-group-avatar-uploads"><?php _e( 'Allow customizable avatars for groups', 'buddypress' ); ?></label>
+	<label for="bp-disable-group-avatar-uploads"><?php _e( 'Allow customizable avatars for groups', 'profiles' ); ?></label>
 <?php
 }
 
@@ -211,7 +211,7 @@ function bp_admin_setting_callback_group_avatar_uploads() {
 function bp_admin_setting_callback_group_cover_image_uploads() {
 ?>
 	<input id="bp-disable-group-cover-image-uploads" name="bp-disable-group-cover-image-uploads" type="checkbox" value="1" <?php checked( ! bp_disable_group_cover_image_uploads() ); ?> />
-	<label for="bp-disable-group-cover-image-uploads"><?php _e( 'Allow customizable cover images for groups', 'buddypress' ); ?></label>
+	<label for="bp-disable-group-cover-image-uploads"><?php _e( 'Allow customizable cover images for groups', 'profiles' ); ?></label>
 <?php
 }
 
@@ -239,12 +239,12 @@ function bp_admin_setting_callback_bbpress_configuration() {
 
 	<?php if ( false === $file_exists ) : ?>
 
-		<a class="button" href="<?php bp_admin_url( 'admin.php?page=bb-forums-setup&repair=1' ); ?>" title="<?php esc_attr_e( 'Attempt to save a new config file.', 'buddypress' ); ?>"><?php _e( 'Repair', 'buddypress' ) ?></a>
-		<span class="attention"><?php _e( 'File does not exist', 'buddypress' ); ?></span>
+		<a class="button" href="<?php bp_admin_url( 'admin.php?page=bb-forums-setup&repair=1' ); ?>" title="<?php esc_attr_e( 'Attempt to save a new config file.', 'profiles' ); ?>"><?php _e( 'Repair', 'profiles' ) ?></a>
+		<span class="attention"><?php _e( 'File does not exist', 'profiles' ); ?></span>
 
 	<?php endif; ?>
 
-	<p class="description"><?php _e( 'Absolute path to your bbPress configuration file.', 'buddypress' ); ?></p>
+	<p class="description"><?php _e( 'Absolute path to your bbPress configuration file.', 'profiles' ); ?></p>
 
 <?php
 }
@@ -266,18 +266,18 @@ function bp_core_admin_settings() {
 
 	<div class="wrap">
 
-		<h1><?php _e( 'Profiles Settings', 'buddypress' ); ?> </h1>
+		<h1><?php _e( 'Profiles Settings', 'profiles' ); ?> </h1>
 
-		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Options', 'buddypress' ) ); ?></h2>
+		<h2 class="nav-tab-wrapper"><?php bp_core_admin_tabs( __( 'Options', 'profiles' ) ); ?></h2>
 
 		<form action="<?php echo esc_url( $form_action ) ?>" method="post">
 
-			<?php settings_fields( 'buddypress' ); ?>
+			<?php settings_fields( 'profiles' ); ?>
 
-			<?php do_settings_sections( 'buddypress' ); ?>
+			<?php do_settings_sections( 'profiles' ); ?>
 
 			<p class="submit">
-				<input type="submit" name="submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'buddypress' ); ?>" />
+				<input type="submit" name="submit" class="button-primary" value="<?php esc_attr_e( 'Save Settings', 'profiles' ); ?>" />
 			</p>
 		</form>
 	</div>
@@ -294,12 +294,12 @@ function bp_core_admin_settings_save() {
 	global $wp_settings_fields;
 
 	if ( isset( $_GET['page'] ) && 'bp-settings' == $_GET['page'] && !empty( $_POST['submit'] ) ) {
-		check_admin_referer( 'buddypress-options' );
+		check_admin_referer( 'profiles-options' );
 
 		// Because many settings are saved with checkboxes, and thus will have no values
 		// in the $_POST array when unchecked, we loop through the registered settings.
-		if ( isset( $wp_settings_fields['buddypress'] ) ) {
-			foreach( (array) $wp_settings_fields['buddypress'] as $section => $settings ) {
+		if ( isset( $wp_settings_fields['profiles'] ) ) {
+			foreach( (array) $wp_settings_fields['profiles'] as $section => $settings ) {
 				foreach( $settings as $setting_name => $setting ) {
 					$value = isset( $_POST[$setting_name] ) ? $_POST[$setting_name] : '';
 

@@ -141,7 +141,7 @@ class Profiles {
 	 * @since 1.7.0
 	 *
 	 * @static object $instance
-	 * @see buddypress()
+	 * @see profiles()
 	 *
 	 * @return Profiles The one true Profiles.
 	 */
@@ -173,7 +173,7 @@ class Profiles {
 	 *
 	 * @since 1.7.0
 	 * @see Profiles::instance()
-	 * @see buddypress()
+	 * @see profiles()
 	 */
 	private function __construct() { /* Do nothing here */ }
 
@@ -182,14 +182,14 @@ class Profiles {
 	 *
 	 * @since 1.7.0
 	 */
-	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'buddypress' ), '1.7' ); }
+	public function __clone() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'profiles' ), '1.7' ); }
 
 	/**
 	 * A dummy magic method to prevent Profiles from being unserialized.
 	 *
 	 * @since 1.7.0
 	 */
-	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'buddypress' ), '1.7' ); }
+	public function __wakeup() { _doing_it_wrong( __FUNCTION__, __( 'Cheatin&#8217; huh?', 'profiles' ), '1.7' ); }
 
 	/**
 	 * Magic method for checking the existence of a certain custom field.
@@ -730,7 +730,7 @@ class Profiles {
 		// Register the default theme compatibility package
 		bp_register_theme_package( array(
 			'id'      => 'legacy',
-			'name'    => __( 'Profiles Default', 'buddypress' ),
+			'name'    => __( 'Profiles Default', 'profiles' ),
 			'version' => bp_get_version(),
 			'dir'     => trailingslashit( $this->themes_dir . '/bp-legacy' ),
 			'url'     => trailingslashit( $this->themes_url . '/bp-legacy' )
@@ -765,11 +765,11 @@ class Profiles {
  * Use this function like you would a global variable, except without needing
  * to declare the global.
  *
- * Example: <?php $bp = buddypress(); ?>
+ * Example: <?php $bp = profiles(); ?>
  *
  * @return Profiles The one true Profiles Instance.
  */
-function buddypress() {
+function profiles() {
 	return Profiles::instance();
 }
 
@@ -781,11 +781,11 @@ function buddypress() {
  * way.
  */
 if ( defined( 'BUDDYPRESS_LATE_LOAD' ) ) {
-	add_action( 'plugins_loaded', 'buddypress', (int) BUDDYPRESS_LATE_LOAD );
+	add_action( 'plugins_loaded', 'profiles', (int) BUDDYPRESS_LATE_LOAD );
 
 // "And now here's something we hope you'll really like!"
 } else {
-	$GLOBALS['bp'] = buddypress();
+	$GLOBALS['bp'] = profiles();
 }
 
 endif;

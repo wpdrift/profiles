@@ -47,7 +47,7 @@ class BP_Registration_Theme_Compat {
 		bp_update_is_directory( false, 'register' );
 
 		// Setup actions.
-		add_filter( 'bp_get_buddypress_template',                array( $this, 'template_hierarchy' ) );
+		add_filter( 'bp_get_profiles_template',                array( $this, 'template_hierarchy' ) );
 		add_filter( 'bp_replace_the_content',                    array( $this, 'dummy_content' ) );
 	}
 

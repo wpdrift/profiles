@@ -10,7 +10,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
+if ( ! profiles()->do_autoload ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-core-members-widget.php';
 	require dirname( __FILE__ ) . '/classes/class-bp-core-whos-online-widget.php';
 	require dirname( __FILE__ ) . '/classes/class-bp-core-recently-active-widget.php';
@@ -104,7 +104,7 @@ function bp_core_ajax_widget_members() {
 
 	<?php else: ?>
 		<?php echo "-1[[SPLIT]]<li>"; ?>
-		<?php esc_html_e( 'There were no members found, please try another filter.', 'buddypress' ) ?>
+		<?php esc_html_e( 'There were no members found, please try another filter.', 'profiles' ) ?>
 		<?php echo "</li>"; ?>
 	<?php endif;
 }

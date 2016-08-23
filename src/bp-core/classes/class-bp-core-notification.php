@@ -99,7 +99,7 @@ class BP_Core_Notification {
 	public function save() {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Update.
 		if ( !empty( $this->id ) ) {
@@ -128,7 +128,7 @@ class BP_Core_Notification {
 	public function populate() {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( $notification = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$bp->core->table_name_notifications} WHERE id = %d", $this->id ) ) ) {
 			$this->item_id = $notification->item_id;
@@ -153,7 +153,7 @@ class BP_Core_Notification {
 	public static function check_access( $user_id, $notification_id ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		return $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(id) FROM {$bp->core->table_name_notifications} WHERE id = %d AND user_id = %d", $notification_id, $user_id ) );
 	}
@@ -172,7 +172,7 @@ class BP_Core_Notification {
 	public static function get_all_for_user( $user_id, $status = 'is_new' ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		$is_new = ( 'is_new' === $status )
 			? ' AND is_new = 1 '
@@ -196,7 +196,7 @@ class BP_Core_Notification {
 	public static function delete_for_user_by_type( $user_id, $component_name, $component_action ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE user_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
 	}
@@ -219,7 +219,7 @@ class BP_Core_Notification {
 	public static function delete_for_user_by_item_id( $user_id, $item_id, $component_name, $component_action, $secondary_item_id = false ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		$secondary_item_sql = !empty( $secondary_item_id )
 			? $wpdb->prepare( " AND secondary_item_id = %d", $secondary_item_id )
@@ -243,7 +243,7 @@ class BP_Core_Notification {
 	public static function delete_from_user_by_type( $user_id, $component_name, $component_action ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE item_id = %d AND component_name = %s AND component_action = %s", $user_id, $component_name, $component_action ) );
 	}
@@ -275,7 +275,7 @@ class BP_Core_Notification {
 		else
 			$secondary_item_sql = '';
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		return $wpdb->query( $wpdb->prepare( "DELETE FROM {$bp->core->table_name_notifications} WHERE item_id = %d AND component_name = %s {$component_action_sql} {$secondary_item_sql}", $item_id, $component_name ) );
 	}

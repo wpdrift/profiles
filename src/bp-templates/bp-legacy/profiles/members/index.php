@@ -13,7 +13,7 @@
  */
 do_action( 'bp_before_directory_members_page' ); ?>
 
-<div id="buddypress">
+<div id="profiles">
 
 	<?php
 
@@ -50,7 +50,7 @@ do_action( 'bp_before_directory_members_page' ); ?>
 
 		<div class="item-list-tabs" role="navigation">
 			<ul>
-				<li class="selected" id="members-all"><a href="<?php bp_members_directory_permalink(); ?>"><?php printf( __( 'All Members %s', 'buddypress' ), '<span>' . bp_get_total_member_count() . '</span>' ); ?></a></li>
+				<li class="selected" id="members-all"><a href="<?php bp_members_directory_permalink(); ?>"><?php printf( __( 'All Members %s', 'profiles' ), '<span>' . bp_get_total_member_count() . '</span>' ); ?></a></li>
 
 				<?php
 
@@ -76,13 +76,13 @@ do_action( 'bp_before_directory_members_page' ); ?>
 				do_action( 'bp_members_directory_member_sub_types' ); ?>
 
 				<li id="members-order-select" class="last filter">
-					<label for="members-order-by"><?php _e( 'Order By:', 'buddypress' ); ?></label>
+					<label for="members-order-by"><?php _e( 'Order By:', 'profiles' ); ?></label>
 					<select id="members-order-by">
-						<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
-						<option value="newest"><?php _e( 'Newest Registered', 'buddypress' ); ?></option>
+						<option value="active"><?php _e( 'Last Active', 'profiles' ); ?></option>
+						<option value="newest"><?php _e( 'Newest Registered', 'profiles' ); ?></option>
 
 						<?php if ( bp_is_active( 'xprofile' ) ) : ?>
-							<option value="alphabetical"><?php _e( 'Alphabetical', 'buddypress' ); ?></option>
+							<option value="alphabetical"><?php _e( 'Alphabetical', 'profiles' ); ?></option>
 						<?php endif; ?>
 
 						<?php
@@ -133,7 +133,7 @@ do_action( 'bp_before_directory_members_page' ); ?>
 	 */
 	do_action( 'bp_after_directory_members' ); ?>
 
-</div><!-- #buddypress -->
+</div><!-- #profiles -->
 
 <?php
 

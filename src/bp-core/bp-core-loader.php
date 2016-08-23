@@ -12,7 +12,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
+if ( ! profiles()->do_autoload ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-component.php';
 	require dirname( __FILE__ ) . '/classes/class-bp-core.php';
 }
@@ -25,6 +25,6 @@ if ( ! buddypress()->do_autoload ) {
  * @global Profiles $bp Profiles global settings object.
  */
 function bp_setup_core() {
-	buddypress()->core = new BP_Core();
+	profiles()->core = new BP_Core();
 }
 add_action( 'bp_loaded', 'bp_setup_core', 0 );

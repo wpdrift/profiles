@@ -34,7 +34,7 @@ require dirname( __FILE__ ) . '/classes/class-bp-core-nav.php';
 require dirname( __FILE__ ) . '/classes/class-bp-core-nav-item.php';
 require dirname( __FILE__ ) . '/classes/class-bp-core-oembed-extension.php';
 
-if ( buddypress()->do_nav_backcompat ) {
+if ( profiles()->do_nav_backcompat ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-core-bp-nav-backcompat.php';
 	require dirname( __FILE__ ) . '/classes/class-bp-core-bp-options-nav-backcompat.php';
 }

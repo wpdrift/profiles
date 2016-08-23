@@ -171,10 +171,10 @@ class BP_Core_User {
 		wp_cache_set( 'bp_user_email_' . $this->id, $this->email, 'bp' );
 		wp_cache_set( 'bp_user_url_' . $this->id, $this->user_url, 'bp' );
 
-		$this->avatar       = bp_core_fetch_avatar( array( 'item_id' => $this->id, 'type' => 'full', 'alt' => sprintf( __( 'Profile photo of %s', 'buddypress' ), $this->fullname ) ) );
-		$this->avatar_thumb = bp_core_fetch_avatar( array( 'item_id' => $this->id, 'type' => 'thumb', 'alt' => sprintf( __( 'Profile photo of %s', 'buddypress' ), $this->fullname ) ) );
-		$this->avatar_mini  = bp_core_fetch_avatar( array( 'item_id' => $this->id, 'type' => 'thumb', 'alt' => sprintf( __( 'Profile photo of %s', 'buddypress' ), $this->fullname ), 'width' => 30, 'height' => 30 ) );
-		$this->last_active  = bp_core_get_last_activity( bp_get_user_last_activity( $this->id ), __( 'active %s', 'buddypress' ) );
+		$this->avatar       = bp_core_fetch_avatar( array( 'item_id' => $this->id, 'type' => 'full', 'alt' => sprintf( __( 'Profile photo of %s', 'profiles' ), $this->fullname ) ) );
+		$this->avatar_thumb = bp_core_fetch_avatar( array( 'item_id' => $this->id, 'type' => 'thumb', 'alt' => sprintf( __( 'Profile photo of %s', 'profiles' ), $this->fullname ) ) );
+		$this->avatar_mini  = bp_core_fetch_avatar( array( 'item_id' => $this->id, 'type' => 'thumb', 'alt' => sprintf( __( 'Profile photo of %s', 'profiles' ), $this->fullname ), 'width' => 30, 'height' => 30 ) );
+		$this->last_active  = bp_core_get_last_activity( bp_get_user_last_activity( $this->id ), __( 'active %s', 'profiles' ) );
 	}
 
 	/**
@@ -188,7 +188,7 @@ class BP_Core_User {
 
 		if ( bp_is_active( 'groups' ) ) {
 			$this->total_groups = BP_Groups_Member::total_group_count( $this->id );
-			$this->total_groups = sprintf( _n( '%d group', '%d groups', $this->total_groups, 'buddypress' ), $this->total_groups );
+			$this->total_groups = sprintf( _n( '%d group', '%d groups', $this->total_groups, 'profiles' ), $this->total_groups );
 		}
 	}
 
@@ -242,7 +242,7 @@ class BP_Core_User {
 
 		_deprecated_function( __METHOD__, '1.7', 'BP_User_Query' );
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		$sql = array();
 
@@ -460,7 +460,7 @@ class BP_Core_User {
 			}
 		}
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		$letter_like = bp_esc_like( $letter ) . '%';
 		$status_sql  = bp_core_get_status_sql( 'u.' );
@@ -624,7 +624,7 @@ class BP_Core_User {
 	public static function search_users( $search_terms, $limit = null, $page = 1, $populate_extras = true ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		$user_ids = array();
 		$pag_sql  = $limit && $page ? $wpdb->prepare( " LIMIT %d, %d", intval( ( $page - 1 ) * intval( $limit ) ), intval( $limit ) ) : '';
@@ -682,7 +682,7 @@ class BP_Core_User {
 	public static function get_user_extras( &$paged_users, &$user_ids, $type = false ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( empty( $user_ids ) )
 			return $paged_users;
@@ -791,7 +791,7 @@ class BP_Core_User {
 
 		$uncached_user_ids = bp_get_non_cached_ids( $user_ids, 'bp_last_activity' );
 		if ( ! empty( $uncached_user_ids ) ) {
-			$bp = buddypress();
+			$bp = profiles();
 
 			$user_ids_sql = implode( ',', $uncached_user_ids );
 			$user_count   = count( $uncached_user_ids );
@@ -831,7 +831,7 @@ class BP_Core_User {
 	public static function update_last_activity( $user_id, $time ) {
 		global $wpdb;
 
-		$table_name = buddypress()->members->table_name_last_activity;
+		$table_name = profiles()->members->table_name_last_activity;
 
 		$activity = self::get_last_activity( $user_id );
 
@@ -870,7 +870,7 @@ class BP_Core_User {
 				// Data.
 				array(
 					'user_id'       => $user_id,
-					'component'     => buddypress()->members->id,
+					'component'     => profiles()->members->id,
 					'type'          => 'last_activity',
 					'action'        => '',
 					'content'       => '',
@@ -927,7 +927,7 @@ class BP_Core_User {
 		}
 
 		$deleted = $wpdb->delete(
-			buddypress()->members->table_name_last_activity,
+			profiles()->members->table_name_last_activity,
 
 			// WHERE.
 			array(

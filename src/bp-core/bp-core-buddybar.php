@@ -111,7 +111,7 @@ function bp_core_new_nav_item( $args, $component = 'members' ) {
  * @return bool|BP_Nav_Item Returns false on failure, new nav item on success.
  */
 function bp_core_create_nav_link( $args = '', $component = 'members' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$defaults = array(
 		'name'                    => false, // Display name for the nav item.
@@ -152,7 +152,7 @@ function bp_core_create_nav_link( $args = '', $component = 'members' ) {
 	);
 
 	// Add the item to the nav.
-	$retval = buddypress()->{$component}->nav->add_nav( $nav_item );
+	$retval = profiles()->{$component}->nav->add_nav( $nav_item );
 
 	/**
 	 * Fires after a link is added to the main Profiles nav.
@@ -193,7 +193,7 @@ function bp_core_create_nav_link( $args = '', $component = 'members' ) {
  * @return bool|null Returns false on failure.
  */
 function bp_core_register_nav_screen_function( $args = '' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$defaults = array(
 		'name'                    => false, // Display name for the nav item.
@@ -295,7 +295,7 @@ function bp_core_register_nav_screen_function( $args = '' ) {
  * }
  */
 function bp_core_new_nav_default( $args = '' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$defaults = array(
 		'parent_slug'     => false, // Slug of the parent.
@@ -410,7 +410,7 @@ function bp_core_new_subnav_item( $args, $component = null ) {
 		$group_slug = bp_get_current_group_slug();
 		if (
 			$group_slug === $args['parent_slug'] ||
-			( 0 === strpos( $args['parent_slug'], $group_slug ) && ! buddypress()->members->nav->get_primary( array( 'slug' => $args['parent_slug'] ), false ) )
+			( 0 === strpos( $args['parent_slug'], $group_slug ) && ! profiles()->members->nav->get_primary( array( 'slug' => $args['parent_slug'] ), false ) )
 		) {
 			$component = 'groups';
 		}
@@ -478,7 +478,7 @@ function bp_core_new_subnav_item( $args, $component = null ) {
  * @return bool|object Returns false on failure, new BP_Nav_Item instance on success.
  */
 function bp_core_create_subnav_link( $args = '', $component = 'members' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$r = wp_parse_args( $args, array(
 		'name'              => false, // Display name for the nav item.
@@ -536,7 +536,7 @@ function bp_core_create_subnav_link( $args = '', $component = 'members' ) {
 		'show_in_admin_bar' => (bool) $r['show_in_admin_bar'],
 	);
 
-	return buddypress()->{$component}->nav->add_nav( $subnav_item );
+	return profiles()->{$component}->nav->add_nav( $subnav_item );
 }
 
 /**
@@ -572,7 +572,7 @@ function bp_core_create_subnav_link( $args = '', $component = 'members' ) {
  * @return bool|null Returns false on failure.
  */
 function bp_core_register_subnav_screen_function( $args = '', $component = 'members' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	$r = wp_parse_args( $args, array(
 		'slug'              => false, // URL slug for the screen.
@@ -666,12 +666,12 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
 
 		if ( is_user_logged_in() ) {
 
-			$bp = buddypress();
+			$bp = profiles();
 
 			// If a redirect URL has been passed to the subnav
 			// item, respect it.
 			if ( ! empty( $subnav_item['no_access_url'] ) ) {
-				$message     = __( 'You do not have access to this page.', 'buddypress' );
+				$message     = __( 'You do not have access to this page.', 'profiles' );
 				$redirect_to = trailingslashit( $subnav_item['no_access_url'] );
 
 			// In the case of a user page, we try to assume a
@@ -687,7 +687,7 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
 				// component, as long as that component is
 				// publicly accessible.
 				if ( bp_is_my_profile() || ( isset( $parent_nav_default_item ) && $parent_nav_default_item->show_for_displayed_user ) ) {
-					$message     = __( 'You do not have access to this page.', 'buddypress' );
+					$message     = __( 'You do not have access to this page.', 'profiles' );
 					$redirect_to = bp_displayed_user_domain();
 
 				// In some cases, the default tab is not accessible to
@@ -702,7 +702,7 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
 
 			// Fall back to the home page.
 			} else {
-				$message     = __( 'You do not have access to this page.', 'buddypress' );
+				$message     = __( 'You do not have access to this page.', 'profiles' );
 				$redirect_to = bp_get_root_domain();
 			}
 
@@ -735,7 +735,7 @@ function bp_core_maybe_hook_new_subnav_screen_function( $subnav_item, $component
  * @return bool $has_subnav True if the nav item is found and has subnav items; false otherwise.
  */
 function bp_nav_item_has_subnav( $nav_item = '', $component = 'members' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( ! isset( $bp->{$component}->nav ) ) {
 		return false;
@@ -773,7 +773,7 @@ function bp_nav_item_has_subnav( $nav_item = '', $component = 'members' ) {
  * @return bool Returns false on failure, True on success.
  */
 function bp_core_remove_nav_item( $slug, $component = null ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Backward compatibility for removing group nav items using the group slug as `$parent_slug`.
 	if ( ! $component && bp_is_active( 'groups' ) && isset( $bp->groups->nav ) ) {
@@ -793,7 +793,7 @@ function bp_core_remove_nav_item( $slug, $component = null ) {
 	$screen_functions = $bp->{$component}->nav->delete_nav( $slug );
 
 	// Reset backcompat nav items so that subsequent references will be correct.
-	if ( buddypress()->do_nav_backcompat ) {
+	if ( profiles()->do_nav_backcompat ) {
 		$bp->bp_nav->reset();
 		$bp->bp_options_nav->reset();
 	}
@@ -824,7 +824,7 @@ function bp_core_remove_nav_item( $slug, $component = null ) {
  * @return bool Returns false on failure, True on success.
  */
 function bp_core_remove_subnav_item( $parent_slug, $slug, $component = null ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Backward compatibility for removing group nav items using the group slug as `$parent_slug`.
 	if ( ! $component && bp_is_active( 'groups' ) && isset( $bp->groups->nav ) ) {
@@ -844,7 +844,7 @@ function bp_core_remove_subnav_item( $parent_slug, $slug, $component = null ) {
 	$screen_functions = $bp->{$component}->nav->delete_nav( $slug, $parent_slug );
 
 	// Reset backcompat nav items so that subsequent references will be correct.
-	if ( buddypress()->do_nav_backcompat ) {
+	if ( profiles()->do_nav_backcompat ) {
 		$bp->bp_nav->reset();
 		$bp->bp_options_nav->reset();
 	}
@@ -873,7 +873,7 @@ function bp_core_remove_subnav_item( $parent_slug, $slug, $component = null ) {
  * @param string $component   The component the navigation is attached to. Defaults to 'members'.
  */
 function bp_core_reset_subnav_items( $parent_slug, $component = 'members' ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( ! isset( $bp->{$component}->nav ) ) {
 		return;

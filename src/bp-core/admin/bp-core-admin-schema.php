@@ -313,11 +313,11 @@ function bp_core_install_extended_profiles() {
 
 	// These values should only be updated if they are not already present.
 	if ( ! bp_get_option( 'bp-xprofile-base-group-name' ) ) {
-		bp_update_option( 'bp-xprofile-base-group-name', _x( 'General', 'First field-group name', 'buddypress' ) );
+		bp_update_option( 'bp-xprofile-base-group-name', _x( 'General', 'First field-group name', 'profiles' ) );
 	}
 
 	if ( ! bp_get_option( 'bp-xprofile-fullname-field-name' ) ) {
-		bp_update_option( 'bp-xprofile-fullname-field-name', _x( 'Display Name', 'Display name field', 'buddypress' ) );
+		bp_update_option( 'bp-xprofile-fullname-field-name', _x( 'Display Name', 'Display name field', 'profiles' ) );
 	}
 
 	$sql[] = "CREATE TABLE {$bp_prefix}bp_xprofile_groups (
@@ -429,7 +429,7 @@ function bp_core_install_signups() {
 	global $wpdb;
 
 	// Signups is not there and we need it so let's create it.
-	require_once( buddypress()->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
+	require_once( profiles()->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
 	require_once( ABSPATH                  . 'wp-admin/includes/upgrade.php'     );
 
 	// Never use bp_core_get_table_prefix() for any global users tables.
@@ -468,7 +468,7 @@ function bp_core_install_signups() {
  *
  * @see pre_schema_upgrade()
  * @link https://core.trac.wordpress.org/ticket/27855 WordPress Trac Ticket
- * @link https://buddypress.trac.wordpress.org/ticket/5563 Profiles Trac Ticket
+ * @link https://profiles.trac.wordpress.org/ticket/5563 Profiles Trac Ticket
  *
  * @global WPDB $wpdb
  */

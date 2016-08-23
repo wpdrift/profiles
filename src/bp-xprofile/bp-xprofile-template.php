@@ -10,7 +10,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
+if ( ! profiles()->do_autoload ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-xprofile-data-template.php';
 }
 
@@ -1121,7 +1121,7 @@ function bp_profile_last_updated() {
 	$last_updated = bp_get_profile_last_updated();
 
 	if ( empty( $last_updated ) ) {
-		_e( 'Profile not recently updated.', 'buddypress' );
+		_e( 'Profile not recently updated.', 'profiles' );
 	} else {
 		echo $last_updated;
 	}
@@ -1147,7 +1147,7 @@ function bp_profile_last_updated() {
 			 *
 			 * @param string $value Formatted last updated indicator string.
 			 */
-			return apply_filters( 'bp_get_profile_last_updated', sprintf( __( 'Profile updated %s', 'buddypress' ), bp_core_time_since( strtotime( $last_updated ) ) ) );
+			return apply_filters( 'bp_get_profile_last_updated', sprintf( __( 'Profile updated %s', 'profiles' ), bp_core_time_since( strtotime( $last_updated ) ) ) );
 		}
 
 		return false;
@@ -1228,7 +1228,7 @@ function bp_edit_profile_button() {
 		'block_self'        => true,
 		'link_href'         => trailingslashit( bp_displayed_user_domain() . bp_get_profile_slug() . '/edit' ),
 		'link_class'        => 'edit',
-		'link_text'         => __( 'Edit Profile', 'buddypress' ),
+		'link_text'         => __( 'Edit Profile', 'profiles' ),
 	) );
 }
 
@@ -1372,7 +1372,7 @@ function bp_profile_settings_visibility_select( $args = '' ) {
 
 				<label for="<?php echo esc_attr( 'field_' . $r['field_id'] ) ; ?>_visibility" class="bp-screen-reader-text"><?php
 					/* translators: accessibility text */
-					_e( 'Select visibility', 'buddypress' );
+					_e( 'Select visibility', 'profiles' );
 				?></label>
 				<select class="<?php echo esc_attr( $r['class'] ); ?>" name="<?php echo esc_attr( 'field_' . $r['field_id'] ) ; ?>_visibility" id="<?php echo esc_attr( 'field_' . $r['field_id'] ) ; ?>_visibility">
 
@@ -1429,7 +1429,7 @@ function bp_the_profile_field_required_label() {
 		$retval = '';
 
 		if ( bp_get_the_profile_field_is_required() ) {
-			$translated_string = __( '(required)', 'buddypress' );
+			$translated_string = __( '(required)', 'profiles' );
 
 			$retval = ' <span class="bp-required-field-label">';
 			$retval .= apply_filters( 'bp_get_the_profile_field_required_label', $translated_string, bp_get_the_profile_field_id() );

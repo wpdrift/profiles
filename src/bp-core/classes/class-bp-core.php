@@ -28,8 +28,8 @@ class BP_Core extends BP_Component {
 	public function __construct() {
 		parent::start(
 			'core',
-			__( 'Profiles Core', 'buddypress' ),
-			buddypress()->plugin_dir
+			__( 'Profiles Core', 'profiles' ),
+			profiles()->plugin_dir
 		);
 
 		$this->bootstrap();
@@ -44,7 +44,7 @@ class BP_Core extends BP_Component {
 	 * @since 1.5.0
 	 */
 	private function bootstrap() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		/**
 		 * Fires before the loading of individual components and after Profiles Core.
@@ -181,7 +181,7 @@ class BP_Core extends BP_Component {
 	 * @param array $args See {@link BP_Component::setup_globals()}.
 	 */
 	public function setup_globals( $args = array() ) {
-		$bp = buddypress();
+		$bp = profiles();
 
 		/** Database *********************************************************
 		 */
@@ -254,7 +254,7 @@ class BP_Core extends BP_Component {
 		$bp->core->table_name_notifications = $bp->table_prefix . 'bp_notifications';
 
 		// Backward compatibility for plugins modifying the legacy bp_nav and bp_options_nav global properties.
-		if ( buddypress()->do_nav_backcompat ) {
+		if ( profiles()->do_nav_backcompat ) {
 			$bp->bp_nav         = new BP_Core_BP_Nav_BackCompat();
 			$bp->bp_options_nav = new BP_Core_BP_Options_Nav_BackCompat();
 		}
@@ -307,7 +307,7 @@ class BP_Core extends BP_Component {
 			register_post_type(
 				bp_get_email_post_type(),
 				apply_filters( 'bp_register_email_post_type', array(
-					'description'       => _x( 'Profiles emails', 'email post type description', 'buddypress' ),
+					'description'       => _x( 'Profiles emails', 'email post type description', 'profiles' ),
 					'labels'            => bp_get_email_post_type_labels(),
 					'menu_icon'         => 'dashicons-email',
 					'public'            => false,

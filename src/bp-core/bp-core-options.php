@@ -217,7 +217,7 @@ function bp_setup_option_filters() {
  * @return mixed False if not overloaded, mixed if set.
  */
 function bp_pre_get_option( $value = false ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Get the name of the current filter so we can manipulate it.
 	$filter = current_filter();
@@ -328,7 +328,7 @@ function bp_delete_option( $option_name ) {
 function bp_core_activate_site_options( $keys = array() ) {
 
 	if ( !empty( $keys ) && is_array( $keys ) ) {
-		$bp = buddypress();
+		$bp = profiles();
 
 		$errors = false;
 
@@ -484,7 +484,7 @@ function bp_core_get_root_options() {
  * Get a root option.
  *
  * "Root options" are those that apply across an entire installation, and are fetched only a single
- * time during a pageload and stored in `buddypress()->site_options` to prevent future lookups.
+ * time during a pageload and stored in `profiles()->site_options` to prevent future lookups.
  * See {@see bp_core_get_root_options()}.
  *
  * @since 2.3.0
@@ -493,7 +493,7 @@ function bp_core_get_root_options() {
  * @return mixed Value, if found.
  */
 function bp_core_get_root_option( $option ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( ! isset( $bp->site_options ) ) {
 		$bp->site_options = bp_core_get_root_options();

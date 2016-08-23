@@ -56,7 +56,7 @@ function bp_is_update() {
  * @return bool True if activating Profiles, false if not.
  */
 function bp_is_activation( $basename = '' ) {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$action = false;
 
 	if ( ! empty( $_REQUEST['action'] ) && ( '-1' != $_REQUEST['action'] ) ) {
@@ -100,7 +100,7 @@ function bp_is_activation( $basename = '' ) {
  * @return bool True if deactivating Profiles, false if not.
  */
 function bp_is_deactivation( $basename = '' ) {
-	$bp     = buddypress();
+	$bp     = profiles();
 	$action = false;
 
 	if ( ! empty( $_REQUEST['action'] ) && ( '-1' != $_REQUEST['action'] ) ) {
@@ -192,7 +192,7 @@ function bp_version_updater() {
 	) );
 
 	require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-	require_once( buddypress()->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
+	require_once( profiles()->plugin_dir . '/bp-core/admin/bp-core-admin-schema.php' );
 	$switched_to_root_blog = false;
 
 	// Make sure the current blog is set to the root blog.
@@ -517,7 +517,7 @@ function bp_update_to_2_7() {
  */
 function bp_migrate_new_member_activity_component() {
 	global $wpdb;
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Update the component for the new_member type.
 	$wpdb->update(
@@ -549,7 +549,7 @@ function bp_migrate_new_member_activity_component() {
  */
 function bp_cleanup_friendship_activities() {
 	bp_activity_delete( array(
-		'component'     => buddypress()->friends->id,
+		'component'     => profiles()->friends->id,
 		'type'          => 'friendship_created',
 		'hide_sitewide' => true,
 	) );

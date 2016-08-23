@@ -35,8 +35,8 @@ class BP_Members_Component extends BP_Component {
 	public function __construct() {
 		parent::start(
 			'members',
-			__( 'Members', 'buddypress' ),
-			buddypress()->plugin_dir,
+			__( 'Members', 'profiles' ),
+			profiles()->plugin_dir,
 			array(
 				'adminbar_myaccount_order' => 20,
 				'search_query_arg' => 'members_search',
@@ -67,7 +67,7 @@ class BP_Members_Component extends BP_Component {
 			'cache',
 		);
 
-		if ( ! buddypress()->do_autoload ) {
+		if ( ! profiles()->do_autoload ) {
 			$includes[] = 'classes';
 		}
 
@@ -94,7 +94,7 @@ class BP_Members_Component extends BP_Component {
 	public function setup_globals( $args = array() ) {
 		global $wpdb;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		/** Component Globals ************************************************
 		 */
@@ -109,8 +109,8 @@ class BP_Members_Component extends BP_Component {
 			'slug'            => BP_MEMBERS_SLUG,
 			'root_slug'       => isset( $bp->pages->members->slug ) ? $bp->pages->members->slug : BP_MEMBERS_SLUG,
 			'has_directory'   => true,
-			'directory_title' => _x( 'Members', 'component directory title', 'buddypress' ),
-			'search_string'   => __( 'Search Members...', 'buddypress' ),
+			'directory_title' => _x( 'Members', 'component directory title', 'profiles' ),
+			'search_string'   => __( 'Search Members...', 'profiles' ),
 			'global_tables'   => array(
 				'table_name_last_activity' => bp_core_get_table_prefix() . 'bp_activity',
 				'table_name_signups'       => $wpdb->base_prefix . 'signups', // Signups is a global WordPress table.
@@ -175,7 +175,7 @@ class BP_Members_Component extends BP_Component {
 	 * @since 2.1.0
 	 */
 	public function setup_canonical_stack() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		/** Default Profile Component ****************************************
 		 */
@@ -270,12 +270,12 @@ class BP_Members_Component extends BP_Component {
 
 		if ( ! $is_xprofile_active ) {
 			$this->main_nav = array(
-				'name'                => _x( 'Profile', 'Member profile main navigation', 'buddypress' ),
+				'name'                => _x( 'Profile', 'Member profile main navigation', 'profiles' ),
 				'slug'                => $slug,
 				'position'            => 20,
 				'screen_function'     => 'bp_members_screen_display_profile',
 				'default_subnav_slug' => 'public',
-				'item_css_id'         => buddypress()->profile->id
+				'item_css_id'         => profiles()->profile->id
 			);
 		}
 
@@ -286,7 +286,7 @@ class BP_Members_Component extends BP_Component {
 		 * is not active.
 		 */
 		$this->sub_nav = array(
-			'name'            => _x( 'View', 'Member profile view', 'buddypress' ),
+			'name'            => _x( 'View', 'Member profile view', 'profiles' ),
 			'slug'            => 'public',
 			'parent_url'      => trailingslashit( $user_domain . $slug ),
 			'parent_slug'     => $slug,
@@ -300,7 +300,7 @@ class BP_Members_Component extends BP_Component {
 		 */
 		if ( bp_displayed_user_has_front_template() ) {
 			$main_nav = array(
-				'name'                => _x( 'Home', 'Member Home page', 'buddypress' ),
+				'name'                => _x( 'Home', 'Member Home page', 'profiles' ),
 				'slug'                => 'front',
 				'position'            => 5,
 				'screen_function'     => 'bp_members_screen_display_profile',
@@ -363,16 +363,16 @@ class BP_Members_Component extends BP_Component {
 	 * @since 1.5.0
 	 */
 	public function setup_title() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( bp_is_my_profile() ) {
-			$bp->bp_options_title = __( 'You', 'buddypress' );
+			$bp->bp_options_title = __( 'You', 'profiles' );
 		} elseif ( bp_is_user() ) {
 			$bp->bp_options_title  = bp_get_displayed_user_fullname();
 			$bp->bp_options_avatar = bp_core_fetch_avatar( array(
 				'item_id' => bp_displayed_user_id(),
 				'type'    => 'thumb',
-				'alt'     => sprintf( __( 'Profile picture of %s', 'buddypress' ), $bp->bp_options_title )
+				'alt'     => sprintf( __( 'Profile picture of %s', 'profiles' ), $bp->bp_options_title )
 			) );
 		}
 

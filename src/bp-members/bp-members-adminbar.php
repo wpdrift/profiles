@@ -29,16 +29,16 @@ function bp_members_admin_bar_my_account_menu() {
 	// Logged in user.
 	if ( is_user_logged_in() ) {
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Stored in the global so we can add menus easily later on.
-		$bp->my_account_menu_id = 'my-account-buddypress';
+		$bp->my_account_menu_id = 'my-account-profiles';
 
 		// Create the main 'My Account' menu.
 		$wp_admin_bar->add_menu( array(
 			'id'     => $bp->my_account_menu_id,
 			'group'  => true,
-			'title'  => __( 'Edit My Profile', 'buddypress' ),
+			'title'  => __( 'Edit My Profile', 'profiles' ),
 			'href'   => bp_loggedin_user_domain(),
 			'meta'   => array(
 			'class'  => 'ab-sub-secondary'
@@ -52,7 +52,7 @@ function bp_members_admin_bar_my_account_menu() {
 		// Create the main 'My Account' menu.
 		$wp_admin_bar->add_menu( array(
 			'id'    => 'bp-login',
-			'title' => __( 'Log in', 'buddypress' ),
+			'title' => __( 'Log in', 'profiles' ),
 			'href'  => wp_login_url( bp_get_requested_url() )
 		) );
 
@@ -76,7 +76,7 @@ function bp_members_admin_bar_user_admin_menu() {
 	if ( !current_user_can( 'edit_users' ) || bp_is_my_profile() )
 		return false;
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Unique ID for the 'My Account' menu.
 	$bp->user_admin_menu_id = 'user-admin';
@@ -84,7 +84,7 @@ function bp_members_admin_bar_user_admin_menu() {
 	// Add the top-level User Admin button.
 	$wp_admin_bar->add_menu( array(
 		'id'    => $bp->user_admin_menu_id,
-		'title' => __( 'Edit Member', 'buddypress' ),
+		'title' => __( 'Edit Member', 'profiles' ),
 		'href'  => bp_displayed_user_domain()
 	) );
 
@@ -93,16 +93,16 @@ function bp_members_admin_bar_user_admin_menu() {
 		$wp_admin_bar->add_menu( array(
 			'parent' => $bp->user_admin_menu_id,
 			'id'     => $bp->user_admin_menu_id . '-edit-profile',
-			'title'  => __( "Edit Profile", 'buddypress' ),
+			'title'  => __( "Edit Profile", 'profiles' ),
 			'href'   => bp_get_members_component_link( 'profile', 'edit' )
 		) );
 
 		// User Admin > Edit this user's avatar.
-		if ( buddypress()->avatar->show_avatars ) {
+		if ( profiles()->avatar->show_avatars ) {
 			$wp_admin_bar->add_menu( array(
 				'parent' => $bp->user_admin_menu_id,
 				'id'     => $bp->user_admin_menu_id . '-change-avatar',
-				'title'  => __( "Edit Profile Photo", 'buddypress' ),
+				'title'  => __( "Edit Profile Photo", 'profiles' ),
 				'href'   => bp_get_members_component_link( 'profile', 'change-avatar' )
 			) );
 		}
@@ -112,7 +112,7 @@ function bp_members_admin_bar_user_admin_menu() {
 			$wp_admin_bar->add_menu( array(
 				'parent' => $bp->user_admin_menu_id,
 				'id'     => $bp->user_admin_menu_id . '-change-cover-image',
-				'title'  => __( 'Edit Cover Image', 'buddypress' ),
+				'title'  => __( 'Edit Cover Image', 'profiles' ),
 				'href'   => bp_get_members_component_link( 'profile', 'change-cover-image' )
 			) );
 		}

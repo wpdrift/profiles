@@ -164,7 +164,7 @@ abstract class BP_Core_oEmbed_Extension {
 	 * @since 2.6.0
 	 */
 	protected function get_item_id() {
-		return $this->is_page() ? $this->validate_url_to_item_id( $this->set_permalink() ) : buddypress()->{$this->slug_endpoint}->embedid_in_progress;
+		return $this->is_page() ? $this->validate_url_to_item_id( $this->set_permalink() ) : profiles()->{$this->slug_endpoint}->embedid_in_progress;
 	}
 
 	/** SET UP **************************************************************/
@@ -422,20 +422,20 @@ abstract class BP_Core_oEmbed_Extension {
 		if ( ! empty( $item_id ) ) {
 			// Add markers to tell that we're embedding a single activity.
 			// This is needed for various oEmbed response data filtering.
-			if ( empty( buddypress()->{$this->slug_endpoint} ) ) {
-				buddypress()->{$this->slug_endpoint} = new stdClass;
+			if ( empty( profiles()->{$this->slug_endpoint} ) ) {
+				profiles()->{$this->slug_endpoint} = new stdClass;
 			}
-			buddypress()->{$this->slug_endpoint}->embedurl_in_progress = $url;
-			buddypress()->{$this->slug_endpoint}->embedid_in_progress  = $item_id;
+			profiles()->{$this->slug_endpoint}->embedurl_in_progress = $url;
+			profiles()->{$this->slug_endpoint}->embedid_in_progress  = $item_id;
 
 			// Save custom route args as well.
 			$custom_args = array_keys( (array) $this->set_route_args() );
 			if ( ! empty( $custom_args ) ) {
-				buddypress()->{$this->slug_endpoint}->embedargs_in_progress = array();
+				profiles()->{$this->slug_endpoint}->embedargs_in_progress = array();
 
 				foreach( $custom_args as $arg ) {
 					if ( isset( $request[ $arg ] ) ) {
-						buddypress()->{$this->slug_endpoint}->embedargs_in_progress[ $arg ] = $request[ $arg ];
+						profiles()->{$this->slug_endpoint}->embedargs_in_progress[ $arg ] = $request[ $arg ];
 					}
 				}
 			}
@@ -518,11 +518,11 @@ abstract class BP_Core_oEmbed_Extension {
 	 * @return string
 	 */
 	public function filter_embed_url( $retval ) {
-		if ( false === isset( buddypress()->{$this->slug_endpoint}->embedurl_in_progress ) && ! $this->is_page() ) {
+		if ( false === isset( profiles()->{$this->slug_endpoint}->embedurl_in_progress ) && ! $this->is_page() ) {
 			return $retval;
 		}
 
-		$url = $this->is_page() ? $this->set_permalink() : buddypress()->{$this->slug_endpoint}->embedurl_in_progress;
+		$url = $this->is_page() ? $this->set_permalink() : profiles()->{$this->slug_endpoint}->embedurl_in_progress;
 		$url = trailingslashit( $url );
 
 		// This is for the 'WordPress Embed' block
@@ -531,8 +531,8 @@ abstract class BP_Core_oEmbed_Extension {
 			$url = add_query_arg( 'embed', 'true', trailingslashit( $url ) );
 
 			// Add custom route args to iframe.
-			if ( ! empty( buddypress()->{$this->slug_endpoint}->embedargs_in_progress ) ) {
-				foreach( buddypress()->{$this->slug_endpoint}->embedargs_in_progress as $key => $value ) {
+			if ( ! empty( profiles()->{$this->slug_endpoint}->embedargs_in_progress ) ) {
+				foreach( profiles()->{$this->slug_endpoint}->embedargs_in_progress as $key => $value ) {
 					$url = add_query_arg( $key, $value, $url );
 				}
 			}
@@ -550,13 +550,13 @@ abstract class BP_Core_oEmbed_Extension {
 	 * @return string
 	 */
 	public function filter_embed_html( $retval ) {
-		if ( false === isset( buddypress()->{$this->slug_endpoint}->embedurl_in_progress ) && ! $this->is_page() ) {
+		if ( false === isset( profiles()->{$this->slug_endpoint}->embedurl_in_progress ) && ! $this->is_page() ) {
 			return $retval;
 		}
 
 		$url = $this->set_permalink();
 
-		$item_id = $this->is_page() ? $this->validate_url_to_item_id( $url ) : buddypress()->{$this->slug_endpoint}->embedid_in_progress;
+		$item_id = $this->is_page() ? $this->validate_url_to_item_id( $url ) : profiles()->{$this->slug_endpoint}->embedid_in_progress;
 
 		// Change 'Embedded WordPress Post' to custom title.
 		$custom_title = $this->set_iframe_title( $item_id );

@@ -50,7 +50,7 @@ function bp_members_signup_with_subdirectory_blog( $illegal_names = array() ) {
 		}
 
 	} else {
-		$illegal_names[] = buddypress()->signup->username;
+		$illegal_names[] = profiles()->signup->username;
 	}
 
 	return $illegal_names;

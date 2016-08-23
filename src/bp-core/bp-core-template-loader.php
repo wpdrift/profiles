@@ -408,7 +408,7 @@ function bp_get_query_template( $type, $templates = array() ) {
  */
 function bp_get_template_locations( $templates = array() ) {
 	$locations = array(
-		'buddypress',
+		'profiles',
 		'community',
 		''
 	);
@@ -544,9 +544,9 @@ function bp_template_include_theme_supports( $template = '' ) {
  * @return mixed False if empty. Template name if template included.
  */
 function bp_set_template_included( $template = false ) {
-	buddypress()->theme_compat->found_template = $template;
+	profiles()->theme_compat->found_template = $template;
 
-	return buddypress()->theme_compat->found_template;
+	return profiles()->theme_compat->found_template;
 }
 
 /**
@@ -557,7 +557,7 @@ function bp_set_template_included( $template = false ) {
  * @return bool True if yes, false if no.
  */
 function bp_is_template_included() {
-	return ! empty( buddypress()->theme_compat->found_template );
+	return ! empty( profiles()->theme_compat->found_template );
 }
 
 /**
@@ -590,7 +590,7 @@ function bp_load_theme_functions() {
 
 	// Only include if not installing or if activating via wp-activate.php.
 	if ( ! defined( 'WP_INSTALLING' ) || 'wp-activate.php' === $pagenow ) {
-		bp_locate_template( 'buddypress-functions.php', true );
+		bp_locate_template( 'profiles-functions.php', true );
 	}
 }
 
@@ -603,9 +603,9 @@ function bp_load_theme_functions() {
  * @return array Array of possible root level wrapper template files.
  */
 function bp_get_theme_compat_templates() {
-	return bp_get_query_template( 'buddypress', array(
-		'plugin-buddypress.php',
-		'buddypress.php',
+	return bp_get_query_template( 'profiles', array(
+		'plugin-profiles.php',
+		'profiles.php',
 		'community.php',
 		'generic.php',
 		'page.php',

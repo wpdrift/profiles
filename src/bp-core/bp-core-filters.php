@@ -8,7 +8,7 @@
  *
  * There are a few common places that additional filters can currently be found.
  *
- *  - Profiles: In {@link Profiles::setup_actions()} in buddypress.php
+ *  - Profiles: In {@link Profiles::setup_actions()} in profiles.php
  *  - Component: In {@link BP_Component::setup_actions()} in
  *                bp-core/bp-core-component.php
  *  - Admin: More in {@link BP_Admin::setup_actions()} in
@@ -90,7 +90,7 @@ function bp_core_exclude_pages( $pages = array() ) {
 	if ( ! bp_is_root_blog() )
 		return $pages;
 
-	$bp = buddypress();
+	$bp = profiles();
 
 	if ( !empty( $bp->pages->activate ) )
 		$pages[] = $bp->pages->activate->id;
@@ -131,7 +131,7 @@ function bp_core_exclude_pages_from_nav_menu_admin( $object = null ) {
 		return $object;
 	}
 
-	$bp = buddypress();
+	$bp = profiles();
 	$pages = array();
 
 	if ( ! empty( $bp->pages->activate ) ) {
@@ -165,14 +165,14 @@ add_filter( 'nav_menu_meta_box_object', 'bp_core_exclude_pages_from_nav_menu_adm
  * @return array
  */
 function bp_core_menu_highlight_parent_page( $retval, $page ) {
-	if ( ! is_buddypress() ) {
+	if ( ! is_profiles() ) {
 		return $retval;
 	}
 
 	$page_id = false;
 
 	// Loop against all BP component pages.
-	foreach ( (array) buddypress()->pages as $component => $bp_page ) {
+	foreach ( (array) profiles()->pages as $component => $bp_page ) {
 		// Handles the majority of components.
 		if ( bp_is_current_component( $component ) ) {
 	                $page_id = (int) $bp_page->id;
@@ -223,7 +223,7 @@ add_filter( 'page_css_class', 'bp_core_menu_highlight_parent_page', 10, 2 );
  */
 function bp_core_menu_highlight_nav_menu_item( $retval, $item ) {
 	// If we're not on a BP page or if the current nav item is not a page, stop!
-	if ( ! is_buddypress() || 'page' !== $item->object ) {
+	if ( ! is_profiles() || 'page' !== $item->object ) {
 		return $retval;
 	}
 
@@ -388,7 +388,7 @@ add_filter( 'bp_email_get_property', 'bp_email_plaintext_entity_decode', 10, 3 )
 function bp_core_filter_user_welcome_email( $welcome_email ) {
 
 	// Don't touch the email when a user is registered by the site admin.
-	if ( ( is_admin() || is_network_admin() ) && buddypress()->members->admin->signups_page != get_current_screen()->id ) {
+	if ( ( is_admin() || is_network_admin() ) && profiles()->members->admin->signups_page != get_current_screen()->id ) {
 		return $welcome_email;
 	}
 
@@ -397,7 +397,7 @@ function bp_core_filter_user_welcome_email( $welcome_email ) {
 	}
 
 	// [User Set] Replaces 'PASSWORD' in welcome email; Represents value set by user
-	return str_replace( 'PASSWORD', __( '[User Set]', 'buddypress' ), $welcome_email );
+	return str_replace( 'PASSWORD', __( '[User Set]', 'profiles' ), $welcome_email );
 }
 add_filter( 'update_welcome_user_email', 'bp_core_filter_user_welcome_email' );
 
@@ -470,7 +470,7 @@ function bp_core_activation_signup_user_notification( $user, $user_email, $key, 
 		 * And the super admin goes in pending accounts to resend it. In this case, as the
 		 * meta['password'] is not set, the activation url must be WordPress one.
 		 */
-		} elseif ( buddypress()->members->admin->signups_page == get_current_screen()->id ) {
+		} elseif ( profiles()->members->admin->signups_page == get_current_screen()->id ) {
 			$is_hashpass_in_meta = maybe_unserialize( $meta );
 
 			if ( empty( $is_hashpass_in_meta['password'] ) ) {
@@ -530,7 +530,7 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 	/**
 	 * Are we going to fake 'title-tag' theme functionality?
 	 *
-	 * @link https://buddypress.trac.wordpress.org/ticket/6107
+	 * @link https://profiles.trac.wordpress.org/ticket/6107
 	 * @see wp_title()
 	 */
 	$title_tag_compatibility = (bool) ( ! empty( $_wp_theme_features['title-tag'] ) || strstr( $title, $blogname ) );
@@ -540,7 +540,7 @@ function bp_modify_page_title( $title = '', $sep = '&raquo;', $seplocation = 'ri
 		$bp_title_parts['site'] = $blogname;
 
 		if ( ( $paged >= 2 || $page >= 2 ) && ! is_404() && ! bp_is_single_activity() ) {
-			$bp_title_parts['page'] = sprintf( __( 'Page %s', 'buddypress' ), max( $paged, $page ) );
+			$bp_title_parts['page'] = sprintf( __( 'Page %s', 'profiles' ), max( $paged, $page ) );
 		}
 	}
 
@@ -736,7 +736,7 @@ function bp_customizer_nav_menus_get_items( $items = array(), $type = '', $objec
 			'type'       => $type,
 			'url'        => esc_url_raw( $bp_item->guid ),
 			'classes'    => "bp-menu bp-{$bp_item->post_excerpt}-nav",
-			'type_label' => _x( 'Custom Link', 'customizer menu type label', 'buddypress' ),
+			'type_label' => _x( 'Custom Link', 'customizer menu type label', 'profiles' ),
 			'object'     => $object,
 			'object_id'  => -1,
 		);
@@ -757,12 +757,12 @@ add_filter( 'customize_nav_menu_available_items', 'bp_customizer_nav_menus_get_i
 function bp_customizer_nav_menus_set_item_types( $item_types = array() ) {
 	$item_types = array_merge( $item_types, array(
 		'bp_loggedin_nav' => array(
-			'title'  => _x( 'Profiles (logged-in)', 'customizer menu section title', 'buddypress' ),
+			'title'  => _x( 'Profiles (logged-in)', 'customizer menu section title', 'profiles' ),
 			'type'   => 'bp_nav',
 			'object' => 'bp_loggedin_nav',
 		),
 		'bp_loggedout_nav' => array(
-			'title'  => _x( 'Profiles (logged-out)', 'customizer menu section title', 'buddypress' ),
+			'title'  => _x( 'Profiles (logged-out)', 'customizer menu section title', 'profiles' ),
 			'type'   => 'bp_nav',
 			'object' => 'bp_loggedout_nav',
 		),
@@ -891,9 +891,9 @@ function _bp_core_inject_bp_widget_css_class( $params ) {
 		$classes[] = 'widget';
 	}
 
-	// Try to find 'buddypress' CSS class.
-	if ( false === strpos( $params[0]['before_widget'], ' buddypress' ) ) {
-		$classes[] = 'buddypress';
+	// Try to find 'profiles' CSS class.
+	if ( false === strpos( $params[0]['before_widget'], ' profiles' ) ) {
+		$classes[] = 'profiles';
 	}
 
 	// Stop if widget already has our CSS classes.
@@ -1075,7 +1075,7 @@ function bp_core_render_email_template( $template ) {
 	ob_end_clean();
 
 	// Make sure we add a <title> tag so WP Customizer picks it up.
-	$template = str_replace( '<head>', '<head><title>' . esc_html_x( 'Profiles Emails', 'screen heading', 'buddypress' ) . '</title>', $template );
+	$template = str_replace( '<head>', '<head><title>' . esc_html_x( 'Profiles Emails', 'screen heading', 'profiles' ) . '</title>', $template );
 	echo str_replace( '{{{content}}}', nl2br( get_post()->post_content ), $template );
 
 	/*

@@ -80,5 +80,5 @@ do_action( 'bp_after_member_header' ); ?>
 
 <?php
 
-/** This action is documented in bp-templates/bp-legacy/buddypress/activity/index.php */
+/** This action is documented in bp-templates/bp-legacy/profiles/activity/index.php */
 do_action( 'template_notices' ); ?>

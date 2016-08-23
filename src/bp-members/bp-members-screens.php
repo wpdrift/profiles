@@ -12,7 +12,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
+if ( ! profiles()->do_autoload ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-members-theme-compat.php';
 	require dirname( __FILE__ ) . '/classes/class-bp-registration-theme-compat.php';
 }
@@ -117,7 +117,7 @@ function bp_core_screen_activation() {
 	}
 
 	// Get Profiles.
-	$bp = buddypress();
+	$bp = profiles();
 
 	// We've got a key; let's attempt to activate the signup.
 	if ( ! empty( $key ) ) {
@@ -138,7 +138,7 @@ function bp_core_screen_activation() {
 			bp_core_redirect( trailingslashit( bp_get_root_domain() . '/' . $bp->pages->activate->slug ) );
 		}
 
-		bp_core_add_message( __( 'Your account is now active!', 'buddypress' ) );
+		bp_core_add_message( __( 'Your account is now active!', 'profiles' ) );
 		$bp->activation_complete = true;
 	}
 

@@ -17,7 +17,7 @@ defined( 'ABSPATH' ) || exit;
  */
 function bp_core_register_common_scripts() {
 	$min = bp_core_get_minified_asset_suffix();
-	$url = buddypress()->plugin_url . 'bp-core/js/';
+	$url = profiles()->plugin_url . 'bp-core/js/';
 
 	/**
 	 * Filters the Profiles Core javascript files to register.
@@ -64,7 +64,7 @@ add_action( 'bp_admin_enqueue_scripts', 'bp_core_register_common_scripts', 1 );
  */
 function bp_core_register_common_styles() {
 	$min = bp_core_get_minified_asset_suffix();
-	$url = buddypress()->plugin_url . 'bp-core/css/';
+	$url = profiles()->plugin_url . 'bp-core/css/';
 
 	/**
 	 * Filters the URL for the Admin Bar stylesheet.
@@ -118,7 +118,7 @@ function bp_core_confirmation_js() {
 	wp_enqueue_script( 'bp-confirm' );
 
 	wp_localize_script( 'bp-confirm', 'BP_Confirm', array(
-		'are_you_sure' => __( 'Are you sure?', 'buddypress' ),
+		'are_you_sure' => __( 'Are you sure?', 'profiles' ),
 	) );
 
 }
@@ -186,7 +186,7 @@ function bp_core_add_cropper_inline_js() {
 	 *
 	 * @param array $value Array of data found by getimagesize.
 	 */
-	$image = apply_filters( 'bp_inline_cropper_image', getimagesize( bp_core_avatar_upload_path() . buddypress()->avatar_admin->image->dir ) );
+	$image = apply_filters( 'bp_inline_cropper_image', getimagesize( bp_core_avatar_upload_path() . profiles()->avatar_admin->image->dir ) );
 	if ( empty( $image ) ) {
 		return;
 	}
@@ -335,7 +335,7 @@ function bp_core_ajax_url() {
 }
 
 /**
- * Get the JavaScript dependencies for buddypress.js.
+ * Get the JavaScript dependencies for profiles.js.
  *
  * @since 2.0.0
  *
@@ -344,11 +344,11 @@ function bp_core_ajax_url() {
 function bp_core_get_js_dependencies() {
 
 	/**
-	 * Filters the javascript dependencies for buddypress.js.
+	 * Filters the javascript dependencies for profiles.js.
 	 *
 	 * @since 2.0.0
 	 *
-	 * @param array $value Array of javascript dependencies for buddypress.js.
+	 * @param array $value Array of javascript dependencies for profiles.js.
 	 */
 	return apply_filters( 'bp_core_get_js_dependencies', array(
 		'jquery',
@@ -370,7 +370,7 @@ function bp_core_get_js_dependencies() {
  *                      the css rules and the style handle
  */
 function bp_add_cover_image_inline_css( $return = false ) {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Find the component of the current item.
 	if ( bp_is_user() ) {

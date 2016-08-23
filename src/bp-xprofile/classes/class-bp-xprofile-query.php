@@ -380,7 +380,7 @@ class BP_XProfile_Query {
 		// First build the JOIN clause, if one is required.
 		$join = '';
 
-		$data_table = buddypress()->profile->table_name_data;
+		$data_table = profiles()->profile->table_name_data;
 
 		// We prefer to avoid joins if possible. Look for an existing join compatible with this clause.
 		$alias = $this->find_compatible_table_alias( $clause, $parent_query );

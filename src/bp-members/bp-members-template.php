@@ -12,7 +12,7 @@
 // Exit if accessed directly.
 defined( 'ABSPATH' ) || exit;
 
-if ( ! buddypress()->do_autoload ) {
+if ( ! profiles()->do_autoload ) {
 	require dirname( __FILE__ ) . '/classes/class-bp-core-members-template.php';
 }
 
@@ -41,7 +41,7 @@ function bp_profile_slug() {
 		 *
 		 * @param string $slug Profile component slug.
 		 */
-		return apply_filters( 'bp_get_profile_slug', buddypress()->profile->slug );
+		return apply_filters( 'bp_get_profile_slug', profiles()->profile->slug );
 	}
 
 /**
@@ -69,7 +69,7 @@ function bp_members_slug() {
 		 *
 		 * @param string $slug Members component slug.
 		 */
-		return apply_filters( 'bp_get_members_slug', buddypress()->members->slug );
+		return apply_filters( 'bp_get_members_slug', profiles()->members->slug );
 	}
 
 /**
@@ -97,7 +97,7 @@ function bp_members_root_slug() {
 		 *
 		 * @param string $slug Members component root slug.
 		 */
-		return apply_filters( 'bp_get_members_root_slug', buddypress()->members->root_slug );
+		return apply_filters( 'bp_get_members_root_slug', profiles()->members->root_slug );
 	}
 
 /**
@@ -127,7 +127,7 @@ function bp_members_member_type_base() {
 		 *
 		 * @param string $base
 		 */
-		return apply_filters( 'bp_members_member_type_base', _x( 'type', 'member type URL base', 'buddypress' ) );
+		return apply_filters( 'bp_members_member_type_base', _x( 'type', 'member type URL base', 'profiles' ) );
 	}
 
 /**
@@ -221,7 +221,7 @@ function bp_signup_slug() {
 	 * @return string
 	 */
 	function bp_get_signup_slug() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( !empty( $bp->pages->register->slug ) ) {
 			$slug = $bp->pages->register->slug;
@@ -258,7 +258,7 @@ function bp_activate_slug() {
 	 * @return string
 	 */
 	function bp_get_activate_slug() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( !empty( $bp->pages->activate->slug ) ) {
 			$slug = $bp->pages->activate->slug;
@@ -368,7 +368,7 @@ function bp_has_members( $args = '' ) {
 		'per_page'            => 20,
 		'max'                 => false,
 
-		'page_arg'            => 'upage',  // See https://buddypress.trac.wordpress.org/ticket/3679.
+		'page_arg'            => 'upage',  // See https://profiles.trac.wordpress.org/ticket/3679.
 
 		'include'             => false,    // Pass a user_id or a list (comma-separated or array) of user_ids to only show these users.
 		'exclude'             => false,    // Pass a user_id or a list (comma-separated or array) of user_ids to exclude these users.
@@ -483,27 +483,27 @@ function bp_members_pagination_count() {
 
 		if ( 'active' == $members_template->type ) {
 			if ( 1 == $members_template->total_member_count ) {
-				$pag = __( 'Viewing 1 active member', 'buddypress' );
+				$pag = __( 'Viewing 1 active member', 'profiles' );
 			} else {
-				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s active member', 'Viewing %1$s - %2$s of %3$s active members', $members_template->total_member_count, 'buddypress' ), $from_num, $to_num, $total );
+				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s active member', 'Viewing %1$s - %2$s of %3$s active members', $members_template->total_member_count, 'profiles' ), $from_num, $to_num, $total );
 			}
 		} elseif ( 'popular' == $members_template->type ) {
 			if ( 1 == $members_template->total_member_count ) {
-				$pag = __( 'Viewing 1 member with friends', 'buddypress' );
+				$pag = __( 'Viewing 1 member with friends', 'profiles' );
 			} else {
-				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s member with friends', 'Viewing %1$s - %2$s of %3$s members with friends', $members_template->total_member_count, 'buddypress' ), $from_num, $to_num, $total );
+				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s member with friends', 'Viewing %1$s - %2$s of %3$s members with friends', $members_template->total_member_count, 'profiles' ), $from_num, $to_num, $total );
 			}
 		} elseif ( 'online' == $members_template->type ) {
 			if ( 1 == $members_template->total_member_count ) {
-				$pag = __( 'Viewing 1 online member', 'buddypress' );
+				$pag = __( 'Viewing 1 online member', 'profiles' );
 			} else {
-				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s online member', 'Viewing %1$s - %2$s of %3$s online members', $members_template->total_member_count, 'buddypress' ), $from_num, $to_num, $total );
+				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s online member', 'Viewing %1$s - %2$s of %3$s online members', $members_template->total_member_count, 'profiles' ), $from_num, $to_num, $total );
 			}
 		} else {
 			if ( 1 == $members_template->total_member_count ) {
-				$pag = __( 'Viewing 1 member', 'buddypress' );
+				$pag = __( 'Viewing 1 member', 'profiles' );
 			} else {
-				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s member', 'Viewing %1$s - %2$s of %3$s members', $members_template->total_member_count, 'buddypress' ), $from_num, $to_num, $total );
+				$pag = sprintf( _n( 'Viewing %1$s - %2$s of %3$s member', 'Viewing %1$s - %2$s of %3$s members', $members_template->total_member_count, 'profiles' ), $from_num, $to_num, $total );
 			}
 		}
 
@@ -805,7 +805,7 @@ function bp_member_avatar( $args = '' ) {
 			'height' => false,
 			'class'  => 'avatar',
 			'id'     => false,
-			'alt'    => sprintf( __( 'Profile picture of %s', 'buddypress' ), $fullname )
+			'alt'    => sprintf( __( 'Profile picture of %s', 'profiles' ), $fullname )
 		);
 
 		$r = wp_parse_args( $args, $defaults );
@@ -962,7 +962,7 @@ function bp_member_last_active( $args = array() ) {
 
 		// Backwards compatibility for anyone forcing a 'true' active_format.
 		if ( true === $r['active_format'] ) {
-			$r['active_format'] = __( 'active %s', 'buddypress' );
+			$r['active_format'] = __( 'active %s', 'profiles' );
 		}
 
 		// Member has logged in at least one time.
@@ -975,7 +975,7 @@ function bp_member_last_active( $args = array() ) {
 
 			// Member has never logged in or been active.
 		} else {
-			$last_activity = __( 'Never active', 'buddypress' );
+			$last_activity = __( 'Never active', 'profiles' );
 		}
 
 		/**
@@ -1096,7 +1096,7 @@ function bp_member_registered() {
 	function bp_get_member_registered() {
 		global $members_template;
 
-		$registered = esc_attr( bp_core_get_last_activity( $members_template->member->user_registered, _x( 'registered %s', 'Records the timestamp that the user registered into the activity stream', 'buddypress' ) ) );
+		$registered = esc_attr( bp_core_get_last_activity( $members_template->member->user_registered, _x( 'registered %s', 'Records the timestamp that the user registered into the activity stream', 'profiles' ) ) );
 
 		/**
 		 * Filters the 'registered [x days ago]' string for the current member.
@@ -1161,7 +1161,7 @@ function bp_directory_members_search_form() {
 
 	$search_form_html = '<form action="" method="get" id="search-members-form">
 		<label for="members_search"><input type="text" name="' . esc_attr( $query_arg ) . '" id="members_search" placeholder="'. esc_attr( $search_value ) .'" /></label>
-		<input type="submit" id="members_search_submit" name="members_search_submit" value="' . __( 'Search', 'buddypress' ) . '" />
+		<input type="submit" id="members_search_submit" name="members_search_submit" value="' . __( 'Search', 'profiles' ) . '" />
 	</form>';
 
 	/**
@@ -1221,7 +1221,7 @@ function bp_total_site_member_count() {
  * @deprecated Does not seem to be called anywhere in BP core.
  */
 function bp_get_loggedin_user_nav() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	// Loop through each navigation item.
 	foreach ( (array) $bp->members->nav->get_primary() as $nav_item ) {
@@ -1246,7 +1246,7 @@ function bp_get_loggedin_user_nav() {
 	}
 
 	// Always add a log out list item to the end of the navigation.
-	$logout_link = '<li><a id="wp-logout" href="' .  wp_logout_url( bp_get_root_domain() ) . '">' . __( 'Log Out', 'buddypress' ) . '</a></li>';
+	$logout_link = '<li><a id="wp-logout" href="' .  wp_logout_url( bp_get_root_domain() ) . '">' . __( 'Log Out', 'profiles' ) . '</a></li>';
 
 	echo apply_filters( 'bp_logout_nav_link', $logout_link );
 }
@@ -1349,7 +1349,7 @@ function bp_displayed_user_has_front_template() {
  * @since 1.1.0
  */
 function bp_get_displayed_user_nav() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	foreach ( $bp->members->nav->get_primary() as $user_nav_item ) {
 		if ( empty( $user_nav_item->show_for_displayed_user ) && ! bp_is_my_profile() ) {
@@ -1438,7 +1438,7 @@ function bp_loggedin_user_avatar( $args = '' ) {
 			'width'   => false,
 			'height'  => false,
 			'html'    => true,
-			'alt'     => sprintf( __( 'Profile picture of %s', 'buddypress' ), bp_get_loggedin_user_fullname() )
+			'alt'     => sprintf( __( 'Profile picture of %s', 'profiles' ), bp_get_loggedin_user_fullname() )
 		) );
 
 		/**
@@ -1493,7 +1493,7 @@ function bp_displayed_user_avatar( $args = '' ) {
 			'width'   => false,
 			'height'  => false,
 			'html'    => true,
-			'alt'     => sprintf( __( 'Profile picture of %s', 'buddypress' ), bp_get_displayed_user_fullname() )
+			'alt'     => sprintf( __( 'Profile picture of %s', 'profiles' ), bp_get_displayed_user_fullname() )
 		) );
 
 		/**
@@ -1524,7 +1524,7 @@ function bp_displayed_user_email() {
 	 * @return string
 	 */
 	function bp_get_displayed_user_email() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		// If displayed user exists, return email address.
 		if ( isset( $bp->displayed_user->userdata->user_email ) )
@@ -1575,7 +1575,7 @@ function bp_last_activity( $user_id = 0 ) {
 		if ( empty( $user_id ) )
 			$user_id = bp_displayed_user_id();
 
-		$last_activity = bp_core_get_last_activity( bp_get_user_last_activity( $user_id ), __('active %s', 'buddypress') );
+		$last_activity = bp_core_get_last_activity( bp_get_user_last_activity( $user_id ), __('active %s', 'profiles') );
 
 		/**
 		 * Filters the 'active [x days ago]' string for a user.
@@ -1708,7 +1708,7 @@ function bp_current_user_id() { return bp_displayed_user_id(); }
  * @return string
  */
 function bp_displayed_user_domain() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	/**
 	 * Filters the generated link for the displayed user's profile.
@@ -1728,7 +1728,7 @@ function bp_displayed_user_domain() {
  * @return string
  */
 function bp_loggedin_user_domain() {
-	$bp = buddypress();
+	$bp = profiles();
 
 	/**
 	 * Filters the generated link for the logged-in user's profile.
@@ -1756,7 +1756,7 @@ function bp_displayed_user_fullname() {
 	 * @return string
 	 */
 	function bp_get_displayed_user_fullname() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		/**
 		 * Filters the displayed user's display name.
@@ -1792,7 +1792,7 @@ function bp_loggedin_user_fullname() {
 	 * @return string
 	 */
 	function bp_get_loggedin_user_fullname() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		/**
 		 * Filters the logged-in user's display name.
@@ -1820,7 +1820,7 @@ function bp_displayed_user_username() {
 	 * @return string
 	 */
 	function bp_get_displayed_user_username() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( bp_displayed_user_id() ) {
 			$username = bp_core_get_username( bp_displayed_user_id(), $bp->displayed_user->userdata->user_nicename, $bp->displayed_user->userdata->user_login );
@@ -1854,7 +1854,7 @@ function bp_loggedin_user_username() {
 	 * @return string
 	 */
 	function bp_get_loggedin_user_username() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		if ( bp_loggedin_user_id() ) {
 			$username = bp_core_get_username( bp_loggedin_user_id(), $bp->loggedin_user->userdata->user_nicename, $bp->loggedin_user->userdata->user_login );
@@ -1889,7 +1889,7 @@ function bp_current_member_type_message() {
 	function bp_get_current_member_type_message() {
 		$type_object = bp_get_member_type_object( bp_get_current_member_type() );
 
-		$message = sprintf( __( 'Viewing members of the type: %s', 'buddypress' ), '<strong>' . $type_object->labels['singular_name'] . '</strong>' );
+		$message = sprintf( __( 'Viewing members of the type: %s', 'profiles' ), '<strong>' . $type_object->labels['singular_name'] . '</strong>' );
 
 		/**
 		 * Filters the current member type message.
@@ -2190,7 +2190,7 @@ function bp_signup_avatar_dir_value() {
 	 * @return string
 	 */
 	function bp_get_signup_avatar_dir_value() {
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Check if signup_avatar_dir is passed.
 		if ( !empty( $_POST['signup_avatar_dir'] ) )
@@ -2230,7 +2230,7 @@ function bp_current_signup_step() {
 	 * @return string
 	 */
 	function bp_get_current_signup_step() {
-		return buddypress()->signup->step;
+		return profiles()->signup->step;
 	}
 
 /**
@@ -2262,12 +2262,12 @@ function bp_signup_avatar( $args = '' ) {
 	 * @return string
 	 */
 	function bp_get_signup_avatar( $args = '' ) {
-		$bp = buddypress();
+		$bp = profiles();
 
 		$defaults = array(
 			'size' => bp_core_avatar_full_width(),
 			'class' => 'avatar',
-			'alt' => __( 'Your Profile Photo', 'buddypress' )
+			'alt' => __( 'Your Profile Photo', 'profiles' )
 		);
 
 		$r = wp_parse_args( $args, $defaults );
@@ -2355,7 +2355,7 @@ function bp_members_component_link( $component, $action = '', $query_args = '', 
 		if ( !bp_displayed_user_id() )
 			return;
 
-		$bp = buddypress();
+		$bp = profiles();
 
 		// Append $action to $url if there is no $type.
 		if ( !empty( $action ) )

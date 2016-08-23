@@ -151,7 +151,7 @@ jq(document).ready( function() {
 		object = '';
 		item_id = jq('#whats-new-post-in').val();
 		content = jq('#whats-new').val();
-		firstrow = jq( '#buddypress ul.activity-list li' ).first();
+		firstrow = jq( '#profiles ul.activity-list li' ).first();
 		activity_row = firstrow;
 		timestamp = null;
 
@@ -435,7 +435,7 @@ jq(document).ready( function() {
 				bp_ajax_request.abort();
 			}
 
-			jq('#buddypress li.load-more').addClass('loading');
+			jq('#profiles li.load-more').addClass('loading');
 
 			if ( null === jq.cookie('bp-activity-oldestpage') ) {
 				jq.cookie('bp-activity-oldestpage', 1, {
@@ -467,12 +467,12 @@ jq(document).ready( function() {
 			bp_ajax_request = jq.post( ajaxurl, load_more_args,
 			function(response)
 			{
-				jq('#buddypress li.load-more').removeClass('loading');
+				jq('#profiles li.load-more').removeClass('loading');
 				jq.cookie( 'bp-activity-oldestpage', oldest_page, {
 					path: '/',
 					secure: ( 'https:' === window.location.protocol )
 				} );
-				jq('#buddypress ul.activity-list').append(response.contents);
+				jq('#profiles ul.activity-list').append(response.contents);
 
 				target.parent().hide();
 			}, 'json' );
@@ -503,7 +503,7 @@ jq(document).ready( function() {
 			} );
 
 			// Now the stream is cleaned, prepend newest
-			jq( '#buddypress ul.activity-list' ).prepend( newest_activities );
+			jq( '#profiles ul.activity-list' ).prepend( newest_activities );
 
 			// reset the newest activities now they're displayed
 			newest_activities = '';
@@ -944,7 +944,7 @@ jq(document).ready( function() {
 	});
 
 	/* All pagination links run through this function */
-	jq('#buddypress').on( 'click', function(event) {
+	jq('#profiles').on( 'click', function(event) {
 		var target = jq(event.target),
 			el,
 			css_id, object, search_terms, pagination_id, template,
@@ -1310,7 +1310,7 @@ jq(document).ready( function() {
 	/** Group Join / Leave Buttons **************************************/
 
 	// Confirmation when clicking Leave Group in group headers
-	jq('#buddypress').on('click', '.group-button .leave-group', function() {
+	jq('#profiles').on('click', '.group-button .leave-group', function() {
 		if ( false === confirm( BP_DTheme.leave_group_confirm ) ) {
 			return false;
 		}
@@ -1386,7 +1386,7 @@ jq(document).ready( function() {
 
 	/** Button disabling ************************************************/
 
-	jq('#buddypress').on( 'click', '.pending', function() {
+	jq('#profiles').on( 'click', '.pending', function() {
 		return false;
 	});
 
@@ -1802,21 +1802,21 @@ jq(document).ready( function() {
 
 		jq.fn.extend({
 			'heartbeat-send': function() {
-				return this.bind( 'heartbeat-send.buddypress' );
+				return this.bind( 'heartbeat-send.profiles' );
 			}
 		});
 	}
 
 	// Set the last id to request after
 	var first_item_recorded = 0;
-	jq( document ).on( 'heartbeat-send.buddypress', function( e, data ) {
+	jq( document ).on( 'heartbeat-send.profiles', function( e, data ) {
 
 		first_item_recorded = 0;
 
 		// First row is default latest activity id
-		if ( jq( '#buddypress ul.activity-list li' ).first().prop( 'id' ) ) {
+		if ( jq( '#profiles ul.activity-list li' ).first().prop( 'id' ) ) {
 			// getting the timestamp
-			timestamp = jq( '#buddypress ul.activity-list li' ).first().prop( 'class' ).match( /date-recorded-([0-9]+)/ );
+			timestamp = jq( '#profiles ul.activity-list li' ).first().prop( 'class' ).match( /date-recorded-([0-9]+)/ );
 
 			if ( timestamp ) {
 				first_item_recorded = timestamp[1];
@@ -1847,11 +1847,11 @@ jq(document).ready( function() {
 		newest_activities = data.bp_activity_newest_activities.activities + newest_activities;
 		activity_last_recorded  = Number( data.bp_activity_newest_activities.last_recorded );
 
-		if ( jq( '#buddypress ul.activity-list li' ).first().hasClass( 'load-newest' ) ) {
+		if ( jq( '#profiles ul.activity-list li' ).first().hasClass( 'load-newest' ) ) {
 			return;
 		}
 
-		jq( '#buddypress ul.activity-list' ).prepend( '<li class="load-newest"><a href="#newest">' + BP_DTheme.newest + '</a></li>' );
+		jq( '#profiles ul.activity-list' ).prepend( '<li class="load-newest"><a href="#newest">' + BP_DTheme.newest + '</a></li>' );
 	});
 });
 

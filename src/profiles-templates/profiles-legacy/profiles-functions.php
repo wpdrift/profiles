@@ -172,31 +172,6 @@ class Profiles_Legacy extends Profiles_Theme_Compat {
 			}
 		}
 
-		// Compatibility stylesheets for specific themes.
-		$theme = $this->locate_asset_in_stack( get_template() . "{$min}.css", 'css' );
-		if ( ! is_rtl() && isset( $theme['location'] ) ) {
-			// Use a unique handle.
-			$theme['handle'] = 'profiles-' . get_template();
-			wp_enqueue_style( $theme['handle'], $theme['location'], array(), $this->version, 'screen' );
-
-			if ( $min ) {
-				wp_style_add_data( $theme['handle'], 'suffix', $min );
-			}
-		}
-
-		// Compatibility stylesheet for specific themes, RTL-version.
-		if ( is_rtl() ) {
-			$theme_rtl = $this->locate_asset_in_stack( get_template() . "-rtl{$min}.css", 'css' );
-
-			if ( isset( $theme_rtl['location'] ) ) {
-				$theme_rtl['handle'] = $theme['handle'] . '-rtl';
-				wp_enqueue_style( $theme_rtl['handle'], $theme_rtl['location'], array(), $this->version, 'screen' );
-
-				if ( $min ) {
-					wp_style_add_data( $theme_rtl['handle'], 'suffix', $min );
-				}
-			}
-		}
 	}
 
 	/**

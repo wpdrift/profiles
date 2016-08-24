@@ -123,7 +123,7 @@ class Profiles_XProfile_Component extends Profiles_Component {
 		 *
 		 * @param array $value Array of IDs for the supported field types.
 		 */
-		$this->field_types = apply_filters( 'xprofile_field_types', array_keys( profiles_xprofile_get_field_types() ) );
+		$this->field_types = apply_filters( 'xprofile_field_types', array_keys( profiles_profiles_xprofile_get_field_types() ) );
 
 		// 'option' is a special case. It is not a top-level field, so
 		// does not have an associated Profiles_XProfile_Field_Type class,
@@ -200,7 +200,7 @@ class Profiles_XProfile_Component extends Profiles_Component {
 			'name'                => _x( 'Profile', 'Profile header menu', 'profiles' ),
 			'slug'                => $slug,
 			'position'            => 20,
-			'screen_function'     => 'xprofile_screen_display_profile',
+			'screen_function'     => 'profiles_xprofile_screen_display_profile',
 			'default_subnav_slug' => 'public',
 			'item_css_id'         => $this->id
 		);
@@ -211,7 +211,7 @@ class Profiles_XProfile_Component extends Profiles_Component {
 			'slug'            => 'public',
 			'parent_url'      => $profile_link,
 			'parent_slug'     => $slug,
-			'screen_function' => 'xprofile_screen_display_profile',
+			'screen_function' => 'profiles_xprofile_screen_display_profile',
 			'position'        => 10
 		);
 
@@ -221,7 +221,7 @@ class Profiles_XProfile_Component extends Profiles_Component {
 			'slug'            => 'edit',
 			'parent_url'      => $profile_link,
 			'parent_slug'     => $slug,
-			'screen_function' => 'xprofile_screen_edit_profile',
+			'screen_function' => 'profiles_xprofile_screen_edit_profile',
 			'position'        => 20,
 			'user_has_access' => $access
 		);
@@ -233,7 +233,7 @@ class Profiles_XProfile_Component extends Profiles_Component {
 				'slug'            => 'change-avatar',
 				'parent_url'      => $profile_link,
 				'parent_slug'     => $slug,
-				'screen_function' => 'xprofile_screen_change_avatar',
+				'screen_function' => 'profiles_xprofile_screen_change_avatar',
 				'position'        => 30,
 				'user_has_access' => $access
 			);
@@ -246,7 +246,7 @@ class Profiles_XProfile_Component extends Profiles_Component {
 				'slug'            => 'change-cover-image',
 				'parent_url'      => $profile_link,
 				'parent_slug'     => $slug,
-				'screen_function' => 'xprofile_screen_change_cover_image',
+				'screen_function' => 'profiles_xprofile_screen_change_cover_image',
 				'position'        => 40,
 				'user_has_access' => $access
 			);

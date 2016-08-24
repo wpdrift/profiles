@@ -140,7 +140,7 @@ class Profiles_XProfile_Field_Type_Checkbox extends Profiles_XProfile_Field_Type
 
 				// Run the allowed option name through the before_save filter,
 				// so we'll be sure to get a match.
-				$allowed_options = xprofile_sanitize_data_value_before_save( $options[$k]->name, false, false );
+				$allowed_options = profiles_xprofile_sanitize_data_value_before_save( $options[$k]->name, false, false );
 
 				if ( $option_values[$j] === $allowed_options || in_array( $allowed_options, $option_values ) ) {
 					$selected = ' checked="checked"';

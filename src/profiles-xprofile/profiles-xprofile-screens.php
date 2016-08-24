@@ -20,7 +20,7 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.0.0
  *
  */
-function xprofile_screen_display_profile() {
+function profiles_xprofile_screen_display_profile() {
 	$new = isset( $_GET['new'] ) ? $_GET['new'] : '';
 
 	/**
@@ -30,7 +30,7 @@ function xprofile_screen_display_profile() {
 	 *
 	 * @param string $new $_GET parameter holding the "new" parameter.
 	 */
-	do_action( 'xprofile_screen_display_profile', $new );
+	do_action( 'profiles_xprofile_screen_display_profile', $new );
 
 	/**
 	 * Filters the template to load for the XProfile screen.
@@ -49,7 +49,7 @@ function xprofile_screen_display_profile() {
  * @since 1.0.0
  *
  */
-function xprofile_screen_edit_profile() {
+function profiles_xprofile_screen_edit_profile() {
 
 	if ( ! profiles_is_my_profile() && ! profiles_current_user_can( 'profiles_moderate' ) ) {
 		return false;
@@ -61,7 +61,7 @@ function xprofile_screen_edit_profile() {
 	}
 
 	// Check the field group exists.
-	if ( ! profiles_is_action_variable( 'group' ) || ! xprofile_get_field_group( profiles_action_variable( 1 ) ) ) {
+	if ( ! profiles_is_action_variable( 'group' ) || ! profiles_profiles_xprofile_get_field_group( profiles_action_variable( 1 ) ) ) {
 		profiles_do_404();
 		return;
 	}
@@ -100,7 +100,7 @@ function xprofile_screen_edit_profile() {
 
 			}
 
-			$is_required[ $field_id ] = xprofile_check_is_required_field( $field_id ) && ! profiles_current_user_can( 'profiles_moderate' );
+			$is_required[ $field_id ] = profiles_xprofile_check_is_required_field( $field_id ) && ! profiles_current_user_can( 'profiles_moderate' );
 			if ( $is_required[$field_id] && empty( $_POST['field_' . $field_id] ) ) {
 				$errors = true;
 			}
@@ -129,18 +129,18 @@ function xprofile_screen_edit_profile() {
 				// passed to the filter and used to determine
 				// whether an activity item should be posted.
 				$old_values[ $field_id ] = array(
-					'value'      => xprofile_get_field_data( $field_id, profiles_displayed_user_id() ),
-					'visibility' => xprofile_get_field_visibility_level( $field_id, profiles_displayed_user_id() ),
+					'value'      => profiles_xprofile_get_field_data( $field_id, profiles_displayed_user_id() ),
+					'visibility' => profiles_xprofile_get_field_visibility_level( $field_id, profiles_displayed_user_id() ),
 				);
 
 				// Update the field data and visibility level.
-				xprofile_set_field_visibility_level( $field_id, profiles_displayed_user_id(), $visibility_level );
-				$field_updated = xprofile_set_field_data( $field_id, profiles_displayed_user_id(), $value, $is_required[ $field_id ] );
-				$value         = xprofile_get_field_data( $field_id, profiles_displayed_user_id() );
+				profiles_xprofile_set_field_visibility_level( $field_id, profiles_displayed_user_id(), $visibility_level );
+				$field_updated = profiles_xprofile_set_field_data( $field_id, profiles_displayed_user_id(), $value, $is_required[ $field_id ] );
+				$value         = profiles_xprofile_get_field_data( $field_id, profiles_displayed_user_id() );
 
 				$new_values[ $field_id ] = array(
 					'value'      => $value,
-					'visibility' => xprofile_get_field_visibility_level( $field_id, profiles_displayed_user_id() ),
+					'visibility' => profiles_xprofile_get_field_visibility_level( $field_id, profiles_displayed_user_id() ),
 				);
 
 				if ( ! $field_updated ) {
@@ -189,7 +189,7 @@ function xprofile_screen_edit_profile() {
 	 *
 	 * @since 1.0.0
 	 */
-	do_action( 'xprofile_screen_edit_profile' );
+	do_action( 'profiles_xprofile_screen_edit_profile' );
 
 	/**
 	 * Filters the template to load for the XProfile edit screen.
@@ -207,7 +207,7 @@ function xprofile_screen_edit_profile() {
  * @since 1.0.0
  *
  */
-function xprofile_screen_change_avatar() {
+function profiles_xprofile_screen_change_avatar() {
 
 	// Bail if not the correct screen.
 	if ( ! profiles_is_my_profile() && ! profiles_current_user_can( 'profiles_moderate' ) ) {
@@ -234,7 +234,7 @@ function xprofile_screen_change_avatar() {
 		check_admin_referer( 'profiles_avatar_upload' );
 
 		// Pass the file to the avatar upload handler.
-		if ( profiles_core_avatar_handle_upload( $_FILES, 'xprofile_avatar_upload_dir' ) ) {
+		if ( profiles_core_avatar_handle_upload( $_FILES, 'profiles_xprofile_avatar_upload_dir' ) ) {
 			$profiles->avatar_admin->step = 'crop-image';
 
 			// Make sure we include the jQuery jCrop file for image cropping.
@@ -282,7 +282,7 @@ function xprofile_screen_change_avatar() {
 	 *
 	 * @since 1.0.0
 	 */
-	do_action( 'xprofile_screen_change_avatar' );
+	do_action( 'profiles_xprofile_screen_change_avatar' );
 
 	/**
 	 * Filters the template to load for the XProfile change avatar screen.
@@ -299,7 +299,7 @@ function xprofile_screen_change_avatar() {
  *
  * @since 2.4.0
  */
-function xprofile_screen_change_cover_image() {
+function profiles_xprofile_screen_change_cover_image() {
 
 	// Bail if not the correct screen.
 	if ( ! profiles_is_my_profile() && ! profiles_current_user_can( 'profiles_moderate' ) ) {
@@ -311,7 +311,7 @@ function xprofile_screen_change_cover_image() {
 	 *
 	 * @since 2.4.0
 	 */
-	do_action( 'xprofile_screen_change_cover_image' );
+	do_action( 'profiles_xprofile_screen_change_cover_image' );
 
 	/**
 	 * Filters the template to load for the XProfile cover image screen.

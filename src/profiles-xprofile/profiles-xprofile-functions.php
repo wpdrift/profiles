@@ -57,7 +57,7 @@ function profiles_xprofile_get_groups( $args = array() ) {
  * }
  * @return boolean
  */
-function xprofile_insert_field_group( $args = '' ) {
+function profiles_profiles_xprofile_insert_field_group( $args = '' ) {
 
 	// Parse the arguments.
 	$r = profiles_parse_args( $args, array(
@@ -65,7 +65,7 @@ function xprofile_insert_field_group( $args = '' ) {
 		'name'           => false,
 		'description'    => '',
 		'can_delete'     => true
-	), 'xprofile_insert_field_group' );
+	), 'profiles_profiles_xprofile_insert_field_group' );
 
 	// Bail if no group name.
 	if ( empty( $r['name'] ) ) {
@@ -89,7 +89,7 @@ function xprofile_insert_field_group( $args = '' ) {
  * @param int $field_group_id Field group ID to fetch.
  * @return boolean|Profiles_XProfile_Group
  */
-function xprofile_get_field_group( $field_group_id = 0 ) {
+function profiles_profiles_xprofile_get_field_group( $field_group_id = 0 ) {
 
 	// Try to get a specific field group by ID.
 	$field_group = new Profiles_XProfile_Group( $field_group_id );
@@ -111,10 +111,10 @@ function xprofile_get_field_group( $field_group_id = 0 ) {
  * @param int $field_group_id Field group ID to delete.
  * @return boolean
  */
-function xprofile_delete_field_group( $field_group_id = 0 ) {
+function profiles_profiles_xprofile_delete_field_group( $field_group_id = 0 ) {
 
 	// Try to get a specific field group by ID.
-	$field_group = xprofile_get_field_group( $field_group_id );
+	$field_group = profiles_profiles_xprofile_get_field_group( $field_group_id );
 
 	// Bail if group was not found.
 	if ( false === $field_group ) {
@@ -134,7 +134,7 @@ function xprofile_delete_field_group( $field_group_id = 0 ) {
  * @param int $position       Field group position to update to.
  * @return boolean
  */
-function xprofile_update_field_group_position( $field_group_id = 0, $position = 0 ) {
+function profiles_xprofile_update_field_group_position( $field_group_id = 0, $position = 0 ) {
 	return Profiles_XProfile_Group::update_position( $field_group_id, $position );
 }
 
@@ -147,7 +147,7 @@ function xprofile_update_field_group_position( $field_group_id = 0, $position = 
  *
  * @return array Key/value pairs (field type => class name).
  */
-function profiles_xprofile_get_field_types() {
+function profiles_profiles_xprofile_get_field_types() {
 	$fields = array(
 		'checkbox'       => 'Profiles_XProfile_Field_Type_Checkbox',
 		'datebox'        => 'Profiles_XProfile_Field_Type_Datebox',
@@ -169,7 +169,7 @@ function profiles_xprofile_get_field_types() {
 	 *
 	 * @param array $fields Array of field type/class name pairings.
 	 */
-	return apply_filters( 'profiles_xprofile_get_field_types', $fields );
+	return apply_filters( 'profiles_profiles_xprofile_get_field_types', $fields );
 }
 
 /**
@@ -177,13 +177,13 @@ function profiles_xprofile_get_field_types() {
  *
  * @since 2.0.0
  *
- * @param string $type Type of profile field to create. See {@link profiles_xprofile_get_field_types()} for default core values.
+ * @param string $type Type of profile field to create. See {@link profiles_profiles_xprofile_get_field_types()} for default core values.
  * @return object $value If field type unknown, returns Profiles_XProfile_Field_Type_Textarea.
  *                       Otherwise returns an instance of the relevant child class of Profiles_XProfile_Field_Type.
  */
 function profiles_xprofile_create_field_type( $type ) {
 
-	$field = profiles_xprofile_get_field_types();
+	$field = profiles_profiles_xprofile_get_field_types();
 	$class = isset( $field[$type] ) ? $field[$type] : '';
 
 	/**
@@ -224,7 +224,7 @@ function profiles_xprofile_create_field_type( $type ) {
  * }
  * @return bool|int False on failure, ID of new field on success.
  */
-function xprofile_insert_field( $args = '' ) {
+function profiles_xprofile_insert_field( $args = '' ) {
 
 	$r = wp_parse_args( $args, array(
 		'field_id'          => null,
@@ -253,7 +253,7 @@ function xprofile_insert_field( $args = '' ) {
 
 	// Instantiate a new field object.
 	if ( ! empty( $r['field_id'] ) ) {
-		$field = xprofile_get_field( $r['field_id'] );
+		$field = profiles_xprofile_get_field( $r['field_id'] );
 	} else {
 		$field = new Profiles_XProfile_Field;
 	}
@@ -286,7 +286,7 @@ function xprofile_insert_field( $args = '' ) {
  * @param int|object $field ID of the field or object representing field data.
  * @return Profiles_XProfile_Field|null Field object if found, otherwise null.
  */
-function xprofile_get_field( $field ) {
+function profiles_xprofile_get_field( $field ) {
 	if ( $field instanceof Profiles_XProfile_Field ) {
 		$_field = $field;
 	} elseif ( is_object( $field ) ) {
@@ -311,7 +311,7 @@ function xprofile_get_field( $field ) {
  * @param int|object $field_id ID of the field or object representing field data.
  * @return bool Whether or not the field was deleted.
  */
-function xprofile_delete_field( $field_id ) {
+function profiles_xprofile_delete_field( $field_id ) {
 	$field = new Profiles_XProfile_Field( $field_id );
 	return $field->delete();
 }
@@ -333,7 +333,7 @@ function xprofile_delete_field( $field_id ) {
  *                             comma-separated string; 'array' if you want an array.
  * @return mixed The profile field data.
  */
-function xprofile_get_field_data( $field, $user_id = 0, $multi_format = 'array' ) {
+function profiles_xprofile_get_field_data( $field, $user_id = 0, $multi_format = 'array' ) {
 
 	if ( empty( $user_id ) ) {
 		$user_id = profiles_displayed_user_id();
@@ -346,7 +346,7 @@ function xprofile_get_field_data( $field, $user_id = 0, $multi_format = 'array' 
 	if ( is_numeric( $field ) ) {
 		$field_id = $field;
 	} else {
-		$field_id = xprofile_get_field_id_from_name( $field );
+		$field_id = profiles_xprofile_get_field_id_from_name( $field );
 	}
 
 	if ( empty( $field_id ) ) {
@@ -368,7 +368,7 @@ function xprofile_get_field_data( $field, $user_id = 0, $multi_format = 'array' 
 			 * @param int    $field_id ID of the field being displayed.
 			 * @param int    $user_id  ID of the user being displayed.
 			 */
-			$data[] = apply_filters( 'xprofile_get_field_data', $value, $field_id, $user_id );
+			$data[] = apply_filters( 'profiles_xprofile_get_field_data', $value, $field_id, $user_id );
 		}
 
 		if ( 'comma' == $multi_format ) {
@@ -376,7 +376,7 @@ function xprofile_get_field_data( $field, $user_id = 0, $multi_format = 'array' 
 		}
 	} else {
 		/** This filter is documented in profiles-xprofile/profiles-xprofile-functions.php */
-		$data = apply_filters( 'xprofile_get_field_data', $values, $field_id, $user_id );
+		$data = apply_filters( 'profiles_xprofile_get_field_data', $values, $field_id, $user_id );
 	}
 
 	return $data;
@@ -393,19 +393,19 @@ function xprofile_get_field_data( $field, $user_id = 0, $multi_format = 'array' 
  * @param bool       $is_required Whether or not the field is required.
  * @return bool True on success, false on failure.
  */
-function xprofile_set_field_data( $field, $user_id, $value, $is_required = false ) {
+function profiles_xprofile_set_field_data( $field, $user_id, $value, $is_required = false ) {
 
 	if ( is_numeric( $field ) ) {
 		$field_id = $field;
 	} else {
-		$field_id = xprofile_get_field_id_from_name( $field );
+		$field_id = profiles_xprofile_get_field_id_from_name( $field );
 	}
 
 	if ( empty( $field_id ) ) {
 		return false;
 	}
 
-	$field          = xprofile_get_field( $field_id );
+	$field          = profiles_xprofile_get_field( $field_id );
 	$field_type     = Profiles_XProfile_Field::get_type( $field_id );
 	$field_type_obj = profiles_xprofile_create_field_type( $field_type );
 
@@ -417,11 +417,11 @@ function xprofile_set_field_data( $field, $user_id, $value, $is_required = false
 	 *
 	 * @since 2.1.0
 	 *
-	 * @param mixed                  $value          Value passed to xprofile_set_field_data().
+	 * @param mixed                  $value          Value passed to profiles_xprofile_set_field_data().
 	 * @param Profiles_XProfile_Field      $field          Field object.
 	 * @param Profiles_XProfile_Field_Type $field_type_obj Field type object.
 	 */
-	$value = apply_filters( 'profiles_xprofile_set_field_data_pre_validate', $value, $field, $field_type_obj );
+	$value = apply_filters( 'profiles_profiles_xprofile_set_field_data_pre_validate', $value, $field, $field_type_obj );
 
 	// Special-case support for integer 0 for the number field type.
 	if ( $is_required && ! is_integer( $value ) && $value !== '0' && ( empty( $value ) || ! is_array( $value ) && ! strlen( trim( $value ) ) ) ) {
@@ -441,7 +441,7 @@ function xprofile_set_field_data( $field, $user_id, $value, $is_required = false
 	// If the value is empty, then delete any field data that exists, unless the field is of a type
 	// where null values are semantically meaningful.
 	if ( empty( $value ) && ! is_integer( $value ) && $value !== '0' && ! $field_type_obj->accepts_null_value ) {
-		xprofile_delete_field_data( $field_id, $user_id );
+		profiles_xprofile_delete_field_data( $field_id, $user_id );
 		return true;
 	}
 
@@ -473,7 +473,7 @@ function xprofile_set_field_data( $field, $user_id, $value, $is_required = false
  * @param string $visibility_level What the visibity setting should be.
  * @return bool True on success
  */
-function xprofile_set_field_visibility_level( $field_id = 0, $user_id = 0, $visibility_level = '' ) {
+function profiles_xprofile_set_field_visibility_level( $field_id = 0, $user_id = 0, $visibility_level = '' ) {
 	if ( empty( $field_id ) || empty( $user_id ) || empty( $visibility_level ) ) {
 		return false;
 	}
@@ -505,7 +505,7 @@ function xprofile_set_field_visibility_level( $field_id = 0, $user_id = 0, $visi
  * @param int $user_id The ID of the user to whom the data belongs.
  * @return string
  */
-function xprofile_get_field_visibility_level( $field_id = 0, $user_id = 0 ) {
+function profiles_xprofile_get_field_visibility_level( $field_id = 0, $user_id = 0 ) {
 	$current_level = '';
 
 	if ( empty( $field_id ) || empty( $user_id ) ) {
@@ -516,7 +516,7 @@ function xprofile_get_field_visibility_level( $field_id = 0, $user_id = 0 ) {
 	$current_level  = isset( $current_levels[ $field_id ] ) ? $current_levels[ $field_id ] : '';
 
 	// Use the user's stored level, unless custom visibility is disabled.
-	$field = xprofile_get_field( $field_id );
+	$field = profiles_xprofile_get_field( $field_id );
 	if ( isset( $field->allow_custom_visibility ) && 'disabled' === $field->allow_custom_visibility ) {
 		$current_level = $field->default_visibility;
 	}
@@ -539,13 +539,13 @@ function xprofile_get_field_visibility_level( $field_id = 0, $user_id = 0 ) {
  * @param int    $user_id User ID to delete field from.
  * @return bool Whether or not the field was deleted.
  */
-function xprofile_delete_field_data( $field = '', $user_id = 0 ) {
+function profiles_xprofile_delete_field_data( $field = '', $user_id = 0 ) {
 
 	// Get the field ID.
 	if ( is_numeric( $field ) ) {
 		$field_id = (int) $field;
 	} else {
-		$field_id = xprofile_get_field_id_from_name( $field );
+		$field_id = profiles_xprofile_get_field_id_from_name( $field );
 	}
 
 	// Bail if field or user ID are empty.
@@ -568,7 +568,7 @@ function xprofile_delete_field_data( $field = '', $user_id = 0 ) {
  * @param int $field_id ID of the field to check for.
  * @return bool Whether or not field is required.
  */
-function xprofile_check_is_required_field( $field_id ) {
+function profiles_xprofile_check_is_required_field( $field_id ) {
 	$field  = new Profiles_XProfile_Field( $field_id );
 	$retval = false;
 
@@ -587,7 +587,7 @@ function xprofile_check_is_required_field( $field_id ) {
  * @param string $field_name The name of the field to get the ID for.
  * @return int $field_id on success, false on failure.
  */
-function xprofile_get_field_id_from_name( $field_name ) {
+function profiles_xprofile_get_field_id_from_name( $field_name ) {
 	return Profiles_XProfile_Field::get_id_from_name( $field_name );
 }
 
@@ -605,14 +605,14 @@ function xprofile_get_field_id_from_name( $field_name ) {
  *                               Defaults to true.
  * @return string|bool The fetched random data for the user, or false if no data or no match.
  */
-function xprofile_get_random_profile_data( $user_id, $exclude_fullname = true ) {
+function profiles_xprofile_get_random_profile_data( $user_id, $exclude_fullname = true ) {
 	$field_data = Profiles_XProfile_ProfileData::get_random( $user_id, $exclude_fullname );
 
 	if ( empty( $field_data ) ) {
 		return false;
 	}
 
-	$field_data[0]->value = xprofile_format_profile_field( $field_data[0]->type, $field_data[0]->value );
+	$field_data[0]->value = profiles_xprofile_format_profile_field( $field_data[0]->type, $field_data[0]->value );
 
 	if ( empty( $field_data[0]->value ) ) {
 		return false;
@@ -625,7 +625,7 @@ function xprofile_get_random_profile_data( $user_id, $exclude_fullname = true ) 
 	 *
 	 * @param array $field_data Array holding random profile data.
 	 */
-	return apply_filters( 'xprofile_get_random_profile_data', $field_data );
+	return apply_filters( 'profiles_xprofile_get_random_profile_data', $field_data );
 }
 
 /**
@@ -637,7 +637,7 @@ function xprofile_get_random_profile_data( $user_id, $exclude_fullname = true ) 
  * @param string $field_value The actual value.
  * @return string|bool The formatted value, or false if value is empty.
  */
-function xprofile_format_profile_field( $field_type, $field_value ) {
+function profiles_xprofile_format_profile_field( $field_type, $field_value ) {
 
 	if ( empty( $field_value ) ) {
 		return false;
@@ -650,7 +650,7 @@ function xprofile_format_profile_field( $field_type, $field_value ) {
 		$field_value = str_replace( ']]>', ']]&gt;', $content );
 	}
 
-	return xprofile_filter_format_field_value_by_type( stripslashes_deep( $field_value ), $field_type );
+	return profiles_xprofile_filter_format_field_value_by_type( stripslashes_deep( $field_value ), $field_type );
 }
 
 /**
@@ -663,7 +663,7 @@ function xprofile_format_profile_field( $field_type, $field_value ) {
  * @param int $field_group_id Group ID for group the field is in.
  * @return bool
  */
-function xprofile_update_field_position( $field_id, $position, $field_group_id ) {
+function profiles_xprofile_update_field_position( $field_id, $position, $field_group_id ) {
 	return Profiles_XProfile_Field::update_position( $field_id, $position, $field_group_id );
 }
 
@@ -680,7 +680,7 @@ function xprofile_update_field_position( $field_id, $position, $field_group_id )
  *
  * @since 2.0.0
  */
-function xprofile_override_user_fullnames() {
+function profiles_xprofile_override_user_fullnames() {
 	// If sync is enabled, the two names will match. No need to continue.
 	if ( ! profiles_disable_profile_sync() ) {
 		return;
@@ -694,7 +694,7 @@ function xprofile_override_user_fullnames() {
 		profiles()->displayed_user->fullname = profiles_core_get_user_displayname( profiles_displayed_user_id() );
 	}
 }
-add_action( 'profiles_setup_globals', 'xprofile_override_user_fullnames', 100 );
+add_action( 'profiles_setup_globals', 'profiles_xprofile_override_user_fullnames', 100 );
 
 /**
  * Setup the avatar upload directory for a user.
@@ -707,7 +707,7 @@ add_action( 'profiles_setup_globals', 'xprofile_override_user_fullnames', 100 );
  * @param int    $user_id   The user ID. Optional.
  * @return array Array containing the path, URL, and other helpful settings.
  */
-function xprofile_avatar_upload_dir( $directory = 'avatars', $user_id = 0 ) {
+function profiles_xprofile_avatar_upload_dir( $directory = 'avatars', $user_id = 0 ) {
 
 	// Use displayed user if no user ID was passed.
 	if ( empty( $user_id ) ) {
@@ -732,7 +732,7 @@ function xprofile_avatar_upload_dir( $directory = 'avatars', $user_id = 0 ) {
 	 *
 	 * @param array $value Array containing the path, URL, and other helpful settings.
 	 */
-	return apply_filters( 'xprofile_avatar_upload_dir', array(
+	return apply_filters( 'profiles_xprofile_avatar_upload_dir', array(
 		'path'    => $path,
 		'url'     => $newurl,
 		'subdir'  => $newsubdir,
@@ -797,7 +797,7 @@ add_action( 'profiles_user_query_uid_clauses', 'profiles_xprofile_profiles_user_
  * @param int $user_id ID of the user to sync.
  * @return bool
  */
-function xprofile_sync_wp_profile( $user_id = 0 ) {
+function profiles_xprofile_sync_wp_profile( $user_id = 0 ) {
 
 	// Bail if profile syncing is disabled.
 	if ( profiles_disable_profile_sync() ) {
@@ -812,7 +812,7 @@ function xprofile_sync_wp_profile( $user_id = 0 ) {
 		return false;
 	}
 
-	$fullname = xprofile_get_field_data( profiles_xprofile_fullname_field_id(), $user_id );
+	$fullname = profiles_xprofile_get_field_data( profiles_xprofile_fullname_field_id(), $user_id );
 	$space    = strpos( $fullname, ' ' );
 
 	if ( false === $space ) {
@@ -830,9 +830,9 @@ function xprofile_sync_wp_profile( $user_id = 0 ) {
 	wp_update_user( array( 'ID' => $user_id, 'display_name' => $fullname ) );
 	wp_cache_delete( 'profiles_core_userdata_' . $user_id, 'profiles' );
 }
-add_action( 'xprofile_updated_profile', 'xprofile_sync_wp_profile' );
-add_action( 'profiles_core_signup_user',      'xprofile_sync_wp_profile' );
-add_action( 'profiles_core_activated_user',   'xprofile_sync_wp_profile' );
+add_action( 'xprofile_updated_profile', 'profiles_xprofile_sync_wp_profile' );
+add_action( 'profiles_core_signup_user',      'profiles_xprofile_sync_wp_profile' );
+add_action( 'profiles_core_activated_user',   'profiles_xprofile_sync_wp_profile' );
 
 /**
  * Syncs the standard built in WordPress profile data to XProfile.
@@ -850,7 +850,7 @@ function xprofile_sync_profiles_profile( &$errors, $update, &$user ) {
 		return;
 	}
 
-	xprofile_set_field_data( profiles_xprofile_fullname_field_id(), $user->ID, $user->display_name );
+	profiles_xprofile_set_field_data( profiles_xprofile_fullname_field_id(), $user->ID, $user->display_name );
 }
 add_action( 'user_profile_update_errors', 'xprofile_sync_profiles_profile', 10, 3 );
 
@@ -864,12 +864,12 @@ add_action( 'user_profile_update_errors', 'xprofile_sync_profiles_profile', 10, 
  *
  * @param int $user_id The ID of the deleted user.
  */
-function xprofile_remove_data( $user_id ) {
+function profiles_xprofile_remove_data( $user_id ) {
 	Profiles_XProfile_ProfileData::delete_data_for_user( $user_id );
 }
-add_action( 'wpmu_delete_user',  'xprofile_remove_data' );
-add_action( 'delete_user',       'xprofile_remove_data' );
-add_action( 'profiles_make_spam_user', 'xprofile_remove_data' );
+add_action( 'wpmu_delete_user',  'profiles_xprofile_remove_data' );
+add_action( 'delete_user',       'profiles_xprofile_remove_data' );
+add_action( 'profiles_make_spam_user', 'profiles_xprofile_remove_data' );
 
 /*** XProfile Meta ****************************************************/
 
@@ -1105,7 +1105,7 @@ function profiles_xprofile_is_richtext_enabled_for_field( $field_id = null ) {
 		$field_id = profiles_get_the_profile_field_id();
 	}
 
-	$field = xprofile_get_field( $field_id );
+	$field = profiles_xprofile_get_field( $field_id );
 
 	$enabled = false;
 	if ( $field instanceof Profiles_XProfile_Field ) {
@@ -1174,7 +1174,7 @@ function profiles_xprofile_get_hidden_fields_for_user( $displayed_user_id = 0, $
 
 	// @todo - This is where you'd swap out for current_user_can() checks
 	$hidden_levels = profiles_xprofile_get_hidden_field_types_for_user( $displayed_user_id, $current_user_id );
-	$hidden_fields = profiles_xprofile_get_fields_by_visibility_levels( $displayed_user_id, $hidden_levels );
+	$hidden_fields = profiles_profiles_xprofile_get_fields_by_visibility_levels( $displayed_user_id, $hidden_levels );
 
 	/**
 	 * Filters the ids of fields that are hidden for this displayed/loggedin user pair.
@@ -1249,7 +1249,7 @@ function profiles_xprofile_get_hidden_field_types_for_user( $displayed_user_id =
  *                       checked against.
  * @return array $field_ids The fields that match the requested visibility levels for the given user.
  */
-function profiles_xprofile_get_fields_by_visibility_levels( $user_id, $levels = array() ) {
+function profiles_profiles_xprofile_get_fields_by_visibility_levels( $user_id, $levels = array() ) {
 	if ( !is_array( $levels ) ) {
 		$levels = (array)$levels;
 	}

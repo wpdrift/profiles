@@ -14,7 +14,7 @@ defined( 'ABSPATH' ) || exit;
 
 add_filter( 'profiles_get_the_profile_group_name',            'wp_filter_kses',       1 );
 add_filter( 'profiles_get_the_profile_group_description',     'wp_filter_kses',       1 );
-add_filter( 'profiles_get_the_profile_field_value',           'xprofile_filter_kses', 1 );
+add_filter( 'profiles_get_the_profile_field_value',           'profiles_xprofile_filter_kses', 1 );
 add_filter( 'profiles_get_the_profile_field_name',            'wp_filter_kses',       1 );
 add_filter( 'profiles_get_the_profile_field_edit_value',      'wp_filter_kses',       1 );
 add_filter( 'profiles_get_the_profile_field_description',     'wp_filter_kses',       1 );
@@ -26,9 +26,9 @@ add_filter( 'profiles_get_the_profile_field_value',           'force_balance_tag
 add_filter( 'profiles_get_the_profile_field_value',           'make_clickable'     );
 add_filter( 'profiles_get_the_profile_field_value',           'profiles_xprofile_escape_field_data', 8, 3 );
 add_filter( 'profiles_get_the_profile_field_value',           'convert_smilies', 9 );
-add_filter( 'profiles_get_the_profile_field_value',           'xprofile_filter_format_field_value',         1, 2 );
-add_filter( 'profiles_get_the_profile_field_value',           'xprofile_filter_format_field_value_by_type', 8, 3 );
-add_filter( 'profiles_get_the_profile_field_value',           'xprofile_filter_link_profile_data',          9, 3 );
+add_filter( 'profiles_get_the_profile_field_value',           'profiles_xprofile_filter_format_field_value',         1, 2 );
+add_filter( 'profiles_get_the_profile_field_value',           'profiles_xprofile_filter_format_field_value_by_type', 8, 3 );
+add_filter( 'profiles_get_the_profile_field_value',           'profiles_xprofile_filter_link_profile_data',          9, 3 );
 
 add_filter( 'profiles_get_the_profile_field_edit_value',      'force_balance_tags' );
 add_filter( 'profiles_get_the_profile_field_edit_value',      'profiles_xprofile_escape_field_data', 10, 3 );
@@ -40,19 +40,19 @@ add_filter( 'profiles_get_the_profile_field_edit_value',      'stripslashes' );
 add_filter( 'profiles_get_the_profile_field_name',            'stripslashes' );
 add_filter( 'profiles_get_the_profile_field_description',     'stripslashes' );
 
-add_filter( 'xprofile_get_field_data',                  'xprofile_filter_kses', 1 );
+add_filter( 'profiles_xprofile_get_field_data',                  'profiles_xprofile_filter_kses', 1 );
 add_filter( 'xprofile_field_name_before_save',          'wp_filter_kses', 1 );
 add_filter( 'xprofile_field_description_before_save',   'wp_filter_kses', 1 );
 
-add_filter( 'xprofile_get_field_data',                  'force_balance_tags' );
+add_filter( 'profiles_xprofile_get_field_data',                  'force_balance_tags' );
 add_filter( 'xprofile_field_name_before_save',          'force_balance_tags' );
 add_filter( 'xprofile_field_description_before_save',   'force_balance_tags' );
 
-add_filter( 'xprofile_get_field_data',                  'stripslashes' );
-add_filter( 'xprofile_get_field_data',                  'xprofile_filter_format_field_value_by_field_id', 5, 2 );
+add_filter( 'profiles_xprofile_get_field_data',                  'stripslashes' );
+add_filter( 'profiles_xprofile_get_field_data',                  'profiles_xprofile_filter_format_field_value_by_field_id', 5, 2 );
 
-add_filter( 'profiles_xprofile_set_field_data_pre_validate',  'xprofile_filter_pre_validate_value_by_field_type', 10, 3 );
-add_filter( 'xprofile_data_value_before_save',          'xprofile_sanitize_data_value_before_save', 1, 4 );
+add_filter( 'profiles_profiles_xprofile_set_field_data_pre_validate',  'profiles_xprofile_filter_pre_validate_value_by_field_type', 10, 3 );
+add_filter( 'xprofile_data_value_before_save',          'profiles_xprofile_sanitize_data_value_before_save', 1, 4 );
 add_filter( 'xprofile_filtered_data_value_before_save', 'trim', 2 );
 
 // Save field groups.
@@ -118,7 +118,7 @@ function profiles_xprofile_sanitize_field_default( $field_default = '' ) {
  * @param object|null $data_obj The Profiles_XProfile_ProfileData object.
  * @return string $content
  */
-function xprofile_filter_kses( $content, $data_obj = null ) {
+function profiles_xprofile_filter_kses( $content, $data_obj = null ) {
 	global $allowedtags;
 
 	$xprofile_allowedtags             = $allowedtags;
@@ -139,7 +139,7 @@ function xprofile_filter_kses( $content, $data_obj = null ) {
 	}
 
 	/**
-	 * Filters the allowed tags for use within xprofile_filter_kses().
+	 * Filters the allowed tags for use within profiles_xprofile_filter_kses().
 	 *
 	 * @since 1.5.0
 	 *
@@ -161,7 +161,7 @@ function xprofile_filter_kses( $content, $data_obj = null ) {
  * @param object|null $data_obj    The Profiles_XProfile_ProfileData object.
  * @return string
  */
-function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, $reserialize = true, $data_obj = null ) {
+function profiles_xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, $reserialize = true, $data_obj = null ) {
 
 	// Return if empty.
 	if ( empty( $field_value ) ) {
@@ -173,7 +173,7 @@ function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, 
 
 	// Filter single value.
 	if ( !is_array( $field_value ) ) {
-		$kses_field_value     = xprofile_filter_kses( $field_value, $data_obj );
+		$kses_field_value     = profiles_xprofile_filter_kses( $field_value, $data_obj );
 		$filtered_field_value = wp_rel_nofollow( force_balance_tags( $kses_field_value ) );
 
 		/**
@@ -191,7 +191,7 @@ function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, 
 	} else {
 		$filtered_values = array();
 		foreach ( (array) $field_value as $value ) {
-			$kses_field_value       = xprofile_filter_kses( $value, $data_obj );
+			$kses_field_value       = profiles_xprofile_filter_kses( $value, $data_obj );
 			$filtered_value 	= wp_rel_nofollow( force_balance_tags( $kses_field_value ) );
 
 			/** This filter is documented in profiles-xprofile/profiles-xprofile-filters.php */
@@ -218,7 +218,7 @@ function xprofile_sanitize_data_value_before_save( $field_value, $field_id = 0, 
  * @param string $field_type  XProfile field_type to be filtered.
  * @return string $field_value Filtered XProfile field_value. False on failure.
  */
-function xprofile_filter_format_field_value( $field_value, $field_type = '' ) {
+function profiles_xprofile_filter_format_field_value( $field_value, $field_type = '' ) {
 
 	// Valid field values of 0 or '0' get caught by empty(), so we have an extra check for these. See #BP5731.
 	if ( ! isset( $field_value ) || empty( $field_value ) && ( '0' !== $field_value ) ) {
@@ -243,8 +243,8 @@ function xprofile_filter_format_field_value( $field_value, $field_type = '' ) {
  * @param string|int $field_id    Optional. ID of the field.
  * @return mixed
  */
-function xprofile_filter_format_field_value_by_type( $field_value, $field_type = '', $field_id = '' ) {
-	foreach ( profiles_xprofile_get_field_types() as $type => $class ) {
+function profiles_xprofile_filter_format_field_value_by_type( $field_value, $field_type = '', $field_id = '' ) {
+	foreach ( profiles_profiles_xprofile_get_field_types() as $type => $class ) {
 		if ( $type !== $field_type ) {
 			continue;
 		}
@@ -259,7 +259,7 @@ function xprofile_filter_format_field_value_by_type( $field_value, $field_type =
 
 /**
  * Apply display_filter() filters as defined by the Profiles_XProfile_Field_Type classes, when fetched
- * by xprofile_get_field_data().
+ * by profiles_xprofile_get_field_data().
  *
  * @since 2.1.0
  *
@@ -267,9 +267,9 @@ function xprofile_filter_format_field_value_by_type( $field_value, $field_type =
  * @param int   $field_id    Field type.
  * @return string
  */
-function xprofile_filter_format_field_value_by_field_id( $field_value, $field_id ) {
-	$field = xprofile_get_field( $field_id );
-	return xprofile_filter_format_field_value_by_type( $field_value, $field->type, $field_id );
+function profiles_xprofile_filter_format_field_value_by_field_id( $field_value, $field_id ) {
+	$field = profiles_xprofile_get_field( $field_id );
+	return profiles_xprofile_filter_format_field_value_by_type( $field_value, $field->type, $field_id );
 }
 
 /**
@@ -277,12 +277,12 @@ function xprofile_filter_format_field_value_by_field_id( $field_value, $field_id
  *
  * @since 2.1.0
  *
- * @param mixed                  $value          Value passed to the profiles_xprofile_set_field_data_pre_validate filter.
+ * @param mixed                  $value          Value passed to the profiles_profiles_xprofile_set_field_data_pre_validate filter.
  * @param Profiles_XProfile_Field      $field          Field object.
  * @param Profiles_XProfile_Field_Type $field_type_obj Field type object.
  * @return mixed
  */
-function xprofile_filter_pre_validate_value_by_field_type( $value, $field, $field_type_obj ) {
+function profiles_xprofile_filter_pre_validate_value_by_field_type( $value, $field, $field_type_obj ) {
 	if ( method_exists( $field_type_obj, 'pre_validate_filter' ) ) {
 		$value = call_user_func( array( $field_type_obj, 'pre_validate_filter' ), $value );
 	}
@@ -305,13 +305,13 @@ function xprofile_filter_pre_validate_value_by_field_type( $value, $field, $fiel
  */
 function profiles_xprofile_escape_field_data( $value, $field_type, $field_id ) {
 	if ( profiles_xprofile_is_richtext_enabled_for_field( $field_id ) ) {
-		// The xprofile_filter_kses() expects a Profiles_XProfile_ProfileData object.
+		// The profiles_xprofile_filter_kses() expects a Profiles_XProfile_ProfileData object.
 		$data_obj = null;
 		if ( profiles_is_user() ) {
 			$data_obj = new Profiles_XProfile_ProfileData( $field_id, profiles_displayed_user_id() );
 		}
 
-		$value = xprofile_filter_kses( $value, $data_obj );
+		$value = profiles_xprofile_filter_kses( $value, $data_obj );
 	} else {
 		$value = esc_html( $value );
 	}
@@ -328,7 +328,7 @@ function profiles_xprofile_escape_field_data( $value, $field_type, $field_id ) {
  * - URL's are made clickable.
  *
  * To disable globally:
- *     remove_filter( 'profiles_get_the_profile_field_value', 'xprofile_filter_link_profile_data', 9, 3 );
+ *     remove_filter( 'profiles_get_the_profile_field_value', 'profiles_xprofile_filter_link_profile_data', 9, 3 );
  *
  * To disable for a single field, use the 'Autolink' settings in Dashboard > Users > Profile Fields.
  *
@@ -338,7 +338,7 @@ function profiles_xprofile_escape_field_data( $value, $field_type, $field_id ) {
  * @param string $field_type  Profile field type.
  * @return string
  */
-function xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox' ) {
+function profiles_xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox' ) {
 	global $field;
 
 	if ( ! $field->get_do_autolink() ) {
@@ -397,7 +397,7 @@ function xprofile_filter_link_profile_data( $field_value, $field_type = 'textbox
  * @param int   $post_id  Post ID the comments are for.
  * @return array $comments
  */
-function xprofile_filter_comments( $comments, $post_id = 0 ) {
+function profiles_xprofile_filter_comments( $comments, $post_id = 0 ) {
 
 	// Locate comment authors with WP accounts.
 	foreach( (array) $comments as $comment ) {
@@ -429,7 +429,7 @@ function xprofile_filter_comments( $comments, $post_id = 0 ) {
 
 	return $comments;
 }
-add_filter( 'comments_array', 'xprofile_filter_comments', 10, 2 );
+add_filter( 'comments_array', 'profiles_xprofile_filter_comments', 10, 2 );
 
 /**
  * Filter Profiles_User_Query::populate_extras to override each queries users fullname.

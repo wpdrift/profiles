@@ -15,7 +15,7 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.1.0
  */
-function xprofile_add_admin_css() {
+function profiles_xprofile_add_admin_css() {
 	if ( !empty( $_GET['page'] ) && strpos( $_GET['page'], 'profiles-profile-setup' ) !== false ) {
 		$min = profiles_core_get_minified_asset_suffix();
 
@@ -27,14 +27,14 @@ function xprofile_add_admin_css() {
 		}
 	}
 }
-add_action( 'profiles_admin_enqueue_scripts', 'xprofile_add_admin_css' );
+add_action( 'profiles_admin_enqueue_scripts', 'profiles_xprofile_add_admin_css' );
 
 /**
  * Enqueue the jQuery libraries for handling drag/drop/sort.
  *
  * @since 1.5.0
  */
-function xprofile_add_admin_js() {
+function profiles_xprofile_add_admin_js() {
 	if ( !empty( $_GET['page'] ) && strpos( $_GET['page'], 'profiles-profile-setup' ) !== false ) {
 		wp_enqueue_script( 'jquery-ui-core'      );
 		wp_enqueue_script( 'jquery-ui-tabs'      );
@@ -55,7 +55,7 @@ function xprofile_add_admin_js() {
 			'do_autolink' => '',
 		);
 
-		foreach ( profiles_xprofile_get_field_types() as $field_type => $field_type_class ) {
+		foreach ( profiles_profiles_xprofile_get_field_types() as $field_type => $field_type_class ) {
 			$field = new $field_type_class();
 			if ( $field->supports_options ) {
 				$strings['supports_options_field_types'][] = $field_type;
@@ -73,4 +73,4 @@ function xprofile_add_admin_js() {
 		wp_localize_script( 'xprofile-admin-js', 'XProfileAdmin', $strings );
 	}
 }
-add_action( 'profiles_admin_enqueue_scripts', 'xprofile_add_admin_js', 1 );
+add_action( 'profiles_admin_enqueue_scripts', 'profiles_xprofile_add_admin_js', 1 );

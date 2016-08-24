@@ -366,11 +366,11 @@ class Profiles_Signup {
 					}
 
 					$current_field = $usermeta["field_{$field_id}"];
-					xprofile_set_field_data( $field_id, $user_id, $current_field );
+					profiles_xprofile_set_field_data( $field_id, $user_id, $current_field );
 
 					// Save the visibility level.
 					$visibility_level = ! empty( $usermeta['field_' . $field_id . '_visibility'] ) ? $usermeta['field_' . $field_id . '_visibility'] : 'public';
-					xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+					profiles_xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 				}
 			}
 		}

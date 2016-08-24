@@ -415,7 +415,7 @@ class Profiles_XProfile_Query {
 		if ( array_key_exists( 'field', $clause ) ) {
 			// Convert field name to ID if necessary.
 			if ( ! is_numeric( $clause['field'] ) ) {
-				$clause['field'] = xprofile_get_field_id_from_name( $clause['field'] );
+				$clause['field'] = profiles_xprofile_get_field_id_from_name( $clause['field'] );
 			}
 
 			// NOT EXISTS has its own syntax.

@@ -125,7 +125,7 @@ class Profiles_XProfile_Field_Type_Radiobutton extends Profiles_XProfile_Field_T
 
 			// Run the allowed option name through the before_save filter, so
 			// we'll be sure to get a match.
-			$allowed_options = xprofile_sanitize_data_value_before_save( $options[$k]->name, false, false );
+			$allowed_options = profiles_xprofile_sanitize_data_value_before_save( $options[$k]->name, false, false );
 			$selected        = '';
 
 			if ( $option_value === $allowed_options || ( empty( $option_value ) && ! empty( $options[$k]->is_default_option ) ) ) {

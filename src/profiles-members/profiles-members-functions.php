@@ -591,7 +591,7 @@ function profiles_core_get_user_displaynames( $user_ids ) {
 				// If xprofile is active, set this value as the
 				// xprofile display name as well.
 				if ( profiles_is_active( 'xprofile' ) ) {
-					xprofile_set_field_data( 1, $qr->ID, $fullnames[ $qr->ID ] );
+					profiles_xprofile_set_field_data( 1, $qr->ID, $fullnames[ $qr->ID ] );
 				}
 			}
 		}
@@ -2050,12 +2050,12 @@ function profiles_core_activate_signup( $key ) {
 				$current_field = isset( $user['meta']["field_{$field_id}"] ) ? $user['meta']["field_{$field_id}"] : false;
 
 				if ( !empty( $current_field ) ) {
-					xprofile_set_field_data( $field_id, $user_id, $current_field );
+					profiles_xprofile_set_field_data( $field_id, $user_id, $current_field );
 				}
 
 				// Save the visibility level.
 				$visibility_level = ! empty( $user['meta']['field_' . $field_id . '_visibility'] ) ? $user['meta']['field_' . $field_id . '_visibility'] : 'public';
-				xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+				profiles_xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
 			}
 		}
 	}
@@ -2202,7 +2202,7 @@ function profiles_core_map_user_registration( $user_id ) {
 			$name = profiles_get_user_meta( $user_id, 'nickname', true );
 		}
 
-		xprofile_set_field_data( 1, $user_id, $name );
+		profiles_xprofile_set_field_data( 1, $user_id, $name );
 	}
 }
 add_action( 'user_register', 'profiles_core_map_user_registration' );

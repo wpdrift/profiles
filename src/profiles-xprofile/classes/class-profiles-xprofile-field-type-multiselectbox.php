@@ -140,7 +140,7 @@ class Profiles_XProfile_Field_Type_Multiselectbox extends Profiles_XProfile_Fiel
 
 			// Run the allowed option name through the before_save filter, so
 			// we'll be sure to get a match.
-			$allowed_options = xprofile_sanitize_data_value_before_save( $options[$k]->name, false, false );
+			$allowed_options = profiles_xprofile_sanitize_data_value_before_save( $options[$k]->name, false, false );
 
 			// First, check to see whether the user-entered value matches.
 			if ( in_array( $allowed_options, $option_values ) ) {

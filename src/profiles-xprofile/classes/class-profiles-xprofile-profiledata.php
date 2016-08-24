@@ -655,6 +655,6 @@ class Profiles_XProfile_ProfileData {
 			$user_id = profiles_displayed_user_id();
 		}
 
-		return xprofile_get_field_data( profiles_xprofile_fullname_field_id(), $user_id );
+		return profiles_xprofile_get_field_data( profiles_xprofile_fullname_field_id(), $user_id );
 	}
 }

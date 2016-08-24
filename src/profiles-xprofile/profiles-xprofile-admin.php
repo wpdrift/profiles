@@ -22,16 +22,16 @@ if ( ! profiles()->do_autoload ) {
  *
  * @return bool
  */
-function xprofile_add_admin_menu() {
+function profiles_xprofile_add_admin_menu() {
 
 	// Bail if current user cannot moderate community.
 	if ( ! profiles_current_user_can( 'profiles_moderate' ) ) {
 		return false;
 	}
 
-	add_users_page( _x( 'Profile Fields', 'xProfile admin page title', 'profiles' ), _x( 'Profile Fields', 'Admin Users menu', 'profiles' ), 'manage_options', 'profiles-profile-setup', 'xprofile_admin' );
+	add_users_page( _x( 'Profile Fields', 'xProfile admin page title', 'profiles' ), _x( 'Profile Fields', 'Admin Users menu', 'profiles' ), 'manage_options', 'profiles-profile-setup', 'profiles_xprofile_admin' );
 }
-add_action( profiles_core_admin_hook(), 'xprofile_add_admin_menu' );
+add_action( profiles_core_admin_hook(), 'profiles_xprofile_add_admin_menu' );
 
 /**
  * Handles all actions for the admin area for creating, editing and deleting
@@ -42,31 +42,31 @@ add_action( profiles_core_admin_hook(), 'xprofile_add_admin_menu' );
  * @param string $message Message to display.
  * @param string $type    Type of action to be displayed.
  */
-function xprofile_admin( $message = '', $type = 'error' ) {
+function profiles_xprofile_admin( $message = '', $type = 'error' ) {
 
 	if ( isset( $_GET['mode'] ) && isset( $_GET['group_id'] ) && 'add_field' == $_GET['mode'] ) {
-		xprofile_admin_manage_field( $_GET['group_id'] );
+		profiles_xprofile_admin_manage_field( $_GET['group_id'] );
 
 	} elseif ( isset( $_GET['mode'] ) && isset( $_GET['group_id'] ) && isset( $_GET['field_id'] ) && 'edit_field' == $_GET['mode'] ) {
-		xprofile_admin_manage_field( $_GET['group_id'], $_GET['field_id'] );
+		profiles_xprofile_admin_manage_field( $_GET['group_id'], $_GET['field_id'] );
 
 	} elseif ( isset( $_GET['mode'] ) && isset( $_GET['field_id'] ) && 'delete_field' == $_GET['mode'] ) {
-		xprofile_admin_delete_field( $_GET['field_id'], 'field');
+		profiles_xprofile_admin_delete_field( $_GET['field_id'], 'field');
 
 	} elseif ( isset( $_GET['mode'] ) && isset( $_GET['option_id'] ) && 'delete_option' == $_GET['mode'] ) {
-		xprofile_admin_delete_field( $_GET['option_id'], 'option' );
+		profiles_xprofile_admin_delete_field( $_GET['option_id'], 'option' );
 
 	} elseif ( isset( $_GET['mode'] ) && 'add_group' == $_GET['mode'] ) {
-		xprofile_admin_manage_group();
+		profiles_xprofile_admin_manage_group();
 
 	} elseif ( isset( $_GET['mode'] ) && isset( $_GET['group_id'] ) && 'delete_group' == $_GET['mode'] ) {
-		xprofile_admin_delete_group( $_GET['group_id'] );
+		profiles_xprofile_admin_delete_group( $_GET['group_id'] );
 
 	} elseif ( isset( $_GET['mode'] ) && isset( $_GET['group_id'] ) && 'edit_group' == $_GET['mode'] ) {
-		xprofile_admin_manage_group( $_GET['group_id'] );
+		profiles_xprofile_admin_manage_group( $_GET['group_id'] );
 
 	} else {
-		xprofile_admin_screen( $message, $type );
+		profiles_xprofile_admin_screen( $message, $type );
 	}
 }
 
@@ -80,7 +80,7 @@ function xprofile_admin( $message = '', $type = 'error' ) {
  *
  * @todo Improve error message output
  */
-function xprofile_admin_screen( $message = '', $type = 'error' ) {
+function profiles_xprofile_admin_screen( $message = '', $type = 'error' ) {
 
 	// Validate type.
 	$type = preg_replace( '|[^a-z]|i', '', $type );
@@ -169,7 +169,7 @@ function xprofile_admin_screen( $message = '', $type = 'error' ) {
 								 * @param Profiles_XProfile_Group $group Profiles_XProfile_Group object
 								 *                                 for the current group.
 								 */
-								do_action( 'xprofile_admin_group_action', $group ); ?>
+								do_action( 'profiles_xprofile_admin_group_action', $group ); ?>
 
 							</div>
 						</div>
@@ -196,7 +196,7 @@ function xprofile_admin_screen( $message = '', $type = 'error' ) {
 								foreach ( $group->fields as $field ) {
 
 									// Load the field.
-									$field = xprofile_get_field( $field->id );
+									$field = profiles_xprofile_get_field( $field->id );
 
 									$class = '';
 									if ( empty( $field->can_delete ) ) {
@@ -207,7 +207,7 @@ function xprofile_admin_screen( $message = '', $type = 'error' ) {
 									 * This function handles the WYSIWYG profile field
 									 * display for the xprofile admin setup screen.
 									 */
-									xprofile_admin_field( $field, $group, $class );
+									profiles_xprofile_admin_field( $field, $group, $class );
 
 								} // end for
 
@@ -248,7 +248,7 @@ function xprofile_admin_screen( $message = '', $type = 'error' ) {
  *
  * @param int|null $group_id Group ID to manage.
  */
-function xprofile_admin_manage_group( $group_id = null ) {
+function profiles_xprofile_admin_manage_group( $group_id = null ) {
 	global $message, $type;
 
 	// Get the field group.
@@ -296,7 +296,7 @@ function xprofile_admin_manage_group( $group_id = null ) {
 			}
 
 			unset( $_GET['mode'] );
-			xprofile_admin( $message, $type );
+			profiles_xprofile_admin( $message, $type );
 
 		} else {
 			$group->render_admin_form( $message );
@@ -313,7 +313,7 @@ function xprofile_admin_manage_group( $group_id = null ) {
  *
  * @param int $group_id ID of the group to delete.
  */
-function xprofile_admin_delete_group( $group_id ) {
+function profiles_xprofile_admin_delete_group( $group_id ) {
 	global $message, $type;
 
 	$group = new Profiles_XProfile_Group( $group_id );
@@ -336,7 +336,7 @@ function xprofile_admin_delete_group( $group_id ) {
 	}
 
 	unset( $_GET['mode'] );
-	xprofile_admin( $message, $type );
+	profiles_xprofile_admin( $message, $type );
 }
 
 /**
@@ -347,7 +347,7 @@ function xprofile_admin_delete_group( $group_id ) {
  * @param int      $group_id ID of the group.
  * @param int|null $field_id ID of the field being managed.
  */
-function xprofile_admin_manage_field( $group_id, $field_id = null ) {
+function profiles_xprofile_admin_manage_field( $group_id, $field_id = null ) {
 	global $wpdb, $message, $groups;
 
 	$profiles = profiles();
@@ -355,7 +355,7 @@ function xprofile_admin_manage_field( $group_id, $field_id = null ) {
 	if ( is_null( $field_id ) ) {
 		$field = new Profiles_XProfile_Field();
 	} else {
-		$field = xprofile_get_field( $field_id );
+		$field = profiles_xprofile_get_field( $field_id );
 	}
 
 	$field->group_id = $group_id;
@@ -446,7 +446,7 @@ function xprofile_admin_manage_field( $group_id, $field_id = null ) {
 
 			unset( $_GET['mode'] );
 
-			xprofile_admin( $message, $type );
+			profiles_xprofile_admin( $message, $type );
 
 		} else {
 			$field->render_admin_form( $message );
@@ -468,13 +468,13 @@ function xprofile_admin_manage_field( $group_id, $field_id = null ) {
  * @param string $field_type  The type of field being deleted.
  * @param bool   $delete_data Should the field data be deleted too.
  */
-function xprofile_admin_delete_field( $field_id, $field_type = 'field', $delete_data = false ) {
+function profiles_xprofile_admin_delete_field( $field_id, $field_type = 'field', $delete_data = false ) {
 	global $message, $type;
 
 	// Switch type to 'option' if type is not 'field'.
 	// @todo trust this param.
 	$field_type  = ( 'field' == $field_type ) ? __( 'field', 'profiles' ) : __( 'option', 'profiles' );
-	$field       = xprofile_get_field( $field_id );
+	$field       = profiles_xprofile_get_field( $field_id );
 
 	if ( !$field->delete( (bool) $delete_data ) ) {
 		$message = sprintf( __( 'There was an error deleting the %s. Please try again.', 'profiles' ), $field_type );
@@ -494,7 +494,7 @@ function xprofile_admin_delete_field( $field_id, $field_type = 'field', $delete_
 	}
 
 	unset( $_GET['mode'] );
-	xprofile_admin( $message, $type );
+	profiles_xprofile_admin( $message, $type );
 }
 
 /**
@@ -502,7 +502,7 @@ function xprofile_admin_delete_field( $field_id, $field_type = 'field', $delete_
  *
  * @since 1.0.0
  */
-function xprofile_ajax_reorder_fields() {
+function profiles_xprofile_ajax_reorder_fields() {
 
 	// Check the nonce.
 	check_admin_referer( 'profiles_reorder_fields', '_wpnonce_reorder_fields' );
@@ -516,17 +516,17 @@ function xprofile_ajax_reorder_fields() {
 	$field_group_id = $_POST['field_group_id'];
 
 	foreach ( (array) $order['draggable_field'] as $position => $field_id ) {
-		xprofile_update_field_position( (int) $field_id, (int) $position, (int) $field_group_id );
+		profiles_xprofile_update_field_position( (int) $field_id, (int) $position, (int) $field_group_id );
 	}
 }
-add_action( 'wp_ajax_xprofile_reorder_fields', 'xprofile_ajax_reorder_fields' );
+add_action( 'wp_ajax_xprofile_reorder_fields', 'profiles_xprofile_ajax_reorder_fields' );
 
 /**
  * Handles the reordering of field groups.
  *
  * @since 1.5.0
  */
-function xprofile_ajax_reorder_field_groups() {
+function profiles_xprofile_ajax_reorder_field_groups() {
 
 	// Check the nonce.
 	check_admin_referer( 'profiles_reorder_groups', '_wpnonce_reorder_groups' );
@@ -538,10 +538,10 @@ function xprofile_ajax_reorder_field_groups() {
 	parse_str( $_POST['group_order'], $order );
 
 	foreach ( (array) $order['group'] as $position => $field_group_id ) {
-		xprofile_update_field_group_position( (int) $field_group_id, (int) $position );
+		profiles_xprofile_update_field_group_position( (int) $field_group_id, (int) $position );
 	}
 }
-add_action( 'wp_ajax_xprofile_reorder_groups', 'xprofile_ajax_reorder_field_groups' );
+add_action( 'wp_ajax_xprofile_reorder_groups', 'profiles_xprofile_ajax_reorder_field_groups' );
 
 /**
  * Handles the WYSIWYG display of each profile field on the edit screen.
@@ -552,7 +552,7 @@ add_action( 'wp_ajax_xprofile_reorder_groups', 'xprofile_ajax_reorder_field_grou
  * @param object $admin_group Admin group object.
  * @param string $class       Classes to append to output.
  */
-function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
+function profiles_xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 	global $field;
 
 	$field = $admin_field; ?>
@@ -577,13 +577,13 @@ function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 				 * @param Profiles_XProfile_Field $field Current Profiles_XProfile_Field
 				 *                                 object being rendered.
 				 */
-				do_action( 'xprofile_admin_field_name_legend', $field ); ?>
+				do_action( 'profiles_xprofile_admin_field_name_legend', $field ); ?>
 			</span>
 		</legend>
 		<div class="field-wrapper">
 
 			<?php
-			if ( in_array( $field->type, array_keys( profiles_xprofile_get_field_types() ) ) ) {
+			if ( in_array( $field->type, array_keys( profiles_profiles_xprofile_get_field_types() ) ) ) {
 				$field_type = profiles_xprofile_create_field_type( $field->type );
 				$field_type->admin_field_html();
 			} else {
@@ -597,7 +597,7 @@ function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 				 *                                 object being rendered.
 				 * @param int               $value Integer 1.
 				 */
-				do_action( 'xprofile_admin_field', $field, 1 );
+				do_action( 'profiles_xprofile_admin_field', $field, 1 );
 			}
 			?>
 
@@ -628,7 +628,7 @@ function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
 				 * @param Profiles_XProfile_Group $group Profiles_XProfile_Group object
 				 *                                 for the current group.
 				 */
-				do_action( 'xprofile_admin_field_action', $field ); ?>
+				do_action( 'profiles_xprofile_admin_field_action', $field ); ?>
 
 			</div>
 		</div>
@@ -645,7 +645,7 @@ function xprofile_admin_field( $admin_field, $admin_group, $class = '' ) {
  * @param string $select_field_type The name of the field type that should be selected.
  *                                  Will defaults to "textbox" if NULL is passed.
  */
-function profiles_xprofile_admin_form_field_types( $select_field_type ) {
+function profiles_profiles_xprofile_admin_form_field_types( $select_field_type ) {
 	$categories = array();
 
 	if ( is_null( $select_field_type ) ) {
@@ -653,7 +653,7 @@ function profiles_xprofile_admin_form_field_types( $select_field_type ) {
 	}
 
 	// Sort each field type into its category.
-	foreach ( profiles_xprofile_get_field_types() as $field_name => $field_class ) {
+	foreach ( profiles_profiles_xprofile_get_field_types() as $field_name => $field_class ) {
 		$field_type_obj = new $field_class;
 		$the_category   = $field_type_obj->category;
 

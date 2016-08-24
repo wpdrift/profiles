@@ -1051,7 +1051,7 @@ class Profiles_XProfile_Field {
 		}
 
 		// Check that field is of valid type.
-		if ( ! in_array( $_POST['fieldtype'], array_keys( profiles_xprofile_get_field_types() ), true ) ) {
+		if ( ! in_array( $_POST['fieldtype'], array_keys( profiles_profiles_xprofile_get_field_types() ), true ) ) {
 			$message = sprintf( esc_html__( 'The profile field type %s is not registered.', 'profiles' ), '<code>' . esc_attr( $_POST['fieldtype'] ) . '</code>' );
 			return false;
 		}
@@ -1096,7 +1096,7 @@ class Profiles_XProfile_Field {
 	 * Populates the items for radio buttons, checkboxes, and dropdown boxes.
 	 */
 	public function render_admin_form_children() {
-		foreach ( array_keys( profiles_xprofile_get_field_types() ) as $field_type ) {
+		foreach ( array_keys( profiles_profiles_xprofile_get_field_types() ) as $field_type ) {
 			$type_obj = profiles_xprofile_create_field_type( $field_type );
 			$type_obj->admin_new_field_html( $this );
 		}
@@ -1501,7 +1501,7 @@ class Profiles_XProfile_Field {
 			<div class="inside">
 				<select name="fieldtype" id="fieldtype" onchange="show_options(this.value)" style="width: 30%">
 
-					<?php profiles_xprofile_admin_form_field_types( $this->type ); ?>
+					<?php profiles_profiles_xprofile_admin_form_field_types( $this->type ); ?>
 
 				</select>
 

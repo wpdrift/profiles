@@ -286,7 +286,7 @@ abstract class Profiles_XProfile_Field_Type {
 	 *                          field's child options.
 	 */
 	public function admin_new_field_html( Profiles_XProfile_Field $current_field, $control_type = '' ) {
-		$type = array_search( get_class( $this ), profiles_xprofile_get_field_types() );
+		$type = array_search( get_class( $this ), profiles_profiles_xprofile_get_field_types() );
 		if ( false === $type ) {
 			return;
 		}
@@ -400,7 +400,7 @@ abstract class Profiles_XProfile_Field_Type {
 				 *
 				 * @param Profiles_XProfile_Field $current_field Current field being rendered.
 				 */
-				do_action( 'profiles_xprofile_admin_new_field_additional_settings', $current_field ) ?>
+				do_action( 'profiles_profiles_xprofile_admin_new_field_additional_settings', $current_field ) ?>
 			</div>
 		</div>
 

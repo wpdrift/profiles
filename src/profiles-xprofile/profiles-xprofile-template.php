@@ -754,7 +754,7 @@ function profiles_the_profile_field_options( $args = array() ) {
 		 * However, we have to make sure that all data originally in $field gets merged back in, after reinstantiation.
 		 */
 		if ( ! method_exists( $field, 'get_children' ) ) {
-			$field_obj = xprofile_get_field( $field->id );
+			$field_obj = profiles_xprofile_get_field( $field->id );
 
 			foreach ( $field as $field_prop => $field_prop_value ) {
 				if ( ! isset( $field_obj->{$field_prop} ) ) {
@@ -946,7 +946,7 @@ function profiles_profile_field_data( $args = '' ) {
 		 * @param mixed $value Profile data for a specific field for the user.
 		 * @param array $r     Array of parsed arguments.
 		 */
-		return apply_filters( 'profiles_get_profile_field_data', xprofile_get_field_data( $r['field'], $r['user_id'] ), $r );
+		return apply_filters( 'profiles_get_profile_field_data', profiles_xprofile_get_field_data( $r['field'], $r['user_id'] ), $r );
 	}
 
 /**

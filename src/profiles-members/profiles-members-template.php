@@ -1063,7 +1063,7 @@ function profiles_member_profile_data( $args = '' ) {
 
 		// Get the data for the specific field requested.
 		if ( ! empty( $profile_data ) && ! empty( $profile_data[ $r['field'] ]['field_type'] ) && ! empty( $profile_data[ $r['field'] ]['field_data'] ) ) {
-			$data = xprofile_format_profile_field( $profile_data[ $r['field'] ]['field_type'], $profile_data[ $r['field'] ]['field_data'] );
+			$data = profiles_xprofile_format_profile_field( $profile_data[ $r['field'] ]['field_type'], $profile_data[ $r['field'] ]['field_data'] );
 		}
 
 		/**
@@ -1117,7 +1117,7 @@ function profiles_member_random_profile_data() {
 	global $members_template;
 
 	if ( profiles_is_active( 'xprofile' ) ) { ?>
-		<?php $random_data = xprofile_get_random_profile_data( $members_template->member->id, true ); ?>
+		<?php $random_data = profiles_xprofile_get_random_profile_data( $members_template->member->id, true ); ?>
 			<strong><?php echo wp_filter_kses( $random_data[0]->name ) ?></strong>
 			<?php echo wp_filter_kses( $random_data[0]->value ) ?>
 	<?php }

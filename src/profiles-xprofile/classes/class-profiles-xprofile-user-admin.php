@@ -238,7 +238,7 @@ class Profiles_XProfile_User_Admin {
 					}
 				}
 
-				$is_required[ $field_id ] = xprofile_check_is_required_field( $field_id ) && ! profiles_current_user_can( 'profiles_moderate' );
+				$is_required[ $field_id ] = profiles_xprofile_check_is_required_field( $field_id ) && ! profiles_current_user_can( 'profiles_moderate' );
 				if ( $is_required[ $field_id ] && empty( $_POST['field_' . $field_id ] ) ) {
 					$redirect_to = add_query_arg( 'error', '2', $redirect_to );
 					profiles_core_redirect( $redirect_to );
@@ -266,18 +266,18 @@ class Profiles_XProfile_User_Admin {
 				 * whether an activity item should be posted.
 				 */
 				$old_values[ $field_id ] = array(
-					'value'      => xprofile_get_field_data( $field_id, $user_id ),
-					'visibility' => xprofile_get_field_visibility_level( $field_id, $user_id ),
+					'value'      => profiles_xprofile_get_field_data( $field_id, $user_id ),
+					'visibility' => profiles_xprofile_get_field_visibility_level( $field_id, $user_id ),
 				);
 
 				// Update the field data and visibility level.
-				xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
-				$field_updated = xprofile_set_field_data( $field_id, $user_id, $value, $is_required[ $field_id ] );
-				$value         = xprofile_get_field_data( $field_id, $user_id );
+				profiles_xprofile_set_field_visibility_level( $field_id, $user_id, $visibility_level );
+				$field_updated = profiles_xprofile_set_field_data( $field_id, $user_id, $value, $is_required[ $field_id ] );
+				$value         = profiles_xprofile_get_field_data( $field_id, $user_id );
 
 				$new_values[ $field_id ] = array(
 					'value'      => $value,
-					'visibility' => xprofile_get_field_visibility_level( $field_id, $user_id ),
+					'visibility' => profiles_xprofile_get_field_visibility_level( $field_id, $user_id ),
 				);
 
 				if ( ! $field_updated ) {

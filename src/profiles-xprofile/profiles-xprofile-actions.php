@@ -23,7 +23,7 @@ defined( 'ABSPATH' ) || exit;
  * @since 1.0.0
  *
  */
-function xprofile_action_delete_avatar() {
+function profiles_xprofile_action_delete_avatar() {
 
 	if ( ! profiles_is_user_change_avatar() || ! profiles_is_action_variable( 'delete-avatar', 0 ) ) {
 		return false;
@@ -44,7 +44,7 @@ function xprofile_action_delete_avatar() {
 
 	profiles_core_redirect( wp_get_referer() );
 }
-add_action( 'profiles_actions', 'xprofile_action_delete_avatar' );
+add_action( 'profiles_actions', 'profiles_xprofile_action_delete_avatar' );
 
 /**
  * Handles the saving of xprofile field visibilities.
@@ -112,7 +112,7 @@ function profiles_xprofile_action_settings() {
 				$visibility_level = $_POST['field_' . $field_id . '_visibility'];
 			}
 
-			xprofile_set_field_visibility_level( $field_id, profiles_displayed_user_id(), $visibility_level );
+			profiles_xprofile_set_field_visibility_level( $field_id, profiles_displayed_user_id(), $visibility_level );
 		}
 	}
 

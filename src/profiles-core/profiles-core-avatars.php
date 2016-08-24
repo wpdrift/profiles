@@ -994,7 +994,7 @@ function profiles_avatar_ajax_upload() {
 	$needs_reset = array();
 
 	if ( 'user' === $profiles_params['object'] && profiles_is_active( 'xprofile' ) ) {
-		$profiles_params['upload_dir_filter'] = 'xprofile_avatar_upload_dir';
+		$profiles_params['upload_dir_filter'] = 'profiles_xprofile_avatar_upload_dir';
 
 		if ( ! profiles_displayed_user_id() && ! empty( $profiles_params['item_id'] ) ) {
 			$needs_reset = array( 'key' => 'displayed_user', 'value' => $profiles->displayed_user );

@@ -433,28 +433,9 @@ function profiles_register_theme_compat_default_features() {
 		$theme_handle = $parent->get_stylesheet();
 	}
 
-	/**
-	 * Since Companion stylesheets, the $content_width is smaller
-	 * than the width used by Profiles, so we need to manually set the
-	 * content width for the concerned themes.
-	 *
-	 * Example: array( stylesheet => content width used by Profiles )
-	 */
-	$profiles_content_widths = array(
-		'twentyfifteen'  => 1300,
-		'twentyfourteen' => 955,
-		'twentythirteen' => 890,
-	);
-
 	// Default values.
 	$profiles_content_width = (int) $content_width;
 	$profiles_handle        = 'profiles-legacy-css';
-
-	// Specific to themes having companion stylesheets.
-	if ( isset( $profiles_content_widths[ $theme_handle ] ) ) {
-		$profiles_content_width = $profiles_content_widths[ $theme_handle ];
-		$profiles_handle        = 'profiles-' . $theme_handle;
-	}
 
 	if ( is_rtl() ) {
 		$profiles_handle .= '-rtl';

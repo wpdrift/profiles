@@ -36,7 +36,7 @@ add_action( 'rest_api_init',           'profiles_rest_api_init',          20    
 add_action( 'customize_register',      'profiles_customize_register',     20    ); // After WP core.
 add_action( 'parse_query',             'profiles_parse_query',            2     ); // Early for overrides.
 add_action( 'wp',                      'profiles_ready',                  10    );
-add_action( 'set_current_user',        'profiles_setup_current_user',     10    );
+add_action( 'wp_set_current_user',     'profiles_setup_current_user',     10    );
 add_action( 'setup_theme',             'profiles_setup_theme',            10    );
 add_action( 'after_setup_theme',       'profiles_after_setup_theme',      100   ); // After WP themes.
 add_action( 'wp_enqueue_scripts',      'profiles_enqueue_scripts',        10    );
